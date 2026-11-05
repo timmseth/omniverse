@@ -76,7 +76,7 @@ def main(argv):
         counts[e["kind"]] = counts.get(e["kind"], 0) + 1
     universes = [{"id": i, "name": e["name"], "tone": e["data"].get("tone"), "ruleset": e["data"].get("ruleset"),
                   "status": e["data"].get("status"), "maintainers": e["data"].get("maintainers")}
-                 for i, e in entries.items() if e["kind"] == "universe"]
+                 for i, e in sorted(entries.items()) if e["kind"] == "universe"]
     out = {"schema": SCHEMA_VERSION, "source": SOURCE, "counts": counts, "universes": universes,
            "notes": [entries[k] for k in sorted(entries)]}
     gen = os.path.join(root, "_generated")

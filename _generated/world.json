@@ -46,16 +46,6 @@
  },
  "universes": [
   {
-   "id": "tropelandia",
-   "name": "Tropelandia",
-   "tone": "parody",
-   "ruleset": "omniverse.ruleset.dnd5e",
-   "status": "active",
-   "maintainers": [
-    "seth"
-   ]
-  },
-  {
    "id": "ashfall",
    "name": "Ashfall",
    "tone": "grim low fantasy",
@@ -63,6 +53,16 @@
    "status": "active",
    "maintainers": [
     "timmseth"
+   ]
+  },
+  {
+   "id": "tropelandia",
+   "name": "Tropelandia",
+   "tone": "parody",
+   "ruleset": "omniverse.ruleset.dnd5e",
+   "status": "active",
+   "maintainers": [
+    "seth"
    ]
   }
  ],
