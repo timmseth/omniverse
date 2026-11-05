@@ -1,7 +1,7 @@
 ---
 title: Omniverse — Design Document
 status: draft
-version: 0.4
+version: 0.5
 updated: 2026-11-04
 owner: Seth
 ---
@@ -10,9 +10,11 @@ owner: Seth
 
 **A collaborative, modular tabletop-RPG multiverse in git. Bring a universe, a ruleset, a trope pack or a campaign: plug it in, own it, extend it. Worlds stay still until someone plays them, and what matters gets merged back into canon.**
 
-> Status: **Draft v0.4.** This document describes the intended design. Only a small sample world exists so far. Each decision is tagged **[Decided]**, **[Proposed]** or **[Open]**. Section 22 collects everything still waiting on an answer.
+> Status: **Draft v0.5.** This document describes the intended design. Only a small sample world exists so far. Each decision is tagged **[Decided]**, **[Proposed]** or **[Open]**. Section 22 collects everything still waiting on an answer.
 >
 > **New in v0.4:** the design is organised around collaborative, modular extensibility (section 5). The tick system is gone: worlds are event-sourced and static until events are merged. Playable timelines are *instances*, merged into canon with a *canon merge*. Adding a universe is a *Universe Join* (formerly Convergence). Section 17 covers campaigns and the DM skill.
+>
+> **New in v0.5:** dungeons are a shared content kind. A dungeon is a set of room notes (exits, read-aloud text, encounters, traps, puzzles, loot). A build tool validates them into one `dungeons.json`, and the **dmScreen** Android app reads that file and runs a dungeon like a DM screen (sections 9.4, 17.7 and 17.8). Anyone can submit a dungeon by pull request, and the app can sync everyone's dungeons from GitHub. Ten sample dungeons are in Tropelandia.
 
 ---
 
@@ -113,6 +115,10 @@ Omniverse                core: schemas, module contracts, merge rules
 | **Universe Join** | A universe being added to the multiverse by pull request. |
 | **Canon timeline** | A universe's accepted event log. Its latest date is the **frontier**. |
 | **Instance** | A playable, divergent timeline of a universe: a fork point plus its own log and overlay. Not to be confused with a *trope instance*. |
+| **Dungeon** | A self-contained adventure site made of rooms (a cellar, a tower, a lich's office). A note of `kind: dungeon` whose `parent` is the place that contains it. |
+| **Room** | One keyed location in a dungeon: read-aloud text, exits, features, encounters, traps, puzzles, secrets and loot. A note of `kind: room`. |
+| **DM screen** | The **dmScreen** companion app, which reads the dungeon index and presents a dungeon to the DM room by room. |
+| **Dungeon submission** | A pull request that adds a dungeon to a universe, validated by the dungeon build tool. |
 | **Fork point** | The place in canon's timeline where an instance diverges. |
 | **Overlay** | The lore an instance adds or changes (characters, invented NPCs) without touching canon. |
 | **Campaign** | The play record inside an instance: party, adventures, sessions. Usually one per instance. |
@@ -154,6 +160,8 @@ Collaboration happens at module boundaries. Each module has an owner, contributi
 | **View** | Read-only queries and digests: rosters, timelines, rumour boards | `_rules/views/` or any module | Reads data, writes only `_generated/` |
 | **Importer / exporter** | Brings data in or out (the SRD, other tools) | `_rules/importers/` or any module | Produces ordinary notes |
 | **Instance** | A playable timeline of a universe | `<universe>/Instances/<name>/` | Log format and overlay rules (sections 12 and 17) |
+| **Dungeon** | An adventure site made of rooms, submitted by anyone | `<universe>/Dungeons/<name>/` | Dungeon and room schemas, checked by the build tool (section 9.4) |
+| **Companion app** | A client that reads published data and presents it at the table | `Apps/<name>/` | Reads generated indexes such as `_generated/dungeons.json`; never writes canon (section 17.7) |
 
 ### 5.3 Manifests
 Every module carries a manifest in its frontmatter (`module.md`, or `_universe.md` for a universe):
@@ -291,7 +299,9 @@ Omniverse/                              (git repo root)
 ├── CODEOWNERS                          who owns which universe (section 16)
 ├── _rules/                             serious, shared, maintained by Omniverse maintainers
 │   ├── schemas/                        frontmatter schemas per kind
-│   ├── templates/                      note and universe templates
+│   ├── templates/                      note and universe templates, including dungeon and room templates
+│   ├── tools/                          build_dungeons.py: validates dungeons, writes the dungeon index
+│   ├── Submitting a Dungeon.md         the contributor guide for dungeons (section 17.8)
 │   ├── engine/                         event replay, validators, importers
 │   └── conventions.md                  naming, IDs, style
 ├── Rulesets/                           the shared ruleset library (section 15)
@@ -299,6 +309,12 @@ Omniverse/                              (git repo root)
 │   ├── dnd5e/                          D&D 5e ruleset (SRD data, attributed)
 │   └── …
 ├── Generators/                         optional event generators (modules)
+├── Apps/                               companion apps (source and releases)
+│   └── dmScreen/                       the DM screen Android app
+│       └── releases/                   built APKs, one per version
+├── _generated/                         root-level generated files (do not edit)
+│   ├── dungeons.json                   every dungeon in one file, read by the app
+│   └── Dungeon Index.md                browsable index of dungeons
 ├── Tropes/                             the shared trope library
 │   ├── Wizard in a Tower.md
 │   ├── Dark Lord.md
@@ -311,6 +327,7 @@ Omniverse/                              (git repo root)
     │   ├── Calendar.md
     │   ├── Eras/
     │   ├── Factions/                   cross-cutting: not part of the space tree
+    │   ├── Dungeons/                   cross-cutting: one folder per dungeon, with Rooms/ inside
     │   ├── Trope Instances/            cross-cutting
     │   ├── Events/<in-world year>/     cross-cutting: append-only event files
     │   ├── _state/                     derived cache of current state, rebuildable from Events/
@@ -410,6 +427,77 @@ as_of: { year: 1489, day: 34 }
 **Person (state):** current location, hit points, conditions, gear, active goals, grudges held, and "last seen" facts.
 
 **Event:** see Appendix A.
+
+### 9.4 Dungeons and rooms **[Proposed]**
+A dungeon is a folder of notes, kept beside the space tree because it belongs to the universe rather than to one place. Its `parent` names the place that contains it, so it can be found from the map, while the folder stays short (this matters on Windows, see section 20).
+
+```
+Multiverse/Tropelandia/Dungeons/The Cellar of Rats/
+├── The Cellar of Rats.md        kind: dungeon  (summary, hooks, rumours, wandering table, entry)
+└── Rooms/
+    ├── RAT-01 Cellar Stairs.md  kind: room
+    ├── RAT-02 Barrel Hall.md
+    └── …
+```
+
+**Dungeon note:**
+```yaml
+id: tropelandia.dungeon.cellar-of-rats
+kind: dungeon
+name: The Cellar of Rats
+code: RAT                          # short unique prefix for room file names
+parent: tropelandia.settlement.barrowdale   # the place that contains it
+universe: tropelandia
+ruleset: omniverse.ruleset.dnd5e
+level_range: [1, 2]
+tone: gentle parody
+tags: [tutorial, urban, rats]
+entry: tropelandia.room.cellar-of-rats.01-cellar-stairs
+tropes_involved: [omniverse.trope.kill-ten-rats]
+summary: …                          # two or three evocative sentences
+hooks: […]                          # reasons a party goes in
+rumours: […]                        # what the tavern says
+wandering: { die: d6, entries: ["1: …", "2: …"] }
+author: seth
+status: sample                      # sample | draft | playtested | canon
+```
+
+**Room note:**
+```yaml
+id: tropelandia.room.cellar-of-rats.02-barrel-hall
+kind: room
+name: Barrel Hall
+number: 2
+code: RAT-02
+parent: tropelandia.dungeon.cellar-of-rats
+dungeon: tropelandia.dungeon.cellar-of-rats
+light: dim
+size: 30 x 20 ft
+exits:
+  - { dir: n, to: tropelandia.room.cellar-of-rats.01-cellar-stairs, kind: archway, state: open, note: "" }
+  - { dir: e, to: tropelandia.room.cellar-of-rats.03-cold-pantry, kind: door, state: stuck, note: "Swollen with damp (DC 12 Str)" }
+read_aloud: "A long, low hall lined with barrels on their sides…"   # what the DM reads to the table
+features: ["Barrels, some empty, some not"]
+encounters:
+  - name: Rat patrol
+    monsters: [{ name: Giant rat, count: 4, hp: 7, ac: 12, attack: "bite +4, 1d4+2" }]
+    tactics: "…"
+traps:    [{ name: Falling net, trigger: "Lifting the cheese", effect: "…", detect_dc: 13, disarm_dc: 12 }]
+puzzles:  [{ name: The Negotiation, description: "…", solution: "…", hints: ["…"], reward: "…" }]
+secrets:  [{ description: "…", dc: 14 }]
+loot:     ["35 gp in the strongbox"]
+dm_notes: "…"
+```
+
+The rules:
+- **Exits.** Directions are `n s e w ne nw se sw u d`, plus `out` for a way out of the dungeon (`to: outside`). Every exit between two rooms must have a matching exit coming back (`n` pairs with `s`, `u` with `d`). Kinds: `door archway passage stairs ladder secret portal hatch`. States: `open closed locked stuck barred trapped hidden rubble`.
+- **Layout.** The map is derived, not authored. The build tool places the entry room at the origin and follows the exits, so the exits must describe a consistent grid (`u` and `d` change floor). Two rooms in one cell, or a room reached by two inconsistent paths, is an error.
+- **Reachability.** Every room must be reachable from the entry.
+- **Numbers.** DCs, hit points and counts are integers, so the app can track them. Stat values follow the dungeon's ruleset and are sample values until the ruleset is imported.
+- **Body text.** The note body is optional and free-form; the frontmatter is authoritative. The sample dungeons have a generated readable body so they browse well in Obsidian.
+- **Tropes.** `tropes_involved` links to trope notes, so a trope's backlinks list the dungeons that use it.
+
+**The build tool** (`_rules/tools/build_dungeons.py`) reads every dungeon and room note, checks the rules above, and writes `_generated/dungeons.json` (the file the app reads) and `_generated/Dungeon Index.md`. With `--check` it validates only, which is what CI runs on pull requests. It reads data and executes nothing found in a note.
 
 ## 10. Tropes: the shared library
 
@@ -851,6 +939,34 @@ Its extension points are DM styles, house rules and ruleset adapters, all module
 ### 17.6 Legacy and credit
 A canonized adventure appears on the universe's timeline with its party credited. Retired characters can be added to the world as notables that other parties meet. Nemeses created in an instance keep their grudges, rank and memories once merged, and can show up in other campaigns.
 
+### 17.7 Running a dungeon: the DM screen app **[Proposed]**
+**dmScreen** is an Android app that reads `_generated/dungeons.json` and presents a dungeon the way a game master actually uses one at the table. It is a companion app in the sense of section 5: a client that reads published data and never writes canon.
+
+**What it shows**
+- **Library.** Every dungeon, with its place, level range, tone, tags and room count, searchable and filterable.
+- **Dungeon overview.** Summary, hooks, rumours and a wandering-encounter roller.
+- **Map.** A schematic map derived from the exits, one floor at a time, with the party's position, visited and cleared rooms marked.
+- **Room card.** The room as a DM wants it: read-aloud text first and large; then exits (tap one to move the party through it, with its state: locked, stuck, hidden); features; encounters; traps; puzzles; secrets; loot; DM notes.
+- **Running tools.** Hit-point trackers for each monster in an encounter, checklists for traps, puzzles, secrets and loot, puzzle hints that reveal one at a time with the solution hidden behind a tap, a dice roller, and per-room notes.
+- **Session memory.** The run (position, visited rooms, cleared encounters, doors unlocked, loot taken, HP, notes) is stored on the device and can be reset per dungeon.
+
+**Data.** The app ships with the dungeons that existed when it was built, so it works offline. A **Sync** action downloads the latest `dungeons.json` from the repository on GitHub and uses it from then on, so a dungeon merged yesterday appears without a new app version. The app never writes to the repository.
+
+**Where it lives.** Source is in `Apps/dmScreen/` and each built APK is kept in `Apps/dmScreen/releases/`, named by version. APKs are debug-signed with a committed keystore, so each version installs over the last. Nothing in the world depends on the app: the dungeon notes are readable and playable from Obsidian alone.
+
+**Scope of v1.** Read, navigate and run; sync from GitHub; submission guidance. Not in v1: authoring dungeons inside the app, running a whole instance's log, or networked play.
+
+### 17.8 Submitting a dungeon **[Proposed]**
+Dungeons are shared by pull request, using the same ownership model as everything else (sections 5 and 16).
+
+1. **Write** the dungeon in a fork, from the templates in `_rules/templates/` (a dungeon note and one note per room). Pick a short unique `code`. Place it under `Multiverse/<Universe>/Dungeons/<Name>/` and point `parent` at the place that contains it. The full guide is `_rules/Submitting a Dungeon.md`.
+2. **Check** it locally with `python3 _rules/tools/build_dungeons.py . --check`. Fix errors in exits, layout and numbers.
+3. **Open a pull request.** The universe's maintainer reviews it like any lore: tone, fit, and licence. CI runs the same check.
+4. **Merge.** The build tool regenerates `_generated/dungeons.json`, and every dmScreen installation can sync it.
+5. **Credit.** The dungeon's `author` field stays with it. Status moves from `draft` to `playtested` as tables use it.
+
+Rules for submissions: original writing or openly licensed material only (no copied module text, maps or stat blocks beyond the SRD, with attribution), data only (no scripts), and one dungeon per pull request. A universe's maintainer may decline a dungeon that does not fit its tone; it can then live in a fork or be offered to another universe. **[Open]** whether the app should also offer a form-based submission (decision P16).
+
 ## 18. Planned universes
 
 ### 18.1 Tropelandia
@@ -878,6 +994,8 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 - **Engine** (Python or Node, in `_rules/engine/`): validators, event replay, importers (ruleset data), digest and roster generators.
 - **CI** validates schemas, IDs, path scope and licences on every pull request.
 - **DM skill** (a Claude skill, in `_rules/skills/dm/`): runs a campaign in an instance and keeps the log (section 17).
+- **Dungeon build tool** (`_rules/tools/build_dungeons.py`): validates dungeon and room notes and writes `_generated/dungeons.json` (section 9.4).
+- **dmScreen app** (`Apps/dmScreen/`): the Android DM screen that reads the dungeon index (section 17.7).
 - **Narrator** (optional): an LLM that reads events and writes prose into `_generated/`.
 
 ## 20. Scale and performance
@@ -898,6 +1016,8 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 | Schema drift as the project grows. | Versioned schemas in `_rules/schemas/`, validated in CI. |
 | IP problems (especially Forgotten Realms). | Original wording, openly licensed rules content (such as the SRD), a declared licence for every ruleset and source, private repository for canon-derived universes. |
 | Malicious or broken contributions. | Data-only validation, path guard, protected workflows and engine code. |
+| Submitted dungeons copy published modules. | Declared authorship and licence, maintainer review, original-writing rule in the submission guide. |
+| The app and the data drift apart. | The app reads a versioned schema (`schema` in `dungeons.json`); the build tool is the only writer; CI rejects invalid dungeons. |
 | Tone clashes between universes. | Tone belongs to the universe; the Omniverse stays neutral. |
 | The DM skill contradicts canon or invents things it never records. | State is read from files; every consequential fact is written immediately; validators check IDs and before/after values. |
 | Module sprawl and incompatible modules. | Manifests with versioned contracts, declared dependencies, namespaced fields, and compatibility checks in CI. |
@@ -922,6 +1042,8 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 | D8 | Playable timelines are *instances* that fork from a universe's canon. A *canon merge* brings chosen instance events into canon. |
 | D9 | Naming: *Universe Join* (a universe is added to the multiverse) and *Canon Merge* (instance events enter canon). Convergence is retired. |
 | D10 | Collaborative, modular extensibility is the organising principle: a small core plus owned, versioned modules (section 5). |
+| D11 | Dungeons are shared content: notes in the universe, checked by a build tool, indexed into one `dungeons.json`, and submitted by pull request. |
+| D12 | Companion apps live in `Apps/<name>/` in this repository with their built APKs in `releases/`. They read generated data and never write canon. |
 
 ### Proposed (will proceed unless changed)
 | ID | Proposal |
@@ -944,6 +1066,8 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 | P9 | Forgotten Realms: which year, and public or private repo | e.g. 1490s DR; private recommended |
 | P10 | Final file name and location of this document | `README.md` at the root (current) or a different name |
 | P15 | Naming clash: *instance* (a playable timeline) versus *trope instance* | Keep both with the prefix, or rename trope instances (for example to "bindings" or "realisations") |
+| P16 | How dungeons are submitted | Pull request only (current), or also a form or issue template that the app can open, or an in-app editor |
+| P17 | Where built APKs are stored | In the repository under `Apps/dmScreen/releases/` (current), or as GitHub Release assets only, if the repository grows too large |
 
 ## 23. Roadmap
 
@@ -957,6 +1081,7 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 | **M5 — Relationships and nemeses** | Edge types, grudge ladder, promotion of normals and victors | A grudge visibly escalates over several logged events. |
 | **M6 — Collaboration flow** | `CODEOWNERS`, path guard, CI checks, universe template, Universe Join and Canon Merge | A test universe joins by pull request, and an instance's events canon-merge into it. |
 | **M7 — DM skill** | Session log format, instance templates, the `new`, `play`, `wrap` and `propose` commands, scribe mode | A short campaign is played in an instance and its log passes validation. |
+| **M7a — Dungeons and the DM screen** | Dungeon and room schemas, build tool, ten sample dungeons, the dmScreen app, the submission guide | A dungeon is written, validated, indexed and run from the app on a phone. |
 | **M8 — Forgotten Realms** | Skeleton universe with backfilled history | Toril browsable to settlement level with a starter cast. |
 
 ---
@@ -1050,6 +1175,7 @@ clock:
 /Tropes/                    @omniverse-maintainers
 /Rulesets/                  @omniverse-maintainers
 /Generators/                @omniverse-maintainers
+/Apps/                      @omniverse-maintainers
 /Multiverse/_registry.md    @omniverse-maintainers
 /Multiverse/_events/        @omniverse-maintainers
 /.github/                   @omniverse-maintainers

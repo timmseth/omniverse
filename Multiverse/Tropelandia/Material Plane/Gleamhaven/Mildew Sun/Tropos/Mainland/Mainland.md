@@ -13,3 +13,8 @@ The only continent that matters, according to the people who live on it. Trade r
 
 ## Contains
 - [[Gently Haunted Marsh]]
+- [[Crooked Peaks]]
+- [[Glittering Sands]]
+- [[Whisperwood]]
+- [[Sullen Coast]]
+- [[Scholars' Spire]]
