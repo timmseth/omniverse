@@ -52,19 +52,19 @@ def main(root):
                '<text x="%d" y="20" fill="#e3a72f" font-size="16">%s: places and dungeons</text>' % (W0, html.escape(um.get("name", uid)))]
         def xy(i):
             d, r = pos[i]; return W0 + d * CW, H0 + 10 + r * RH + RH / 2
-        for i, m in places.items():
+        for i, m in sorted(places.items()):
             p = m.get("parent")
             if p in pos:
                 x1, y1 = xy(p); x2, y2 = xy(i)
                 svg.append('<path d="M%d,%d C%d,%d %d,%d %d,%d" stroke="#4a4458" fill="none"/>' % (x1 + 150, y1, x1 + 180, y1, x2 - 30, y2, x2, y2))
-        for i, m in places.items():
+        for i, m in sorted(places.items()):
             x, y = xy(i); k = m.get("kind")
             svg.append('<rect x="%d" y="%d" width="150" height="32" rx="6" fill="#221e2b" stroke="%s"/>' % (x, y - 16, COL.get(k, "#888")))
             svg.append('<text x="%d" y="%d" fill="#eee">%s</text>' % (x + 8, y - 2, html.escape(m.get("name", "")[:21])))
             svg.append('<text x="%d" y="%d" fill="#8a8396" font-size="9">%s</text>' % (x + 8, y + 11, k))
             ds = dungeons.get(i, [])
             if ds:
-                svg.append('<text x="%d" y="%d" fill="#e3a72f" font-size="10" text-anchor="end">%s</text>' % (x + 144, y + 11, html.escape(" ".join(d.get("code", "?") for d in ds))))
+                svg.append('<text x="%d" y="%d" fill="#e3a72f" font-size="10" text-anchor="end">%s</text>' % (x + 144, y + 11, html.escape(" ".join(sorted(d.get("code", "?") for d in ds)))))
         svg.append("</svg>")
         fn = "%s.svg" % um.get("name", uid)
         open(os.path.join(out_dir, fn), "w", encoding="utf-8", newline="\n").write("\n".join(svg) + "\n")

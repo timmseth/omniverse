@@ -84,9 +84,19 @@
     "omniverse.ruleset.six-sides"
    ],
    "links": [
-    "ashfall.era.the-long-dusk"
+    "ashfall.bestiary-index",
+    "ashfall.calendar.standard",
+    "ashfall.era.the-long-dusk",
+    "ashfall.factions-index",
+    "ashfall.items-index",
+    "ashfall.lore-index",
+    "ashfall.pantheon-index",
+    "ashfall.plane.material-plane",
+    "ashfall.quests-index",
+    "ashfall.tables-index"
    ],
    "referencedBy": [
+    "omniverse.multiverse",
     "pie-heist"
    ],
    "children": [
@@ -156,7 +166,10 @@
     "ashfall.monster.lamp-thief",
     "ashfall.monster.the-counting-thing"
    ],
-   "referencedBy": [],
+   "referencedBy": [
+    "ashfall",
+    "tropelandia"
+   ],
    "children": [],
    "data": {},
    "body": "# Bestiary of Ashfall\n\nStat blocks in Six Sides shape.\n\n| Monster | Threat | Harm | Difficulty |\n|---|---|---|---|\n| [[Ash Walker]] | 64 | 3 | 2 |\n| [[Cinder Hound]] | 66 | 2 | 2 |\n| [[The Counting Thing]] | 100 | 5 | 3 |\n| [[Lamp Thief]] | 61 | 2 | 1 |"
@@ -174,7 +187,8 @@
    "refs": [],
    "links": [],
    "referencedBy": [
-    "ashfall"
+    "ashfall",
+    "tropelandia"
    ],
    "children": [],
    "data": {
@@ -358,7 +372,8 @@
     "ashfall.room.the-cold-vault.05-the-queue",
     "ashfall.room.the-cold-vault.06-the-counter",
     "ashfall.room.the-cold-vault.07-the-door-in-the-dark",
-    "ashfall.settlement.lastlight"
+    "ashfall.settlement.lastlight",
+    "tropelandia.event.1489-0035-the-overflow-corridor"
    ],
    "children": [
     "ashfall.room.the-cold-vault.01-the-door",
@@ -719,7 +734,10 @@
    "links": [
     "ashfall.faction.the-wardens-of-the-last-light"
    ],
-   "referencedBy": [],
+   "referencedBy": [
+    "ashfall",
+    "tropelandia"
+   ],
    "children": [],
    "data": {},
    "body": "# Factions of Ashfall\n\n- [[The Wardens of the Last Light]]"
@@ -799,7 +817,10 @@
    "links": [
     "ashfall.item.the-queue-paper"
    ],
-   "referencedBy": [],
+   "referencedBy": [
+    "ashfall",
+    "tropelandia"
+   ],
    "children": [],
    "data": {},
    "body": "# Items of Ashfall\n\n- [[The Queue Paper]]"
@@ -816,7 +837,10 @@
    "status": null,
    "refs": [],
    "links": [],
-   "referencedBy": [],
+   "referencedBy": [
+    "ashfall",
+    "tropelandia"
+   ],
    "children": [],
    "data": {},
    "body": "# Lore of Ashfall\n\nNone yet. The Cold Vault's quest is the first thing to write."
@@ -1060,7 +1084,10 @@
    "links": [
     "ashfall.deity.the-dying-flame"
    ],
-   "referencedBy": [],
+   "referencedBy": [
+    "ashfall",
+    "tropelandia"
+   ],
    "children": [],
    "data": {},
    "body": "# Pantheon of Ashfall\n\n- [[The Dying Flame]]"
@@ -1276,6 +1303,7 @@
    "refs": [],
    "links": [],
    "referencedBy": [
+    "ashfall",
     "ashfall.galaxy.the-galaxy",
     "tropelandia"
    ],
@@ -1329,7 +1357,10 @@
    "status": null,
    "refs": [],
    "links": [],
-   "referencedBy": [],
+   "referencedBy": [
+    "ashfall",
+    "tropelandia"
+   ],
    "children": [],
    "data": {},
    "body": "# Quests of Ashfall\n\nNone yet. The Cold Vault's quest is the first thing to write."
@@ -1775,7 +1806,10 @@
    "links": [
     "ashfall.table.road-encounters"
    ],
-   "referencedBy": [],
+   "referencedBy": [
+    "ashfall",
+    "tropelandia"
+   ],
    "children": [],
    "data": {},
    "body": "# Tables of Ashfall\n\n- [[Road Encounters]]"
@@ -2027,7 +2061,9 @@
    "tags": [],
    "status": null,
    "refs": [],
-   "links": [],
+   "links": [
+    "ashfall"
+   ],
    "referencedBy": [
     "ashfall",
     "omniverse",
@@ -5749,7 +5785,15 @@
     "tropelandia.event.1489-0035-the-overflow-corridor"
    ],
    "links": [
+    "ashfall.bestiary-index",
+    "ashfall.calendar.standard",
+    "ashfall.factions-index",
+    "ashfall.items-index",
+    "ashfall.lore-index",
+    "ashfall.pantheon-index",
     "ashfall.plane.material-plane",
+    "ashfall.quests-index",
+    "ashfall.tables-index",
     "tropelandia.era.age-of-mild-peril"
    ],
    "referencedBy": [],
@@ -9162,7 +9206,9 @@
     "tropelandia.era.age-of-mild-peril",
     "tropelandia.person.lord-vexmort-the-undying"
    ],
-   "links": [],
+   "links": [
+    "ashfall.dungeon.the-cold-vault"
+   ],
    "referencedBy": [
     "tropelandia"
    ],

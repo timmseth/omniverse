@@ -54,14 +54,14 @@ generated: build_world.py
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[_universe]] |  | `ashfall` | 1 |
+| [[_universe]] |  | `ashfall` | 2 |
 | [[_universe]] |  | `tropelandia` | 0 |
 
 ## plane (2)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[Material Plane]] | ashfall | `ashfall.plane.material-plane` | 2 |
+| [[Material Plane]] | ashfall | `ashfall.plane.material-plane` | 3 |
 | [[Material Plane]] | tropelandia | `tropelandia.plane.material-plane` | 1 |
 
 ## galaxy (2)
@@ -276,7 +276,7 @@ generated: build_world.py
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[Calendar]] | ashfall | `ashfall.calendar.standard` | 1 |
+| [[Calendar]] | ashfall | `ashfall.calendar.standard` | 2 |
 | [[Calendar]] | tropelandia | `tropelandia.calendar.standard` | 7 |
 
 ## holiday (6)
@@ -447,7 +447,7 @@ generated: build_world.py
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[The Cold Vault]] | ashfall | `ashfall.dungeon.the-cold-vault` | 11 |
+| [[The Cold Vault]] | ashfall | `ashfall.dungeon.the-cold-vault` | 12 |
 | [[Glintfang's Hoard]] | tropelandia | `tropelandia.dungeon.glintfang-hoard` | 15 |
 | [[Marlowe's Tower]] | tropelandia | `tropelandia.dungeon.marlowes-tower` | 14 |
 | [[The Cellar of Rats]] | tropelandia | `tropelandia.dungeon.cellar-of-rats` | 14 |
@@ -589,20 +589,20 @@ generated: build_world.py
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
 | [[Bestiary]] |  | `tropelandia.bestiary-index` | 0 |
-| [[Bestiary]] |  | `ashfall.bestiary-index` | 0 |
+| [[Bestiary]] |  | `ashfall.bestiary-index` | 2 |
 | [[Factions]] |  | `tropelandia.factions-index` | 0 |
-| [[Factions]] |  | `ashfall.factions-index` | 0 |
+| [[Factions]] |  | `ashfall.factions-index` | 2 |
 | [[Items]] |  | `tropelandia.items-index` | 0 |
-| [[Items]] |  | `ashfall.items-index` | 0 |
+| [[Items]] |  | `ashfall.items-index` | 2 |
 | [[Lore]] |  | `tropelandia.lore-index` | 0 |
-| [[Lore]] |  | `ashfall.lore-index` | 0 |
+| [[Lore]] |  | `ashfall.lore-index` | 2 |
 | [[Pantheon]] |  | `tropelandia.pantheon-index` | 0 |
-| [[Pantheon]] |  | `ashfall.pantheon-index` | 0 |
+| [[Pantheon]] |  | `ashfall.pantheon-index` | 2 |
 | [[Quests]] |  | `tropelandia.quests-index` | 0 |
-| [[Quests]] |  | `ashfall.quests-index` | 0 |
+| [[Quests]] |  | `ashfall.quests-index` | 2 |
 | [[_README]] |  | `omniverse.schemas` | 0 |
 | [[Tables]] |  | `tropelandia.tables-index` | 0 |
-| [[Tables]] |  | `ashfall.tables-index` | 0 |
+| [[Tables]] |  | `ashfall.tables-index` | 2 |
 | [[Trope Library]] |  | `omniverse.trope-library` | 0 |
 
 ## guide (3)

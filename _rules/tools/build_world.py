@@ -31,14 +31,28 @@ def main(argv):
     root, check = argv[1], "--check" in argv
     notes, names, _ = V.load_notes(root)
     byname = {}
-    for i, (rel, meta) in notes.items():
-        byname[os.path.basename(rel)[:-3]] = i
+    for i, (rel, meta) in sorted(notes.items(), key=lambda kv: kv[1][0]):
+        byname.setdefault(os.path.basename(rel)[:-3], []).append(i)
+
+    def resolve(name, from_id):
+        """A wikilink target by name: prefer a note in the same universe, else the first by path."""
+        cands = byname.get(name) or []
+        same = [c for c in cands if notes[c][1].get("universe") == notes[from_id][1].get("universe")]
+        return (same or cands or [None])[0]
     entries, children, refby = {}, {}, {}
     for i, (rel, meta) in notes.items():
         kind = meta.get("kind")
         refs = sorted({r for r in V_walk(meta) if r in notes and r != i})
         body = "" if kind in BODY_KINDS_SKIP else body_of(os.path.join(root, rel))
-        links = sorted({byname[t.strip().replace("\\", "")] for t in LINK.findall(body) if t.strip().replace("\\", "") in byname} - {i})
+        links = set()
+        for t in LINK.findall(body):
+            t = t.strip().replace("\\", "")
+            if "/" in t:
+                t = os.path.basename(t)
+            r = resolve(t, i)
+            if r and r != i:
+                links.add(r)
+        links = sorted(links)
         data = {k: v for k, v in meta.items() if k not in ("id", "kind", "name", "parent", "universe")}
         if kind == "room":
             data = {k: data.get(k) for k in ("number", "code", "dungeon") if k in data}
