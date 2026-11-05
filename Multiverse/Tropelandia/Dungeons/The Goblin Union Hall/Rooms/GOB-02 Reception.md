@@ -43,6 +43,7 @@ encounters:
     hp: 7
     ac: 15
     attack: pencil +4, 1d4+2
+    ref: tropelandia.monster.goblin-receptionist
   tactics: She wants the party to fill out Form 27B. Refusing gets a stern lecture.
   treasure: ''
 traps: []

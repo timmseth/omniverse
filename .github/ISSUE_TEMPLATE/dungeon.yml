@@ -1,0 +1,30 @@
+name: Dungeon proposal
+description: Pitch a dungeon before writing it, or ask for a slot in a region.
+title: "Dungeon: <name>"
+labels: [dungeon]
+body:
+  - type: input
+    id: universe
+    attributes: { label: Universe, placeholder: Tropelandia }
+    validations: { required: true }
+  - type: input
+    id: where
+    attributes: { label: Where it sits, description: Region, town or venue id it hangs off, placeholder: tropelandia.settlement.hearthollow }
+    validations: { required: true }
+  - type: input
+    id: levels
+    attributes: { label: Level range, placeholder: "3-5" }
+  - type: textarea
+    id: pitch
+    attributes: { label: The pitch, description: Two or three sentences a DM would read aloud to decide whether to run it. }
+    validations: { required: true }
+  - type: textarea
+    id: factions
+    attributes: { label: Factions and NPCs involved, description: Existing ids, or new ones you will add. }
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Terms
+      options:
+        - label: Original writing or openly licensed material only
+          required: true

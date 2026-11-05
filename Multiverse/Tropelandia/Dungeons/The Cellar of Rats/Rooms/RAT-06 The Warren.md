@@ -38,11 +38,13 @@ encounters:
     hp: 7
     ac: 12
     attack: bite +4, 1d4+2
+    ref: tropelandia.monster.giant-rat
   - name: Swarm of rats
     count: 1
     hp: 24
     ac: 10
     attack: bites +2, 2d6 (half when below half HP)
+    ref: tropelandia.monster.swarm-of-rats
   tactics: The horde fights to protect the throne; they hold if the party parleys with a bribe (cheese or coin), and will not attack anyone carrying the Cheese Wheel.
   treasure: ''
 traps: []

@@ -28,6 +28,7 @@ encounters:
     hp: 90
     ac: 15
     attack: psychic lash +7, 3d8
+    ref: tropelandia.monster.living-book
   tactics: 'It wants a reader; it attacks if refused. It can be bargained with: one answer for one favour.'
   treasure: ''
 traps: []

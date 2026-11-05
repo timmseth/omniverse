@@ -28,6 +28,7 @@ encounters:
     hp: 52
     ac: 11
     attack: tentacles +5, 2d6+3
+    ref: tropelandia.monster.giant-octopus
   tactics: It attacks anyone on the causeway who splashes; it can be bargained with using fish.
   treasure: ''
 traps: []

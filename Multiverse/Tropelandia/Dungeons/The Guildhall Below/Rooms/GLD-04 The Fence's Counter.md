@@ -33,6 +33,7 @@ encounters:
     hp: 27
     ac: 12
     attack: dagger +4, 1d4+2
+    ref: tropelandia.monster.spy
   tactics: She sells and buys. She fights only if the party tries to rob her counter.
   treasure: ''
 traps: []

@@ -28,6 +28,7 @@ encounters:
     hp: 60
     ac: 16
     attack: greataxe +6, 1d12+4
+    ref: tropelandia.monster.dwarven-revenant
   tactics: He rises if anyone sits on his bunk; he can be calmed by returning the Banner from the gatehouse.
   treasure: ''
 traps: []

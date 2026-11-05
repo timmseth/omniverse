@@ -1,43 +1,21 @@
 kind: monster
 title: Monster
-summary: A creature stat block, in the ruleset's shape, that rooms and encounters reference by id.
+summary: A creature that rooms and encounters reference by id. The core fields are system-agnostic; the stat block sits under the ruleset's own key (dnd5e, six_sides), defined by that ruleset's schema extension.
 module: core
 folder: Multiverse/<Universe>/Bestiary/<Name>.md
 id: <universe>.monster.<slug>
 mixins: [base, in_universe]
 fields:
   parent: { type: ref, kinds: [universe], required: true }
-  ruleset: { type: ref, kinds: [ruleset], required: true }
+  ruleset: { type: ref, kinds: [ruleset], required: true, doc: "The system the stat block is written in. Its key below must be present." }
   size: { type: enum, values: [tiny, small, medium, large, huge, gargantuan], required: true }
   type: { type: string, required: true, doc: "beast, humanoid, undead, construct, ..." }
-  cr: { type: number, required: true, doc: "Challenge rating or the ruleset's equivalent." }
+  threat: { type: int, required: true, doc: "Omni power, 0 to 100. Rulesets map their own difficulty onto it so creatures from different systems compare." }
   alignment: { type: string }
-  ac: { type: int, required: true }
-  hp: { type: int, required: true }
-  hp_dice: { type: dice }
-  speed: { type: string, required: true }
-  abilities:
-    type: map
-    required: true
-    fields:
-      str: { type: int, required: true }
-      dex: { type: int, required: true }
-      con: { type: int, required: true }
-      int: { type: int, required: true }
-      wis: { type: int, required: true }
-      cha: { type: int, required: true }
-  saves: { type: string }
-  skills: { type: string }
-  resistances: { type: string }
-  immunities: { type: string }
-  senses: { type: string }
-  languages: { type: string }
-  traits: { type: list, of: { type: map, fields: { name: { type: string, required: true }, text: { type: text, required: true } } } }
-  actions: { type: list, required: true, of: { type: map, fields: { name: { type: string, required: true }, text: { type: text, required: true } } } }
-  reactions: { type: list, of: { type: map, fields: { name: { type: string, required: true }, text: { type: text, required: true } } } }
-  legendary: { type: list, of: { type: map, fields: { name: { type: string, required: true }, text: { type: text, required: true } } } }
   tactics: { type: text, doc: "How it fights." }
   lore: { type: text, doc: "What it is in this universe." }
   loot: { type: ref, kinds: [table], doc: "What it carries, as a table." }
   tropes: { type: list, of: { type: ref, kinds: [trope] } }
-  xp: { type: int }
+  dnd5e: { type: map, open: true, doc: "D&D 5e stat block; fields defined in Rulesets/dnd5e/_schemas/monster.yaml." }
+  six_sides: { type: map, open: true, doc: "Six Sides stat block; fields defined in Rulesets/Six Sides/_schemas/monster.yaml." }
+  core: { type: map, open: true, doc: "Core ruleset block: rank and descriptors." }

@@ -28,6 +28,7 @@ encounters:
     hp: 180
     ac: 12
     attack: pseudopod +9, 2d10+5 plus adhesion; acid 3d8
+    ref: tropelandia.monster.giant-mimic
   tactics: 'It fights hard but fears fire; it tries to swallow the party. It can be bargained with: it wants a steady supply of food (like deliveries).'
   treasure: ''
 traps: []
@@ -35,7 +36,7 @@ puzzles: []
 secrets: []
 loot:
 - A heap of guests' possessions (1,000 gp in goods)
-- The Innkeeper's Heart (a mimic core, alchemical value 500 gp)
+- tropelandia.item.the-innkeepers-heart
 dm_notes: 'Option: a Persuasion check (DC 16) to broker a lasting arrangement with the inn: a regular meal delivery in exchange for safe lodging.'
 ---
 # INN-08 The Stomach

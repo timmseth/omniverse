@@ -44,6 +44,8 @@ wandering:
 home_town: tropelandia.settlement.greyharbour
 factions:
 - tropelandia.faction.honourable-society-of-independent-acquisitionists
+quests:
+- tropelandia.quest.the-ledger
 ---
 # The Guildhall Below
 

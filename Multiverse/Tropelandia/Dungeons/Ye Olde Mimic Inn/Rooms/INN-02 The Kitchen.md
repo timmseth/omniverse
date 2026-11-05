@@ -28,6 +28,7 @@ encounters:
     hp: 20
     ac: 12
     attack: bite +4, 1d6+2
+    ref: tropelandia.monster.mimic-spawn
   tactics: Hatchlings play at being plates and cutlery; they bite if the party tries to eat.
   treasure: ''
 traps: []

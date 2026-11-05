@@ -43,6 +43,7 @@ encounters:
     hp: 178
     ac: 17
     attack: slam +10, 3d8+6
+    ref: tropelandia.monster.stone-golem
   tactics: It defends the cabinets from vandals.
   treasure: ''
 traps: []

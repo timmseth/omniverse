@@ -45,6 +45,8 @@ home_town: tropelandia.settlement.thaumaton
 factions:
 - tropelandia.faction.adventurers-licensing-board
 - tropelandia.faction.thaumaturgic-academy
+quests:
+- tropelandia.quest.overdue
 ---
 # The Restricted Section
 

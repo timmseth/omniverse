@@ -28,6 +28,7 @@ encounters:
     hp: 13
     ac: 13
     attack: ladle +4, 1d6+2
+    ref: tropelandia.monster.skeleton
   tactics: Gerald will serve the party soup and ask them to leave; he fights only if the soup is insulted.
   treasure: ''
 traps: []
@@ -35,7 +36,7 @@ puzzles: []
 secrets: []
 loot:
 - The cellar key
-- A pot of healing soup (restores 1d8 HP)
+- tropelandia.item.pot-of-healing-soup
 - Marlowe's overdue rent notices (11)
 dm_notes: The soup is genuinely nourishing; the skeleton is a good-natured cook who wants a day off.
 ---

@@ -38,7 +38,7 @@ hooks:
 tags:
 - faction
 from:
-  year: -200
+  year: 1
   era: tropelandia.era.age-of-mild-peril
 to: null
 ---

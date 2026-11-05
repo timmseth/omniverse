@@ -48,7 +48,7 @@ puzzles:
   reward: The shelf opens to the study.
 secrets: []
 loot:
-- A scroll of Feather Fall tucked in a menu
+- tropelandia.item.scroll-of-feather-fall
 - A first-edition Guide to Reasonable Rent
 dm_notes: Light puzzle, quick to solve; the library is the trope's first obstacle.
 ---

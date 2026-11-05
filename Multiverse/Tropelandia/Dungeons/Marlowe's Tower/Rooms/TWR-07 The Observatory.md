@@ -28,6 +28,7 @@ encounters:
     hp: 40
     ac: 12
     attack: 'firebolt +6, 2d10; spells: fireball, counterspell, misty step'
+    ref: tropelandia.monster.mage
   tactics: He fights only if the party attempts to take the tower's key artefact, or insults his pie. Prefers a bribe, a reasonable rent plan, or a good apprentice.
   treasure: ''
 traps: []
@@ -42,8 +43,8 @@ puzzles:
   reward: A powerful ally, a scroll of choice, and a nemesis grudge softened.
 secrets: []
 loot:
-- A wand of mild magic missiles
-- 'Marlowe''s pointed hat (cursed: you cannot take it off, and people think you''re funnier)'
+- tropelandia.item.wand-of-mild-magic-missiles
+- tropelandia.item.marlowes-pointed-hat
 dm_notes: 'Marlowe is a Wizard in a Tower, played straight: sympathetic, trapped by money. His grudge with Rosalind is nemesis-system material.'
 ---
 # TWR-07 The Observatory

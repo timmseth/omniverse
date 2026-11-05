@@ -23,4 +23,4 @@ fields:
         roll: { type: any, required: true, doc: A number or a range "6-10". Entries must cover the die without gaps or overlap. }
         text: { type: string, required: true }
         ref: { type: ref, doc: "A note the result points at (monster, item, person)." }
-        count: { type: dice, doc: "How many, for encounters." }
+        count: { type: dice, doc: "How many, for encounters: a number or dice." }

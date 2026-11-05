@@ -33,6 +33,7 @@ encounters:
     hp: 20
     ac: 13
     attack: touch +4, 2d6 fire
+    ref: tropelandia.monster.minor-fire-elemental
   tactics: They erupt from the crucible if the song is interrupted.
   treasure: ''
 traps: []
@@ -47,7 +48,7 @@ puzzles:
   reward: The forge goes silent for an hour; the shaft is safe to descend.
 secrets: []
 loot:
-- Anvil of Opinions (artifact; talks, offers advice)
+- tropelandia.item.anvil-of-opinions
 dm_notes: ''
 ---
 # DWF-05 The Singing Forge

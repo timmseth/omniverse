@@ -33,6 +33,7 @@ encounters:
     hp: 22
     ac: 12
     attack: stamp +4, 3d6 necrotic
+    ref: tropelandia.monster.specter
   tactics: He attacks if the party is rude or unreasonable.
   treasure: ''
 traps: []

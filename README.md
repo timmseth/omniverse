@@ -1,7 +1,7 @@
 ---
 title: Omniverse — Design Document
 status: draft
-version: 0.5
+version: 0.6
 updated: 2026-11-04
 owner: Seth
 ---
@@ -10,11 +10,13 @@ owner: Seth
 
 **A collaborative, modular tabletop-RPG multiverse in git. Bring a universe, a ruleset, a trope pack or a campaign: plug it in, own it, extend it. Worlds stay still until someone plays them, and what matters gets merged back into canon.**
 
-> Status: **Draft v0.5.** This document describes the intended design. Only a small sample world exists so far. Each decision is tagged **[Decided]**, **[Proposed]** or **[Open]**. Section 22 collects everything still waiting on an answer.
+> Status: **Draft v0.6.** This document describes the design; the practical guides are in [`docs/`](docs/README.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md). Two universes exist: Tropelandia (parody, D&D 5e, about 450 notes) and Ashfall (grim, Six Sides, a first town and a Rift). Each decision is tagged **[Decided]**, **[Proposed]** or **[Open]**. Section 22 collects everything still waiting on an answer.
 >
 > **New in v0.4:** the design is organised around collaborative, modular extensibility (section 5). The tick system is gone: worlds are event-sourced and static until events are merged. Playable timelines are *instances*, merged into canon with a *canon merge*. Adding a universe is a *Universe Join* (formerly Convergence). Section 17 covers campaigns and the DM skill.
 >
 > **New in v0.5:** dungeons are a shared content kind. A dungeon is a set of room notes (exits, read-aloud text, encounters, traps, puzzles, loot). A build tool validates them into one `dungeons.json`, and the **dmScreen** Android app reads that file and runs a dungeon like a DM screen (sections 9.4, 17.7 and 17.8). Anyone can submit a dungeon by pull request, and the app can sync everyone's dungeons from GitHub. Ten sample dungeons are in Tropelandia.
+>
+> **New in v0.6:** the schemas are real: one YAML file per note kind in `_rules/schemas/`, a validator that reads them, and a generated Schema Reference. The world is machine-readable (`_generated/world.json`). Tropelandia has factions, hub towns, venues, NPCs, a bestiary, items, random tables, holidays, a dated history, a pantheon, cultures, languages, lore, a quest chain per dungeon and a Starter Kit. A second ruleset (Six Sides) and a second universe (Ashfall) with a Reality Rift to Tropelandia prove the system-agnostic, modular claims. CI validates every pull request; `CONTRIBUTING.md` and `docs/` explain how to join in. The first dmScreen APK is in the repository.
 
 ---
 
@@ -295,45 +297,43 @@ Two principles about the table:
 ```
 Omniverse/                              (git repo root)
 ├── README.md                           this document
-├── LICENSE                             repository licence
-├── CODEOWNERS                          who owns which universe (section 16)
-├── _rules/                             serious, shared, maintained by Omniverse maintainers
-│   ├── schemas/                        frontmatter schemas per kind
-│   ├── templates/                      note and universe templates, including dungeon and room templates
-│   ├── tools/                          build_dungeons.py: validates dungeons, writes the dungeon index
-│   ├── Submitting a Dungeon.md         the contributor guide for dungeons (section 17.8)
-│   ├── engine/                         event replay, validators, importers
-│   └── conventions.md                  naming, IDs, style
+├── CONTRIBUTING.md                     how to contribute (short); docs/ has the long version
+├── LICENSE                             public domain (Unlicense)
+├── CODEOWNERS                          who reviews which path (section 16)
+├── .github/                            CI (validate, site), PR and issue templates
+├── docs/                               guides: getting started, concepts, authoring, reference, governance
+│   └── reference/Schema Reference.md   generated from _rules/schemas/
+├── _rules/                             the core, maintained by Omniverse maintainers
+│   ├── schemas/                        one YAML per note kind + _mixins.yaml; the validator reads these
+│   ├── templates/                      copy-and-fill notes
+│   ├── tools/                          validate, build_dungeons, build_world, build_timeline, build_maps,
+│   │                                   schema_reference, build_site, build_all, new_universe, merge_instance
+│   └── Submitting a Dungeon.md         the contributor guide for dungeons (section 17.8)
 ├── Rulesets/                           the shared ruleset library (section 15)
 │   ├── Core/                           built-in minimal ruleset
-│   ├── dnd5e/                          D&D 5e ruleset (SRD data, attributed)
-│   └── …
-├── Generators/                         optional event generators (modules)
+│   ├── dnd5e/                          D&D 5e (SRD shapes, own text); _schemas/ defines the dnd5e stat block
+│   └── Six Sides/                      a light d6 pool system; _schemas/ defines the six_sides stat block
 ├── Apps/                               companion apps (source and releases)
 │   └── dmScreen/                       the DM screen Android app
 │       └── releases/                   built APKs, one per version
 ├── _generated/                         root-level generated files (do not edit)
+│   ├── world.json                      every note: data, body, refs, backlinks (the world API)
 │   ├── dungeons.json                   every dungeon in one file, read by the app
-│   └── Dungeon Index.md                browsable index of dungeons
-├── Tropes/                             the shared trope library
-│   ├── Wizard in a Tower.md
-│   ├── Dark Lord.md
-│   └── …
+│   ├── World Index.md, Backlinks.md, Dungeon Index.md, Maps.md, Maps/<Universe>.svg
+├── Tropes/                             the shared trope library (50) and its index
 └── Multiverse/
     ├── _registry.md                    list of universes, owners, status
-    ├── _events/                        Universe Joins and multiverse-level events
-    ├── Tropelandia/                    a universe (owner: Seth)
-    │   ├── _universe.md                tone, calendar link, clock, ruleset, maintainers
-    │   ├── Calendar.md
-    │   ├── Eras/
-    │   ├── Factions/                   cross-cutting: not part of the space tree
-    │   ├── Dungeons/                   cross-cutting: one folder per dungeon, with Rooms/ inside
-    │   ├── Trope Instances/            cross-cutting
-    │   ├── Events/<in-world year>/     cross-cutting: append-only event files
+    ├── Tropelandia/                    a universe (owner: timmseth)
+    │   ├── _universe.md                manifest: tone, calendar, clock, ruleset, maintainers, version, requires, rifts
+    │   ├── _timeline.md                generated: eras, events, instances
+    │   ├── Calendar.md · Eras/ · Holidays/
+    │   ├── Events/<in-world year>/     dated canon events with deltas
+    │   ├── Factions/ · Pantheon/ · Lore/ (Cultures/, Languages/)
+    │   ├── Bestiary/ · Items/ · Tables/ · Quests/
+    │   ├── Dungeons/<Name>/            folder note + Rooms/
+    │   ├── Trope Instances/
+    │   ├── Instances/                  playable timelines; starter-kit is a template (section 12)
     │   ├── _state/                     derived cache of current state, rebuildable from Events/
-    │   ├── _generated/                 machine-rendered digests (do not edit)
-    │   ├── _timeline.md                generated: frontier, fork points, merged instances
-    │   ├── Instances/                  divergent timelines (overlays), one folder each (section 12)
     │   └── Material Plane/                         plane
     │       ├── Material Plane.md                   folder note (the plane itself)
     │       └── Gleamhaven/                         galaxy
@@ -348,9 +348,10 @@ Omniverse/                              (git repo root)
     │                                       ├── Barrowdale.md
     │                                       ├── Districts/  (optional)
     │                                       ├── Households/
+    │                                       ├── Venues/     taverns, shops, temples
     │                                       └── People/
     │                                           └── Marlowe the Mildly Menacing.md
-    └── Forgotten Realms/               another universe (later)
+    └── Ashfall/                        the second universe (grim, Six Sides), same shape
 ```
 
 The conventions that make this work:
@@ -401,7 +402,7 @@ tags: []
 
 - `from` and `to` are in-world dates in the universe's calendar. `to: null` means still existing.
 - Kind-specific fields are layered on top (section 9.3).
-- Each `kind` has a schema in `_rules/schemas/`. CI rejects notes that do not validate.
+- Each `kind` has a schema in `_rules/schemas/` **[Decided, done in v0.6]**: a YAML file naming the folder pattern, the id pattern, the mixins (`base`, `in_universe`, `dated`, `manifest`) and the fields with their types (`string`, `text`, `int`, `number`, `bool`, `any`, `id`, `ref` with allowed kinds, `enum`, `const`, `list of`, `map`, `when`, `dice`). `_rules/tools/validate.py` reads them, and `docs/reference/Schema Reference.md` is generated from them, so the schema, the check and the documentation cannot drift apart. A module adds kinds or fields with the same file shape in its own `_schemas/` folder; fields added to a core kind are namespaced (the `dnd5e` and `six_sides` stat blocks on a monster are the first examples). CI rejects notes that do not validate.
 
 ### 9.3 Kind-specific fields (examples)
 
@@ -428,7 +429,26 @@ as_of: { year: 1489, day: 34 }
 
 **Event:** see Appendix A.
 
-### 9.4 Dungeons and rooms **[Proposed]**
+### 9.3a The world content kinds **[Decided, v0.6]**
+Beyond places and people, a universe is made of these kinds, each with a schema and an authoring guide in `docs/authoring/`:
+
+| Kind | What it is | Lives in |
+|---|---|---|
+| `venue` | A tavern, shop, temple, hall a party can walk into: keeper, services, read-aloud | `<Settlement>/Venues/` |
+| `faction` | Guild, cult, court, company, union: goals, methods, assets, allies, rivals, dungeons, secret | `Factions/` |
+| `monster` | A stat block, system-agnostic core (`threat` on the Omni scale) plus the ruleset's block (`dnd5e:`, `six_sides:`) | `Bestiary/` |
+| `item` | A notable object: type, rarity, description, mechanics, curse, history | `Items/` |
+| `table` | A rollable table whose entries cover its die (the validator checks); entries can `ref` monsters and items | `Tables/` |
+| `quest` | A chain of stages threading a town, a faction and a dungeon, with `on_success` and `on_failure` | `Quests/` |
+| `holiday` | A day on the calendar with customs and hooks | `Holidays/` |
+| `deity`, `culture`, `language`, `lore` | The pantheon, peoples, tongues, and myths/legends/history/songs with a `truth` rating for the DM | `Pantheon/`, `Lore/` |
+
+Rooms reference monsters and items by id; the build tool copies the numbers into `dungeons.json` so the app shows them. Every dungeon has a `home_town`, `factions` and a quest, so nothing floats.
+
+### 9.3b The world index **[Decided, v0.6]**
+`_rules/tools/build_world.py` writes `_generated/world.json`: every note with its frontmatter, body, outgoing references and incoming references, plus `World Index.md` and `Backlinks.md`. It is the world API: apps, skills and views read it instead of parsing Markdown. `dungeons.json` remains the app's dungeon feed.
+
+### 9.4 Dungeons and rooms **[Decided, v0.6]**
 A dungeon is a folder of notes, kept beside the space tree because it belongs to the universe rather than to one place. Its `parent` names the place that contains it, so it can be found from the map, while the folder stays short (this matters on Windows, see section 20).
 
 ```
@@ -811,6 +831,9 @@ Tropelandia (and later the Forgotten Realms universe) use the `dnd5e` ruleset. T
 
 **[Open]** Whether `dnd5e` follows the **2014** or **2024** rules. They differ in classes, species, backgrounds and some stat blocks. This is a decision for the ruleset and for Tropelandia, not for the Omniverse. One edition is chosen as the base and the other can be a variant.
 
+### 15.8a The Six Sides ruleset **[Decided, v0.6]**
+`Rulesets/Six Sides/` is an original light system (four traits rated in d6, hits on 5 or 6, harm boxes, Edge, Moves), written to prove the system-agnostic claim in data rather than prose. It declares its `stat_mapping` to and from `dnd5e` and onto the Omni scale, and its `_schemas/monster.yaml` defines the `six_sides` block that a monster note carries. Ashfall uses it; its bestiary and NPCs are written in that shape, and the dungeon build tool reads either block to give the app hp-like and defence-like numbers.
+
 ### 15.9 Licensing
 Each ruleset declares its source and licence, and CI checks the declaration. Home-brew and original systems are welcome. A published system needs an open licence or the publisher's permission. The Omniverse core itself contains no third-party game-system content.
 
@@ -958,7 +981,7 @@ A canonized adventure appears on the universe's timeline with its party credited
 
 **Scope of v1.** Read, navigate and run; sync from GitHub; submission guidance. Not in v1: authoring dungeons inside the app, running a whole instance's log, or networked play.
 
-### 17.8 Submitting a dungeon **[Proposed]**
+### 17.8 Submitting a dungeon **[Decided, v0.6]**
 Dungeons are shared by pull request, using the same ownership model as everything else (sections 5 and 16).
 
 1. **Write** the dungeon in a fork, from the templates in `_rules/templates/` (a dungeon note and one note per room). Pick a short unique `code`. Place it under `Multiverse/<Universe>/Dungeons/<Name>/` and point `parent` at the place that contains it. The full guide is `_rules/Submitting a Dungeon.md`.
@@ -969,16 +992,24 @@ Dungeons are shared by pull request, using the same ownership model as everythin
 
 Rules for submissions: original writing or openly licensed material only (no copied module text, maps or stat blocks beyond the SRD, with attribution), data only (no scripts), and one dungeon per pull request. A universe's maintainer may decline a dungeon that does not fit its tone; it can then live in a fork or be offered to another universe. **[Open]** whether the app should also offer a form-based submission (decision P16).
 
+### 17.9 Quests and the Starter Kit **[Decided, v0.6]**
+A **quest** is a chain of three or four stages threading a town, a faction and a dungeon, with `on_success` and `on_failure` written as the sentences a canon merge will turn into events. Tropelandia has one per dungeon, so a campaign can run from level 1 to 12 on quests alone. The **Starter Kit** (`Instances/starter-kit/`, a template instance) holds Session Zero, a three-session arc on three of those quests, five pregens and an empty log: copy the folder, rename the id, play. The DM skill offers it as a starting scenario.
+
 ## 18. Planned universes
 
 ### 18.1 Tropelandia
-- **Owner:** Seth.
+- **Owner:** timmseth.
 - **Ruleset:** D&D 5e.
-- **Sample content:** a small sample slice lives in `Multiverse/Tropelandia/`, with one node per layer from the plane down to a person, plus a trope instance, a faction, an event, state files and a generated digest. It is illustrative and will change.
-- **Tone:** Munchkin-style parody of fantasy and RPG tropes. Tongue-in-cheek, never po-faced, always open to whatever a player tries.
-- **Contents:** the first trope instances, a handful of settlements, and a starter roster of notables.
+- **Tone:** Munchkin-style parody of fantasy and RPG tropes, played with a straight face. Stakes are real; consequences are mild.
+- **Contents (v0.6):** 8 regions over two continents; 8 hub towns with 27 venues and 34 NPCs; 11 factions; 10 dungeons (85 rooms) each with a home town, a faction and a quest chain; a 45-entry bestiary and 31 items; 15 random tables; a calendar with 6 holidays, 2 eras and 26 dated events; 6 deities, 4 cultures, 4 languages, 7 lore notes; one sample instance and the Starter Kit (Session Zero, a three-session arc, five pregens). About 450 notes.
 
-### 18.2 Forgotten Realms (Toril)
+### 18.2 Ashfall **[Decided, v0.6]**
+- **Owner:** timmseth.
+- **Ruleset:** Six Sides.
+- **Tone:** grim low fantasy under a dimming sun; earnest, quiet, cold. Nobody is joking.
+- **Contents:** a first town (Lastlight) with two venues, three NPCs and the Wardens; one deity; a four-entry bestiary in Six Sides shape; one dungeon, The Cold Vault (seven rooms, two floors); four events. It exists to exercise the architecture: a second ruleset, the scaffolder (`new_universe.py`), a second entry in the registry and `CODEOWNERS`, and a **Reality Rift**: the Cold Vault's lowest room opens into the Office of Eternal Records in Tropelandia, recorded as a rift event in both universes and listed in both manifests' `rifts`.
+
+### 18.3 Forgotten Realms (Toril)
 - **Idea:** a canon-style universe covering Toril, Faerûn, its regions, cities, factions, deities and famous NPCs.
 - **Approach:** build top-down: skeleton first (planet, continents, regions, a few dozen cities, factions), then around a hundred notables, with census figures *estimated* rather than canonical.
 - **Ruleset:** D&D 5e, shared with Tropelandia.
@@ -986,17 +1017,16 @@ Rules for submissions: original writing or openly licensed material only (no cop
 - **Sources and IP:** the lore belongs to Wizards of the Coast. Facts and structure can be modelled in original words; book text is not copied. **[Open]** whether this universe stays in a private repository, since a public repository raises IP questions. The community wiki is believed to be under a CC-BY-SA licence, which would need to be verified before it is used as a source.
 - **Trope link:** Forgotten Realms instances of tropes (for example a wise wizard mentor) appear alongside Tropelandia's parodies of the same trope in the trope's backlinks.
 
-### 18.3 Others
+### 18.4 Others
 Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a published campaign world. Each one is a universe with its own maintainer.
 
 ## 19. Tooling and automation
 
 - **Obsidian** is the reader and editor. Bases or Dataview give the tree, roster and timeline views. `workspace.json` is excluded from git because it changes constantly and is per-machine.
 - **Git and GitHub** hold history, pull requests, `CODEOWNERS` and Actions.
-- **Engine** (Python or Node, in `_rules/engine/`): validators, event replay, importers (ruleset data), digest and roster generators.
-- **CI** validates schemas, IDs, path scope and licences on every pull request.
-- **DM skill** (a Claude skill, in `_rules/skills/dm/`): runs a campaign in an instance and keeps the log (section 17).
-- **Dungeon build tool** (`_rules/tools/build_dungeons.py`): validates dungeon and room notes and writes `_generated/dungeons.json` (section 9.4).
+- **Tools** (Python, in `_rules/tools/`, documented in `docs/concepts/Tools.md`): `validate.py` (schema-driven), `build_dungeons.py`, `build_world.py` (the world index), `build_timeline.py`, `build_maps.py`, `schema_reference.py`, `build_site.py`, `build_all.py`, `new_universe.py` (Universe Join scaffold), `merge_instance.py` (canon-merge drafter with rift detection). Event replay (`replay.py`) is still to come.
+- **CI** (`.github/workflows/validate.yml`) validates every note, checks the dungeons, rebuilds the generated files and fails if they differ from what is committed, and rejects scripts outside the tool folders. `site.yml` publishes the static site to GitHub Pages.
+- **DM skill** (`omniverse-dm`, a Claude skill): runs a campaign in an instance and keeps the log (section 17).
 - **dmScreen app** (`Apps/dmScreen/`): the Android DM screen that reads the dungeon index (section 17.7).
 - **Narrator** (optional): an LLM that reads events and writes prose into `_generated/`.
 
@@ -1046,6 +1076,11 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 | D10 | Collaborative, modular extensibility is the organising principle: a small core plus owned, versioned modules (section 5). |
 | D11 | Dungeons are shared content: notes in the universe, checked by a build tool, indexed into one `dungeons.json`, and submitted by pull request. |
 | D12 | Companion apps live in `Apps/<name>/` in this repository with their built APKs in `releases/`. They read generated data and never write canon. |
+| D13 | Schemas are the contract: one YAML per kind in `_rules/schemas/`, read by the validator and rendered into the Schema Reference. Modules extend kinds through `_schemas/` with namespaced fields. |
+| D14 | `_generated/world.json` is the world API. Apps and skills read generated files, never the Markdown. Generated files are committed and CI checks they are current (closes P8). |
+| D15 | CI is the gate: a pull request merges only if the validator, the dungeon check and the generated-files check pass. Contributed content is never executed. |
+| D16 | The repository is public domain (Unlicense), as found; contributions are released the same way; published systems appear only as shapes and numbers in original text. |
+| D17 | Monster stat blocks are system-agnostic at the core (`threat` on the Omni scale) and carry the ruleset's block under its own key, so a universe on any ruleset can have a bestiary and the app can run it. |
 
 ### Proposed (will proceed unless changed)
 | ID | Proposal |
@@ -1064,12 +1099,13 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 |---|---|---|
 | P1 | D&D 5e edition for the `dnd5e` ruleset (Tropelandia) | 2014 or 2024 |
 | P5 | Who decides Reality Rifts | Single decision-maker or a vote |
-| P8 | Are `_generated/` files committed? | Committed to the repo, on a separate branch, or built in CI only |
 | P9 | Forgotten Realms: which year, and public or private repo | e.g. 1490s DR; private recommended |
 | P10 | Final file name and location of this document | `README.md` at the root (current) or a different name |
 | P15 | Naming clash: *instance* (a playable timeline) versus *trope instance* | Keep both with the prefix, or rename trope instances (for example to "bindings" or "realisations") |
-| P16 | How dungeons are submitted | Pull request only (current), or also a form or issue template that the app can open, or an in-app editor |
+| P16 | How dungeons are submitted | Pull request plus the dungeon-proposal issue template (current), or an in-app editor later |
 | P17 | Where built APKs are stored | In the repository under `Apps/dmScreen/releases/` (current), or as GitHub Release assets only, if the repository grows too large |
+| P18 | Licence for content | Stay public domain (Unlicense, current) or move to CC BY-SA 4.0 for content with MIT for tools |
+| P19 | Where the static site is published | GitHub Pages from CI (current, needs Pages enabled once in repository settings) |
 
 ## 23. Roadmap
 
@@ -1083,8 +1119,13 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 | **M5 — Relationships and nemeses** | Edge types, grudge ladder, promotion of normals and victors | A grudge visibly escalates over several logged events. |
 | **M6 — Collaboration flow** | `CODEOWNERS`, path guard, CI checks, universe template, Universe Join and Canon Merge | A test universe joins by pull request, and an instance's events canon-merge into it. |
 | **M7 — DM skill** | Session log format, instance templates, the `new`, `play`, `wrap` and `propose` commands, scribe mode | A short campaign is played in an instance and its log passes validation. |
-| **M7a — Dungeons and the DM screen** | Dungeon and room schemas, build tool, ten sample dungeons, the dmScreen app, the submission guide | A dungeon is written, validated, indexed and run from the app on a phone. |
-| **M8 — Forgotten Realms** | Skeleton universe with backfilled history | Toril browsable to settlement level with a starter cast. |
+| **M7a — Dungeons and the DM screen** | Dungeon and room schemas, build tool, ten sample dungeons, the dmScreen app, the submission guide | A dungeon is written, validated, indexed and run from the app on a phone. *(Done: v1.0.0 APK in releases/.)* |
+| **M8 — A living Tropelandia** | Factions, towns, venues, NPCs, bestiary, items, tables, history, pantheon, lore, quests, Starter Kit | A new DM can run three sessions from the Starter Kit without writing anything. *(Done in v0.6.)* |
+| **M9 — Schemas, index and CI** | `_rules/schemas/`, schema-driven validator, world index, timelines, maps, CI gate, docs and CONTRIBUTING | Every note validates against a schema; a PR cannot merge with a broken note. *(Done in v0.6.)* |
+| **M10 — The second universe** | Six Sides ruleset, Ashfall, `new_universe.py`, a Reality Rift to Tropelandia | Two universes on two rulesets validate side by side and share a rift. *(Done in v0.6.)* |
+| **M11 — dmScreen v1.1** | 3D dollhouse view, stat blocks, table roller, town and NPC screens | A dungeon is run from the model view on a phone. |
+| **M12 — Replay and views** | `replay.py` rebuilding `_state/` from events; roster and rumour-board views | Replayed state matches the cache. |
+| **M13 — Forgotten Realms** | Skeleton universe with backfilled history | Toril browsable to settlement level with a starter cast. |
 
 ---
 
@@ -1171,23 +1212,25 @@ clock:
 ## Appendix B — Example CODEOWNERS and CI checks
 
 ### B.1 CODEOWNERS
+The real file is at the repository root. Its shape:
 ```
-# Shared, owned by Omniverse maintainers
-/_rules/                    @omniverse-maintainers
-/Tropes/                    @omniverse-maintainers
-/Rulesets/                  @omniverse-maintainers
-/Generators/                @omniverse-maintainers
-/Apps/                      @omniverse-maintainers
-/Multiverse/_registry.md    @omniverse-maintainers
-/Multiverse/_events/        @omniverse-maintainers
-/.github/                   @omniverse-maintainers
-/CODEOWNERS                 @omniverse-maintainers
+# Core, owned by Omniverse maintainers
+/_rules/                    @timmseth
+/Tropes/                    @timmseth
+/Rulesets/                  @timmseth
+/Apps/                      @timmseth
+/docs/                      @timmseth
+/Multiverse/_registry.md    @timmseth
+/.github/                   @timmseth
+/CODEOWNERS                 @timmseth
 
 # Universes, owned by their maintainers
-/Multiverse/Tropelandia/    @seth
+/Multiverse/Tropelandia/    @timmseth
+/Multiverse/Ashfall/        @timmseth
 ```
 
 ### B.2 CI checks on every pull request
+Implemented in `.github/workflows/validate.yml` (items 1, 2, 6, 8 and 10 run today; 3, 4 and 7 are by `CODEOWNERS` review; 5 and 9 are planned with `replay.py`):
 1. **Schema validation** for every changed note.
 2. **ID uniqueness** and namespace match (`<universe>.…` inside `Multiverse/<Universe>/`).
 3. **Path scope**: the author owns every path touched.

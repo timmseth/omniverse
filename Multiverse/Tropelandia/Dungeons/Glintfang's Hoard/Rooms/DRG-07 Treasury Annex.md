@@ -28,6 +28,7 @@ encounters:
     hp: 5
     ac: 12
     attack: pen +3, 1d4
+    ref: tropelandia.monster.kobold-accountant
   tactics: They sound the alarm if anyone takes an item without a receipt.
   treasure: ''
 traps: []

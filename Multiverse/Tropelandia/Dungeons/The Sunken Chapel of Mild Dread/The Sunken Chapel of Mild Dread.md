@@ -44,6 +44,8 @@ wandering:
 home_town: tropelandia.settlement.soggy-bottom
 factions:
 - tropelandia.faction.church-of-the-reasonably-benevolent
+quests:
+- tropelandia.quest.ring-once
 ---
 # The Sunken Chapel of Mild Dread
 

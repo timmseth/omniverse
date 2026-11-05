@@ -1,0 +1,18 @@
+name: Bug or broken content
+description: A note that fails validation, a broken link, a tool error, or an app problem.
+title: "Bug: <short description>"
+labels: [bug]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options: [Content (a note), Tools (_rules/tools), dmScreen app, Docs, Other]
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes: { label: What happened, description: Paste the validator output or the app screen if you have it. }
+    validations: { required: true }
+  - type: input
+    id: where
+    attributes: { label: File or screen, placeholder: Multiverse/Tropelandia/Dungeons/... or "dmScreen > Room card" }

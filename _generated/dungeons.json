@@ -106,7 +106,57 @@
          "count": 3,
          "hp": 5,
          "ac": 12,
-         "attack": "dagger +4, 1d4+2"
+         "attack": "dagger +4, 1d4+2",
+         "ref": "tropelandia.monster.kobold",
+         "stats": {
+          "id": "tropelandia.monster.kobold",
+          "name": "Kobold",
+          "size": "small",
+          "type": "humanoid (kobold)",
+          "threat": 12,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.125,
+           "ac": 12,
+           "hp": 5,
+           "hp_dice": "2d6-2",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 7,
+            "dex": 15,
+            "con": 9,
+            "int": 8,
+            "wis": 7,
+            "cha": 8
+           },
+           "senses": "darkvision 60 ft, passive Perception 8",
+           "languages": "Common, Draconic",
+           "traits": [
+            {
+             "name": "Sunlight Sensitivity",
+             "text": "Disadvantage on attacks and Perception checks relying on sight in sunlight."
+            },
+            {
+             "name": "Pack Tactics",
+             "text": "Advantage on attack rolls against a creature if an ally is within 5 ft of it."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Dagger",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 4 (1d4+2) piercing."
+            },
+            {
+             "name": "Sling",
+             "text": "Ranged, +4 to hit, range 30/120 ft. Hit: 4 (1d4+2) bludgeoning."
+            }
+           ],
+           "xp": 25,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Traps first, then numbers, then apologies.",
+          "lore": "Glintfang's staff. Loyal, underpaid, and fully insured."
+         }
         }
        ],
        "tactics": "They refuse entry until the party takes a ticket; combat only if shoved.",
@@ -227,7 +277,65 @@
          "count": 2,
          "hp": 40,
          "ac": 12,
-         "attack": "bite +5, 2d6"
+         "attack": "bite +5, 2d6",
+         "ref": "tropelandia.monster.mimic",
+         "stats": {
+          "id": "tropelandia.monster.mimic",
+          "name": "Mimic",
+          "size": "medium",
+          "type": "monstrosity (shapechanger)",
+          "threat": 24,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 2,
+           "ac": 12,
+           "hp": 58,
+           "hp_dice": "9d8+18",
+           "speed": "15 ft",
+           "abilities": {
+            "str": 17,
+            "dex": 12,
+            "con": 15,
+            "int": 5,
+            "wis": 13,
+            "cha": 8
+           },
+           "senses": "darkvision 60 ft, passive Perception 11",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Shapechanger",
+             "text": "Can take the form of an object or revert to its amorphous form."
+            },
+            {
+             "name": "Adhesive",
+             "text": "Adheres to anything that touches it while in object form; a Huge or smaller creature adhered is grappled (escape DC 13)."
+            },
+            {
+             "name": "False Appearance",
+             "text": "Indistinguishable from an ordinary object while motionless."
+            },
+            {
+             "name": "Grappler",
+             "text": "Advantage on attack rolls against any creature grappled by it."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Pseudopod",
+             "text": "Melee, +5 to hit, reach 5 ft. Hit: 7 (1d8+3) bludgeoning; if the mimic is in object form, the target is adhered."
+            },
+            {
+             "name": "Bite",
+             "text": "Melee, +5 to hit, reach 5 ft. Hit: 7 (1d8+3) piercing plus 4 (1d8) acid."
+            }
+           ],
+           "xp": 450,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Is a chair until it is not a chair.",
+          "lore": "Tropelandia's mimics have gone into hospitality."
+         }
         }
        ],
        "tactics": "Mirrors that copy the party's reflections attack on a failed appraisal.",
@@ -358,7 +466,53 @@
          "count": 1,
          "hp": 40,
          "ac": 12,
-         "attack": "dagger +4, 1d4+2; casts charm, suggestion"
+         "attack": "dagger +4, 1d4+2; casts charm, suggestion",
+         "ref": "tropelandia.monster.mage",
+         "stats": {
+          "id": "tropelandia.monster.mage",
+          "name": "Mage",
+          "size": "medium",
+          "type": "humanoid (any)",
+          "threat": 34,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 6,
+           "ac": 12,
+           "hp": 40,
+           "hp_dice": "9d8",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 9,
+            "dex": 14,
+            "con": 11,
+            "int": 17,
+            "wis": 12,
+            "cha": 11
+           },
+           "senses": "passive Perception 11",
+           "languages": "Common plus three",
+           "traits": [
+            {
+             "name": "Spellcasting (DC 14, +6)",
+             "text": "Cantrips: fire bolt, light, mage hand, prestidigitation. 1st (4): detect magic, mage armor, magic missile, shield. 2nd (3): misty step, suggestion. 3rd (3): counterspell, fireball, fly. 4th (3): greater invisibility, ice storm. 5th (1): cone of cold."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Dagger",
+             "text": "Melee or ranged, +5 to hit, reach 5 ft or range 20/60 ft. Hit: 4 (1d4+2) piercing."
+            },
+            {
+             "name": "Fire Bolt",
+             "text": "Ranged spell, +6 to hit, range 120 ft. Hit: 11 (2d10) fire."
+            }
+           ],
+           "xp": 2300,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Shield when hit, misty step when cornered, fireball when the furniture is not theirs.",
+          "lore": "The baseline for every wizard, librarian and dragon-in-disguise in Tropelandia."
+         }
         }
        ],
        "tactics": "She is courteous. She wants a contract, not a fight. If the party attacks, she reveals her true form.",
@@ -433,7 +587,69 @@
          "count": 1,
          "hp": 178,
          "ac": 18,
-         "attack": "bite +10, 2d10+6; fire breath 60 ft, 12d6"
+         "attack": "bite +10, 2d10+6; fire breath 60 ft, 12d6",
+         "ref": "tropelandia.monster.young-gold-dragon",
+         "stats": {
+          "id": "tropelandia.monster.young-gold-dragon",
+          "name": "Young Gold Dragon",
+          "size": "large",
+          "type": "dragon",
+          "threat": 47,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 10,
+           "ac": 18,
+           "hp": 178,
+           "hp_dice": "17d10+85",
+           "speed": "40 ft, fly 80 ft, swim 40 ft",
+           "abilities": {
+            "str": 23,
+            "dex": 14,
+            "con": 21,
+            "int": 16,
+            "wis": 13,
+            "cha": 20
+           },
+           "senses": "blindsight 30 ft, darkvision 120 ft, passive Perception 19",
+           "languages": "Common, Draconic",
+           "traits": [
+            {
+             "name": "Amphibious",
+             "text": "Breathes air and water."
+            },
+            {
+             "name": "Immunities",
+             "text": "Fire."
+            },
+            {
+             "name": "Change Shape (Glintfang)",
+             "text": "Can polymorph into a humanoid; uses the mage stat block in that form."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "One bite and two claw attacks."
+            },
+            {
+             "name": "Bite",
+             "text": "Melee, +10 to hit, reach 10 ft. Hit: 17 (2d10+6) piercing."
+            },
+            {
+             "name": "Claw",
+             "text": "Melee, +10 to hit, reach 5 ft. Hit: 13 (2d6+6) slashing."
+            },
+            {
+             "name": "Breath Weapons (recharge 5-6)",
+             "text": "Fire Breath: 30 ft cone, DC 17 Dexterity save, 55 (10d10) fire, half on a save. Weakening Breath: 30 ft cone, DC 17 Strength save or disadvantage on Strength-based rolls for 1 minute."
+            }
+           ],
+           "xp": 5900,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Negotiates. Breathes fire only on anyone who touches the portfolio without signing in.",
+          "lore": "Glintfang, proprietor of Glintfang Holdings, who found that a hoard grows faster if you lend it."
+         }
         }
        ],
        "tactics": "She fights only if robbed or insulted; she'll offer a trade first. In battle she uses her wings and breath, retreating into the coins.",
@@ -492,7 +708,57 @@
          "count": 2,
          "hp": 5,
          "ac": 12,
-         "attack": "pen +3, 1d4"
+         "attack": "pen +3, 1d4",
+         "ref": "tropelandia.monster.kobold-accountant",
+         "stats": {
+          "id": "tropelandia.monster.kobold-accountant",
+          "name": "Kobold Accountant",
+          "size": "small",
+          "type": "humanoid (kobold)",
+          "threat": 13,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 12,
+           "hp": 5,
+           "hp_dice": "2d6-2",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 7,
+            "dex": 15,
+            "con": 9,
+            "int": 14,
+            "wis": 12,
+            "cha": 10
+           },
+           "senses": "darkvision 60 ft, passive Perception 11",
+           "languages": "Common, Draconic",
+           "traits": [
+            {
+             "name": "Pack Tactics",
+             "text": "Advantage on attack rolls against a creature if an ally is within 5 ft of it."
+            },
+            {
+             "name": "Exact Change",
+             "text": "Knows the value of any coin, gem or art object on sight."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Pen",
+             "text": "Melee, +3 to hit, reach 5 ft. Hit: 2 (1d4) piercing."
+            },
+            {
+             "name": "Audit",
+             "text": "One creature within 30 ft must succeed on a DC 12 Intelligence save or have disadvantage on its next attack roll while it recounts its coins."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Does not want to fight. Wants a receipt.",
+          "lore": "The backbone of Glintfang Holdings."
+         }
         }
        ],
        "tactics": "They sound the alarm if anyone takes an item without a receipt.",
@@ -540,9 +806,36 @@
      "puzzles": [],
      "secrets": [],
      "loot": [
-      "A cursed ring of Opinions",
-      "A returned sword that sulks",
-      "A bag of holding (slightly used)"
+      {
+       "ref": "tropelandia.item.ring-of-opinions",
+       "name": "Ring of Opinions",
+       "type": "ring",
+       "rarity": "uncommon",
+       "attunement": true,
+       "description": "A plain gold band that warms when it disagrees with you, which is often.",
+       "mechanics": "While worn, you have advantage on Insight checks and disadvantage on Persuasion checks, because the ring keeps interrupting.",
+       "curse": "Cannot be removed until you concede a point to it out loud, in company."
+      },
+      {
+       "ref": "tropelandia.item.the-sulking-sword",
+       "name": "The Sulking Sword",
+       "type": "weapon",
+       "rarity": "uncommon",
+       "attunement": true,
+       "description": "A fine longsword with a magnificent hilt and an atmosphere.",
+       "mechanics": "+1 longsword. After any fight in which it did not deal the killing blow, it has -1 to hit for the next hour, and sighs audibly.",
+       "curse": ""
+      },
+      {
+       "ref": "tropelandia.item.bag-of-holding-slightly-used",
+       "name": "Bag of Holding (Slightly Used)",
+       "type": "wondrous",
+       "rarity": "uncommon",
+       "attunement": false,
+       "description": "A worn leather satchel, heavier inside than out, with somebody's initials picked off the flap.",
+       "mechanics": "Holds 500 lb up to 64 cubic ft; always weighs 15 lb. The bag already contains 1d4 small items of a previous owner's, DM's choice.",
+       "curse": ""
+      }
      ],
      "dmNotes": "Cursed Item trope as retail: everything has a defect, and a cheerful receipt."
     },
@@ -589,7 +882,57 @@
          "count": 6,
          "hp": 5,
          "ac": 12,
-         "attack": "dagger +4, 1d4+2"
+         "attack": "dagger +4, 1d4+2",
+         "ref": "tropelandia.monster.kobold",
+         "stats": {
+          "id": "tropelandia.monster.kobold",
+          "name": "Kobold",
+          "size": "small",
+          "type": "humanoid (kobold)",
+          "threat": 12,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.125,
+           "ac": 12,
+           "hp": 5,
+           "hp_dice": "2d6-2",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 7,
+            "dex": 15,
+            "con": 9,
+            "int": 8,
+            "wis": 7,
+            "cha": 8
+           },
+           "senses": "darkvision 60 ft, passive Perception 8",
+           "languages": "Common, Draconic",
+           "traits": [
+            {
+             "name": "Sunlight Sensitivity",
+             "text": "Disadvantage on attacks and Perception checks relying on sight in sunlight."
+            },
+            {
+             "name": "Pack Tactics",
+             "text": "Advantage on attack rolls against a creature if an ally is within 5 ft of it."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Dagger",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 4 (1d4+2) piercing."
+            },
+            {
+             "name": "Sling",
+             "text": "Ranged, +4 to hit, range 30/120 ft. Hit: 4 (1d4+2) bludgeoning."
+            }
+           ],
+           "xp": 25,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Traps first, then numbers, then apologies.",
+          "lore": "Glintfang's staff. Loyal, underpaid, and fully insured."
+         }
         }
        ],
        "tactics": "Friendly unless threatened; they'll sell the party the layout of the hoard for a drink.",
@@ -600,7 +943,16 @@
      "puzzles": [],
      "secrets": [],
      "loot": [
-      "A staff map (reveals the hoard's layout)"
+      {
+       "ref": "tropelandia.item.glintfangs-staff-map",
+       "name": "Glintfang's Staff Map",
+       "type": "wondrous",
+       "rarity": "rare",
+       "attunement": false,
+       "description": "A kobold-drawn map of the Hoard, annotated in a very small hand with fire-exit routes and the location of the good biscuits.",
+       "mechanics": "Reveals the layout of Glintfang's Hoard. Advantage on Survival checks to navigate it.",
+       "curse": ""
+      }
      ],
      "dmNotes": ""
     }
@@ -663,7 +1015,7 @@
    },
    "tropes": [
     "Wizard in a Tower",
-    "Mimic",
+    "The Mimic",
     "Cursed Item"
    ],
    "author": "seth",
@@ -727,7 +1079,53 @@
          "count": 1,
          "hp": 17,
          "ac": 17,
-         "attack": "slam +3, 1d6+1"
+         "attack": "slam +3, 1d6+1",
+         "ref": "tropelandia.monster.flying-sword",
+         "stats": {
+          "id": "tropelandia.monster.flying-sword",
+          "name": "Flying Sword",
+          "size": "small",
+          "type": "construct",
+          "threat": 14,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 17,
+           "hp": 17,
+           "hp_dice": "5d6",
+           "speed": "0 ft, fly 50 ft (hover)",
+           "abilities": {
+            "str": 12,
+            "dex": 15,
+            "con": 11,
+            "int": 1,
+            "wis": 5,
+            "cha": 1
+           },
+           "senses": "blindsight 60 ft, passive Perception 7",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Antimagic Susceptibility",
+             "text": "As animated armor."
+            },
+            {
+             "name": "False Appearance",
+             "text": "Indistinguishable from a normal sword (or broom) while motionless."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Longsword",
+             "text": "Melee, +3 to hit, reach 5 ft. Hit: 5 (1d8+1) slashing."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Flies at faces. In broom form, sweeps at ankles.",
+          "lore": "Marlowe's housework, automated."
+         }
         }
        ],
        "tactics": "It tries to remove the party's boots, and fights if refused; it can be bribed with a nice polish.",
@@ -784,7 +1182,53 @@
          "count": 1,
          "hp": 13,
          "ac": 13,
-         "attack": "ladle +4, 1d6+2"
+         "attack": "ladle +4, 1d6+2",
+         "ref": "tropelandia.monster.skeleton",
+         "stats": {
+          "id": "tropelandia.monster.skeleton",
+          "name": "Skeleton",
+          "size": "medium",
+          "type": "undead",
+          "threat": 14,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 13,
+           "hp": 13,
+           "hp_dice": "2d8+4",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 10,
+            "dex": 14,
+            "con": 15,
+            "int": 6,
+            "wis": 8,
+            "cha": 5
+           },
+           "senses": "darkvision 60 ft, passive Perception 9",
+           "languages": "understands its old languages",
+           "traits": [
+            {
+             "name": "Undead Nature",
+             "text": "Vulnerable to bludgeoning. Immune to poison; cannot be exhausted or poisoned."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Shortsword",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) piercing."
+            },
+            {
+             "name": "Shortbow",
+             "text": "Ranged, +4 to hit, range 80/320 ft. Hit: 5 (1d6+2) piercing."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Does exactly what it was told, for as long as it takes.",
+          "lore": "The dead of Tropelandia keep working. It is in the contract."
+         }
         }
        ],
        "tactics": "Gerald will serve the party soup and ask them to leave; he fights only if the soup is insulted.",
@@ -796,7 +1240,16 @@
      "secrets": [],
      "loot": [
       "The cellar key",
-      "A pot of healing soup (restores 1d8 HP)",
+      {
+       "ref": "tropelandia.item.pot-of-healing-soup",
+       "name": "Pot of Healing Soup",
+       "type": "consumable",
+       "rarity": "common",
+       "attunement": false,
+       "description": "A dented copper pot, warm to the touch, of something with carrots in it.",
+       "mechanics": "Four servings. Eat a serving as an action: regain 1d8 hit points. The pot refills with cold soup at dawn, which heals nothing but is quite nice.",
+       "curse": ""
+      },
       "Marlowe's overdue rent notices (11)"
      ],
      "dmNotes": "The soup is genuinely nourishing; the skeleton is a good-natured cook who wants a day off."
@@ -867,7 +1320,16 @@
      ],
      "secrets": [],
      "loot": [
-      "A scroll of Feather Fall tucked in a menu",
+      {
+       "ref": "tropelandia.item.scroll-of-feather-fall",
+       "name": "Scroll of Feather Fall",
+       "type": "scroll",
+       "rarity": "common",
+       "attunement": false,
+       "description": "A spell scroll tucked into a tavern menu between the pies and the stews.",
+       "mechanics": "Cast feather fall from the scroll once.",
+       "curse": ""
+      },
       "A first-edition Guide to Reasonable Rent"
      ],
      "dmNotes": "Light puzzle, quick to solve; the library is the trope's first obstacle."
@@ -908,7 +1370,53 @@
          "count": 1,
          "hp": 22,
          "ac": 13,
-         "attack": "talons +4, 1d6+2"
+         "attack": "talons +4, 1d6+2",
+         "ref": "tropelandia.monster.animated-owl",
+         "stats": {
+          "id": "tropelandia.monster.animated-owl",
+          "name": "Animated Owl",
+          "size": "tiny",
+          "type": "construct",
+          "threat": 14,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 13,
+           "hp": 22,
+           "hp_dice": "5d4+10",
+           "speed": "5 ft, fly 60 ft",
+           "abilities": {
+            "str": 3,
+            "dex": 16,
+            "con": 14,
+            "int": 1,
+            "wis": 8,
+            "cha": 1
+           },
+           "senses": "darkvision 60 ft, passive Perception 9",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Constructed",
+             "text": "Immune to poison and psychic damage; cannot be charmed, frightened, paralysed, petrified or poisoned."
+            },
+            {
+             "name": "False Appearance",
+             "text": "Indistinguishable from a stuffed owl while motionless."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Talons",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) slashing."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Dive at eyes. Retreat to the rafters and judge.",
+          "lore": "Marlowe's familiar, taxidermied during a budget crisis and reanimated after it."
+         }
         }
        ],
        "tactics": "Attacks if the pie is stolen or the trophy touched.",
@@ -932,7 +1440,16 @@
       }
      ],
      "loot": [
-      "The disputed pie trophy (worth 50 gp, worth a lot more to Rosalind)",
+      {
+       "ref": "tropelandia.item.the-disputed-pie-trophy",
+       "name": "The Disputed Pie Trophy",
+       "type": "treasure",
+       "rarity": "mundane",
+       "attunement": false,
+       "description": "A silver trophy in the shape of a pie, inscribed FIRST PRIZE, with the name scratched out and rewritten three times.",
+       "mechanics": "",
+       "curse": ""
+      },
       "Marlowe's private recipe for blackberry pie",
       "A signed IOU from the Mayor"
      ],
@@ -988,7 +1505,53 @@
          "count": 1,
          "hp": 9,
          "ac": 10,
-         "attack": "staff +2, 1d6"
+         "attack": "staff +2, 1d6",
+         "ref": "tropelandia.monster.acolyte",
+         "stats": {
+          "id": "tropelandia.monster.acolyte",
+          "name": "Acolyte",
+          "size": "medium",
+          "type": "humanoid (any)",
+          "threat": 13,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 10,
+           "hp": 9,
+           "hp_dice": "2d8",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 10,
+            "dex": 10,
+            "con": 10,
+            "int": 10,
+            "wis": 14,
+            "cha": 11
+           },
+           "senses": "passive Perception 12",
+           "languages": "Common",
+           "traits": [
+            {
+             "name": "Spellcasting",
+             "text": "Knows bless, cure wounds and sanctuary (1st level, 3 slots), plus light, sacred flame and thaumaturgy."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Club",
+             "text": "Melee, +2 to hit, reach 5 ft. Hit: 2 (1d4) bludgeoning."
+            },
+            {
+             "name": "Sacred Flame",
+             "text": "Ranged spell, range 60 ft. DC 12 Dexterity save or 4 (1d8) radiant."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Heals first, prays second, hits with a club only when very upset.",
+          "lore": "Apprentices, novices and the occasional helpful ghost."
+         }
         }
        ],
        "tactics": "Not hostile; wants a change. Might join the party if the party offers a better salary.",
@@ -999,7 +1562,16 @@
      "puzzles": [],
      "secrets": [],
      "loot": [
-      "A robe of useful items (as Robe of Useful Items, with only rent receipts in the patches)"
+      {
+       "ref": "tropelandia.item.robe-of-rent-receipts",
+       "name": "Robe of Rent Receipts",
+       "type": "wondrous",
+       "rarity": "uncommon",
+       "attunement": true,
+       "description": "A wizard's robe patched with what look like useful pockets and are in fact receipts.",
+       "mechanics": "As a robe of useful items, except every patch produces a rent receipt for a different property. Two patches, DM's choice, produce something useful anyway.",
+       "curse": ""
+      }
      ],
      "dmNotes": "Wizard in a Tower hook: the party can be recruited as the next apprentice."
     },
@@ -1093,7 +1665,53 @@
          "count": 1,
          "hp": 40,
          "ac": 12,
-         "attack": "firebolt +6, 2d10; spells: fireball, counterspell, misty step"
+         "attack": "firebolt +6, 2d10; spells: fireball, counterspell, misty step",
+         "ref": "tropelandia.monster.mage",
+         "stats": {
+          "id": "tropelandia.monster.mage",
+          "name": "Mage",
+          "size": "medium",
+          "type": "humanoid (any)",
+          "threat": 34,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 6,
+           "ac": 12,
+           "hp": 40,
+           "hp_dice": "9d8",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 9,
+            "dex": 14,
+            "con": 11,
+            "int": 17,
+            "wis": 12,
+            "cha": 11
+           },
+           "senses": "passive Perception 11",
+           "languages": "Common plus three",
+           "traits": [
+            {
+             "name": "Spellcasting (DC 14, +6)",
+             "text": "Cantrips: fire bolt, light, mage hand, prestidigitation. 1st (4): detect magic, mage armor, magic missile, shield. 2nd (3): misty step, suggestion. 3rd (3): counterspell, fireball, fly. 4th (3): greater invisibility, ice storm. 5th (1): cone of cold."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Dagger",
+             "text": "Melee or ranged, +5 to hit, reach 5 ft or range 20/60 ft. Hit: 4 (1d4+2) piercing."
+            },
+            {
+             "name": "Fire Bolt",
+             "text": "Ranged spell, +6 to hit, range 120 ft. Hit: 11 (2d10) fire."
+            }
+           ],
+           "xp": 2300,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Shield when hit, misty step when cornered, fireball when the furniture is not theirs.",
+          "lore": "The baseline for every wizard, librarian and dragon-in-disguise in Tropelandia."
+         }
         }
        ],
        "tactics": "He fights only if the party attempts to take the tower's key artefact, or insults his pie. Prefers a bribe, a reasonable rent plan, or a good apprentice.",
@@ -1116,8 +1734,26 @@
      ],
      "secrets": [],
      "loot": [
-      "A wand of mild magic missiles",
-      "Marlowe's pointed hat (cursed: you cannot take it off, and people think you're funnier)"
+      {
+       "ref": "tropelandia.item.wand-of-mild-magic-missiles",
+       "name": "Wand of Mild Magic Missiles",
+       "type": "wand",
+       "rarity": "uncommon",
+       "attunement": false,
+       "description": "A slim wand of birch, a little bent, with a label reading NOT FOR INDOOR USE.",
+       "mechanics": "7 charges. Action: cast magic missile at 1st level (1 charge) or higher (1 charge per level). Each dart does 1d4+1 force and a small apology. Regains 1d6+1 charges at dawn; on a 1 for the last charge, the wand sulks and does nothing for a week.",
+       "curse": ""
+      },
+      {
+       "ref": "tropelandia.item.marlowes-pointed-hat",
+       "name": "Marlowe's Pointed Hat",
+       "type": "wondrous",
+       "rarity": "uncommon",
+       "attunement": true,
+       "description": "A tall blue hat with stars, bent at the tip, that fits anyone who puts it on.",
+       "mechanics": "While worn, people think you are funnier than you are: advantage on Performance checks to amuse.",
+       "curse": "Cannot be removed. People will not stop laughing at you, even when you are serious."
+      }
      ],
      "dmNotes": "Marlowe is a Wizard in a Tower, played straight: sympathetic, trapped by money. His grudge with Rosalind is nemesis-system material."
     },
@@ -1157,7 +1793,57 @@
          "count": 1,
          "hp": 45,
          "ac": 8,
-         "attack": "pseudopod +5, 2d6 acid"
+         "attack": "pseudopod +5, 2d6 acid",
+         "ref": "tropelandia.monster.green-slime-vat",
+         "stats": {
+          "id": "tropelandia.monster.green-slime-vat",
+          "name": "Green Slime Vat",
+          "size": "large",
+          "type": "ooze",
+          "threat": 24,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 2,
+           "ac": 8,
+           "hp": 45,
+           "hp_dice": "6d10+12",
+           "speed": "10 ft",
+           "abilities": {
+            "str": 14,
+            "dex": 6,
+            "con": 14,
+            "int": 1,
+            "wis": 6,
+            "cha": 2
+           },
+           "senses": "blindsight 60 ft (blind beyond), passive Perception 8",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Amorphous",
+             "text": "Can move through a 1-inch gap."
+            },
+            {
+             "name": "Corrosive Form",
+             "text": "A creature that touches it or hits it with a melee attack while within 5 ft takes 3 (1d6) acid."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Pseudopod",
+             "text": "Melee, +5 to hit, reach 5 ft. Hit: 7 (2d6) acid; non-magical metal armour hit is corroded (-1 AC, cumulative)."
+            },
+            {
+             "name": "Engulf",
+             "text": "A creature grappled by the slime takes 10 (3d6) acid at the start of each of the slime's turns."
+            }
+           ],
+           "xp": 450,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Overflows the vat when disturbed. Follows metal.",
+          "lore": "An experiment Marlowe stopped feeding, which did not stop it."
+         }
         }
        ],
        "tactics": "The ooze attacks anyone who stirs the vat; it can be calmed with flour (Marlowe's kitchen).",
@@ -1176,8 +1862,26 @@
      "puzzles": [],
      "secrets": [],
      "loot": [
-      "A potion of growth",
-      "A potion of hair restoration",
+      {
+       "ref": "tropelandia.item.potion-of-growth",
+       "name": "Potion of Growth",
+       "type": "potion",
+       "rarity": "uncommon",
+       "attunement": false,
+       "description": "A green potion that bubbles upward.",
+       "mechanics": "Drink: as enlarge for 1d4 hours.",
+       "curse": ""
+      },
+      {
+       "ref": "tropelandia.item.potion-of-hair-restoration",
+       "name": "Potion of Hair Restoration",
+       "type": "potion",
+       "rarity": "common",
+       "attunement": false,
+       "description": "A brown bottle labelled in Marlowe's handwriting: EXPERIMENTAL. DO NOT DRINK WHILE BALD.",
+       "mechanics": "Drink: regrow a full head of hair in 1 minute, in a colour of the DM's choice. Also works on the chin, the palms and, if spilled, the floor.",
+       "curse": ""
+      },
       "Marlowe's secret: a copy of the unpaid dragon bill from the pantry"
      ],
      "dmNotes": "Where Marlowe hides his experiments. The ooze is a small boss for a low-level party."
@@ -1345,7 +2049,53 @@
          "count": 4,
          "hp": 7,
          "ac": 12,
-         "attack": "bite +4, 1d4+2"
+         "attack": "bite +4, 1d4+2",
+         "ref": "tropelandia.monster.giant-rat",
+         "stats": {
+          "id": "tropelandia.monster.giant-rat",
+          "name": "Giant Rat",
+          "size": "small",
+          "type": "beast",
+          "threat": 12,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.125,
+           "ac": 12,
+           "hp": 7,
+           "hp_dice": "2d6",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 7,
+            "dex": 15,
+            "con": 11,
+            "int": 2,
+            "wis": 10,
+            "cha": 4
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Keen Smell",
+             "text": "Advantage on Wisdom (Perception) checks that rely on smell."
+            },
+            {
+             "name": "Pack Tactics",
+             "text": "Advantage on attack rolls against a creature if at least one ally is within 5 ft of it."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Bite",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 4 (1d4+2) piercing."
+            }
+           ],
+           "xp": 25,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Swarm the nearest ankle. Flee when half the pack is down, unless the Rat King is watching.",
+          "lore": "The rats of Barrowdale are organised, literate and under the impression that they are employees."
+         }
         }
        ],
        "tactics": "Rats dart out from behind the barrels and try to split the party; they flee when two are killed, and tell the Rat King.",
@@ -1453,14 +2203,110 @@
          "count": 2,
          "hp": 7,
          "ac": 12,
-         "attack": "bite +4, 1d4+2"
+         "attack": "bite +4, 1d4+2",
+         "ref": "tropelandia.monster.giant-rat",
+         "stats": {
+          "id": "tropelandia.monster.giant-rat",
+          "name": "Giant Rat",
+          "size": "small",
+          "type": "beast",
+          "threat": 12,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.125,
+           "ac": 12,
+           "hp": 7,
+           "hp_dice": "2d6",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 7,
+            "dex": 15,
+            "con": 11,
+            "int": 2,
+            "wis": 10,
+            "cha": 4
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Keen Smell",
+             "text": "Advantage on Wisdom (Perception) checks that rely on smell."
+            },
+            {
+             "name": "Pack Tactics",
+             "text": "Advantage on attack rolls against a creature if at least one ally is within 5 ft of it."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Bite",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 4 (1d4+2) piercing."
+            }
+           ],
+           "xp": 25,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Swarm the nearest ankle. Flee when half the pack is down, unless the Rat King is watching.",
+          "lore": "The rats of Barrowdale are organised, literate and under the impression that they are employees."
+         }
         },
         {
          "name": "Rat Sommelier",
          "count": 1,
          "hp": 9,
          "ac": 13,
-         "attack": "bite +4, 1d4+2 (disadvantage if the party is rude about the wine)"
+         "attack": "bite +4, 1d4+2 (disadvantage if the party is rude about the wine)",
+         "ref": "tropelandia.monster.rat-sommelier",
+         "stats": {
+          "id": "tropelandia.monster.rat-sommelier",
+          "name": "Rat Sommelier",
+          "size": "small",
+          "type": "beast",
+          "threat": 13,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 13,
+           "hp": 9,
+           "hp_dice": "2d6+2",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 7,
+            "dex": 16,
+            "con": 12,
+            "int": 10,
+            "wis": 13,
+            "cha": 14
+           },
+           "senses": "darkvision 60 ft, passive Perception 11",
+           "languages": "Common (squeaked)",
+           "traits": [
+            {
+             "name": "Keen Smell",
+             "text": "As giant rat, and can identify any vintage by it."
+            },
+            {
+             "name": "Nimble Escape",
+             "text": "Disengage or Hide as a bonus action."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Bite",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 4 (1d4+2) piercing; disadvantage if the party has been polite about the wine."
+            },
+            {
+             "name": "Recommend",
+             "text": "One creature within 10 ft must succeed on a DC 11 Wisdom save or spend its next action tasting."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Guards the cellar's good bottles. Will trade.",
+          "lore": "Keeper of the innkeeper's wine, which the innkeeper does not know he still has."
+         }
         }
        ],
        "tactics": "The sommelier tries to bargain; refuse and it signals the rest.",
@@ -1574,14 +2420,106 @@
          "count": 8,
          "hp": 7,
          "ac": 12,
-         "attack": "bite +4, 1d4+2"
+         "attack": "bite +4, 1d4+2",
+         "ref": "tropelandia.monster.giant-rat",
+         "stats": {
+          "id": "tropelandia.monster.giant-rat",
+          "name": "Giant Rat",
+          "size": "small",
+          "type": "beast",
+          "threat": 12,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.125,
+           "ac": 12,
+           "hp": 7,
+           "hp_dice": "2d6",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 7,
+            "dex": 15,
+            "con": 11,
+            "int": 2,
+            "wis": 10,
+            "cha": 4
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Keen Smell",
+             "text": "Advantage on Wisdom (Perception) checks that rely on smell."
+            },
+            {
+             "name": "Pack Tactics",
+             "text": "Advantage on attack rolls against a creature if at least one ally is within 5 ft of it."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Bite",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 4 (1d4+2) piercing."
+            }
+           ],
+           "xp": 25,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Swarm the nearest ankle. Flee when half the pack is down, unless the Rat King is watching.",
+          "lore": "The rats of Barrowdale are organised, literate and under the impression that they are employees."
+         }
         },
         {
          "name": "Swarm of rats",
          "count": 1,
          "hp": 24,
          "ac": 10,
-         "attack": "bites +2, 2d6 (half when below half HP)"
+         "attack": "bites +2, 2d6 (half when below half HP)",
+         "ref": "tropelandia.monster.swarm-of-rats",
+         "stats": {
+          "id": "tropelandia.monster.swarm-of-rats",
+          "name": "Swarm of Rats",
+          "size": "medium",
+          "type": "swarm of tiny beasts",
+          "threat": 14,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 10,
+           "hp": 24,
+           "hp_dice": "7d8-7",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 9,
+            "dex": 11,
+            "con": 9,
+            "int": 2,
+            "wis": 10,
+            "cha": 3
+           },
+           "senses": "darkvision 30 ft, passive Perception 10",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Swarm",
+             "text": "Can occupy another creature's space and move through any gap a Tiny rat could. Cannot regain hit points or gain temporary hit points."
+            },
+            {
+             "name": "Keen Smell",
+             "text": "Advantage on Perception checks that rely on smell."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Bites",
+             "text": "Melee, +2 to hit, reach 0 ft. Hit: 7 (2d6) piercing, or 3 (1d6) if the swarm is at half hit points or fewer."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Flow over whoever is carrying food.",
+          "lore": ""
+         }
         }
        ],
        "tactics": "The horde fights to protect the throne; they hold if the party parleys with a bribe (cheese or coin), and will not attack anyone carrying the Cheese Wheel.",
@@ -1633,14 +2571,110 @@
          "count": 1,
          "hp": 22,
          "ac": 12,
-         "attack": "bite +4, 1d6+2"
+         "attack": "bite +4, 1d6+2",
+         "ref": "tropelandia.monster.rat-king",
+         "stats": {
+          "id": "tropelandia.monster.rat-king",
+          "name": "Rat King",
+          "size": "small",
+          "type": "beast",
+          "threat": 16,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.5,
+           "ac": 12,
+           "hp": 22,
+           "hp_dice": "5d6+5",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 9,
+            "dex": 15,
+            "con": 13,
+            "int": 8,
+            "wis": 12,
+            "cha": 12
+           },
+           "senses": "darkvision 60 ft, passive Perception 11",
+           "languages": "Common (squeaked)",
+           "traits": [
+            {
+             "name": "Keen Smell",
+             "text": "As giant rat."
+            },
+            {
+             "name": "Cunning",
+             "text": "Advantage on Insight and Deception checks; knows the terms of every contract posted in the Gilded Tankard."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Bite",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) piercing."
+            },
+            {
+             "name": "Royal Decree",
+             "text": "Each rat within 30 ft that can hear the King gains advantage on its next attack roll."
+            }
+           ],
+           "xp": 100,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Negotiates from the throne. Fights only if the throne is threatened.",
+          "lore": "Nine years of unpaid bills, a tiny crown, and a legal position that is, annoyingly, quite strong."
+         }
         },
         {
          "name": "Giant rat guard",
          "count": 4,
          "hp": 7,
          "ac": 12,
-         "attack": "bite +4, 1d4+2"
+         "attack": "bite +4, 1d4+2",
+         "ref": "tropelandia.monster.giant-rat",
+         "stats": {
+          "id": "tropelandia.monster.giant-rat",
+          "name": "Giant Rat",
+          "size": "small",
+          "type": "beast",
+          "threat": 12,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.125,
+           "ac": 12,
+           "hp": 7,
+           "hp_dice": "2d6",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 7,
+            "dex": 15,
+            "con": 11,
+            "int": 2,
+            "wis": 10,
+            "cha": 4
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Keen Smell",
+             "text": "Advantage on Wisdom (Perception) checks that rely on smell."
+            },
+            {
+             "name": "Pack Tactics",
+             "text": "Advantage on attack rolls against a creature if at least one ally is within 5 ft of it."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Bite",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 4 (1d4+2) piercing."
+            }
+           ],
+           "xp": 25,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Swarm the nearest ankle. Flee when half the pack is down, unless the Rat King is watching.",
+          "lore": "The rats of Barrowdale are organised, literate and under the impression that they are employees."
+         }
         }
        ],
        "tactics": "He'd prefer to talk. He wants a lower rent (the inn charges him 1 cheese/day), a place on the inn's council, and the nine-year notice taken down. If attacked, his guards fight to the death; he flees through a hole in the wall.",
@@ -1667,6 +2701,489 @@
       "The spectacles"
      ],
      "dmNotes": "Gentle subversion of Kill Ten Rats: the ten-rat notice is a joke about bureaucracy. A sweet ending is on offer; the party can still choose violence."
+    }
+   ]
+  },
+  {
+   "id": "ashfall.dungeon.the-cold-vault",
+   "code": "CVT",
+   "name": "The Cold Vault",
+   "universe": "ashfall",
+   "place": {
+    "id": "ashfall.region.the-cinder-road",
+    "name": "The Cinder Road",
+    "path": [
+     "Ashfall",
+     "Material Plane",
+     "The Galaxy",
+     "The Sun",
+     "Hearth",
+     "The Mainland",
+     "The Cinder Road"
+    ]
+   },
+   "levelRange": [
+    1,
+    3
+   ],
+   "tone": "grim, quiet, cold",
+   "tags": [
+    "rift",
+    "undead",
+    "bureaucracy",
+    "two-floors"
+   ],
+   "summary": "A vault in the hillside that the Wardens' oath says must stay shut. It opened at dawn. Inside, the dead of the Road are queueing for something, and the something has a counter, a ledger and a bell.",
+   "hooks": [
+    "The Warden pays in oil to learn what opened the Vault.",
+    "Kettle's paper from the dark has a number, and the number is next.",
+    "Brother Ash heard the Flame ask for an appointment."
+   ],
+   "rumours": [
+    "The dead do not rot in the Vault. They wait.",
+    "There is a light down there that is not fire.",
+    "Someone has written the living's names on stones."
+   ],
+   "wandering": {
+    "die": "d6",
+    "entries": [
+     "1: A lamp gutters; difficulty +1 until trimmed",
+     "2: An Ash Walker, standing, facing the warm door",
+     "3: A page turns, somewhere below",
+     "4: A Lamp Thief, already behind you",
+     "5: The NOW SERVING sign ticks up by one. Everyone's paper is checked.",
+     "6: Nothing. The cold gets into the boots."
+    ]
+   },
+   "tropes": [
+    "Ancient Evil Released by Dumb Adventurers",
+    "The Lich"
+   ],
+   "author": "seth",
+   "status": "sample",
+   "entry": "ashfall.room.the-cold-vault.01-the-door",
+   "rooms": [
+    {
+     "id": "ashfall.room.the-cold-vault.01-the-door",
+     "number": 1,
+     "code": "CVT-01",
+     "name": "The Door",
+     "floor": 0,
+     "pos": [
+      0,
+      0
+     ],
+     "light": "dim",
+     "size": "20 x 20 ft",
+     "exits": [
+      {
+       "dir": "s",
+       "to": "ashfall.room.the-cold-vault.02-the-stair",
+       "kind": "stairs",
+       "state": "open",
+       "note": "down into the cold"
+      },
+      {
+       "dir": "out",
+       "to": "outside",
+       "kind": "door",
+       "state": "open",
+       "note": "the Vault door, open since dawn"
+      }
+     ],
+     "readAloud": "A door of black iron stands open in the hillside, ash drifting over the sill. The air that comes up the stair behind it is colder than the night. On the lintel, in the old imperial script: KEEP SHUT.",
+     "features": [
+      "The Wardens' oath is carved on the inside of the door, where only someone leaving would read it.",
+      "Fresh boot prints in the ash, going in. One set."
+     ],
+     "encounters": [],
+     "traps": [],
+     "puzzles": [],
+     "secrets": [
+      {
+       "description": "The door's lock was not forced. It was opened from inside.",
+       "dc": 2
+      }
+     ],
+     "loot": [],
+     "dmNotes": "Kettle's prints. He came back out, but his prints do not."
+    },
+    {
+     "id": "ashfall.room.the-cold-vault.02-the-stair",
+     "number": 2,
+     "code": "CVT-02",
+     "name": "The Stair",
+     "floor": 0,
+     "pos": [
+      0,
+      1
+     ],
+     "light": "dark",
+     "size": "10 ft wide, 60 ft long",
+     "exits": [
+      {
+       "dir": "n",
+       "to": "ashfall.room.the-cold-vault.01-the-door",
+       "kind": "stairs",
+       "state": "open",
+       "note": ""
+      },
+      {
+       "dir": "d",
+       "to": "ashfall.room.the-cold-vault.03-the-cold-hall",
+       "kind": "stairs",
+       "state": "open",
+       "note": ""
+      }
+     ],
+     "readAloud": "The stair goes down in the dark, each step rimed with frost. Your lamps burn blue. Somewhere below, a sound like a page turning.",
+     "features": [
+      "Frost thickens with every step.",
+      "Lamps burn blue and give half their light (difficulty +1 to see)."
+     ],
+     "encounters": [],
+     "traps": [
+      {
+       "name": "The Blue Step",
+       "trigger": "Stepping on the thirtieth step",
+       "effect": "The step is ice over nothing; fall 20 ft to the Cold Hall, one harm",
+       "detect_dc": 2,
+       "disarm_dc": 2
+      }
+     ],
+     "puzzles": [],
+     "secrets": [],
+     "loot": [],
+     "dmNotes": "The sound is the Counting Thing, below, turning the ledger."
+    },
+    {
+     "id": "ashfall.room.the-cold-vault.03-the-cold-hall",
+     "number": 3,
+     "code": "CVT-03",
+     "name": "The Cold Hall",
+     "floor": -1,
+     "pos": [
+      0,
+      1
+     ],
+     "light": "dark",
+     "size": "40 x 60 ft",
+     "exits": [
+      {
+       "dir": "u",
+       "to": "ashfall.room.the-cold-vault.02-the-stair",
+       "kind": "stairs",
+       "state": "open",
+       "note": ""
+      },
+      {
+       "dir": "e",
+       "to": "ashfall.room.the-cold-vault.04-the-shelves",
+       "kind": "archway",
+       "state": "open",
+       "note": ""
+      },
+      {
+       "dir": "w",
+       "to": "ashfall.room.the-cold-vault.05-the-queue",
+       "kind": "door",
+       "state": "closed",
+       "note": "a plain door, warm to the touch"
+      }
+     ],
+     "readAloud": "A hall of black stone, pillars lost in the dark above. The floor is ash, undisturbed except for one path of prints, and along the walls stand the dead of Lastlight, upright, waiting, facing the warm door to the west.",
+     "features": [
+      "Thirty Ash Walkers stand along the walls. They do not move while the lamps are lit.",
+      "A path through the ash leads west to the warm door."
+     ],
+     "encounters": [
+      {
+       "name": "The standing dead",
+       "monsters": [
+        {
+         "ref": "ashfall.monster.ash-walker",
+         "count": 6,
+         "name": "Ash Walker",
+         "hp": 3,
+         "ac": 2,
+         "attack": "Grabs. A grabbed character rolls Body 2 to break free or takes a harm each turn.",
+         "stats": {
+          "id": "ashfall.monster.ash-walker",
+          "name": "Ash Walker",
+          "size": "medium",
+          "type": "undead",
+          "threat": 64,
+          "ruleset": "omniverse.ruleset.six-sides",
+          "block": {
+           "traits": {
+            "body": 3,
+            "wits": 1,
+            "nerve": 3,
+            "grace": 2
+           },
+           "harm": 3,
+           "difficulty": 2,
+           "moves": [
+            {
+             "name": "Grey Hands",
+             "text": "Grabs. A grabbed character rolls Body 2 to break free or takes a harm each turn."
+            },
+            {
+             "name": "Walks When the Lamps Go Out",
+             "text": "Cannot act in lamplight; moves double in the dark."
+            }
+           ],
+           "ruleset": "six_sides"
+          },
+          "tactics": "Comes in the dark. Stops at the light. Waits.",
+          "lore": "The dead of the Road, who did not stop walking when the sun dimmed."
+         }
+        }
+       ],
+       "tactics": "They do nothing while a lamp burns. If a lamp goes out, the six nearest step forward. They want the warm door, not the party."
+      }
+     ],
+     "traps": [],
+     "puzzles": [],
+     "secrets": [
+      {
+       "description": "The dead are not facing the party. They are queueing.",
+       "dc": 1
+      }
+     ],
+     "loot": [],
+     "dmNotes": "Six is what moves if a lamp fails; the rest keep queueing. Relighting a lamp stops them where they stand."
+    },
+    {
+     "id": "ashfall.room.the-cold-vault.04-the-shelves",
+     "number": 4,
+     "code": "CVT-04",
+     "name": "The Shelves",
+     "floor": -1,
+     "pos": [
+      1,
+      1
+     ],
+     "light": "dark",
+     "size": "30 x 30 ft",
+     "exits": [
+      {
+       "dir": "w",
+       "to": "ashfall.room.the-cold-vault.03-the-cold-hall",
+       "kind": "archway",
+       "state": "open",
+       "note": ""
+      }
+     ],
+     "readAloud": "Shelves of grey slate rise into the dark, each slot holding a flat stone with a name cut into it. Thousands. A few at the bottom are warm, and the names on them are people in Lastlight who are still alive.",
+     "features": [
+      "The stones are the dead of the Road, filed.",
+      "The warm stones name the living, with a date beside each name."
+     ],
+     "encounters": [],
+     "traps": [],
+     "puzzles": [
+      {
+       "name": "The Dates",
+       "description": "Each warm stone bears a name and a date in the Ashfall calendar. The dates are all within the next winter.",
+       "solution": "They are not death dates. They are appointment dates: when the named will be called to the queue. Warden Vosk's is first.",
+       "hints": [
+        "The dates are all in the same winter.",
+        "Brother Ash's stone has a note: 'spoke to; has no appointment'.",
+        "The Counting Thing hands out numbers. These are the numbers."
+       ],
+       "reward": "Knowing the Warden's date lets the party warn her, which is worth a Warden's writ and a year of oil."
+      }
+     ],
+     "secrets": [],
+     "loot": [
+      "A warm stone with a party member's name on it, and a date"
+     ],
+     "dmNotes": "The shelves are the Office of Eternal Records' overflow. It has been filing Ashfall's dead through the Rift for two centuries."
+    },
+    {
+     "id": "ashfall.room.the-cold-vault.05-the-queue",
+     "number": 5,
+     "code": "CVT-05",
+     "name": "The Queue",
+     "floor": -1,
+     "pos": [
+      -1,
+      1
+     ],
+     "light": "dim",
+     "size": "20 x 80 ft",
+     "exits": [
+      {
+       "dir": "e",
+       "to": "ashfall.room.the-cold-vault.03-the-cold-hall",
+       "kind": "door",
+       "state": "closed",
+       "note": ""
+      },
+      {
+       "dir": "n",
+       "to": "ashfall.room.the-cold-vault.06-the-counter",
+       "kind": "archway",
+       "state": "open",
+       "note": "a rope barrier, politely"
+      }
+     ],
+     "readAloud": "A long warm corridor lit by a light that is not fire. A rope on brass posts runs its length. Along it, more of the dead, each holding a grey paper, each shuffling one step forward every few minutes toward an archway at the far end. A sign on the wall reads NOW SERVING, and a number. The number has not changed in two hundred years.",
+     "features": [
+      "Warm; lamps burn yellow again.",
+      "The dead hold papers like Kettle's.",
+      "The NOW SERVING number is 9,114,203."
+     ],
+     "encounters": [],
+     "traps": [],
+     "puzzles": [],
+     "secrets": [
+      {
+       "description": "The dead in the queue are from Ashfall. The paper they hold is from somewhere else: the script is not imperial.",
+       "dc": 2
+      }
+     ],
+     "loot": [],
+     "dmNotes": "This is the Rift: a corridor of the Office of Eternal Records that opened into the Cold Vault. Kettle's paper is 9,114,204: next."
+    },
+    {
+     "id": "ashfall.room.the-cold-vault.06-the-counter",
+     "number": 6,
+     "code": "CVT-06",
+     "name": "The Counter",
+     "floor": -1,
+     "pos": [
+      -1,
+      0
+     ],
+     "light": "bright",
+     "size": "30 x 30 ft",
+     "exits": [
+      {
+       "dir": "s",
+       "to": "ashfall.room.the-cold-vault.05-the-queue",
+       "kind": "archway",
+       "state": "open",
+       "note": ""
+      },
+      {
+       "dir": "n",
+       "to": "ashfall.room.the-cold-vault.07-the-door-in-the-dark",
+       "kind": "portal",
+       "state": "locked",
+       "note": "a door that is also a dark"
+      }
+     ],
+     "readAloud": "A counter of black stone, a bell that does not ring, a ledger the size of a door. Behind the counter sits something large and patient with too many hands, every one of them holding a pen. It looks up. It smiles. It asks whether you have an appointment.",
+     "features": [
+      "The ledger lists every dead person in Ashfall, and the living of Lastlight in a separate column headed PENDING.",
+      "The bell, if rung, summons the next in the queue. The next is Kettle's number."
+     ],
+     "encounters": [
+      {
+       "name": "The Counting Thing",
+       "monsters": [
+        {
+         "ref": "ashfall.monster.the-counting-thing",
+         "count": 1,
+         "name": "The Counting Thing",
+         "hp": 5,
+         "ac": 3,
+         "attack": "Nerve 4 against the target's Nerve; if it wins, the target knows exactly how many days they have left, and takes two harm from knowing.",
+         "stats": {
+          "id": "ashfall.monster.the-counting-thing",
+          "name": "The Counting Thing",
+          "size": "large",
+          "type": "aberration",
+          "threat": 100,
+          "ruleset": "omniverse.ruleset.six-sides",
+          "block": {
+           "traits": {
+            "body": 4,
+            "wits": 5,
+            "nerve": 4,
+            "grace": 2
+           },
+           "harm": 5,
+           "difficulty": 3,
+           "moves": [
+            {
+             "name": "Number You",
+             "text": "Nerve 4 against the target's Nerve; if it wins, the target knows exactly how many days they have left, and takes two harm from knowing."
+            },
+            {
+             "name": "Take a Number",
+             "text": "Hands the target a paper with a queue number. While they hold it, nothing in the dark will harm them. They cannot put it down."
+            }
+           ],
+           "ruleset": "six_sides"
+          },
+          "tactics": "Does not attack. Offers a place in a queue. Attacks only those who refuse the paper.",
+          "lore": "It came through the door in the Cold Vault. It is polite, patient and from somewhere else, and it wants the dead of Ashfall filed."
+         }
+        }
+       ],
+       "tactics": "Does not fight unless refused. Offers the party numbers. If attacked, Numbers the attacker first. If the ledger is touched, every hand stops writing and the lights go out in the Queue."
+      }
+     ],
+     "traps": [],
+     "puzzles": [
+      {
+       "name": "The Appointment",
+       "description": "The Thing will not let anyone through the door behind it without an appointment. Appointments are made by the ledger. The ledger is written by the Thing.",
+       "solution": "Write your own name in the PENDING column with one of its pens; it is then obliged to call you, and the door opens for whoever is called. You are now in the queue forever, holding a paper.",
+       "hints": [
+        "It is a bureaucracy; it cannot refuse a correctly completed entry.",
+        "The pens are not guarded. The ledger is.",
+        "Kettle wrote nothing and took a paper anyway, which is why he is next."
+       ],
+       "reward": "Passage through the door, at a price the party will feel for the rest of the campaign."
+      }
+     ],
+     "secrets": [
+      {
+       "description": "The Thing's smile is not cruelty. It is relief. It has been alone at this counter for two hundred years.",
+       "dc": 3
+      }
+     ],
+     "loot": [
+      "A pen that writes in the Office's hand (the Rift's twin of Vexmort's Quill; writes any contract, which the Office enforces across both worlds)"
+     ],
+     "dmNotes": "The Counting Thing is a clerk of the Office of Eternal Records (Tropelandia) posted to a Rift it does not understand, filing a world it was not sent to. It would like to go home. It does not know the way. The door behind it leads to the Office's lower floor in Deepfile, Tropelandia."
+    },
+    {
+     "id": "ashfall.room.the-cold-vault.07-the-door-in-the-dark",
+     "number": 7,
+     "code": "CVT-07",
+     "name": "The Door in the Dark",
+     "floor": -1,
+     "pos": [
+      -1,
+      -1
+     ],
+     "light": "dark",
+     "size": "unknown",
+     "exits": [
+      {
+       "dir": "s",
+       "to": "ashfall.room.the-cold-vault.06-the-counter",
+       "kind": "portal",
+       "state": "locked",
+       "note": ""
+      }
+     ],
+     "readAloud": "Past the counter is not a room. It is a dark with a door-shape in it, and through the door-shape a corridor of black stone with cold lanterns, and a sound of a great many quills, and warmth, and somewhere a skeleton in sleeve-garters looking up from a desk, surprised.",
+     "features": [
+      "The Rift. Step through and you are in the Lich's Filing Office, Tropelandia, lower floor.",
+      "Time runs differently: a day here is a day there, but the calendars disagree by eleven centuries."
+     ],
+     "encounters": [],
+     "traps": [],
+     "puzzles": [],
+     "secrets": [],
+     "loot": [],
+     "dmNotes": "Crossing is a Reality Rift event in both universes and needs both maintainers' agreement to become canon. In an instance, do what you like: the queue is long."
     }
    ]
   },
@@ -1774,7 +3291,57 @@
          "count": 2,
          "hp": 33,
          "ac": 18,
-         "attack": "slam +4, 2d6+2"
+         "attack": "slam +4, 2d6+2",
+         "ref": "tropelandia.monster.animated-armor",
+         "stats": {
+          "id": "tropelandia.monster.animated-armor",
+          "name": "Animated Armor",
+          "size": "medium",
+          "type": "construct",
+          "threat": 19,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 1,
+           "ac": 18,
+           "hp": 33,
+           "hp_dice": "6d8+6",
+           "speed": "25 ft",
+           "abilities": {
+            "str": 14,
+            "dex": 11,
+            "con": 13,
+            "int": 1,
+            "wis": 3,
+            "cha": 1
+           },
+           "senses": "blindsight 60 ft, passive Perception 6",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Antimagic Susceptibility",
+             "text": "Incapacitated in an antimagic field; dispel magic (DC 12) sends it unconscious for 1 minute."
+            },
+            {
+             "name": "False Appearance",
+             "text": "Indistinguishable from ordinary armour while motionless."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "Two slam attacks."
+            },
+            {
+             "name": "Slam",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) bludgeoning."
+            }
+           ],
+           "xp": 200,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Stands by the door until the door is used.",
+          "lore": "Dwarven ceremonial plate, still on duty."
+         }
         }
        ],
        "tactics": "The gate's armour wakes when anyone crosses without announcing themselves.",
@@ -1846,7 +3413,53 @@
          "count": 2,
          "hp": 22,
          "ac": 12,
-         "attack": "life drain +4, 3d6"
+         "attack": "life drain +4, 3d6",
+         "ref": "tropelandia.monster.specter",
+         "stats": {
+          "id": "tropelandia.monster.specter",
+          "name": "Specter",
+          "size": "medium",
+          "type": "undead",
+          "threat": 19,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 1,
+           "ac": 12,
+           "hp": 22,
+           "hp_dice": "5d8",
+           "speed": "0 ft, fly 50 ft (hover)",
+           "abilities": {
+            "str": 1,
+            "dex": 14,
+            "con": 11,
+            "int": 10,
+            "wis": 10,
+            "cha": 11
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "understands its old languages",
+           "traits": [
+            {
+             "name": "Incorporeal Movement",
+             "text": "Can move through creatures and objects as difficult terrain; 5 (1d10) force damage if it ends its turn inside an object."
+            },
+            {
+             "name": "Sunlight Sensitivity",
+             "text": "Disadvantage on attacks and Perception checks relying on sight in sunlight."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Life Drain",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 10 (3d6) necrotic; DC 10 Constitution save or the target's hit point maximum is reduced by the damage taken until it finishes a long rest."
+            }
+           ],
+           "xp": 200,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Drifts through the wall, drains, drifts back.",
+          "lore": "Clerks, students and apprentices who died with work unfinished."
+         }
         }
        ],
        "tactics": "They appear if the throne is sat upon; they'll demand the party's names, then ask them to leave.",
@@ -1906,7 +3519,16 @@
      "puzzles": [],
      "secrets": [],
      "loot": [
-      "Barrel of The Last Batch (a mind-bending ale, worth 100 gp to the right dwarf)",
+      {
+       "ref": "tropelandia.item.barrel-of-the-last-batch",
+       "name": "Barrel of the Last Batch",
+       "type": "consumable",
+       "rarity": "rare",
+       "attunement": false,
+       "description": "A dwarven ale cask, sealed, humming faintly.",
+       "mechanics": "A mug: advantage on Wisdom saves for an hour, and you see the Folly as it was. Three mugs: disadvantage on everything, and the Folly sees you.",
+       "curse": ""
+      },
       "The brewmaster's recipe (valuable)"
      ],
      "dmNotes": "The Last Batch is a Cursed Item: whoever drinks it gains Darkvision and Strong Opinions for a day."
@@ -1947,7 +3569,65 @@
          "count": 1,
          "hp": 60,
          "ac": 16,
-         "attack": "greataxe +6, 1d12+4"
+         "attack": "greataxe +6, 1d12+4",
+         "ref": "tropelandia.monster.dwarven-revenant",
+         "stats": {
+          "id": "tropelandia.monster.dwarven-revenant",
+          "name": "Dwarven Revenant",
+          "size": "medium",
+          "type": "undead",
+          "threat": 33,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 5,
+           "ac": 16,
+           "hp": 60,
+           "hp_dice": "8d8+24",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 18,
+            "dex": 14,
+            "con": 18,
+            "int": 13,
+            "wis": 16,
+            "cha": 18
+           },
+           "senses": "darkvision 60 ft, passive Perception 13",
+           "languages": "Dwarvish, Common",
+           "traits": [
+            {
+             "name": "Regeneration",
+             "text": "Regains 10 hit points at the start of its turn; if it takes fire or radiant damage this does not function at the start of its next turn."
+            },
+            {
+             "name": "Rejuvenation",
+             "text": "Returns in 24 hours unless its grudge is settled."
+            },
+            {
+             "name": "Grudge",
+             "text": "Knows the direction and distance to the object of its grudge."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "Two greataxe attacks."
+            },
+            {
+             "name": "Greataxe",
+             "text": "Melee, +6 to hit, reach 5 ft. Hit: 10 (1d12+4) slashing."
+            },
+            {
+             "name": "Vengeful Glare",
+             "text": "One creature within 30 ft that the revenant can see must succeed on a DC 15 Wisdom save or be paralysed until the revenant deals damage to it or the end of its next turn."
+            }
+           ],
+           "xp": 1800,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Will not fight anyone who can prove descent from Karak-Dum-Dum. Will fight everyone else twice.",
+          "lore": "A miner who did not dig too deep, and wants that known."
+         }
         }
        ],
        "tactics": "He rises if anyone sits on his bunk; he can be calmed by returning the Banner from the gatehouse.",
@@ -2006,7 +3686,61 @@
          "count": 2,
          "hp": 20,
          "ac": 13,
-         "attack": "touch +4, 2d6 fire"
+         "attack": "touch +4, 2d6 fire",
+         "ref": "tropelandia.monster.minor-fire-elemental",
+         "stats": {
+          "id": "tropelandia.monster.minor-fire-elemental",
+          "name": "Minor Fire Elemental",
+          "size": "medium",
+          "type": "elemental",
+          "threat": 23,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 2,
+           "ac": 13,
+           "hp": 20,
+           "hp_dice": "3d8+6",
+           "speed": "50 ft",
+           "abilities": {
+            "str": 10,
+            "dex": 17,
+            "con": 14,
+            "int": 6,
+            "wis": 10,
+            "cha": 7
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "Ignan",
+           "traits": [
+            {
+             "name": "Fire Form",
+             "text": "Can move through a 1-inch gap; a creature that touches it or hits it in melee within 5 ft takes 5 (1d10) fire."
+            },
+            {
+             "name": "Illumination",
+             "text": "Bright light 30 ft, dim 30 ft more."
+            },
+            {
+             "name": "Water Susceptibility",
+             "text": "Takes 1 cold damage per 5 ft moved through water or per gallon splashed."
+            },
+            {
+             "name": "Immunities",
+             "text": "Fire, poison; resistant to non-magical weapons."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Touch",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 7 (2d6) fire; a flammable target ignites and takes 5 (1d10) fire at the start of each of its turns until it uses an action to put the fire out."
+            }
+           ],
+           "xp": 450,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Runs along anything flammable, which in a dwarven brewery is everything.",
+          "lore": "Sparks from the Anvil that got ideas."
+         }
         }
        ],
        "tactics": "They erupt from the crucible if the song is interrupted.",
@@ -2029,7 +3763,16 @@
      ],
      "secrets": [],
      "loot": [
-      "Anvil of Opinions (artifact; talks, offers advice)"
+      {
+       "ref": "tropelandia.item.anvil-of-opinions",
+       "name": "Anvil of Opinions",
+       "type": "wondrous",
+       "rarity": "artifact",
+       "attunement": false,
+       "description": "A dwarven anvil of black iron, cold for three centuries, which speaks when struck and never agrees.",
+       "mechanics": "When struck, answers one question truthfully, then argues with the answer. Weapons forged upon it (by a smith of Karak-Dum-Dum's line) are +2 and refuse to be used for anything the Anvil considers beneath them.",
+       "curse": ""
+      }
      ],
      "dmNotes": ""
     },
@@ -2132,14 +3875,114 @@
          "count": 2,
          "hp": 13,
          "ac": 5,
-         "attack": "shriek"
+         "attack": "shriek",
+         "ref": "tropelandia.monster.shrieker",
+         "stats": {
+          "id": "tropelandia.monster.shrieker",
+          "name": "Shrieker",
+          "size": "medium",
+          "type": "plant",
+          "threat": 9,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0,
+           "ac": 5,
+           "hp": 13,
+           "hp_dice": "3d8",
+           "speed": "0 ft",
+           "abilities": {
+            "str": 1,
+            "dex": 1,
+            "con": 10,
+            "int": 1,
+            "wis": 3,
+            "cha": 1
+           },
+           "senses": "blindsight 30 ft (blind beyond), passive Perception 6",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "False Appearance",
+             "text": "Indistinguishable from an ordinary fungus while motionless."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Shriek",
+             "text": "When a creature or light source comes within 30 ft, the shrieker emits a shriek audible 300 ft away for as long as the trigger remains and 1d4 rounds after."
+            }
+           ],
+           "xp": 10,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Shrieks.",
+          "lore": "The Folly's alarm system, self-installed."
+         }
         },
         {
          "name": "Myconid sovereign",
          "count": 1,
          "hp": 60,
          "ac": 10,
-         "attack": "fist +4, 1d6+2"
+         "attack": "fist +4, 1d6+2",
+         "ref": "tropelandia.monster.myconid-sovereign",
+         "stats": {
+          "id": "tropelandia.monster.myconid-sovereign",
+          "name": "Myconid Sovereign",
+          "size": "large",
+          "type": "plant",
+          "threat": 25,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 2,
+           "ac": 13,
+           "hp": 60,
+           "hp_dice": "8d10+16",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 12,
+            "dex": 10,
+            "con": 14,
+            "int": 13,
+            "wis": 15,
+            "cha": 10
+           },
+           "senses": "darkvision 120 ft, passive Perception 12",
+           "languages": "rapport spores",
+           "traits": [
+            {
+             "name": "Distress Spores",
+             "text": "When it takes damage, all myconids within 240 ft can sense it."
+            },
+            {
+             "name": "Sun Sickness",
+             "text": "Disadvantage on all rolls in sunlight; dies after 1 hour of it."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "Two fist attacks."
+            },
+            {
+             "name": "Fist",
+             "text": "Melee, +3 to hit, reach 10 ft. Hit: 5 (1d6+2) bludgeoning plus 7 (3d4) poison."
+            },
+            {
+             "name": "Hallucination Spores (recharge 5-6)",
+             "text": "A 10 ft cone; DC 12 Constitution save or poisoned for 1 minute, seeing things."
+            },
+            {
+             "name": "Animating Spores (3/day)",
+             "text": "Targets a dead humanoid or beast within 5 ft; it rises as a spore servant in 24 hours."
+            }
+           ],
+           "xp": 450,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Offers tea. The tea is spores. Fights only if the tea is refused rudely.",
+          "lore": "Rules the lower halls of the Folly with a quiet, fungal patience."
+         }
         }
        ],
        "tactics": "Shriekers alert duergar nearby; the myconid is friendly if offered rare minerals.",
@@ -2191,7 +4034,57 @@
          "count": 1,
          "hp": 52,
          "ac": 11,
-         "attack": "tentacles +5, 2d6+3"
+         "attack": "tentacles +5, 2d6+3",
+         "ref": "tropelandia.monster.giant-octopus",
+         "stats": {
+          "id": "tropelandia.monster.giant-octopus",
+          "name": "Giant Octopus",
+          "size": "large",
+          "type": "beast",
+          "threat": 20,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 1,
+           "ac": 11,
+           "hp": 52,
+           "hp_dice": "8d10+8",
+           "speed": "10 ft, swim 60 ft",
+           "abilities": {
+            "str": 17,
+            "dex": 13,
+            "con": 13,
+            "int": 4,
+            "wis": 10,
+            "cha": 4
+           },
+           "senses": "darkvision 60 ft, passive Perception 14",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Hold Breath",
+             "text": "Can hold its breath for 1 hour out of water."
+            },
+            {
+             "name": "Underwater Camouflage",
+             "text": "Advantage on Stealth checks underwater."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Tentacles",
+             "text": "Melee, +5 to hit, reach 15 ft. Hit: 10 (2d6+3) bludgeoning; the target is grappled (escape DC 16) and restrained."
+            },
+            {
+             "name": "Ink Cloud (recharges after a rest)",
+             "text": "A 20 ft radius cloud of ink underwater; the area is heavily obscured for 1 minute."
+            }
+           ],
+           "xp": 200,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Grab from the flooded dark, drag toward the deep.",
+          "lore": "It came up the drowned shaft of Karak-Dum-Dum and liked the ale."
+         }
         }
        ],
        "tactics": "It attacks anyone on the causeway who splashes; it can be bargained with using fish.",
@@ -2291,7 +4184,65 @@
          "count": 1,
          "hp": 135,
          "ac": 15,
-         "attack": "tentacles +8, 3d6 psychic"
+         "attack": "tentacles +8, 3d6 psychic",
+         "ref": "tropelandia.monster.elder-thing",
+         "stats": {
+          "id": "tropelandia.monster.elder-thing",
+          "name": "Elder Thing",
+          "size": "large",
+          "type": "aberration",
+          "threat": 43,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 9,
+           "ac": 15,
+           "hp": 135,
+           "hp_dice": "18d10+36",
+           "speed": "30 ft, swim 30 ft",
+           "abilities": {
+            "str": 20,
+            "dex": 11,
+            "con": 15,
+            "int": 19,
+            "wis": 14,
+            "cha": 10
+           },
+           "senses": "darkvision 120 ft, passive Perception 12",
+           "languages": "Deep Speech, telepathy",
+           "traits": [
+            {
+             "name": "Telepathy",
+             "text": "120 ft."
+            },
+            {
+             "name": "Amphibious",
+             "text": "Breathes air and water."
+            },
+            {
+             "name": "Resistances",
+             "text": "Psychic; immune to being charmed or frightened."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "Three tentacle attacks."
+            },
+            {
+             "name": "Tentacle",
+             "text": "Melee, +8 to hit, reach 10 ft. Hit: 10 (3d6) psychic and the target is grappled (escape DC 16)."
+            },
+            {
+             "name": "Unspeakable Insight (recharge 5-6)",
+             "text": "Each creature within 30 ft that can see it must succeed on a DC 16 Intelligence save or take 22 (5d8) psychic damage and be stunned until the end of its next turn."
+            }
+           ],
+           "xp": 5000,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Does not want the party. Wants to be asked a question nobody has asked in a thousand years.",
+          "lore": "What the miners of Karak-Dum-Dum were invited down to meet."
+         }
         }
        ],
        "tactics": "Not hostile at first; it wants someone to fix the leak it came in through. If refused it attacks.",
@@ -2424,7 +4375,53 @@
          "count": 6,
          "hp": 7,
          "ac": 15,
-         "attack": "scimitar +4, 1d6+2"
+         "attack": "scimitar +4, 1d6+2",
+         "ref": "tropelandia.monster.goblin",
+         "stats": {
+          "id": "tropelandia.monster.goblin",
+          "name": "Goblin",
+          "size": "small",
+          "type": "humanoid (goblinoid)",
+          "threat": 13,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 15,
+           "hp": 7,
+           "hp_dice": "2d6",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 8,
+            "dex": 14,
+            "con": 10,
+            "int": 10,
+            "wis": 8,
+            "cha": 8
+           },
+           "senses": "darkvision 60 ft, passive Perception 9",
+           "languages": "Common, Goblin",
+           "traits": [
+            {
+             "name": "Nimble Escape",
+             "text": "Can Disengage or Hide as a bonus action."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Scimitar",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) slashing."
+            },
+            {
+             "name": "Shortbow",
+             "text": "Ranged, +4 to hit, range 80/320 ft. Hit: 5 (1d6+2) piercing."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Ambush, retreat, ambush again. A unionised goblin will stop to read the party its rights.",
+          "lore": "Whisperwood's goblins are on strike. Their grievances are reasonable and their aim is improving."
+         }
         }
        ],
        "tactics": "They fight if the party crosses the line without talking; they'll let a mediator pass.",
@@ -2494,7 +4491,57 @@
          "count": 1,
          "hp": 7,
          "ac": 15,
-         "attack": "pencil +4, 1d4+2"
+         "attack": "pencil +4, 1d4+2",
+         "ref": "tropelandia.monster.goblin-receptionist",
+         "stats": {
+          "id": "tropelandia.monster.goblin-receptionist",
+          "name": "Goblin Receptionist",
+          "size": "small",
+          "type": "humanoid (goblinoid)",
+          "threat": 13,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 15,
+           "hp": 7,
+           "hp_dice": "2d6",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 8,
+            "dex": 14,
+            "con": 10,
+            "int": 12,
+            "wis": 10,
+            "cha": 12
+           },
+           "senses": "darkvision 60 ft, passive Perception 12",
+           "languages": "Common, Goblin",
+           "traits": [
+            {
+             "name": "Nimble Escape",
+             "text": "Can Disengage or Hide as a bonus action."
+            },
+            {
+             "name": "Front Desk",
+             "text": "Advantage on Insight checks against anyone without an appointment."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Pencil",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 4 (1d4+2) piercing."
+            },
+            {
+             "name": "Take a Number",
+             "text": "One creature within 30 ft must succeed on a DC 11 Wisdom save or spend its next action waiting."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Does not fight unless the desk is touched. Then fights for the desk.",
+          "lore": "Every union hall has one. Nobody has ever got past one by asking nicely."
+         }
         }
        ],
        "tactics": "She wants the party to fill out Form 27B. Refusing gets a stern lecture.",
@@ -2550,7 +4597,53 @@
          "count": 3,
          "hp": 7,
          "ac": 15,
-         "attack": "scimitar +4, 1d6+2"
+         "attack": "scimitar +4, 1d6+2",
+         "ref": "tropelandia.monster.goblin",
+         "stats": {
+          "id": "tropelandia.monster.goblin",
+          "name": "Goblin",
+          "size": "small",
+          "type": "humanoid (goblinoid)",
+          "threat": 13,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 15,
+           "hp": 7,
+           "hp_dice": "2d6",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 8,
+            "dex": 14,
+            "con": 10,
+            "int": 10,
+            "wis": 8,
+            "cha": 8
+           },
+           "senses": "darkvision 60 ft, passive Perception 9",
+           "languages": "Common, Goblin",
+           "traits": [
+            {
+             "name": "Nimble Escape",
+             "text": "Can Disengage or Hide as a bonus action."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Scimitar",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) slashing."
+            },
+            {
+             "name": "Shortbow",
+             "text": "Ranged, +4 to hit, range 80/320 ft. Hit: 5 (1d6+2) piercing."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Ambush, retreat, ambush again. A unionised goblin will stop to read the party its rights.",
+          "lore": "Whisperwood's goblins are on strike. Their grievances are reasonable and their aim is improving."
+         }
         }
        ],
        "tactics": "Not hostile; they want a deal. Happy to talk.",
@@ -2609,7 +4702,53 @@
          "count": 1,
          "hp": 11,
          "ac": 18,
-         "attack": "longsword +3, 1d8+1"
+         "attack": "longsword +3, 1d8+1",
+         "ref": "tropelandia.monster.hobgoblin-shop-steward",
+         "stats": {
+          "id": "tropelandia.monster.hobgoblin-shop-steward",
+          "name": "Hobgoblin Shop Steward",
+          "size": "medium",
+          "type": "humanoid (goblinoid)",
+          "threat": 16,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.5,
+           "ac": 18,
+           "hp": 11,
+           "hp_dice": "2d8+2",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 13,
+            "dex": 12,
+            "con": 12,
+            "int": 12,
+            "wis": 10,
+            "cha": 13
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "Common, Goblin",
+           "traits": [
+            {
+             "name": "Martial Advantage",
+             "text": "Once per turn, +7 (2d6) damage to a creature if an ally is within 5 ft of it."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Longsword",
+             "text": "Melee, +3 to hit, reach 5 ft. Hit: 5 (1d8+1) slashing, or 6 (1d10+1) two-handed."
+            },
+            {
+             "name": "Point of Order",
+             "text": "Each goblin within 30 ft that can hear the steward gains 5 temporary hit points."
+            }
+           ],
+           "xp": 100,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Holds the line and the agenda. Will negotiate mid-combat if offered terms in writing.",
+          "lore": "Elected, armoured, and briefed."
+         }
         }
        ],
        "tactics": "Grimble listens if the party addresses him correctly and hands him a petition; he fights if insulted.",
@@ -2693,7 +4832,53 @@
          "count": 12,
          "hp": 7,
          "ac": 15,
-         "attack": "scimitar +4, 1d6+2"
+         "attack": "scimitar +4, 1d6+2",
+         "ref": "tropelandia.monster.goblin",
+         "stats": {
+          "id": "tropelandia.monster.goblin",
+          "name": "Goblin",
+          "size": "small",
+          "type": "humanoid (goblinoid)",
+          "threat": 13,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 15,
+           "hp": 7,
+           "hp_dice": "2d6",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 8,
+            "dex": 14,
+            "con": 10,
+            "int": 10,
+            "wis": 8,
+            "cha": 8
+           },
+           "senses": "darkvision 60 ft, passive Perception 9",
+           "languages": "Common, Goblin",
+           "traits": [
+            {
+             "name": "Nimble Escape",
+             "text": "Can Disengage or Hide as a bonus action."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Scimitar",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) slashing."
+            },
+            {
+             "name": "Shortbow",
+             "text": "Ranged, +4 to hit, range 80/320 ft. Hit: 5 (1d6+2) piercing."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Ambush, retreat, ambush again. A unionised goblin will stop to read the party its rights.",
+          "lore": "Whisperwood's goblins are on strike. Their grievances are reasonable and their aim is improving."
+         }
         }
        ],
        "tactics": "The crowd turns hostile if the party makes threats; a rousing speech (Persuasion DC 14) can turn them into allies.",
@@ -2766,7 +4951,16 @@
      "secrets": [],
      "loot": [
       "Goblin trap parts (worth 25 gp)",
-      "A foreman's whistle (calls goblins to order)"
+      {
+       "ref": "tropelandia.item.foremans-whistle",
+       "name": "Foreman's Whistle",
+       "type": "wondrous",
+       "rarity": "uncommon",
+       "attunement": false,
+       "description": "A brass whistle on a cord, worn smooth.",
+       "mechanics": "Blow it: every goblin within 300 ft stops what it is doing and lines up. Lasts until something more interesting happens, usually one round.",
+       "curse": ""
+      }
      ],
      "dmNotes": ""
     },
@@ -2850,7 +5044,53 @@
          "count": 3,
          "hp": 7,
          "ac": 15,
-         "attack": "scimitar +4, 1d6+2"
+         "attack": "scimitar +4, 1d6+2",
+         "ref": "tropelandia.monster.goblin",
+         "stats": {
+          "id": "tropelandia.monster.goblin",
+          "name": "Goblin",
+          "size": "small",
+          "type": "humanoid (goblinoid)",
+          "threat": 13,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 15,
+           "hp": 7,
+           "hp_dice": "2d6",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 8,
+            "dex": 14,
+            "con": 10,
+            "int": 10,
+            "wis": 8,
+            "cha": 8
+           },
+           "senses": "darkvision 60 ft, passive Perception 9",
+           "languages": "Common, Goblin",
+           "traits": [
+            {
+             "name": "Nimble Escape",
+             "text": "Can Disengage or Hide as a bonus action."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Scimitar",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) slashing."
+            },
+            {
+             "name": "Shortbow",
+             "text": "Ranged, +4 to hit, range 80/320 ft. Hit: 5 (1d6+2) piercing."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Ambush, retreat, ambush again. A unionised goblin will stop to read the party its rights.",
+          "lore": "Whisperwood's goblins are on strike. Their grievances are reasonable and their aim is improving."
+         }
         }
        ],
        "tactics": "They'd rather negotiate. If attacked, the coat falls apart and the goblins scatter.",
@@ -2874,7 +5114,16 @@
      "secrets": [],
      "loot": [
       "A bowler hat (the Chief's)",
-      "Union membership card (grants favours from goblins)"
+      {
+       "ref": "tropelandia.item.union-membership-card",
+       "name": "Union Membership Card",
+       "type": "document",
+       "rarity": "uncommon",
+       "attunement": false,
+       "description": "A grubby card reading MEMBER IN GOOD STANDING, LOCAL 7, with a thumbprint.",
+       "mechanics": "Goblins and hobgoblins of the Brotherhood treat the bearer as a colleague: advantage on Persuasion with them, and one favour per week, within reason.",
+       "curse": ""
+      }
      ],
      "dmNotes": "Goblins as Fodder subverted: they are people with grievances, and the best ending is a deal."
     }
@@ -2984,7 +5233,57 @@
          "count": 1,
          "hp": 32,
          "ac": 11,
-         "attack": "mace +4, 1d6+2"
+         "attack": "mace +4, 1d6+2",
+         "ref": "tropelandia.monster.thug",
+         "stats": {
+          "id": "tropelandia.monster.thug",
+          "name": "Thug",
+          "size": "medium",
+          "type": "humanoid (any)",
+          "threat": 16,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.5,
+           "ac": 11,
+           "hp": 32,
+           "hp_dice": "5d8+10",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 15,
+            "dex": 11,
+            "con": 14,
+            "int": 10,
+            "wis": 10,
+            "cha": 11
+           },
+           "senses": "passive Perception 10",
+           "languages": "Common",
+           "traits": [
+            {
+             "name": "Pack Tactics",
+             "text": "Advantage on attack rolls against a creature if an ally is within 5 ft of it."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "Two mace attacks."
+            },
+            {
+             "name": "Mace",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) bludgeoning."
+            },
+            {
+             "name": "Heavy Crossbow",
+             "text": "Ranged, +2 to hit, range 100/400 ft. Hit: 5 (1d10) piercing."
+            }
+           ],
+           "xp": 100,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Stands in doorways. Is the doorway.",
+          "lore": "Society muscle, in a good coat."
+         }
         }
        ],
        "tactics": "He asks for the password; the wrong one earns a fish to the face.",
@@ -3042,7 +5341,48 @@
          "count": 2,
          "hp": 11,
          "ac": 12,
-         "attack": "scimitar +3, 1d6+1"
+         "attack": "scimitar +3, 1d6+1",
+         "ref": "tropelandia.monster.bandit",
+         "stats": {
+          "id": "tropelandia.monster.bandit",
+          "name": "Bandit",
+          "size": "medium",
+          "type": "humanoid (any)",
+          "threat": 12,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.125,
+           "ac": 12,
+           "hp": 11,
+           "hp_dice": "2d8+2",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 11,
+            "dex": 12,
+            "con": 12,
+            "int": 10,
+            "wis": 10,
+            "cha": 10
+           },
+           "senses": "passive Perception 10",
+           "languages": "Common",
+           "traits": [],
+           "actions": [
+            {
+             "name": "Scimitar",
+             "text": "Melee, +3 to hit, reach 5 ft. Hit: 4 (1d6+1) slashing."
+            },
+            {
+             "name": "Light Crossbow",
+             "text": "Ranged, +3 to hit, range 80/320 ft. Hit: 5 (1d8+1) piercing."
+            }
+           ],
+           "xp": 25,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Demands the purse first. Fights only if refused and outnumbered by less than two to one.",
+          "lore": "Unlicensed, which is the real crime."
+         }
         }
        ],
        "tactics": "They ask for the sign (a particular whistle) and attack if not given.",
@@ -3120,14 +5460,109 @@
          "count": 6,
          "hp": 11,
          "ac": 12,
-         "attack": "scimitar +3, 1d6+1"
+         "attack": "scimitar +3, 1d6+1",
+         "ref": "tropelandia.monster.bandit",
+         "stats": {
+          "id": "tropelandia.monster.bandit",
+          "name": "Bandit",
+          "size": "medium",
+          "type": "humanoid (any)",
+          "threat": 12,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.125,
+           "ac": 12,
+           "hp": 11,
+           "hp_dice": "2d8+2",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 11,
+            "dex": 12,
+            "con": 12,
+            "int": 10,
+            "wis": 10,
+            "cha": 10
+           },
+           "senses": "passive Perception 10",
+           "languages": "Common",
+           "traits": [],
+           "actions": [
+            {
+             "name": "Scimitar",
+             "text": "Melee, +3 to hit, reach 5 ft. Hit: 4 (1d6+1) slashing."
+            },
+            {
+             "name": "Light Crossbow",
+             "text": "Ranged, +3 to hit, range 80/320 ft. Hit: 5 (1d8+1) piercing."
+            }
+           ],
+           "xp": 25,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Demands the purse first. Fights only if refused and outnumbered by less than two to one.",
+          "lore": "Unlicensed, which is the real crime."
+         }
         },
         {
          "name": "Spy",
          "count": 2,
          "hp": 27,
          "ac": 12,
-         "attack": "shortsword +4, 1d6+2"
+         "attack": "shortsword +4, 1d6+2",
+         "ref": "tropelandia.monster.spy",
+         "stats": {
+          "id": "tropelandia.monster.spy",
+          "name": "Spy",
+          "size": "medium",
+          "type": "humanoid (any)",
+          "threat": 19,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 1,
+           "ac": 12,
+           "hp": 27,
+           "hp_dice": "6d8",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 10,
+            "dex": 15,
+            "con": 10,
+            "int": 12,
+            "wis": 14,
+            "cha": 16
+           },
+           "senses": "passive Perception 16",
+           "languages": "Common plus two",
+           "traits": [
+            {
+             "name": "Cunning Action",
+             "text": "Dash, Disengage or Hide as a bonus action each turn."
+            },
+            {
+             "name": "Sneak Attack (1/turn)",
+             "text": "+7 (2d6) damage when the spy has advantage or an ally is within 5 ft of the target."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "Two melee attacks."
+            },
+            {
+             "name": "Shortsword",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) piercing."
+            },
+            {
+             "name": "Hand Crossbow",
+             "text": "Ranged, +4 to hit, range 30/120 ft. Hit: 5 (1d6+2) piercing."
+            }
+           ],
+           "xp": 200,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Already behind you. Already has your letters.",
+          "lore": "The Society's listeners. Also, probably, the Court's."
+         }
         }
        ],
        "tactics": "They are not hostile unless the party is caught stealing.",
@@ -3195,7 +5630,61 @@
          "count": 1,
          "hp": 27,
          "ac": 12,
-         "attack": "dagger +4, 1d4+2"
+         "attack": "dagger +4, 1d4+2",
+         "ref": "tropelandia.monster.spy",
+         "stats": {
+          "id": "tropelandia.monster.spy",
+          "name": "Spy",
+          "size": "medium",
+          "type": "humanoid (any)",
+          "threat": 19,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 1,
+           "ac": 12,
+           "hp": 27,
+           "hp_dice": "6d8",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 10,
+            "dex": 15,
+            "con": 10,
+            "int": 12,
+            "wis": 14,
+            "cha": 16
+           },
+           "senses": "passive Perception 16",
+           "languages": "Common plus two",
+           "traits": [
+            {
+             "name": "Cunning Action",
+             "text": "Dash, Disengage or Hide as a bonus action each turn."
+            },
+            {
+             "name": "Sneak Attack (1/turn)",
+             "text": "+7 (2d6) damage when the spy has advantage or an ally is within 5 ft of the target."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "Two melee attacks."
+            },
+            {
+             "name": "Shortsword",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) piercing."
+            },
+            {
+             "name": "Hand Crossbow",
+             "text": "Ranged, +4 to hit, range 30/120 ft. Hit: 5 (1d6+2) piercing."
+            }
+           ],
+           "xp": 200,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Already behind you. Already has your letters.",
+          "lore": "The Society's listeners. Also, probably, the Court's."
+         }
         }
        ],
        "tactics": "She sells and buys. She fights only if the party tries to rob her counter.",
@@ -3366,7 +5855,65 @@
          "count": 1,
          "hp": 78,
          "ac": 15,
-         "attack": "poisoned dagger +6, 3d6+3"
+         "attack": "poisoned dagger +6, 3d6+3",
+         "ref": "tropelandia.monster.retired-assassin",
+         "stats": {
+          "id": "tropelandia.monster.retired-assassin",
+          "name": "Retired Assassin",
+          "size": "medium",
+          "type": "humanoid (any)",
+          "threat": 39,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 8,
+           "ac": 15,
+           "hp": 78,
+           "hp_dice": "12d8+24",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 11,
+            "dex": 16,
+            "con": 14,
+            "int": 13,
+            "wis": 11,
+            "cha": 10
+           },
+           "senses": "passive Perception 13",
+           "languages": "Common, Thieves' Cant",
+           "traits": [
+            {
+             "name": "Assassinate",
+             "text": "Advantage on attack rolls against any creature that has not yet acted; a hit against a surprised creature is a critical hit."
+            },
+            {
+             "name": "Evasion",
+             "text": "Takes no damage on a successful Dexterity save against an area effect, half on a failure."
+            },
+            {
+             "name": "Sneak Attack (1/turn)",
+             "text": "+14 (4d6) damage with advantage or an ally adjacent."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "Two shortsword attacks."
+            },
+            {
+             "name": "Poisoned Shortsword",
+             "text": "Melee, +6 to hit, reach 5 ft. Hit: 6 (1d6+3) piercing plus 24 (7d6) poison; DC 15 Constitution save halves the poison damage."
+            },
+            {
+             "name": "Light Crossbow",
+             "text": "Ranged, +6 to hit, range 80/320 ft. Hit: 7 (1d8+3) piercing plus 24 (7d6) poison, save as above."
+            }
+           ],
+           "xp": 3900,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Prefers tea. Will kill the rude one first, as a courtesy to the others.",
+          "lore": "The Society's pensioner-in-residence. Asked to be left out of it. Was not."
+         }
         }
        ],
        "tactics": "She prefers conversation; she offers the party a job, and a trap.",
@@ -3390,7 +5937,16 @@
      "secrets": [],
      "loot": [
       "Tea (a very fine blend, 20 gp)",
-      "A guild ring (opens guild doors)"
+      {
+       "ref": "tropelandia.item.society-ring",
+       "name": "Society Ring",
+       "type": "ring",
+       "rarity": "uncommon",
+       "attunement": false,
+       "description": "A plain iron ring with a tiny fish engraved inside the band.",
+       "mechanics": "Opens the doors of the Guildhall Below that are keyed to it, and marks the wearer to any Society member as one of their own, until the ring is reported stolen.",
+       "curse": ""
+      }
      ],
      "dmNotes": ""
     },
@@ -3437,7 +5993,49 @@
          "count": 4,
          "hp": 4,
          "ac": 10,
-         "attack": "pen +2, 1d4"
+         "attack": "pen +2, 1d4",
+         "ref": "tropelandia.monster.commoner-forger",
+         "stats": {
+          "id": "tropelandia.monster.commoner-forger",
+          "name": "Commoner Forger",
+          "size": "medium",
+          "type": "humanoid (any)",
+          "threat": 8,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0,
+           "ac": 10,
+           "hp": 4,
+           "hp_dice": "1d8",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 10,
+            "dex": 12,
+            "con": 10,
+            "int": 14,
+            "wis": 10,
+            "cha": 10
+           },
+           "senses": "passive Perception 10",
+           "languages": "Common",
+           "traits": [
+            {
+             "name": "Forgery",
+             "text": "Can produce a passable copy of any document seen for a minute, given ten minutes and ink."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Pen",
+             "text": "Melee, +2 to hit, reach 5 ft. Hit: 2 (1d4) piercing."
+            }
+           ],
+           "xp": 10,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Surrenders, then forges the surrender terms.",
+          "lore": "Four of them share one desk and a signature."
+         }
         }
        ],
        "tactics": "They flee and call the guards if disturbed.",
@@ -3565,7 +6163,7 @@
     ]
    },
    "tropes": [
-    "Lich",
+    "The Lich",
     "Dark Lord",
     "Villain Monologue"
    ],
@@ -3616,7 +6214,57 @@
          "count": 1,
          "hp": 13,
          "ac": 13,
-         "attack": "stamp +4, 1d6+2"
+         "attack": "stamp +4, 1d6+2",
+         "ref": "tropelandia.monster.skeleton-clerk",
+         "stats": {
+          "id": "tropelandia.monster.skeleton-clerk",
+          "name": "Skeleton Clerk",
+          "size": "medium",
+          "type": "undead",
+          "threat": 14,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 13,
+           "hp": 13,
+           "hp_dice": "2d8+4",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 10,
+            "dex": 14,
+            "con": 15,
+            "int": 10,
+            "wis": 10,
+            "cha": 5
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "Common",
+           "traits": [
+            {
+             "name": "Undead Nature",
+             "text": "Vulnerable to bludgeoning. Immune to poison; cannot be exhausted or poisoned."
+            },
+            {
+             "name": "Chain of Command",
+             "text": "Will not attack anyone holding a correctly completed form."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Stamp",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) bludgeoning and the target is marked PENDING until the end of its next turn (disadvantage on Charisma checks)."
+            },
+            {
+             "name": "File",
+             "text": "Pulls a document from the stack; one creature within 10 ft must succeed on a DC 11 Wisdom save or be frightened of paperwork until the end of its next turn."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Processes the party in order of arrival.",
+          "lore": "A skeleton with sleeve-garters. Rank: Filing Clerk, Third Class, for the last four centuries."
+         }
         }
        ],
        "tactics": "It insists on forms. It can be bribed with a stamp.",
@@ -3688,7 +6336,61 @@
          "count": 4,
          "hp": 45,
          "ac": 11,
-         "attack": "withering touch +5, 4d6 (only if line-cutters)"
+         "attack": "withering touch +5, 4d6 (only if line-cutters)",
+         "ref": "tropelandia.monster.ghost",
+         "stats": {
+          "id": "tropelandia.monster.ghost",
+          "name": "Ghost",
+          "size": "medium",
+          "type": "undead",
+          "threat": 30,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 4,
+           "ac": 11,
+           "hp": 45,
+           "hp_dice": "10d8",
+           "speed": "0 ft, fly 40 ft (hover)",
+           "abilities": {
+            "str": 7,
+            "dex": 13,
+            "con": 10,
+            "int": 10,
+            "wis": 12,
+            "cha": 17
+           },
+           "senses": "darkvision 60 ft, passive Perception 11",
+           "languages": "the languages it knew in life",
+           "traits": [
+            {
+             "name": "Ethereal Sight",
+             "text": "Can see 60 ft into the Ethereal Plane."
+            },
+            {
+             "name": "Incorporeal Movement",
+             "text": "Can move through creatures and objects as difficult terrain; takes 5 (1d10) force damage if it ends its turn inside an object."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Withering Touch",
+             "text": "Melee, +5 to hit, reach 5 ft. Hit: 17 (4d6) necrotic."
+            },
+            {
+             "name": "Horrifying Visage",
+             "text": "Each non-undead creature within 60 ft that can see it must succeed on a DC 13 Wisdom save or be frightened for 1 minute; on a failure by 5 or more the target also ages 1d4 x 10 years."
+            },
+            {
+             "name": "Possession (recharge 6)",
+             "text": "One humanoid within 5 ft must succeed on a DC 13 Charisma save or be possessed; the ghost controls the body until the host drops to 0 hit points or is turned."
+            }
+           ],
+           "xp": 1100,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Talks first. Most Tropelandian ghosts have a grievance and will air it.",
+          "lore": "Death in Tropelandia is a change of address."
+         }
         }
        ],
        "tactics": "They attack anyone who skips the queue.",
@@ -3744,7 +6446,53 @@
          "count": 1,
          "hp": 22,
          "ac": 12,
-         "attack": "stamp +4, 3d6 necrotic"
+         "attack": "stamp +4, 3d6 necrotic",
+         "ref": "tropelandia.monster.specter",
+         "stats": {
+          "id": "tropelandia.monster.specter",
+          "name": "Specter",
+          "size": "medium",
+          "type": "undead",
+          "threat": 19,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 1,
+           "ac": 12,
+           "hp": 22,
+           "hp_dice": "5d8",
+           "speed": "0 ft, fly 50 ft (hover)",
+           "abilities": {
+            "str": 1,
+            "dex": 14,
+            "con": 11,
+            "int": 10,
+            "wis": 10,
+            "cha": 11
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "understands its old languages",
+           "traits": [
+            {
+             "name": "Incorporeal Movement",
+             "text": "Can move through creatures and objects as difficult terrain; 5 (1d10) force damage if it ends its turn inside an object."
+            },
+            {
+             "name": "Sunlight Sensitivity",
+             "text": "Disadvantage on attacks and Perception checks relying on sight in sunlight."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Life Drain",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 10 (3d6) necrotic; DC 10 Constitution save or the target's hit point maximum is reduced by the damage taken until it finishes a long rest."
+            }
+           ],
+           "xp": 200,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Drifts through the wall, drains, drifts back.",
+          "lore": "Clerks, students and apprentices who died with work unfinished."
+         }
         }
        ],
        "tactics": "He attacks if the party is rude or unreasonable.",
@@ -3812,7 +6560,61 @@
          "count": 2,
          "hp": 67,
          "ac": 13,
-         "attack": "life drain +6, 4d8"
+         "attack": "life drain +6, 4d8",
+         "ref": "tropelandia.monster.wraith",
+         "stats": {
+          "id": "tropelandia.monster.wraith",
+          "name": "Wraith",
+          "size": "medium",
+          "type": "undead",
+          "threat": 33,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 5,
+           "ac": 13,
+           "hp": 67,
+           "hp_dice": "9d8+27",
+           "speed": "0 ft, fly 60 ft (hover)",
+           "abilities": {
+            "str": 6,
+            "dex": 16,
+            "con": 16,
+            "int": 12,
+            "wis": 14,
+            "cha": 15
+           },
+           "senses": "darkvision 60 ft, passive Perception 12",
+           "languages": "the languages it knew in life",
+           "traits": [
+            {
+             "name": "Incorporeal Movement",
+             "text": "As specter."
+            },
+            {
+             "name": "Sunlight Sensitivity",
+             "text": "As specter."
+            },
+            {
+             "name": "Resistances",
+             "text": "Acid, cold, fire, lightning, thunder; non-magical weapons. Immune to necrotic and poison."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Life Drain",
+             "text": "Melee, +6 to hit, reach 5 ft. Hit: 21 (4d8+3) necrotic; DC 14 Constitution save or the target's hit point maximum is reduced by the damage taken until it finishes a long rest."
+            },
+            {
+             "name": "Create Specter",
+             "text": "Targets a humanoid that died violently within the last minute; its spirit rises as a specter under the wraith's control."
+            }
+           ],
+           "xp": 1800,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Senior management of the dead. Delegates the biting to specters.",
+          "lore": "Department heads of the Office of Eternal Records."
+         }
         }
        ],
        "tactics": "They defend the inbox from anyone searching it.",
@@ -3823,7 +6625,16 @@
      "puzzles": [],
      "secrets": [],
      "loot": [
-      "A letter of credit (400 gp)",
+      {
+       "ref": "tropelandia.item.letter-of-credit",
+       "name": "Letter of Credit",
+       "type": "document",
+       "rarity": "mundane",
+       "attunement": false,
+       "description": "A draft on the Dunewright Exchange for four hundred gold.",
+       "mechanics": "Redeemable at any Exchange counter for 400 gp, less a 5% handling fee and a conversation.",
+       "curse": ""
+      },
       "An urgent summons addressed to the party"
      ],
      "dmNotes": ""
@@ -3885,7 +6696,65 @@
          "count": 1,
          "hp": 178,
          "ac": 17,
-         "attack": "slam +10, 3d8+6"
+         "attack": "slam +10, 3d8+6",
+         "ref": "tropelandia.monster.stone-golem",
+         "stats": {
+          "id": "tropelandia.monster.stone-golem",
+          "name": "Stone Golem",
+          "size": "large",
+          "type": "construct",
+          "threat": 47,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 10,
+           "ac": 17,
+           "hp": 178,
+           "hp_dice": "17d10+85",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 22,
+            "dex": 9,
+            "con": 20,
+            "int": 3,
+            "wis": 11,
+            "cha": 1
+           },
+           "senses": "darkvision 120 ft, passive Perception 10",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Immutable Form",
+             "text": "Immune to any spell or effect that would alter its form."
+            },
+            {
+             "name": "Magic Resistance",
+             "text": "Advantage on saves against spells."
+            },
+            {
+             "name": "Immunities",
+             "text": "Poison, psychic; non-magical weapons that are not adamantine; cannot be charmed, exhausted, frightened, paralysed, petrified or poisoned."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "Two slam attacks."
+            },
+            {
+             "name": "Slam",
+             "text": "Melee, +10 to hit, reach 5 ft. Hit: 19 (3d8+6) bludgeoning."
+            },
+            {
+             "name": "Slow (recharge 5-6)",
+             "text": "Each creature of the golem's choice within 10 ft must succeed on a DC 17 Wisdom save or be slowed for 1 minute (halved speed, one attack, no reactions)."
+            }
+           ],
+           "xp": 5900,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Guards the vault door. Explains nothing.",
+          "lore": "The Office's security. Carved with the words NO ENTRY WITHOUT APPOINTMENT."
+         }
         }
        ],
        "tactics": "It defends the cabinets from vandals.",
@@ -4005,7 +6874,65 @@
          "count": 3,
          "hp": 45,
          "ac": 11,
-         "attack": "withering touch +5, 4d6"
+         "attack": "withering touch +5, 4d6",
+         "ref": "tropelandia.monster.ghost-judge",
+         "stats": {
+          "id": "tropelandia.monster.ghost-judge",
+          "name": "Ghost Judge",
+          "size": "medium",
+          "type": "undead",
+          "threat": 30,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 4,
+           "ac": 11,
+           "hp": 45,
+           "hp_dice": "10d8",
+           "speed": "0 ft, fly 40 ft (hover)",
+           "abilities": {
+            "str": 7,
+            "dex": 13,
+            "con": 10,
+            "int": 14,
+            "wis": 15,
+            "cha": 17
+           },
+           "senses": "darkvision 60 ft, passive Perception 12",
+           "languages": "Common, Legalese",
+           "traits": [
+            {
+             "name": "Ethereal Sight",
+             "text": "As ghost."
+            },
+            {
+             "name": "Incorporeal Movement",
+             "text": "As ghost."
+            },
+            {
+             "name": "Due Process",
+             "text": "Cannot attack a creature that has an appeal pending."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Withering Touch",
+             "text": "As ghost."
+            },
+            {
+             "name": "Horrifying Visage",
+             "text": "As ghost."
+            },
+            {
+             "name": "Verdict",
+             "text": "One creature within 30 ft must succeed on a DC 13 Charisma save or be restrained by a sense of guilt until the end of its next turn."
+            }
+           ],
+           "xp": 1100,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Hears the case. Rules against. Appeals are heard by the next judge.",
+          "lore": "Three of them sit in the Office's Court of Appeals. The backlog is eternal."
+         }
         }
        ],
        "tactics": "They rule on the party's case; they can be persuaded by good arguments (Persuasion DC 16).",
@@ -4066,7 +6993,69 @@
          "count": 1,
          "hp": 135,
          "ac": 17,
-         "attack": "paralysing touch +12, 3d6 cold; spells: power word kill, disintegrate, counterspell"
+         "attack": "paralysing touch +12, 3d6 cold; spells: power word kill, disintegrate, counterspell",
+         "ref": "tropelandia.monster.lich",
+         "stats": {
+          "id": "tropelandia.monster.lich",
+          "name": "Lich",
+          "size": "medium",
+          "type": "undead",
+          "threat": 59,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 21,
+           "ac": 17,
+           "hp": 135,
+           "hp_dice": "18d8+54",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 11,
+            "dex": 16,
+            "con": 16,
+            "int": 20,
+            "wis": 14,
+            "cha": 16
+           },
+           "senses": "truesight 120 ft, passive Perception 19",
+           "languages": "Common plus five",
+           "traits": [
+            {
+             "name": "Rejuvenation",
+             "text": "If it has a phylactery, a destroyed lich gains a new body in 1d10 days."
+            },
+            {
+             "name": "Legendary Resistance (3/day)",
+             "text": "May choose to succeed on a failed save."
+            },
+            {
+             "name": "Turn Resistance",
+             "text": "Advantage on saves against being turned."
+            },
+            {
+             "name": "Resistances",
+             "text": "Cold, lightning, necrotic; immune to poison and non-magical weapons."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Paralysing Touch",
+             "text": "Melee spell, +12 to hit, reach 5 ft. Hit: 10 (3d6) cold; DC 18 Constitution save or paralysed for 1 minute (repeat the save at the end of each turn)."
+            },
+            {
+             "name": "Spellcasting (DC 20, +12)",
+             "text": "Cantrips: mage hand, prestidigitation, ray of frost. 1st-9th level slots. Signature: counterspell, dimension door, disintegrate, dominate monster, finger of death, globe of invulnerability, power word kill, power word stun."
+            },
+            {
+             "name": "Legendary Actions (3/round)",
+             "text": "Cantrip; Paralysing Touch (2 actions); Frightening Gaze (2 actions, DC 18 Wisdom or frightened 1 minute); Disrupt Life (3 actions, 21 (6d6) necrotic to each non-undead within 20 ft, DC 18 Constitution halves)."
+            }
+           ],
+           "xp": 33000,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Would rather not. Asks, once, for the form. Then disintegrates the form.",
+          "lore": "Lord Vexmort found immortality easy and paperwork hard, and has had eleven centuries to confuse the two."
+         }
         }
        ],
        "tactics": "He fights if the party attacks, or tries to take the phylactery. He first offers them a form and a deal: sign here, and live forever, in the Office.",
@@ -4089,9 +7078,36 @@
      ],
      "secrets": [],
      "loot": [
-      "The Lich's quill (writes any contract)",
-      "A cloak of undeath resistance",
-      "The deed to the Office of Eternal Records"
+      {
+       "ref": "tropelandia.item.vexmorts-quill",
+       "name": "Vexmort's Quill",
+       "type": "wondrous",
+       "rarity": "very_rare",
+       "attunement": true,
+       "description": "A raven's quill that never runs dry and writes in a hand that is not yours.",
+       "mechanics": "Any contract written with it is binding on all signatories, enforced by the Office of Eternal Records. The Office reads every contract.",
+       "curse": "Everything you write with it is filed. Everything."
+      },
+      {
+       "ref": "tropelandia.item.cloak-of-undeath-resistance",
+       "name": "Cloak of Undeath Resistance",
+       "type": "wondrous",
+       "rarity": "rare",
+       "attunement": true,
+       "description": "A grey clerk's cloak with ink-stains on the cuffs.",
+       "mechanics": "Resistance to necrotic damage; undead must succeed on a DC 13 Wisdom save to attack you, as they take you for staff.",
+       "curse": ""
+      },
+      {
+       "ref": "tropelandia.item.deed-to-the-office-of-eternal-records",
+       "name": "Deed to the Office of Eternal Records",
+       "type": "document",
+       "rarity": "legendary",
+       "attunement": false,
+       "description": "A single sheet of vellum, correctly witnessed, naming the holder Director.",
+       "mechanics": "Whoever holds it is Director of the Office. The Office obeys the Director. The Director must process the backlog.",
+       "curse": ""
+      }
      ],
      "dmNotes": "Lich played as a bureaucrat: the final boss is a paperwork fight. The phylactery makes it mechanical."
     }
@@ -4151,7 +7167,7 @@
    },
    "tropes": [
     "Wizard Academy",
-    "Lich",
+    "The Lich",
     "Dungeon with No Logical Layout"
    ],
    "author": "seth",
@@ -4201,7 +7217,53 @@
          "count": 1,
          "hp": 40,
          "ac": 12,
-         "attack": "fire bolt +6, 2d10"
+         "attack": "fire bolt +6, 2d10",
+         "ref": "tropelandia.monster.mage",
+         "stats": {
+          "id": "tropelandia.monster.mage",
+          "name": "Mage",
+          "size": "medium",
+          "type": "humanoid (any)",
+          "threat": 34,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 6,
+           "ac": 12,
+           "hp": 40,
+           "hp_dice": "9d8",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 9,
+            "dex": 14,
+            "con": 11,
+            "int": 17,
+            "wis": 12,
+            "cha": 11
+           },
+           "senses": "passive Perception 11",
+           "languages": "Common plus three",
+           "traits": [
+            {
+             "name": "Spellcasting (DC 14, +6)",
+             "text": "Cantrips: fire bolt, light, mage hand, prestidigitation. 1st (4): detect magic, mage armor, magic missile, shield. 2nd (3): misty step, suggestion. 3rd (3): counterspell, fireball, fly. 4th (3): greater invisibility, ice storm. 5th (1): cone of cold."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Dagger",
+             "text": "Melee or ranged, +5 to hit, reach 5 ft or range 20/60 ft. Hit: 4 (1d4+2) piercing."
+            },
+            {
+             "name": "Fire Bolt",
+             "text": "Ranged spell, +6 to hit, range 120 ft. Hit: 11 (2d10) fire."
+            }
+           ],
+           "xp": 2300,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Shield when hit, misty step when cornered, fireball when the furniture is not theirs.",
+          "lore": "The baseline for every wizard, librarian and dragon-in-disguise in Tropelandia."
+         }
         }
        ],
        "tactics": "She attacks only if the rules are broken in front of her; she also enforces silence with a spell.",
@@ -4283,7 +7345,49 @@
          "count": 4,
          "hp": 22,
          "ac": 8,
-         "attack": "slam +3, 1d6+1"
+         "attack": "slam +3, 1d6+1",
+         "ref": "tropelandia.monster.zombie",
+         "stats": {
+          "id": "tropelandia.monster.zombie",
+          "name": "Zombie",
+          "size": "medium",
+          "type": "undead",
+          "threat": 14,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 8,
+           "hp": 22,
+           "hp_dice": "3d8+9",
+           "speed": "20 ft",
+           "abilities": {
+            "str": 13,
+            "dex": 6,
+            "con": 16,
+            "int": 3,
+            "wis": 6,
+            "cha": 5
+           },
+           "senses": "darkvision 60 ft, passive Perception 8",
+           "languages": "understands its old languages",
+           "traits": [
+            {
+             "name": "Undead Fortitude",
+             "text": "When reduced to 0 hit points by damage that is not radiant or a critical hit, a DC 5 + damage Constitution save leaves it at 1 hit point instead."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Slam",
+             "text": "Melee, +3 to hit, reach 5 ft. Hit: 4 (1d6+1) bludgeoning."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Walks forward. That is the plan.",
+          "lore": "Slow, persistent, mostly polite."
+         }
         }
        ],
        "tactics": "They rise if the party speaks above a whisper.",
@@ -4348,7 +7452,16 @@
      ],
      "secrets": [],
      "loot": [
-      "A map of the Section (reveals the layout of the Stacks)"
+      {
+       "ref": "tropelandia.item.map-of-the-restricted-section",
+       "name": "Map of the Restricted Section",
+       "type": "document",
+       "rarity": "uncommon",
+       "attunement": false,
+       "description": "A librarian's plan of the Stacks, in a hand that shakes slightly near the lower shelves.",
+       "mechanics": "Reveals the layout of the Restricted Section. Advantage on checks to find a specific book.",
+       "curse": ""
+      }
      ],
      "dmNotes": ""
     },
@@ -4388,7 +7501,57 @@
          "count": 6,
          "hp": 5,
          "ac": 14,
-         "attack": "paper cut +4, 1d4+1"
+         "attack": "paper cut +4, 1d4+1",
+         "ref": "tropelandia.monster.flying-book",
+         "stats": {
+          "id": "tropelandia.monster.flying-book",
+          "name": "Flying Book",
+          "size": "tiny",
+          "type": "construct",
+          "threat": 12,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.125,
+           "ac": 14,
+           "hp": 5,
+           "hp_dice": "2d4",
+           "speed": "0 ft, fly 40 ft (hover)",
+           "abilities": {
+            "str": 4,
+            "dex": 16,
+            "con": 10,
+            "int": 8,
+            "wis": 10,
+            "cha": 6
+           },
+           "senses": "blindsight 30 ft, passive Perception 10",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Flock",
+             "text": "Advantage on attacks if another flying book is within 5 ft of the target."
+            },
+            {
+             "name": "False Appearance",
+             "text": "Indistinguishable from a shelved book while motionless."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Paper Cut",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 3 (1d4+1) slashing."
+            },
+            {
+             "name": "Recite",
+             "text": "One creature within 10 ft must succeed on a DC 10 Wisdom save or have disadvantage on its next attack roll while it loses its place."
+            }
+           ],
+           "xp": 25,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Swarm the reader. Flee a lit candle.",
+          "lore": "Overdue, and resentful."
+         }
         }
        ],
        "tactics": "They try to charm: DC 13 Wis save or the target is charmed for 1 minute.",
@@ -4399,7 +7562,16 @@
      "puzzles": [],
      "secrets": [],
      "loot": [
-      "A romance novel that grants advantage on Persuasion for a day"
+      {
+       "ref": "tropelandia.item.the-persuasive-romance",
+       "name": "The Persuasive Romance",
+       "type": "wondrous",
+       "rarity": "uncommon",
+       "attunement": false,
+       "description": "A well-thumbed novel with a cover that has been torn off out of embarrassment.",
+       "mechanics": "Read a chapter (10 minutes): advantage on Persuasion checks for the rest of the day. Reread, and it stops working; it knows.",
+       "curse": ""
+      }
      ],
      "dmNotes": ""
     },
@@ -4453,7 +7625,53 @@
          "count": 2,
          "hp": 22,
          "ac": 12,
-         "attack": "life drain +4, 3d6"
+         "attack": "life drain +4, 3d6",
+         "ref": "tropelandia.monster.specter",
+         "stats": {
+          "id": "tropelandia.monster.specter",
+          "name": "Specter",
+          "size": "medium",
+          "type": "undead",
+          "threat": 19,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 1,
+           "ac": 12,
+           "hp": 22,
+           "hp_dice": "5d8",
+           "speed": "0 ft, fly 50 ft (hover)",
+           "abilities": {
+            "str": 1,
+            "dex": 14,
+            "con": 11,
+            "int": 10,
+            "wis": 10,
+            "cha": 11
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "understands its old languages",
+           "traits": [
+            {
+             "name": "Incorporeal Movement",
+             "text": "Can move through creatures and objects as difficult terrain; 5 (1d10) force damage if it ends its turn inside an object."
+            },
+            {
+             "name": "Sunlight Sensitivity",
+             "text": "Disadvantage on attacks and Perception checks relying on sight in sunlight."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Life Drain",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 10 (3d6) necrotic; DC 10 Constitution save or the target's hit point maximum is reduced by the damage taken until it finishes a long rest."
+            }
+           ],
+           "xp": 200,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Drifts through the wall, drains, drifts back.",
+          "lore": "Clerks, students and apprentices who died with work unfinished."
+         }
         }
        ],
        "tactics": "They are lost and want to be shown the exit; they attack if frightened.",
@@ -4528,7 +7746,61 @@
          "count": 2,
          "hp": 52,
          "ac": 15,
-         "attack": "claws +4, 2d6+2"
+         "attack": "claws +4, 2d6+2",
+         "ref": "tropelandia.monster.gargoyle",
+         "stats": {
+          "id": "tropelandia.monster.gargoyle",
+          "name": "Gargoyle",
+          "size": "medium",
+          "type": "elemental",
+          "threat": 24,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 2,
+           "ac": 15,
+           "hp": 52,
+           "hp_dice": "7d8+21",
+           "speed": "30 ft, fly 60 ft",
+           "abilities": {
+            "str": 15,
+            "dex": 11,
+            "con": 16,
+            "int": 6,
+            "wis": 11,
+            "cha": 7
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "Terran",
+           "traits": [
+            {
+             "name": "False Appearance",
+             "text": "Indistinguishable from an inanimate statue while motionless."
+            },
+            {
+             "name": "Resistances",
+             "text": "Non-magical weapons that are not adamantine; immune to poison; cannot be exhausted, petrified or poisoned."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "One bite and one claws attack."
+            },
+            {
+             "name": "Bite",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) piercing."
+            },
+            {
+             "name": "Claws",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) slashing."
+            }
+           ],
+           "xp": 450,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Waits to be walked past. Then does not wait.",
+          "lore": "Every chapel and academy in Tropelandia has them, and they are all listening."
+         }
         }
        ],
        "tactics": "They perch above the catwalk and drop on anyone shouting.",
@@ -4590,7 +7862,16 @@
      "secrets": [],
      "loot": [
       "A spellbook with 3 random wizard spells (up to level 3)",
-      "A bookmark of Feather Fall"
+      {
+       "ref": "tropelandia.item.bookmark-of-feather-fall",
+       "name": "Bookmark of Feather Fall",
+       "type": "wondrous",
+       "rarity": "common",
+       "attunement": false,
+       "description": "A silk ribbon bookmark.",
+       "mechanics": "Once per day, when you fall, the bookmark casts feather fall on you. It would prefer you did not make a habit of it.",
+       "curse": ""
+      }
      ],
      "dmNotes": ""
     },
@@ -4630,7 +7911,53 @@
          "count": 1,
          "hp": 40,
          "ac": 12,
-         "attack": "firebolt +6, 2d10"
+         "attack": "firebolt +6, 2d10",
+         "ref": "tropelandia.monster.mage",
+         "stats": {
+          "id": "tropelandia.monster.mage",
+          "name": "Mage",
+          "size": "medium",
+          "type": "humanoid (any)",
+          "threat": 34,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 6,
+           "ac": 12,
+           "hp": 40,
+           "hp_dice": "9d8",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 9,
+            "dex": 14,
+            "con": 11,
+            "int": 17,
+            "wis": 12,
+            "cha": 11
+           },
+           "senses": "passive Perception 11",
+           "languages": "Common plus three",
+           "traits": [
+            {
+             "name": "Spellcasting (DC 14, +6)",
+             "text": "Cantrips: fire bolt, light, mage hand, prestidigitation. 1st (4): detect magic, mage armor, magic missile, shield. 2nd (3): misty step, suggestion. 3rd (3): counterspell, fireball, fly. 4th (3): greater invisibility, ice storm. 5th (1): cone of cold."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Dagger",
+             "text": "Melee or ranged, +5 to hit, reach 5 ft or range 20/60 ft. Hit: 4 (1d4+2) piercing."
+            },
+            {
+             "name": "Fire Bolt",
+             "text": "Ranged spell, +6 to hit, range 120 ft. Hit: 11 (2d10) fire."
+            }
+           ],
+           "xp": 2300,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Shield when hit, misty step when cornered, fireball when the furniture is not theirs.",
+          "lore": "The baseline for every wizard, librarian and dragon-in-disguise in Tropelandia."
+         }
         }
        ],
        "tactics": "He wakes if the decanter is touched. He's grumpy but fair.",
@@ -4641,7 +7968,16 @@
      "puzzles": [],
      "secrets": [],
      "loot": [
-      "A potion of invisibility (the Dean's emergency exit)",
+      {
+       "ref": "tropelandia.item.potion-of-invisibility",
+       "name": "Potion of Invisibility",
+       "type": "potion",
+       "rarity": "very_rare",
+       "attunement": false,
+       "description": "A bottle that is hard to look at directly.",
+       "mechanics": "Drink: invisible for 1 hour, or until you attack or cast a spell.",
+       "curse": ""
+      },
       "A leather-bound journal of the Academy's secrets"
      ],
      "dmNotes": ""
@@ -4682,7 +8018,61 @@
          "count": 1,
          "hp": 90,
          "ac": 15,
-         "attack": "psychic lash +7, 3d8"
+         "attack": "psychic lash +7, 3d8",
+         "ref": "tropelandia.monster.living-book",
+         "stats": {
+          "id": "tropelandia.monster.living-book",
+          "name": "Living Book",
+          "size": "medium",
+          "type": "aberration",
+          "threat": 34,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 5,
+           "ac": 15,
+           "hp": 90,
+           "hp_dice": "12d8+36",
+           "speed": "20 ft, fly 30 ft (hover)",
+           "abilities": {
+            "str": 14,
+            "dex": 14,
+            "con": 16,
+            "int": 18,
+            "wis": 15,
+            "cha": 16
+           },
+           "senses": "truesight 30 ft, passive Perception 12",
+           "languages": "all written languages, telepathy 30 ft",
+           "traits": [
+            {
+             "name": "Bound Knowledge",
+             "text": "Advantage on Intelligence checks and saves; knows one true fact about any creature that reads from it."
+            },
+            {
+             "name": "Flammable",
+             "text": "Vulnerable to fire."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "Two psychic lash attacks."
+            },
+            {
+             "name": "Psychic Lash",
+             "text": "Melee or ranged, +7 to hit, reach 5 ft or range 30 ft. Hit: 13 (3d8) psychic."
+            },
+            {
+             "name": "Footnote (recharge 5-6)",
+             "text": "One creature within 30 ft must succeed on a DC 15 Intelligence save or be incapacitated until the end of its next turn, reading."
+            }
+           ],
+           "xp": 1800,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Wants to be read. Will be read. Fights to finish the chapter.",
+          "lore": "A thesis that defended itself and never stopped."
+         }
         }
        ],
        "tactics": "It wants a reader; it attacks if refused. It can be bargained with: one answer for one favour.",
@@ -4808,7 +8198,57 @@
          "count": 3,
          "hp": 18,
          "ac": 11,
-         "attack": "bite +3, 1d6+1, swallow"
+         "attack": "bite +3, 1d6+1, swallow",
+         "ref": "tropelandia.monster.giant-frog",
+         "stats": {
+          "id": "tropelandia.monster.giant-frog",
+          "name": "Giant Frog",
+          "size": "medium",
+          "type": "beast",
+          "threat": 14,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 11,
+           "hp": 18,
+           "hp_dice": "4d8",
+           "speed": "30 ft, swim 30 ft",
+           "abilities": {
+            "str": 12,
+            "dex": 13,
+            "con": 11,
+            "int": 2,
+            "wis": 10,
+            "cha": 3
+           },
+           "senses": "darkvision 30 ft, passive Perception 12",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Amphibious",
+             "text": "Breathes air and water."
+            },
+            {
+             "name": "Standing Leap",
+             "text": "Long jump up to 20 ft and high jump up to 10 ft, with or without a running start."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Bite",
+             "text": "Melee, +3 to hit, reach 5 ft. Hit: 4 (1d6+1) piercing and the target is grappled (escape DC 11) and restrained."
+            },
+            {
+             "name": "Swallow",
+             "text": "One Small or smaller creature it is grappling: 5 (2d4) acid damage at the start of each of the frog's turns while swallowed."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Leap from the reeds, swallow the smallest, retreat into the water.",
+          "lore": "The marsh frogs have learned hymns. They are not good at them."
+         }
         }
        ],
        "tactics": "They ambush from the water as the party approaches the door.",
@@ -4880,7 +8320,53 @@
          "count": 6,
          "hp": 13,
          "ac": 13,
-         "attack": "shortsword +4, 1d6+2"
+         "attack": "shortsword +4, 1d6+2",
+         "ref": "tropelandia.monster.skeleton",
+         "stats": {
+          "id": "tropelandia.monster.skeleton",
+          "name": "Skeleton",
+          "size": "medium",
+          "type": "undead",
+          "threat": 14,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 13,
+           "hp": 13,
+           "hp_dice": "2d8+4",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 10,
+            "dex": 14,
+            "con": 15,
+            "int": 6,
+            "wis": 8,
+            "cha": 5
+           },
+           "senses": "darkvision 60 ft, passive Perception 9",
+           "languages": "understands its old languages",
+           "traits": [
+            {
+             "name": "Undead Nature",
+             "text": "Vulnerable to bludgeoning. Immune to poison; cannot be exhausted or poisoned."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Shortsword",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) piercing."
+            },
+            {
+             "name": "Shortbow",
+             "text": "Ranged, +4 to hit, range 80/320 ft. Hit: 5 (1d6+2) piercing."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Does exactly what it was told, for as long as it takes.",
+          "lore": "The dead of Tropelandia keep working. It is in the contract."
+         }
         }
        ],
        "tactics": "They rise if the party touches the altar or disturbs the pews; they will sing, loudly, off-key, which gives disadvantage on Wisdom (Perception).",
@@ -4978,7 +8464,61 @@
          "count": 1,
          "hp": 45,
          "ac": 11,
-         "attack": "withering touch +5, 4d6 (only if provoked)"
+         "attack": "withering touch +5, 4d6 (only if provoked)",
+         "ref": "tropelandia.monster.ghost",
+         "stats": {
+          "id": "tropelandia.monster.ghost",
+          "name": "Ghost",
+          "size": "medium",
+          "type": "undead",
+          "threat": 30,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 4,
+           "ac": 11,
+           "hp": 45,
+           "hp_dice": "10d8",
+           "speed": "0 ft, fly 40 ft (hover)",
+           "abilities": {
+            "str": 7,
+            "dex": 13,
+            "con": 10,
+            "int": 10,
+            "wis": 12,
+            "cha": 17
+           },
+           "senses": "darkvision 60 ft, passive Perception 11",
+           "languages": "the languages it knew in life",
+           "traits": [
+            {
+             "name": "Ethereal Sight",
+             "text": "Can see 60 ft into the Ethereal Plane."
+            },
+            {
+             "name": "Incorporeal Movement",
+             "text": "Can move through creatures and objects as difficult terrain; takes 5 (1d10) force damage if it ends its turn inside an object."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Withering Touch",
+             "text": "Melee, +5 to hit, reach 5 ft. Hit: 17 (4d6) necrotic."
+            },
+            {
+             "name": "Horrifying Visage",
+             "text": "Each non-undead creature within 60 ft that can see it must succeed on a DC 13 Wisdom save or be frightened for 1 minute; on a failure by 5 or more the target also ages 1d4 x 10 years."
+            },
+            {
+             "name": "Possession (recharge 6)",
+             "text": "One humanoid within 5 ft must succeed on a DC 13 Charisma save or be possessed; the ghost controls the body until the host drops to 0 hit points or is turned."
+            }
+           ],
+           "xp": 1100,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Talks first. Most Tropelandian ghosts have a grievance and will air it.",
+          "lore": "Death in Tropelandia is a change of address."
+         }
         }
        ],
        "tactics": "He wants someone to finish his sermon. If the party listens, he gives them his blessing and the cabinet key.",
@@ -5054,7 +8594,16 @@
      ],
      "secrets": [],
      "loot": [
-      "The Reliquary of Mild Dread (worth 200 gp; sneezes when touched)"
+      {
+       "ref": "tropelandia.item.reliquary-of-mild-dread",
+       "name": "Reliquary of Mild Dread",
+       "type": "treasure",
+       "rarity": "mundane",
+       "attunement": false,
+       "description": "A silver box set with wet-looking green stones, containing a relic that sneezes.",
+       "mechanics": "Sneezes when touched; everyone within 10 ft must succeed on a DC 10 Constitution save or sneeze too (lose their reaction).",
+       "curse": ""
+      }
      ],
      "dmNotes": ""
     },
@@ -5108,14 +8657,102 @@
          "count": 3,
          "hp": 22,
          "ac": 8,
-         "attack": "slam +3, 1d6+1"
+         "attack": "slam +3, 1d6+1",
+         "ref": "tropelandia.monster.zombie",
+         "stats": {
+          "id": "tropelandia.monster.zombie",
+          "name": "Zombie",
+          "size": "medium",
+          "type": "undead",
+          "threat": 14,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.25,
+           "ac": 8,
+           "hp": 22,
+           "hp_dice": "3d8+9",
+           "speed": "20 ft",
+           "abilities": {
+            "str": 13,
+            "dex": 6,
+            "con": 16,
+            "int": 3,
+            "wis": 6,
+            "cha": 5
+           },
+           "senses": "darkvision 60 ft, passive Perception 8",
+           "languages": "understands its old languages",
+           "traits": [
+            {
+             "name": "Undead Fortitude",
+             "text": "When reduced to 0 hit points by damage that is not radiant or a critical hit, a DC 5 + damage Constitution save leaves it at 1 hit point instead."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Slam",
+             "text": "Melee, +3 to hit, reach 5 ft. Hit: 4 (1d6+1) bludgeoning."
+            }
+           ],
+           "xp": 50,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Walks forward. That is the plan.",
+          "lore": "Slow, persistent, mostly polite."
+         }
         },
         {
          "name": "Ghoul",
          "count": 1,
          "hp": 22,
          "ac": 12,
-         "attack": "claws +4, 2d4+2 (paralysis)"
+         "attack": "claws +4, 2d4+2 (paralysis)",
+         "ref": "tropelandia.monster.ghoul",
+         "stats": {
+          "id": "tropelandia.monster.ghoul",
+          "name": "Ghoul",
+          "size": "medium",
+          "type": "undead",
+          "threat": 19,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 1,
+           "ac": 12,
+           "hp": 22,
+           "hp_dice": "5d8",
+           "speed": "30 ft",
+           "abilities": {
+            "str": 13,
+            "dex": 15,
+            "con": 10,
+            "int": 7,
+            "wis": 10,
+            "cha": 6
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "Common",
+           "traits": [
+            {
+             "name": "Undead Nature",
+             "text": "Immune to poison; cannot be charmed, exhausted or poisoned."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Bite",
+             "text": "Melee, +2 to hit, reach 5 ft. Hit: 9 (2d6+2) piercing."
+            },
+            {
+             "name": "Claws",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 7 (2d4+2) slashing; a non-elf target must succeed on a DC 10 Constitution save or be paralysed for 1 minute (repeat the save at the end of each turn)."
+            }
+           ],
+           "xp": 200,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Claws first, to hold still what it means to eat.",
+          "lore": "The marsh's dead do not all stay polite."
+         }
         }
        ],
        "tactics": "The ghoul lurks until the party is distracted by the zombies, then strikes.",
@@ -5166,7 +8803,53 @@
          "count": 1,
          "hp": 30,
          "ac": 11,
-         "attack": "rattle +4, 2d6"
+         "attack": "rattle +4, 2d6",
+         "ref": "tropelandia.monster.swarm-of-bones",
+         "stats": {
+          "id": "tropelandia.monster.swarm-of-bones",
+          "name": "Swarm of Bones",
+          "size": "large",
+          "type": "swarm of tiny undead",
+          "threat": 19,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 1,
+           "ac": 11,
+           "hp": 30,
+           "hp_dice": "4d10+8",
+           "speed": "20 ft",
+           "abilities": {
+            "str": 12,
+            "dex": 13,
+            "con": 14,
+            "int": 2,
+            "wis": 8,
+            "cha": 3
+           },
+           "senses": "darkvision 60 ft, passive Perception 9",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Swarm",
+             "text": "As swarm of rats."
+            },
+            {
+             "name": "Reassemble",
+             "text": "If reduced to 0 hit points by anything but bludgeoning or radiant damage, it reforms in 1d4 rounds with 10 hit points."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Rattle",
+             "text": "Melee, +4 to hit, reach 0 ft. Hit: 7 (2d6) bludgeoning, or 3 (1d6) at half hit points or fewer."
+            }
+           ],
+           "xp": 200,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Rolls across the floor like gravel with intent.",
+          "lore": "The chapel's ossuary, awake."
+         }
         }
        ],
        "tactics": "Triggers if the pillar is smashed rather than solved.",
@@ -5189,7 +8872,16 @@
      ],
      "secrets": [],
      "loot": [
-      "The Bone Key (opens the reliquary vault)",
+      {
+       "ref": "tropelandia.item.the-bone-key",
+       "name": "The Bone Key",
+       "type": "key",
+       "rarity": "rare",
+       "attunement": false,
+       "description": "A key carved from a single finger-bone, warm as a hand.",
+       "mechanics": "Opens the reliquary vault of the Sunken Chapel. Held in the hand, it points towards the nearest unquiet dead.",
+       "curse": ""
+      },
       "100 gp in ancient coins"
      ],
      "dmNotes": ""
@@ -5230,7 +8922,53 @@
          "count": 1,
          "hp": 22,
          "ac": 12,
-         "attack": "life drain +4, 3d6"
+         "attack": "life drain +4, 3d6",
+         "ref": "tropelandia.monster.specter",
+         "stats": {
+          "id": "tropelandia.monster.specter",
+          "name": "Specter",
+          "size": "medium",
+          "type": "undead",
+          "threat": 19,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 1,
+           "ac": 12,
+           "hp": 22,
+           "hp_dice": "5d8",
+           "speed": "0 ft, fly 50 ft (hover)",
+           "abilities": {
+            "str": 1,
+            "dex": 14,
+            "con": 11,
+            "int": 10,
+            "wis": 10,
+            "cha": 11
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "understands its old languages",
+           "traits": [
+            {
+             "name": "Incorporeal Movement",
+             "text": "Can move through creatures and objects as difficult terrain; 5 (1d10) force damage if it ends its turn inside an object."
+            },
+            {
+             "name": "Sunlight Sensitivity",
+             "text": "Disadvantage on attacks and Perception checks relying on sight in sunlight."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Life Drain",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 10 (3d6) necrotic; DC 10 Constitution save or the target's hit point maximum is reduced by the damage taken until it finishes a long rest."
+            }
+           ],
+           "xp": 200,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Drifts through the wall, drains, drifts back.",
+          "lore": "Clerks, students and apprentices who died with work unfinished."
+         }
         }
        ],
        "tactics": "The specter attacks anyone who disturbs the sarcophagus.",
@@ -5246,7 +8984,16 @@
       }
      ],
      "loot": [
-      "The Saint's Silver Bell (works as a ring of protection when rung, once per day)"
+      {
+       "ref": "tropelandia.item.the-saints-silver-bell",
+       "name": "The Saint's Silver Bell",
+       "type": "wondrous",
+       "rarity": "rare",
+       "attunement": true,
+       "description": "A hand bell of tarnished silver that rings clear through fog.",
+       "mechanics": "Ring it as an action, once per day: as a ring of protection (+1 AC and saves) for 1 hour to everyone who heard it. Undead within 60 ft must succeed on a DC 13 Wisdom save or be turned for 1 minute.",
+       "curse": ""
+      }
      ],
      "dmNotes": ""
     },
@@ -5286,7 +9033,61 @@
          "count": 2,
          "hp": 52,
          "ac": 15,
-         "attack": "claws +4, 2d6+2"
+         "attack": "claws +4, 2d6+2",
+         "ref": "tropelandia.monster.gargoyle",
+         "stats": {
+          "id": "tropelandia.monster.gargoyle",
+          "name": "Gargoyle",
+          "size": "medium",
+          "type": "elemental",
+          "threat": 24,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 2,
+           "ac": 15,
+           "hp": 52,
+           "hp_dice": "7d8+21",
+           "speed": "30 ft, fly 60 ft",
+           "abilities": {
+            "str": 15,
+            "dex": 11,
+            "con": 16,
+            "int": 6,
+            "wis": 11,
+            "cha": 7
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "Terran",
+           "traits": [
+            {
+             "name": "False Appearance",
+             "text": "Indistinguishable from an inanimate statue while motionless."
+            },
+            {
+             "name": "Resistances",
+             "text": "Non-magical weapons that are not adamantine; immune to poison; cannot be exhausted, petrified or poisoned."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "One bite and one claws attack."
+            },
+            {
+             "name": "Bite",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) piercing."
+            },
+            {
+             "name": "Claws",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) slashing."
+            }
+           ],
+           "xp": 450,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Waits to be walked past. Then does not wait.",
+          "lore": "Every chapel and academy in Tropelandia has them, and they are all listening."
+         }
         }
        ],
        "tactics": "They attack if the bell is tampered with; they'll let the party ring it if asked politely.",
@@ -5356,7 +9157,7 @@
     ]
    },
    "tropes": [
-    "Mimic",
+    "The Mimic",
     "The Tavern Where It All Starts",
     "Dungeon with No Logical Layout"
    ],
@@ -5421,7 +9222,65 @@
          "count": 1,
          "hp": 58,
          "ac": 12,
-         "attack": "pseudopod +5, 1d8+3 plus adhesion"
+         "attack": "pseudopod +5, 1d8+3 plus adhesion",
+         "ref": "tropelandia.monster.mimic",
+         "stats": {
+          "id": "tropelandia.monster.mimic",
+          "name": "Mimic",
+          "size": "medium",
+          "type": "monstrosity (shapechanger)",
+          "threat": 24,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 2,
+           "ac": 12,
+           "hp": 58,
+           "hp_dice": "9d8+18",
+           "speed": "15 ft",
+           "abilities": {
+            "str": 17,
+            "dex": 12,
+            "con": 15,
+            "int": 5,
+            "wis": 13,
+            "cha": 8
+           },
+           "senses": "darkvision 60 ft, passive Perception 11",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Shapechanger",
+             "text": "Can take the form of an object or revert to its amorphous form."
+            },
+            {
+             "name": "Adhesive",
+             "text": "Adheres to anything that touches it while in object form; a Huge or smaller creature adhered is grappled (escape DC 13)."
+            },
+            {
+             "name": "False Appearance",
+             "text": "Indistinguishable from an ordinary object while motionless."
+            },
+            {
+             "name": "Grappler",
+             "text": "Advantage on attack rolls against any creature grappled by it."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Pseudopod",
+             "text": "Melee, +5 to hit, reach 5 ft. Hit: 7 (1d8+3) bludgeoning; if the mimic is in object form, the target is adhered."
+            },
+            {
+             "name": "Bite",
+             "text": "Melee, +5 to hit, reach 5 ft. Hit: 7 (1d8+3) piercing plus 4 (1d8) acid."
+            }
+           ],
+           "xp": 450,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Is a chair until it is not a chair.",
+          "lore": "Tropelandia's mimics have gone into hospitality."
+         }
         }
        ],
        "tactics": "He tries to keep guests comfortable; if the party tries to leave he blocks doors with the building itself.",
@@ -5478,7 +9337,57 @@
          "count": 2,
          "hp": 20,
          "ac": 12,
-         "attack": "bite +4, 1d6+2"
+         "attack": "bite +4, 1d6+2",
+         "ref": "tropelandia.monster.mimic-spawn",
+         "stats": {
+          "id": "tropelandia.monster.mimic-spawn",
+          "name": "Mimic Spawn",
+          "size": "small",
+          "type": "monstrosity (shapechanger)",
+          "threat": 16,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.5,
+           "ac": 12,
+           "hp": 20,
+           "hp_dice": "4d6+6",
+           "speed": "15 ft",
+           "abilities": {
+            "str": 13,
+            "dex": 12,
+            "con": 14,
+            "int": 4,
+            "wis": 11,
+            "cha": 6
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Shapechanger",
+             "text": "As mimic, small objects only."
+            },
+            {
+             "name": "Adhesive",
+             "text": "As mimic, escape DC 11."
+            },
+            {
+             "name": "False Appearance",
+             "text": "As mimic."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Bite",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) piercing plus 2 (1d4) acid."
+            }
+           ],
+           "xp": 100,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Is a tankard. Then is a problem.",
+          "lore": "The Inn's tableware."
+         }
         }
        ],
        "tactics": "Hatchlings play at being plates and cutlery; they bite if the party tries to eat.",
@@ -5634,7 +9543,57 @@
          "count": 3,
          "hp": 20,
          "ac": 12,
-         "attack": "bite +4, 1d6+2"
+         "attack": "bite +4, 1d6+2",
+         "ref": "tropelandia.monster.mimic-spawn",
+         "stats": {
+          "id": "tropelandia.monster.mimic-spawn",
+          "name": "Mimic Spawn",
+          "size": "small",
+          "type": "monstrosity (shapechanger)",
+          "threat": 16,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 0.5,
+           "ac": 12,
+           "hp": 20,
+           "hp_dice": "4d6+6",
+           "speed": "15 ft",
+           "abilities": {
+            "str": 13,
+            "dex": 12,
+            "con": 14,
+            "int": 4,
+            "wis": 11,
+            "cha": 6
+           },
+           "senses": "darkvision 60 ft, passive Perception 10",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Shapechanger",
+             "text": "As mimic, small objects only."
+            },
+            {
+             "name": "Adhesive",
+             "text": "As mimic, escape DC 11."
+            },
+            {
+             "name": "False Appearance",
+             "text": "As mimic."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Bite",
+             "text": "Melee, +4 to hit, reach 5 ft. Hit: 5 (1d6+2) piercing plus 2 (1d4) acid."
+            }
+           ],
+           "xp": 100,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Is a tankard. Then is a problem.",
+          "lore": "The Inn's tableware."
+         }
         }
        ],
        "tactics": "Suitcases spring to life if the bed is touched.",
@@ -5690,7 +9649,16 @@
      "puzzles": [],
      "secrets": [],
      "loot": [
-      "A magic towel (grants advantage on one saving throw vs. fire)"
+      {
+       "ref": "tropelandia.item.magic-towel",
+       "name": "Magic Towel",
+       "type": "wondrous",
+       "rarity": "common",
+       "attunement": false,
+       "description": "A fluffy towel embroidered ROADSIDE WELCOME, perfectly dry.",
+       "mechanics": "Once, grants advantage on one saving throw against fire. Also, you always know where it is.",
+       "curse": ""
+      }
      ],
      "dmNotes": ""
     },
@@ -5781,7 +9749,73 @@
          "count": 1,
          "hp": 180,
          "ac": 12,
-         "attack": "pseudopod +9, 2d10+5 plus adhesion; acid 3d8"
+         "attack": "pseudopod +9, 2d10+5 plus adhesion; acid 3d8",
+         "ref": "tropelandia.monster.giant-mimic",
+         "stats": {
+          "id": "tropelandia.monster.giant-mimic",
+          "name": "Giant Mimic",
+          "size": "huge",
+          "type": "monstrosity (shapechanger)",
+          "threat": 45,
+          "ruleset": "omniverse.ruleset.dnd5e",
+          "block": {
+           "cr": 9,
+           "ac": 12,
+           "hp": 180,
+           "hp_dice": "19d12+57",
+           "speed": "10 ft",
+           "abilities": {
+            "str": 21,
+            "dex": 10,
+            "con": 17,
+            "int": 7,
+            "wis": 14,
+            "cha": 10
+           },
+           "senses": "darkvision 120 ft, tremorsense 60 ft, passive Perception 14",
+           "languages": "-",
+           "traits": [
+            {
+             "name": "Shapechanger",
+             "text": "Can take the form of a building or a room of one."
+            },
+            {
+             "name": "Adhesive",
+             "text": "As mimic; the whole floor counts."
+            },
+            {
+             "name": "False Appearance",
+             "text": "Indistinguishable from an ordinary inn while motionless."
+            },
+            {
+             "name": "Regeneration",
+             "text": "Regains 10 hit points at the start of its turn while it has at least one guest inside."
+            }
+           ],
+           "actions": [
+            {
+             "name": "Multiattack",
+             "text": "Two pseudopod attacks and one bite."
+            },
+            {
+             "name": "Pseudopod",
+             "text": "Melee, +9 to hit, reach 15 ft. Hit: 16 (2d10+5) bludgeoning and the target is adhered (grappled, escape DC 17)."
+            },
+            {
+             "name": "Bite",
+             "text": "Melee, +9 to hit, reach 10 ft. Hit: 16 (2d10+5) piercing plus 13 (3d8) acid."
+            },
+            {
+             "name": "Swallow Room",
+             "text": "The giant mimic reshapes; each creature inside its object form must succeed on a DC 17 Dexterity save or be restrained by walls that are teeth."
+            }
+           ],
+           "xp": 5000,
+           "ruleset": "dnd5e"
+          },
+          "tactics": "Does not attack until the party has paid. It is a business.",
+          "lore": "The Roadside Welcome, Whisperwood's finest inn."
+         }
         }
        ],
        "tactics": "It fights hard but fears fire; it tries to swallow the party. It can be bargained with: it wants a steady supply of food (like deliveries).",
@@ -5793,7 +9827,16 @@
      "secrets": [],
      "loot": [
       "A heap of guests' possessions (1,000 gp in goods)",
-      "The Innkeeper's Heart (a mimic core, alchemical value 500 gp)"
+      {
+       "ref": "tropelandia.item.the-innkeepers-heart",
+       "name": "The Innkeeper's Heart",
+       "type": "treasure",
+       "rarity": "rare",
+       "attunement": false,
+       "description": "A fist-sized lump of something between amber and liver, warm, pulsing slowly.",
+       "mechanics": "A mimic core. Worth 500 gp to an alchemist. Held for an hour, it lets you imitate a small object until you move.",
+       "curse": ""
+      }
      ],
      "dmNotes": "Option: a Persuasion check (DC 16) to broker a lasting arrangement with the inn: a regular meal delivery in exchange for safe lodging."
     }

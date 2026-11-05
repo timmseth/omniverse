@@ -8,86 +8,103 @@ generated: build_world.py
 
 | Kind | Count |
 |---|---|
-| universe | 1 |
-| plane | 1 |
-| galaxy | 1 |
-| star_system | 1 |
-| planet | 1 |
-| continent | 2 |
-| region | 7 |
+| universe | 2 |
+| plane | 2 |
+| galaxy | 2 |
+| star_system | 2 |
+| planet | 2 |
+| continent | 3 |
+| region | 8 |
 | country | 1 |
 | province | 1 |
-| settlement | 8 |
+| settlement | 9 |
 | district | 1 |
-| venue | 27 |
+| venue | 29 |
 | household | 1 |
-| person | 34 |
-| faction | 11 |
-| calendar | 1 |
-| era | 1 |
-| event | 1 |
+| person | 42 |
+| faction | 12 |
+| deity | 7 |
+| culture | 4 |
+| language | 4 |
+| calendar | 2 |
+| holiday | 6 |
+| era | 3 |
+| event | 31 |
 | trope | 50 |
 | trope_instance | 1 |
-| dungeon | 10 |
-| instance | 1 |
-| campaign | 1 |
+| quest | 10 |
+| lore | 7 |
+| table | 16 |
+| dungeon | 11 |
+| monster | 49 |
+| item | 32 |
+| instance | 2 |
+| campaign | 2 |
 | session | 1 |
-| ruleset | 2 |
-| index | 3 |
-| guide | 1 |
+| ruleset | 3 |
+| module | 1 |
+| index | 16 |
+| guide | 3 |
 | multiverse | 1 |
 | omniverse | 1 |
-| room | 85 |
+| room | 92 |
 | template | 2 |
 
-## universe (1)
+## universe (2)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[_universe]] |  | `tropelandia` | 2 |
+| [[_universe]] |  | `ashfall` | 1 |
+| [[_universe]] |  | `tropelandia` | 0 |
 
-## plane (1)
-
-| Note | Universe | Id | Refs in |
-|---|---|---|---|
-| [[Material Plane]] | tropelandia | `tropelandia.plane.material-plane` | 2 |
-
-## galaxy (1)
+## plane (2)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
+| [[Material Plane]] | ashfall | `ashfall.plane.material-plane` | 2 |
+| [[Material Plane]] | tropelandia | `tropelandia.plane.material-plane` | 1 |
+
+## galaxy (2)
+
+| Note | Universe | Id | Refs in |
+|---|---|---|---|
+| [[The Galaxy]] | ashfall | `ashfall.galaxy.the-galaxy` | 1 |
 | [[Gleamhaven]] | tropelandia | `tropelandia.galaxy.gleamhaven` | 2 |
 
-## star_system (1)
+## star_system (2)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
+| [[The Sun]] | ashfall | `ashfall.star_system.the-sun` | 1 |
 | [[Mildew Sun]] | tropelandia | `tropelandia.star_system.mildew-sun` | 2 |
 
-## planet (1)
+## planet (2)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
+| [[Hearth]] | ashfall | `ashfall.planet.hearth` | 2 |
 | [[Tropos]] | tropelandia | `tropelandia.planet.tropos` | 3 |
 
-## continent (2)
+## continent (3)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
+| [[The Mainland]] | ashfall | `ashfall.continent.the-mainland` | 1 |
 | [[Mainland]] | tropelandia | `tropelandia.continent.mainland` | 7 |
 | [[The Underside]] | tropelandia | `tropelandia.continent.the-underside` | 2 |
 
-## region (7)
+## region (8)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[Crooked Peaks]] | tropelandia | `tropelandia.region.crooked-peaks` | 3 |
-| [[Gently Haunted Marsh]] | tropelandia | `tropelandia.region.gently-haunted-marsh` | 4 |
-| [[Glittering Sands]] | tropelandia | `tropelandia.region.glittering-sands` | 3 |
+| [[The Cinder Road]] | ashfall | `ashfall.region.the-cinder-road` | 4 |
+| [[Crooked Peaks]] | tropelandia | `tropelandia.region.crooked-peaks` | 5 |
+| [[Gently Haunted Marsh]] | tropelandia | `tropelandia.region.gently-haunted-marsh` | 7 |
+| [[Glittering Sands]] | tropelandia | `tropelandia.region.glittering-sands` | 5 |
 | [[Hollow Deep]] | tropelandia | `tropelandia.region.hollow-deep` | 2 |
 | [[Scholars' Spire]] | tropelandia | `tropelandia.region.scholars-spire` | 3 |
 | [[Sullen Coast]] | tropelandia | `tropelandia.region.sullen-coast` | 3 |
-| [[Whisperwood]] | tropelandia | `tropelandia.region.whisperwood` | 4 |
+| [[Whisperwood]] | tropelandia | `tropelandia.region.whisperwood` | 6 |
 
 ## country (1)
 
@@ -101,18 +118,19 @@ generated: build_world.py
 |---|---|---|---|
 | [[Dampshire]] | tropelandia | `tropelandia.province.dampshire` | 2 |
 
-## settlement (8)
+## settlement (9)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[Barrowdale]] | tropelandia | `tropelandia.settlement.barrowdale` | 15 |
-| [[Deepfile]] | tropelandia | `tropelandia.settlement.deepfile` | 9 |
-| [[Greyharbour]] | tropelandia | `tropelandia.settlement.greyharbour` | 10 |
-| [[Grudgehold]] | tropelandia | `tropelandia.settlement.grudgehold` | 9 |
-| [[Hearthollow]] | tropelandia | `tropelandia.settlement.hearthollow` | 12 |
-| [[Last Receipt]] | tropelandia | `tropelandia.settlement.last-receipt` | 9 |
-| [[Soggy Bottom]] | tropelandia | `tropelandia.settlement.soggy-bottom` | 8 |
-| [[Thaumaton]] | tropelandia | `tropelandia.settlement.thaumaton` | 11 |
+| [[Lastlight]] | ashfall | `ashfall.settlement.lastlight` | 8 |
+| [[Barrowdale]] | tropelandia | `tropelandia.settlement.barrowdale` | 23 |
+| [[Deepfile]] | tropelandia | `tropelandia.settlement.deepfile` | 11 |
+| [[Greyharbour]] | tropelandia | `tropelandia.settlement.greyharbour` | 12 |
+| [[Grudgehold]] | tropelandia | `tropelandia.settlement.grudgehold` | 14 |
+| [[Hearthollow]] | tropelandia | `tropelandia.settlement.hearthollow` | 15 |
+| [[Last Receipt]] | tropelandia | `tropelandia.settlement.last-receipt` | 12 |
+| [[Soggy Bottom]] | tropelandia | `tropelandia.settlement.soggy-bottom` | 13 |
+| [[Thaumaton]] | tropelandia | `tropelandia.settlement.thaumaton` | 15 |
 
 ## district (1)
 
@@ -120,37 +138,39 @@ generated: build_world.py
 |---|---|---|---|
 | [[The Crooked Lane]] | tropelandia | `tropelandia.district.the-crooked-lane` | 3 |
 
-## venue (27)
+## venue (29)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
+| [[The Ember Hall]] | ashfall | `ashfall.venue.the-ember-hall` | 3 |
+| [[The Warden's Keep]] | ashfall | `ashfall.venue.the-wardens-keep` | 3 |
 | [[Bone & Binding]] | tropelandia | `tropelandia.venue.bone-binding` | 2 |
-| [[Dunewright Exchange]] | tropelandia | `tropelandia.venue.dunewright-exchange` | 4 |
+| [[Dunewright Exchange]] | tropelandia | `tropelandia.venue.dunewright-exchange` | 5 |
 | [[Gribble's Sundries]] | tropelandia | `tropelandia.venue.gribbles-sundries` | 2 |
 | [[Grimblade & Daughters]] | tropelandia | `tropelandia.venue.grimblade-daughters` | 2 |
-| [[Harbourmaster's Office]] | tropelandia | `tropelandia.venue.harbourmasters-office` | 2 |
+| [[Harbourmaster's Office]] | tropelandia | `tropelandia.venue.harbourmasters-office` | 3 |
 | [[Honeywell Apothecary]] | tropelandia | `tropelandia.venue.honeywell-apothecary` | 2 |
-| [[Ironbudget Hall]] | tropelandia | `tropelandia.venue.ironbudget-hall` | 4 |
+| [[Ironbudget Hall]] | tropelandia | `tropelandia.venue.ironbudget-hall` | 5 |
 | [[Licensing Board, Head Office]] | tropelandia | `tropelandia.venue.licensing-board-head-office` | 3 |
 | [[Licensing Board, Sands Office]] | tropelandia | `tropelandia.venue.licensing-board-sands-office` | 2 |
-| [[Nine-Fingers Pawn and Loan]] | tropelandia | `tropelandia.venue.nine-fingers-pawn-and-loan` | 2 |
-| [[Office of Eternal Records, Public Counter]] | tropelandia | `tropelandia.venue.office-of-eternal-records-public-counter` | 3 |
-| [[Pettigrew Manor]] | tropelandia | `tropelandia.venue.pettigrew-manor` | 4 |
-| [[Port Pilferage Fish Market]] | tropelandia | `tropelandia.venue.port-pilferage-fish-market` | 3 |
+| [[Nine-Fingers Pawn and Loan]] | tropelandia | `tropelandia.venue.nine-fingers-pawn-and-loan` | 3 |
+| [[Office of Eternal Records, Public Counter]] | tropelandia | `tropelandia.venue.office-of-eternal-records-public-counter` | 4 |
+| [[Pettigrew Manor]] | tropelandia | `tropelandia.venue.pettigrew-manor` | 7 |
+| [[Port Pilferage Fish Market]] | tropelandia | `tropelandia.venue.port-pilferage-fish-market` | 4 |
 | [[Quickblade's Fencing School]] | tropelandia | `tropelandia.venue.quickblades-fencing-school` | 2 |
-| [[Reeve's Table]] | tropelandia | `tropelandia.venue.reeves-table` | 2 |
-| [[Shrine of the Damp Lady]] | tropelandia | `tropelandia.venue.shrine-of-the-damp-lady` | 3 |
-| [[Thaumaturgic Academy Gate]] | tropelandia | `tropelandia.venue.thaumaturgic-academy-gate` | 3 |
+| [[Reeve's Table]] | tropelandia | `tropelandia.venue.reeves-table` | 3 |
+| [[Shrine of the Damp Lady]] | tropelandia | `tropelandia.venue.shrine-of-the-damp-lady` | 4 |
+| [[Thaumaturgic Academy Gate]] | tropelandia | `tropelandia.venue.thaumaturgic-academy-gate` | 4 |
 | [[The Bottomless Tankard]] | tropelandia | `tropelandia.venue.the-bottomless-tankard` | 2 |
 | [[The Drowned Rat]] | tropelandia | `tropelandia.venue.the-drowned-rat` | 2 |
 | [[The Dry Oasis]] | tropelandia | `tropelandia.venue.the-dry-oasis` | 2 |
 | [[The Eel and Anchor]] | tropelandia | `tropelandia.venue.the-eel-and-anchor` | 2 |
 | [[The Final Draft]] | tropelandia | `tropelandia.venue.the-final-draft` | 2 |
-| [[The Gilded Tankard]] | tropelandia | `tropelandia.venue.the-gilded-tankard` | 2 |
-| [[The Laughing Stag]] | tropelandia | `tropelandia.venue.the-laughing-stag` | 3 |
-| [[The Scorched Owl]] | tropelandia | `tropelandia.venue.the-scorched-owl` | 2 |
+| [[The Gilded Tankard]] | tropelandia | `tropelandia.venue.the-gilded-tankard` | 4 |
+| [[The Laughing Stag]] | tropelandia | `tropelandia.venue.the-laughing-stag` | 4 |
+| [[The Scorched Owl]] | tropelandia | `tropelandia.venue.the-scorched-owl` | 3 |
 | [[Union Hall, Local 7]] | tropelandia | `tropelandia.venue.union-hall-local-7` | 3 |
-| [[Union Hiring Hall (closed)]] | tropelandia | `tropelandia.venue.union-hiring-hall-closed` | 3 |
+| [[Union Hiring Hall (closed)]] | tropelandia | `tropelandia.venue.union-hiring-hall-closed` | 4 |
 
 ## household (1)
 
@@ -158,133 +178,216 @@ generated: build_world.py
 |---|---|---|---|
 | [[Pettigrew Household]] | tropelandia | `tropelandia.household.pettigrew` | 2 |
 
-## person (34)
+## person (42)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[Abbess Prudence Dimly]] | tropelandia | `tropelandia.person.abbess-prudence-dimly` | 3 |
-| [[Barnaby Stoutwhistle]] | tropelandia | `tropelandia.person.barnaby-stoutwhistle` | 2 |
+| [[Brother Ash]] | ashfall | `ashfall.person.brother-ash` | 2 |
+| [[Kettle]] | ashfall | `ashfall.person.kettle` | 2 |
+| [[Warden Maren Vosk]] | ashfall | `ashfall.person.warden-maren-vosk` | 3 |
+| [[Abbess Prudence Dimly]] | tropelandia | `tropelandia.person.abbess-prudence-dimly` | 4 |
+| [[Barnaby Stoutwhistle]] | tropelandia | `tropelandia.person.barnaby-stoutwhistle` | 3 |
 | [[Bashir Two-Cups]] | tropelandia | `tropelandia.person.bashir-two-cups` | 2 |
-| [[Caravan-Mistress Zafira Dunewright]] | tropelandia | `tropelandia.person.caravan-mistress-zafira-dunewright` | 2 |
-| [[Chancellor Ignatius Blotch]] | tropelandia | `tropelandia.person.chancellor-ignatius-blotch` | 3 |
-| [[Clerk Felicity Underhill]] | tropelandia | `tropelandia.person.clerk-felicity-underhill` | 3 |
+| [[Brother Eustace Pennyworth]] | tropelandia | `starter-kit.person.brother-eustace-pennyworth` | 1 |
+| [[Caravan-Mistress Zafira Dunewright]] | tropelandia | `tropelandia.person.caravan-mistress-zafira-dunewright` | 3 |
+| [[Chancellor Ignatius Blotch]] | tropelandia | `tropelandia.person.chancellor-ignatius-blotch` | 4 |
+| [[Clerk Felicity Underhill]] | tropelandia | `tropelandia.person.clerk-felicity-underhill` | 4 |
 | [[Cob Marlin]] | tropelandia | `tropelandia.person.cob-marlin` | 3 |
 | [[Dame Rosalind Quickblade]] | tropelandia | `tropelandia.person.dame-rosalind-quickblade` | 9 |
 | [[Deputy Registrar Thaddeus Nib]] | tropelandia | `tropelandia.person.deputy-registrar-thaddeus-nib` | 3 |
 | [[Dr Fennimore Honeywell]] | tropelandia | `tropelandia.person.dr-fennimore-honeywell` | 2 |
-| [[Durgan Pennywhistle]] | tropelandia | `tropelandia.person.durgan-pennywhistle` | 2 |
-| [[Grand Steward Ophelia Grimsbane]] | tropelandia | `tropelandia.person.grand-steward-ophelia-grimsbane` | 3 |
-| [[Granny Scale]] | tropelandia | `tropelandia.person.granny-scale` | 3 |
+| [[Durgan Pennywhistle]] | tropelandia | `tropelandia.person.durgan-pennywhistle` | 3 |
+| [[Fizzwick Thimblewhistle]] | tropelandia | `starter-kit.person.fizzwick-thimblewhistle` | 1 |
+| [[Grand Steward Ophelia Grimsbane]] | tropelandia | `tropelandia.person.grand-steward-ophelia-grimsbane` | 5 |
+| [[Granny Scale]] | tropelandia | `tropelandia.person.granny-scale` | 4 |
+| [[Grimsby Ironbudget]] | tropelandia | `starter-kit.person.grimsby-ironbudget` | 1 |
 | [[Harbourmaster Ignatia Pell]] | tropelandia | `tropelandia.person.harbourmaster-ignatia-pell` | 4 |
 | [[Hilde Barrelchest]] | tropelandia | `tropelandia.person.hilde-barrelchest` | 2 |
-| [[Lord Vexmort the Undying]] | tropelandia | `tropelandia.person.lord-vexmort-the-undying` | 2 |
-| [[Marigold Thorne]] | tropelandia | `tropelandia.person.marigold-thorne` | 2 |
-| [[Marlowe the Mildly Menacing]] | tropelandia | `tropelandia.person.marlowe-the-mildly-menacing` | 10 |
-| [[Mayor Bartholomew Pettigrew]] | tropelandia | `tropelandia.person.mayor-bartholomew-pettigrew` | 7 |
+| [[Lord Vexmort the Undying]] | tropelandia | `tropelandia.person.lord-vexmort-the-undying` | 3 |
+| [[Marigold Thorne]] | tropelandia | `tropelandia.person.marigold-thorne` | 3 |
+| [[Marlowe the Mildly Menacing]] | tropelandia | `tropelandia.person.marlowe-the-mildly-menacing` | 11 |
+| [[Mayor Bartholomew Pettigrew]] | tropelandia | `tropelandia.person.mayor-bartholomew-pettigrew` | 8 |
 | [[Mortlake]] | tropelandia | `tropelandia.person.mortlake` | 2 |
 | [[Mr Welcome]] | tropelandia | `tropelandia.person.mr-welcome` | 2 |
+| [[Nell Underbough]] | tropelandia | `starter-kit.person.nell-underbough` | 1 |
 | [[Old Gribble]] | tropelandia | `tropelandia.person.old-gribble` | 2 |
 | [[Oona Grimblade]] | tropelandia | `tropelandia.person.oona-grimblade` | 3 |
 | [[Osric Quillbone]] | tropelandia | `tropelandia.person.osric-quillbone` | 2 |
-| [[Petronella Vask]] | tropelandia | `tropelandia.person.petronella-vask` | 3 |
+| [[Petronella Vask]] | tropelandia | `tropelandia.person.petronella-vask` | 4 |
 | [[Pip Ledgerclaw]] | tropelandia | `tropelandia.person.pip-ledgerclaw` | 2 |
-| [[Reeve Tobias Ashgrove]] | tropelandia | `tropelandia.person.reeve-tobias-ashgrove` | 2 |
+| [[Reeve Tobias Ashgrove]] | tropelandia | `tropelandia.person.reeve-tobias-ashgrove` | 3 |
 | [[Registrar Pimworth Quill]] | tropelandia | `tropelandia.person.registrar-pimworth-quill` | 3 |
 | [[Shop Steward Grizzle]] | tropelandia | `tropelandia.person.shop-steward-grizzle` | 3 |
 | [[Tess Underbough]] | tropelandia | `pie-heist.person.tess-underbough` | 2 |
-| [[Thane Brunhild Ironbudget]] | tropelandia | `tropelandia.person.thane-brunhild-ironbudget` | 3 |
+| [[Thane Brunhild Ironbudget]] | tropelandia | `tropelandia.person.thane-brunhild-ironbudget` | 4 |
 | [[The Librarian]] | tropelandia | `tropelandia.person.the-librarian` | 2 |
-| [[Vashti Nine-Fingers]] | tropelandia | `tropelandia.person.vashti-nine-fingers` | 3 |
+| [[Vashti Nine-Fingers]] | tropelandia | `tropelandia.person.vashti-nine-fingers` | 4 |
 | [[Wendeline Marsh-Tooth]] | tropelandia | `tropelandia.person.wendeline-marsh-tooth` | 2 |
+| [[Wren Thornfield]] | tropelandia | `starter-kit.person.wren-thornfield` | 1 |
 
-## faction (11)
-
-| Note | Universe | Id | Refs in |
-|---|---|---|---|
-| [[Adventurers' Licensing Board]] | tropelandia | `tropelandia.faction.adventurers-licensing-board` | 15 |
-| [[Church of the Reasonably Benevolent]] | tropelandia | `tropelandia.faction.church-of-the-reasonably-benevolent` | 8 |
-| [[Glintfang Holdings]] | tropelandia | `tropelandia.faction.glintfang-holdings` | 6 |
-| [[Honourable Society of Independent Acquisitionists]] | tropelandia | `tropelandia.faction.honourable-society-of-independent-acquisitionists` | 9 |
-| [[Karak-Dum-Dum Reclamation Trust]] | tropelandia | `tropelandia.faction.karak-dum-dum-reclamation-trust` | 7 |
-| [[Mildew Court]] | tropelandia | `tropelandia.faction.mildew-court` | 15 |
-| [[Office of Eternal Records]] | tropelandia | `tropelandia.faction.office-of-eternal-records` | 8 |
-| [[Roadside Hospitality Association]] | tropelandia | `tropelandia.faction.roadside-hospitality-association` | 5 |
-| [[Thaumaturgic Academy]] | tropelandia | `tropelandia.faction.thaumaturgic-academy` | 7 |
-| [[United Brotherhood of Goblins, Hobs and Allied Skulkers]] | tropelandia | `tropelandia.faction.united-brotherhood-of-goblins-hobs-and-allied-skulkers` | 8 |
-| [[Wizards Union Local 7]] | tropelandia | `tropelandia.faction.wizards-union-local-7` | 10 |
-
-## calendar (1)
+## faction (12)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[Calendar]] | tropelandia | `tropelandia.calendar.standard` | 1 |
+| [[The Wardens of the Last Light]] | ashfall | `ashfall.faction.the-wardens-of-the-last-light` | 7 |
+| [[Adventurers' Licensing Board]] | tropelandia | `tropelandia.faction.adventurers-licensing-board` | 18 |
+| [[Church of the Reasonably Benevolent]] | tropelandia | `tropelandia.faction.church-of-the-reasonably-benevolent` | 13 |
+| [[Glintfang Holdings]] | tropelandia | `tropelandia.faction.glintfang-holdings` | 12 |
+| [[Honourable Society of Independent Acquisitionists]] | tropelandia | `tropelandia.faction.honourable-society-of-independent-acquisitionists` | 12 |
+| [[Karak-Dum-Dum Reclamation Trust]] | tropelandia | `tropelandia.faction.karak-dum-dum-reclamation-trust` | 14 |
+| [[Mildew Court]] | tropelandia | `tropelandia.faction.mildew-court` | 25 |
+| [[Office of Eternal Records]] | tropelandia | `tropelandia.faction.office-of-eternal-records` | 12 |
+| [[Roadside Hospitality Association]] | tropelandia | `tropelandia.faction.roadside-hospitality-association` | 7 |
+| [[Thaumaturgic Academy]] | tropelandia | `tropelandia.faction.thaumaturgic-academy` | 12 |
+| [[United Brotherhood of Goblins, Hobs and Allied Skulkers]] | tropelandia | `tropelandia.faction.united-brotherhood-of-goblins-hobs-and-allied-skulkers` | 13 |
+| [[Wizards Union Local 7]] | tropelandia | `tropelandia.faction.wizards-union-local-7` | 14 |
 
-## era (1)
+## deity (7)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[Age of Mild Peril]] | tropelandia | `tropelandia.era.age-of-mild-peril` | 85 |
+| [[The Dying Flame]] | ashfall | `ashfall.deity.the-dying-flame` | 1 |
+| [[Glint]] | tropelandia | `tropelandia.deity.glint` | 5 |
+| [[Old Karak]] | tropelandia | `tropelandia.deity.old-karak` | 4 |
+| [[Our Lady of Second Editions]] | tropelandia | `tropelandia.deity.our-lady-of-second-editions` | 1 |
+| [[The Auditor]] | tropelandia | `tropelandia.deity.the-auditor` | 6 |
+| [[The Damp Lady]] | tropelandia | `tropelandia.deity.the-damp-lady` | 5 |
+| [[The Stag]] | tropelandia | `tropelandia.deity.the-stag` | 3 |
 
-## event (1)
+## culture (4)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[1489-0034 The Pie Contest Incident]] | tropelandia | `tropelandia.event.1489-0034-the-pie-contest-incident` | 4 |
+| [[Hold-Dwarves]] | tropelandia | `tropelandia.culture.hold-dwarves` | 1 |
+| [[Marshfolk]] | tropelandia | `tropelandia.culture.marshfolk` | 1 |
+| [[Sand-Traders]] | tropelandia | `tropelandia.culture.sand-traders` | 1 |
+| [[Woodfolk]] | tropelandia | `tropelandia.culture.woodfolk` | 1 |
+
+## language (4)
+
+| Note | Universe | Id | Refs in |
+|---|---|---|---|
+| [[Common (Tropelandian)]] | tropelandia | `tropelandia.language.common-tropelandian` | 5 |
+| [[Legalese]] | tropelandia | `tropelandia.language.legalese` | 1 |
+| [[Peak Dwarvish]] | tropelandia | `tropelandia.language.peak-dwarvish` | 2 |
+| [[Union Goblin]] | tropelandia | `tropelandia.language.union-goblin` | 2 |
+
+## calendar (2)
+
+| Note | Universe | Id | Refs in |
+|---|---|---|---|
+| [[Calendar]] | ashfall | `ashfall.calendar.standard` | 1 |
+| [[Calendar]] | tropelandia | `tropelandia.calendar.standard` | 7 |
+
+## holiday (6)
+
+| Note | Universe | Id | Refs in |
+|---|---|---|---|
+| [[Filing Day]] | tropelandia | `tropelandia.holiday.filing-day` | 2 |
+| [[Grudge Night]] | tropelandia | `tropelandia.holiday.grudge-night` | 2 |
+| [[Pie Day]] | tropelandia | `tropelandia.holiday.pie-day` | 1 |
+| [[Receipt Day]] | tropelandia | `tropelandia.holiday.receipt-day` | 4 |
+| [[Strike Day]] | tropelandia | `tropelandia.holiday.strike-day` | 2 |
+| [[The Damp Vigil]] | tropelandia | `tropelandia.holiday.the-damp-vigil` | 2 |
+
+## era (3)
+
+| Note | Universe | Id | Refs in |
+|---|---|---|---|
+| [[The Long Dusk]] | ashfall | `ashfall.era.the-long-dusk` | 12 |
+| [[Age of Mild Peril]] | tropelandia | `tropelandia.era.age-of-mild-peril` | 118 |
+| [[The Unfiled Years]] | tropelandia | `tropelandia.era.the-unfiled-years` | 0 |
+
+## event (31)
+
+| Note | Universe | Id | Refs in |
+|---|---|---|---|
+| [[40-0012 Lastlight Founded]] | ashfall | `ashfall.event.40-0012-lastlight-founded` | 0 |
+| [[1-0001 The Dimming]] | ashfall | `ashfall.event.1-0001-the-dimming` | 0 |
+| [[211-0044 The Vault Opens]] | ashfall | `ashfall.event.211-0044-the-vault-opens` | 1 |
+| [[88-0300 The Vault Shut]] | ashfall | `ashfall.event.88-0300-the-vault-shut` | 0 |
+| [[112-0015 Barrowdale Chartered]] | tropelandia | `tropelandia.event.112-0015-barrowdale-chartered` | 0 |
+| [[1301-0180 Glintfang Arrives]] | tropelandia | `tropelandia.event.1301-0180-glintfang-arrives` | 0 |
+| [[411-0090 Greyharbour's First Quay]] | tropelandia | `tropelandia.event.411-0090-greyharbours-first-quay` | 0 |
+| [[12-0100 Grudgehold Is Carved]] | tropelandia | `tropelandia.event.12-0100-grudgehold-is-carved` | 0 |
+| [[640-0060 Hearthollow Settled]] | tropelandia | `tropelandia.event.640-0060-hearthollow-settled` | 0 |
+| [[1203-0005 Last Receipt]] | tropelandia | `tropelandia.event.1203-0005-last-receipt` | 0 |
+| [[1442-0101 Marlowe Rents a Tower]] | tropelandia | `tropelandia.event.1442-0101-marlowe-rents-a-tower` | 0 |
+| [[301-0040 Soggy Bottom Founded]] | tropelandia | `tropelandia.event.301-0040-soggy-bottom-founded` | 0 |
+| [[1402-0009 The Adventurers' Licensing Board]] | tropelandia | `tropelandia.event.1402-0009-the-adventurers-licensing-board` | 0 |
+| [[1489-0030 The Auditor's Letter]] | tropelandia | `tropelandia.event.1489-0030-the-auditors-letter` | 0 |
+| [[1489-0002 The Chancellor Goes Quiet]] | tropelandia | `tropelandia.event.1489-0002-the-chancellor-goes-quiet` | 0 |
+| [[598-0220 The Chapel Begins to Sink]] | tropelandia | `tropelandia.event.598-0220-the-chapel-begins-to-sink` | 0 |
+| [[280-0001 The Church of the Reasonably Benevolent]] | tropelandia | `tropelandia.event.280-0001-the-church-of-the-reasonably-benevolent` | 0 |
+| [[1189-0300 The Fall of Karak-Dum-Dum]] | tropelandia | `tropelandia.event.1189-0300-the-fall-of-karak-dum-dum` | 0 |
+| [[1-0001 The First Morning]] | tropelandia | `tropelandia.event.1-0001-the-first-morning` | 0 |
+| [[903-0077 The First Restricted Book]] | tropelandia | `tropelandia.event.903-0077-the-first-restricted-book` | 0 |
+| [[1487-0158 The Goblin Strike]] | tropelandia | `tropelandia.event.1487-0158-the-goblin-strike` | 0 |
+| [[433-0012 The Honourable Society]] | tropelandia | `tropelandia.event.433-0012-the-honourable-society` | 0 |
+| [[1489-0035 The Overflow Corridor]] | tropelandia | `tropelandia.event.1489-0035-the-overflow-corridor` | 1 |
+| [[80-0200 The Pettigrews Arrive]] | tropelandia | `tropelandia.event.80-0200-the-pettigrews-arrive` | 0 |
+| [[1489-0034 The Pie Contest Incident]] | tropelandia | `tropelandia.event.1489-0034-the-pie-contest-incident` | 5 |
+| [[1189-0310 The Reclamation Trust]] | tropelandia | `tropelandia.event.1189-0310-the-reclamation-trust` | 0 |
+| [[1480-0033 The Roadside Welcome Opens]] | tropelandia | `tropelandia.event.1480-0033-the-roadside-welcome-opens` | 0 |
+| [[1488-0360 The Society's Ledger Vanishes]] | tropelandia | `tropelandia.event.1488-0360-the-societys-ledger-vanishes` | 0 |
+| [[890-0001 The Thaumaturgic Academy]] | tropelandia | `tropelandia.event.890-0001-the-thaumaturgic-academy` | 0 |
+| [[1489-0020 The Trust Borrows from the Dragon]] | tropelandia | `tropelandia.event.1489-0020-the-trust-borrows-from-the-dragon` | 0 |
+| [[1389-0044 Wizards Union Local 7 Chartered]] | tropelandia | `tropelandia.event.1389-0044-wizards-union-local-7-chartered` | 0 |
 
 ## trope (50)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
 | [[Aloof Elf]] |  | `omniverse.trope.aloof-elf` | 2 |
-| [[Ancient Evil Released by Dumb Adventurers]] |  | `omniverse.trope.ancient-evil-released-by-dumb-adventurers` | 7 |
-| [[Ancient Prophecy]] |  | `omniverse.trope.ancient-prophecy` | 6 |
+| [[Ancient Evil Released by Dumb Adventurers]] |  | `omniverse.trope.ancient-evil-released-by-dumb-adventurers` | 9 |
+| [[Ancient Prophecy]] |  | `omniverse.trope.ancient-prophecy` | 7 |
 | [[Bag of Holding]] |  | `omniverse.trope.bag-of-holding` | 2 |
 | [[Bard Who Flirts with Everything]] |  | `omniverse.trope.bard-who-flirts-with-everything` | 2 |
 | [[Beholder]] |  | `omniverse.trope.beholder` | 1 |
 | [[Chaotic Neutral Party Member]] |  | `omniverse.trope.chaotic-neutral-party-member` | 5 |
 | [[Critical Fail]] |  | `omniverse.trope.critical-fail` | 4 |
 | [[Cult Summoning a Demon]] |  | `omniverse.trope.cult-summoning-a-demon` | 4 |
-| [[Cursed Item]] |  | `omniverse.trope.cursed-item` | 5 |
+| [[Cursed Item]] |  | `omniverse.trope.cursed-item` | 6 |
 | [[DM Railroading]] |  | `omniverse.trope.dm-railroading` | 3 |
 | [[Damsel in Another Castle]] |  | `omniverse.trope.damsel-in-another-castle` | 3 |
-| [[Dark Lord]] |  | `omniverse.trope.dark-lord` | 8 |
+| [[Dark Lord]] |  | `omniverse.trope.dark-lord` | 9 |
 | [[Dragon]] |  | `omniverse.trope.dragon` | 5 |
-| [[Dragon's Hoard]] |  | `omniverse.trope.dragons-hoard` | 5 |
+| [[Dragon's Hoard]] |  | `omniverse.trope.dragons-hoard` | 6 |
 | [[Dumb Barbarian with a Heart of Gold]] |  | `omniverse.trope.dumb-barbarian-with-a-heart-of-gold` | 1 |
 | [[Dungeon with No Logical Layout]] |  | `omniverse.trope.dungeon-with-no-logical-layout` | 8 |
-| [[Dwarven Mine]] |  | `omniverse.trope.dwarven-mine` | 3 |
+| [[Dwarven Mine]] |  | `omniverse.trope.dwarven-mine` | 4 |
 | [[Escort Quest]] |  | `omniverse.trope.escort-quest` | 4 |
 | [[Evil Vizier]] |  | `omniverse.trope.evil-vizier` | 4 |
 | [[Fetch Quest]] |  | `omniverse.trope.fetch-quest` | 5 |
 | [[Gelatinous Cube]] |  | `omniverse.trope.gelatinous-cube` | 2 |
-| [[Goblins as Fodder]] |  | `omniverse.trope.goblins-as-fodder` | 6 |
+| [[Goblins as Fodder]] |  | `omniverse.trope.goblins-as-fodder` | 7 |
 | [[Grumpy Ale-Loving Dwarf]] |  | `omniverse.trope.grumpy-ale-loving-dwarf` | 5 |
-| [[Kill Ten Rats]] |  | `omniverse.trope.kill-ten-rats` | 5 |
+| [[Kill Ten Rats]] |  | `omniverse.trope.kill-ten-rats` | 6 |
 | [[Lawful Stupid Paladin]] |  | `omniverse.trope.lawful-stupid-paladin` | 3 |
 | [[Level Grinding]] |  | `omniverse.trope.level-grinding` | 5 |
-| [[Lich]] |  | `omniverse.trope.lich` | 5 |
 | [[Looting Every Corpse]] |  | `omniverse.trope.looting-every-corpse` | 6 |
 | [[Macguffin of Power]] |  | `omniverse.trope.macguffin-of-power` | 5 |
 | [[Mentor Who Dies]] |  | `omniverse.trope.mentor-who-dies` | 4 |
-| [[Mimic]] |  | `omniverse.trope.mimic` | 8 |
 | [[Murderhobo]] |  | `omniverse.trope.murderhobo` | 7 |
 | [[Mysterious Stranger in the Tavern]] |  | `omniverse.trope.mysterious-stranger-in-the-tavern` | 4 |
 | [[Quest Giver Betrays the Party]] |  | `omniverse.trope.quest-giver-betrays-the-party` | 7 |
 | [[Quest-Marker NPC]] |  | `omniverse.trope.quest-marker-npc` | 2 |
 | [[Random Encounters]] |  | `omniverse.trope.random-encounters` | 4 |
-| [[Resurrection at the Temple]] |  | `omniverse.trope.resurrection-at-the-temple` | 2 |
-| [[Rival Adventurers]] |  | `omniverse.trope.rival-adventurers` | 5 |
+| [[Resurrection at the Temple]] |  | `omniverse.trope.resurrection-at-the-temple` | 3 |
+| [[Rival Adventurers]] |  | `omniverse.trope.rival-adventurers` | 6 |
 | [[Rules Lawyer]] |  | `omniverse.trope.rules-lawyer` | 4 |
 | [[Save the World in Three Days]] |  | `omniverse.trope.save-the-world-in-three-days` | 3 |
 | [[Tavern Brawl]] |  | `omniverse.trope.tavern-brawl` | 3 |
 | [[The Chosen One]] |  | `omniverse.trope.the-chosen-one` | 5 |
-| [[The Heist]] |  | `omniverse.trope.the-heist` | 6 |
-| [[The Tavern Where It All Starts]] |  | `omniverse.trope.the-tavern-where-it-all-starts` | 6 |
-| [[Thieves' Guild]] |  | `omniverse.trope.thieves-guild` | 5 |
-| [[Village Menaced by Goblins]] |  | `omniverse.trope.village-menaced-by-goblins` | 4 |
+| [[The Heist]] |  | `omniverse.trope.the-heist` | 7 |
+| [[The Lich]] |  | `omniverse.trope.lich` | 8 |
+| [[The Mimic]] |  | `omniverse.trope.mimic` | 9 |
+| [[The Tavern Where It All Starts]] |  | `omniverse.trope.the-tavern-where-it-all-starts` | 8 |
+| [[Thieves' Guild]] |  | `omniverse.trope.thieves-guild` | 6 |
+| [[Village Menaced by Goblins]] |  | `omniverse.trope.village-menaced-by-goblins` | 5 |
 | [[Villain Monologue]] |  | `omniverse.trope.villain-monologue` | 5 |
-| [[Wizard Academy]] |  | `omniverse.trope.wizard-academy` | 4 |
-| [[Wizard in a Tower]] |  | `omniverse.trope.wizard-in-a-tower` | 7 |
+| [[Wizard Academy]] |  | `omniverse.trope.wizard-academy` | 5 |
+| [[Wizard in a Tower]] |  | `omniverse.trope.wizard-in-a-tower` | 8 |
 
 ## trope_instance (1)
 
@@ -292,32 +395,174 @@ generated: build_world.py
 |---|---|---|---|
 | [[Marlowe's Rented Tower]] | tropelandia | `tropelandia.instance.marlowe-tower` | 4 |
 
-## dungeon (10)
+## quest (10)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[Glintfang's Hoard]] | tropelandia | `tropelandia.dungeon.glintfang-hoard` | 12 |
-| [[Marlowe's Tower]] | tropelandia | `tropelandia.dungeon.marlowes-tower` | 11 |
-| [[The Cellar of Rats]] | tropelandia | `tropelandia.dungeon.cellar-of-rats` | 9 |
-| [[The Dwarven Folly]] | tropelandia | `tropelandia.dungeon.dwarven-folly` | 13 |
-| [[The Goblin Union Hall]] | tropelandia | `tropelandia.dungeon.goblin-union-hall` | 10 |
-| [[The Guildhall Below]] | tropelandia | `tropelandia.dungeon.guildhall-below` | 11 |
-| [[The Lich's Filing Office]] | tropelandia | `tropelandia.dungeon.lichs-filing-office` | 11 |
-| [[The Restricted Section]] | tropelandia | `tropelandia.dungeon.restricted-section` | 13 |
-| [[The Sunken Chapel of Mild Dread]] | tropelandia | `tropelandia.dungeon.sunken-chapel` | 11 |
-| [[Ye Olde Mimic Inn]] | tropelandia | `tropelandia.dungeon.mimic-inn` | 11 |
+| [[Guests of the Dragon]] | tropelandia | `tropelandia.quest.guests-of-the-dragon` | 2 |
+| [[Hall by Hall]] | tropelandia | `tropelandia.quest.hall-by-hall` | 2 |
+| [[Honest Reviews]] | tropelandia | `tropelandia.quest.honest-reviews` | 3 |
+| [[Overdue]] | tropelandia | `tropelandia.quest.overdue` | 2 |
+| [[Pending]] | tropelandia | `tropelandia.quest.pending` | 2 |
+| [[Ring Once]] | tropelandia | `tropelandia.quest.ring-once` | 3 |
+| [[Ten Rats]] | tropelandia | `tropelandia.quest.ten-rats` | 5 |
+| [[The Ledger]] | tropelandia | `tropelandia.quest.the-ledger` | 3 |
+| [[The Rent Is Due]] | tropelandia | `tropelandia.quest.the-rent-is-due` | 5 |
+| [[The Strike]] | tropelandia | `tropelandia.quest.the-strike` | 5 |
 
-## instance (1)
+## lore (7)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
+| [[The Ballad of Ten Rats]] | tropelandia | `tropelandia.lore.the-ballad-of-ten-rats` | 1 |
+| [[The Custom of Receipt Day]] | tropelandia | `tropelandia.lore.the-custom-of-receipt-day` | 1 |
+| [[The Fall of Karak-Dum-Dum]] | tropelandia | `tropelandia.lore.the-fall-of-karak-dum-dum` | 1 |
+| [[The Founding Tavern]] | tropelandia | `tropelandia.lore.the-founding-tavern` | 1 |
+| [[The Sinking of the Chapel]] | tropelandia | `tropelandia.lore.the-sinking-of-the-chapel` | 1 |
+| [[The Unfiled One]] | tropelandia | `tropelandia.lore.the-unfiled-one` | 1 |
+| [[Why Every Union Is Local 7]] | tropelandia | `tropelandia.lore.why-every-union-is-local-7` | 1 |
+
+## table (16)
+
+| Note | Universe | Id | Refs in |
+|---|---|---|---|
+| [[Road Encounters]] | ashfall | `ashfall.table.road-encounters` | 1 |
+| [[Complications]] | tropelandia | `tropelandia.table.complications` | 1 |
+| [[Glintfang's Portfolio]] | tropelandia | `tropelandia.table.glintfangs-portfolio` | 1 |
+| [[Marsh Encounters]] | tropelandia | `tropelandia.table.marsh-encounters` | 1 |
+| [[Marsh Finds]] | tropelandia | `tropelandia.table.marsh-finds` | 1 |
+| [[Marsh Weather]] | tropelandia | `tropelandia.table.marsh-weather` | 1 |
+| [[Minor Magic]] | tropelandia | `tropelandia.table.minor-magic` | 1 |
+| [[Minor Treasure]] | tropelandia | `tropelandia.table.minor-treasure` | 1 |
+| [[Office Supplies]] | tropelandia | `tropelandia.table.office-supplies` | 1 |
+| [[Peaks Encounters]] | tropelandia | `tropelandia.table.peaks-encounters` | 1 |
+| [[Reactions]] | tropelandia | `tropelandia.table.reactions` | 1 |
+| [[Sands Encounters]] | tropelandia | `tropelandia.table.sands-encounters` | 1 |
+| [[Tavern Hooks]] | tropelandia | `tropelandia.table.tavern-hooks` | 1 |
+| [[Tavern Rumours]] | tropelandia | `tropelandia.table.tavern-rumours` | 1 |
+| [[Tropelandian Names]] | tropelandia | `tropelandia.table.tropelandian-names` | 1 |
+| [[Whisperwood Encounters]] | tropelandia | `tropelandia.table.whisperwood-encounters` | 1 |
+
+## dungeon (11)
+
+| Note | Universe | Id | Refs in |
+|---|---|---|---|
+| [[The Cold Vault]] | ashfall | `ashfall.dungeon.the-cold-vault` | 11 |
+| [[Glintfang's Hoard]] | tropelandia | `tropelandia.dungeon.glintfang-hoard` | 15 |
+| [[Marlowe's Tower]] | tropelandia | `tropelandia.dungeon.marlowes-tower` | 14 |
+| [[The Cellar of Rats]] | tropelandia | `tropelandia.dungeon.cellar-of-rats` | 14 |
+| [[The Dwarven Folly]] | tropelandia | `tropelandia.dungeon.dwarven-folly` | 17 |
+| [[The Goblin Union Hall]] | tropelandia | `tropelandia.dungeon.goblin-union-hall` | 14 |
+| [[The Guildhall Below]] | tropelandia | `tropelandia.dungeon.guildhall-below` | 14 |
+| [[The Lich's Filing Office]] | tropelandia | `tropelandia.dungeon.lichs-filing-office` | 15 |
+| [[The Restricted Section]] | tropelandia | `tropelandia.dungeon.restricted-section` | 17 |
+| [[The Sunken Chapel of Mild Dread]] | tropelandia | `tropelandia.dungeon.sunken-chapel` | 15 |
+| [[Ye Olde Mimic Inn]] | tropelandia | `tropelandia.dungeon.mimic-inn` | 14 |
+
+## monster (49)
+
+| Note | Universe | Id | Refs in |
+|---|---|---|---|
+| [[Ash Walker]] | ashfall | `ashfall.monster.ash-walker` | 3 |
+| [[Cinder Hound]] | ashfall | `ashfall.monster.cinder-hound` | 2 |
+| [[Lamp Thief]] | ashfall | `ashfall.monster.lamp-thief` | 2 |
+| [[The Counting Thing]] | ashfall | `ashfall.monster.the-counting-thing` | 2 |
+| [[Acolyte]] | tropelandia | `tropelandia.monster.acolyte` | 2 |
+| [[Animated Armor]] | tropelandia | `tropelandia.monster.animated-armor` | 2 |
+| [[Animated Owl]] | tropelandia | `tropelandia.monster.animated-owl` | 2 |
+| [[Bandit]] | tropelandia | `tropelandia.monster.bandit` | 3 |
+| [[Commoner Forger]] | tropelandia | `tropelandia.monster.commoner-forger` | 2 |
+| [[Dwarven Revenant]] | tropelandia | `tropelandia.monster.dwarven-revenant` | 3 |
+| [[Elder Thing]] | tropelandia | `tropelandia.monster.elder-thing` | 2 |
+| [[Flying Book]] | tropelandia | `tropelandia.monster.flying-book` | 2 |
+| [[Flying Sword]] | tropelandia | `tropelandia.monster.flying-sword` | 2 |
+| [[Gargoyle]] | tropelandia | `tropelandia.monster.gargoyle` | 3 |
+| [[Ghost]] | tropelandia | `tropelandia.monster.ghost` | 4 |
+| [[Ghost Judge]] | tropelandia | `tropelandia.monster.ghost-judge` | 2 |
+| [[Ghoul]] | tropelandia | `tropelandia.monster.ghoul` | 3 |
+| [[Giant Frog]] | tropelandia | `tropelandia.monster.giant-frog` | 3 |
+| [[Giant Mimic]] | tropelandia | `tropelandia.monster.giant-mimic` | 2 |
+| [[Giant Octopus]] | tropelandia | `tropelandia.monster.giant-octopus` | 2 |
+| [[Giant Rat]] | tropelandia | `tropelandia.monster.giant-rat` | 5 |
+| [[Goblin]] | tropelandia | `tropelandia.monster.goblin` | 6 |
+| [[Goblin Receptionist]] | tropelandia | `tropelandia.monster.goblin-receptionist` | 2 |
+| [[Green Slime Vat]] | tropelandia | `tropelandia.monster.green-slime-vat` | 2 |
+| [[Hobgoblin Shop Steward]] | tropelandia | `tropelandia.monster.hobgoblin-shop-steward` | 3 |
+| [[Kobold]] | tropelandia | `tropelandia.monster.kobold` | 4 |
+| [[Kobold Accountant]] | tropelandia | `tropelandia.monster.kobold-accountant` | 3 |
+| [[Lich]] | tropelandia | `tropelandia.monster.lich` | 2 |
+| [[Living Book]] | tropelandia | `tropelandia.monster.living-book` | 2 |
+| [[Mage]] | tropelandia | `tropelandia.monster.mage` | 5 |
+| [[Mimic]] | tropelandia | `tropelandia.monster.mimic` | 4 |
+| [[Mimic Spawn]] | tropelandia | `tropelandia.monster.mimic-spawn` | 4 |
+| [[Minor Fire Elemental]] | tropelandia | `tropelandia.monster.minor-fire-elemental` | 3 |
+| [[Myconid Sovereign]] | tropelandia | `tropelandia.monster.myconid-sovereign` | 3 |
+| [[Rat King]] | tropelandia | `tropelandia.monster.rat-king` | 2 |
+| [[Rat Sommelier]] | tropelandia | `tropelandia.monster.rat-sommelier` | 2 |
+| [[Retired Assassin]] | tropelandia | `tropelandia.monster.retired-assassin` | 2 |
+| [[Shrieker]] | tropelandia | `tropelandia.monster.shrieker` | 3 |
+| [[Skeleton]] | tropelandia | `tropelandia.monster.skeleton` | 4 |
+| [[Skeleton Clerk]] | tropelandia | `tropelandia.monster.skeleton-clerk` | 2 |
+| [[Specter]] | tropelandia | `tropelandia.monster.specter` | 5 |
+| [[Spy]] | tropelandia | `tropelandia.monster.spy` | 3 |
+| [[Stone Golem]] | tropelandia | `tropelandia.monster.stone-golem` | 2 |
+| [[Swarm of Bones]] | tropelandia | `tropelandia.monster.swarm-of-bones` | 2 |
+| [[Swarm of Rats]] | tropelandia | `tropelandia.monster.swarm-of-rats` | 2 |
+| [[Thug]] | tropelandia | `tropelandia.monster.thug` | 2 |
+| [[Wraith]] | tropelandia | `tropelandia.monster.wraith` | 2 |
+| [[Young Gold Dragon]] | tropelandia | `tropelandia.monster.young-gold-dragon` | 2 |
+| [[Zombie]] | tropelandia | `tropelandia.monster.zombie` | 3 |
+
+## item (32)
+
+| Note | Universe | Id | Refs in |
+|---|---|---|---|
+| [[The Queue Paper]] | ashfall | `ashfall.item.the-queue-paper` | 1 |
+| [[Anvil of Opinions]] | tropelandia | `tropelandia.item.anvil-of-opinions` | 2 |
+| [[Bag of Holding (Slightly Used)]] | tropelandia | `tropelandia.item.bag-of-holding-slightly-used` | 2 |
+| [[Barrel of the Last Batch]] | tropelandia | `tropelandia.item.barrel-of-the-last-batch` | 2 |
+| [[Bookmark of Feather Fall]] | tropelandia | `tropelandia.item.bookmark-of-feather-fall` | 3 |
+| [[Cloak of Undeath Resistance]] | tropelandia | `tropelandia.item.cloak-of-undeath-resistance` | 2 |
+| [[Deed to the Office of Eternal Records]] | tropelandia | `tropelandia.item.deed-to-the-office-of-eternal-records` | 2 |
+| [[Foreman's Whistle]] | tropelandia | `tropelandia.item.foremans-whistle` | 2 |
+| [[Glintfang's Staff Map]] | tropelandia | `tropelandia.item.glintfangs-staff-map` | 2 |
+| [[Letter of Credit]] | tropelandia | `tropelandia.item.letter-of-credit` | 2 |
+| [[Magic Towel]] | tropelandia | `tropelandia.item.magic-towel` | 3 |
+| [[Map of the Restricted Section]] | tropelandia | `tropelandia.item.map-of-the-restricted-section` | 2 |
+| [[Marlowe's Pointed Hat]] | tropelandia | `tropelandia.item.marlowes-pointed-hat` | 2 |
+| [[Pot of Healing Soup]] | tropelandia | `tropelandia.item.pot-of-healing-soup` | 2 |
+| [[Potion of Growth]] | tropelandia | `tropelandia.item.potion-of-growth` | 2 |
+| [[Potion of Hair Restoration]] | tropelandia | `tropelandia.item.potion-of-hair-restoration` | 3 |
+| [[Potion of Healing]] | tropelandia | `tropelandia.item.potion-of-healing` | 3 |
+| [[Potion of Invisibility]] | tropelandia | `tropelandia.item.potion-of-invisibility` | 2 |
+| [[Reliquary of Mild Dread]] | tropelandia | `tropelandia.item.reliquary-of-mild-dread` | 2 |
+| [[Ring of Opinions]] | tropelandia | `tropelandia.item.ring-of-opinions` | 3 |
+| [[Robe of Rent Receipts]] | tropelandia | `tropelandia.item.robe-of-rent-receipts` | 2 |
+| [[Scroll of Feather Fall]] | tropelandia | `tropelandia.item.scroll-of-feather-fall` | 3 |
+| [[Society Ring]] | tropelandia | `tropelandia.item.society-ring` | 2 |
+| [[The Bone Key]] | tropelandia | `tropelandia.item.the-bone-key` | 2 |
+| [[The Disputed Pie Trophy]] | tropelandia | `tropelandia.item.the-disputed-pie-trophy` | 2 |
+| [[The Innkeeper's Heart]] | tropelandia | `tropelandia.item.the-innkeepers-heart` | 2 |
+| [[The Persuasive Romance]] | tropelandia | `tropelandia.item.the-persuasive-romance` | 2 |
+| [[The Saint's Silver Bell]] | tropelandia | `tropelandia.item.the-saints-silver-bell` | 2 |
+| [[The Sulking Sword]] | tropelandia | `tropelandia.item.the-sulking-sword` | 2 |
+| [[Union Membership Card]] | tropelandia | `tropelandia.item.union-membership-card` | 3 |
+| [[Vexmort's Quill]] | tropelandia | `tropelandia.item.vexmorts-quill` | 2 |
+| [[Wand of Mild Magic Missiles]] | tropelandia | `tropelandia.item.wand-of-mild-magic-missiles` | 2 |
+
+## instance (2)
+
+| Note | Universe | Id | Refs in |
+|---|---|---|---|
+| [[_instance]] | tropelandia | `starter-kit` | 0 |
 | [[_instance]] | tropelandia | `pie-heist` | 0 |
 
-## campaign (1)
+## campaign (2)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[Campaign]] |  | `pie-heist.campaign` | 2 |
+| [[Campaign]] |  | `pie-heist.campaign` | 3 |
+| [[Campaign]] |  | `starter-kit.campaign` | 5 |
 
 ## session (1)
 
@@ -325,32 +570,54 @@ generated: build_world.py
 |---|---|---|---|
 | [[Session 01]] |  | `pie-heist.session.01` | 1 |
 
-## ruleset (2)
+## ruleset (3)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
 | [[Core]] |  | `omniverse.ruleset.core` | 0 |
-| [[dnd5e]] |  | `omniverse.ruleset.dnd5e` | 16 |
+| [[dnd5e]] |  | `omniverse.ruleset.dnd5e` | 67 |
+| [[Six Sides]] |  | `omniverse.ruleset.six-sides` | 9 |
 
-## index (3)
+## module (1)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
+| [[core]] |  | `omniverse-core` | 0 |
+
+## index (16)
+
+| Note | Universe | Id | Refs in |
+|---|---|---|---|
+| [[Bestiary]] |  | `tropelandia.bestiary-index` | 0 |
+| [[Bestiary]] |  | `ashfall.bestiary-index` | 0 |
 | [[Factions]] |  | `tropelandia.factions-index` | 0 |
+| [[Factions]] |  | `ashfall.factions-index` | 0 |
+| [[Items]] |  | `tropelandia.items-index` | 0 |
+| [[Items]] |  | `ashfall.items-index` | 0 |
+| [[Lore]] |  | `tropelandia.lore-index` | 0 |
+| [[Lore]] |  | `ashfall.lore-index` | 0 |
+| [[Pantheon]] |  | `tropelandia.pantheon-index` | 0 |
+| [[Pantheon]] |  | `ashfall.pantheon-index` | 0 |
+| [[Quests]] |  | `tropelandia.quests-index` | 0 |
+| [[Quests]] |  | `ashfall.quests-index` | 0 |
 | [[_README]] |  | `omniverse.schemas` | 0 |
+| [[Tables]] |  | `tropelandia.tables-index` | 0 |
+| [[Tables]] |  | `ashfall.tables-index` | 0 |
 | [[Trope Library]] |  | `omniverse.trope-library` | 0 |
 
-## guide (1)
+## guide (3)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
+| [[Session Zero]] |  | `starter-kit.guide.session-zero` | 1 |
 | [[Submitting a Dungeon]] |  | `omniverse.guide.submitting-a-dungeon` | 0 |
+| [[The Arc]] |  | `starter-kit.guide.the-arc` | 1 |
 
 ## multiverse (1)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[_registry]] |  | `omniverse.multiverse` | 2 |
+| [[_registry]] |  | `omniverse.multiverse` | 3 |
 
 ## omniverse (1)
 

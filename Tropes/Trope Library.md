@@ -53,8 +53,8 @@ The shared library of fantasy and RPG archetypes. Tropes are classes; universes 
 - [[Dragon]]
 - [[Gelatinous Cube]]
 - [[Goblins as Fodder]]
-- [[Lich]]
-- [[Mimic]]
+- [[The Lich]]
+- [[The Mimic]]
 
 ## Game and table tropes (10)
 - [[Bag of Holding]]

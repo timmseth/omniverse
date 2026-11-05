@@ -30,7 +30,7 @@ traps:
 puzzles: []
 secrets: []
 loot:
-- Barrel of The Last Batch (a mind-bending ale, worth 100 gp to the right dwarf)
+- tropelandia.item.barrel-of-the-last-batch
 - The brewmaster's recipe (valuable)
 dm_notes: 'The Last Batch is a Cursed Item: whoever drinks it gains Darkvision and Strong Opinions for a day.'
 ---

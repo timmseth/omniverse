@@ -38,6 +38,7 @@ encounters:
     hp: 40
     ac: 12
     attack: dagger +4, 1d4+2; casts charm, suggestion
+    ref: tropelandia.monster.mage
   tactics: She is courteous. She wants a contract, not a fight. If the party attacks, she reveals her true form.
   treasure: ''
 traps: []

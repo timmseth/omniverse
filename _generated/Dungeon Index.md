@@ -11,6 +11,7 @@ generated: build_dungeons.py
 | [[Glintfang's Hoard]] | 8-10 | Tropos > Mainland > Glittering Sands | 9 | sly parody |
 | [[Marlowe's Tower]] | 3-5 | Duchy of Mildew > Dampshire > Barrowdale | 8 | parody; tower-crawl |
 | [[The Cellar of Rats]] | 1-2 | Duchy of Mildew > Dampshire > Barrowdale | 7 | gentle parody |
+| [[The Cold Vault]] | 1-3 | Hearth > The Mainland > The Cinder Road | 7 | grim, quiet, cold |
 | [[The Dwarven Folly]] | 5-7 | Tropos > Mainland > Crooked Peaks | 10 | grim parody |
 | [[The Goblin Union Hall]] | 1-3 | Tropos > Mainland > Whisperwood | 8 | workplace comedy |
 | [[The Guildhall Below]] | 3-5 | Tropos > Mainland > Sullen Coast | 9 | caper parody |

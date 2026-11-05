@@ -39,7 +39,7 @@ tags:
 - settlement
 summary: The town that grew up around the Office of Eternal Records, where the dead of Tropelandia go to be processed and, in the absence of anyone approving the processing, stay.
 from:
-  year: -200
+  year: 1
   era: tropelandia.era.age-of-mild-peril
 to: null
 ---

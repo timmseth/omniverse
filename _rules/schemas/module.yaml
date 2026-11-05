@@ -2,11 +2,13 @@ kind: module
 title: Module (generic manifest)
 summary: Manifest for a generator, view, importer, exporter, DM style, trope pack, schema extension or app.
 module: core
-folder: <any>/module.md
+folder:
+  - <any>/module.md
+  - _rules/core.md
 id: <any>
 mixins: [base, manifest]
 fields:
-  module_kind: { type: enum, values: [generator, view, importer, exporter, dm_style, trope_pack, schema_extension, app], required: true }
+  module_kind: { type: enum, values: [core, generator, view, importer, exporter, dm_style, trope_pack, schema_extension, app], required: true }
   parent: { type: ref, required: true }
   reads: { type: list, of: string, doc: "What it reads (paths or kinds)." }
   writes: { type: list, of: string, doc: "What it writes. Generators write events; views write only _generated/." }

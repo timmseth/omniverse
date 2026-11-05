@@ -43,6 +43,7 @@ encounters:
     hp: 22
     ac: 8
     attack: slam +3, 1d6+1
+    ref: tropelandia.monster.zombie
   tactics: They rise if the party speaks above a whisper.
   treasure: ''
 traps:

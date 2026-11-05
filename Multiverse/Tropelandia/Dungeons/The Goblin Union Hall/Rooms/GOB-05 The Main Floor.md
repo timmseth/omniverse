@@ -43,6 +43,7 @@ encounters:
     hp: 7
     ac: 15
     attack: scimitar +4, 1d6+2
+    ref: tropelandia.monster.goblin
   tactics: The crowd turns hostile if the party makes threats; a rousing speech (Persuasion DC 14) can turn them into allies.
   treasure: ''
 traps: []

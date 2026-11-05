@@ -44,6 +44,8 @@ wandering:
 home_town: tropelandia.settlement.hearthollow
 factions:
 - tropelandia.faction.roadside-hospitality-association
+quests:
+- tropelandia.quest.honest-reviews
 ---
 # Ye Olde Mimic Inn
 

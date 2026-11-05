@@ -4,27 +4,35 @@ kind: event
 name: The Pie Contest Incident
 parent: tropelandia
 universe: tropelandia
-when: { year: 1489, day: 34, omni_day: 2210 }
+when:
+  year: 1489
+  day: 34
+  omni_day: 2210
 where: tropelandia.settlement.barrowdale
 participants:
-  - tropelandia.person.marlowe-the-mildly-menacing
-  - tropelandia.person.dame-rosalind-quickblade
-  - tropelandia.person.mayor-bartholomew-pettigrew
+- tropelandia.person.marlowe-the-mildly-menacing
+- tropelandia.person.dame-rosalind-quickblade
+- tropelandia.person.mayor-bartholomew-pettigrew
 type: social_conflict
-severity: 2            # 0 trivial ... 5 world-changing
+severity: 2
 visibility: public
 canon: canon
 source: maintainer
 deltas:
-  - entity: tropelandia.person.marlowe-the-mildly-menacing
-    field: relationships.tropelandia.person.dame-rosalind-quickblade
-    from: null
-    to: { type: rival, strength: 62 }
-  - entity: tropelandia.population.barrowdale
-    field: census.mood
-    from: weary
-    to: amused
-tropes_involved: [omniverse.trope.rival-adventurers]
+- entity: tropelandia.person.marlowe-the-mildly-menacing
+  field: relationships.tropelandia.person.dame-rosalind-quickblade
+  from: null
+  to:
+    type: rival
+    strength: 62
+- entity: tropelandia.population.barrowdale
+  field: census.mood
+  from: weary
+  to: amused
+tropes_involved:
+- omniverse.trope.rival-adventurers
+era: tropelandia.era.age-of-mild-peril
+summary: Marlowe's tower appears on the judging table; Rosalind and Marlowe become rivals.
 ---
 # The Pie Contest Incident
 

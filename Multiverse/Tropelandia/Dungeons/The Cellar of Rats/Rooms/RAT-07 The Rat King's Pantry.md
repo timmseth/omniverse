@@ -28,11 +28,13 @@ encounters:
     hp: 22
     ac: 12
     attack: bite +4, 1d6+2
+    ref: tropelandia.monster.rat-king
   - name: Giant rat guard
     count: 4
     hp: 7
     ac: 12
     attack: bite +4, 1d4+2
+    ref: tropelandia.monster.giant-rat
   tactics: He'd prefer to talk. He wants a lower rent (the inn charges him 1 cheese/day), a place on the inn's council, and the nine-year notice taken down. If attacked, his guards fight to the death; he flees through a hole in the wall.
   treasure: ''
 traps: []

@@ -33,6 +33,7 @@ encounters:
     hp: 11
     ac: 12
     attack: scimitar +3, 1d6+1
+    ref: tropelandia.monster.bandit
   tactics: They ask for the sign (a particular whistle) and attack if not given.
   treasure: ''
 traps:

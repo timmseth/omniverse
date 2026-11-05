@@ -33,6 +33,7 @@ encounters:
     hp: 5
     ac: 12
     attack: dagger +4, 1d4+2
+    ref: tropelandia.monster.kobold
   tactics: They refuse entry until the party takes a ticket; combat only if shoved.
   treasure: ''
 traps: []

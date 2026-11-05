@@ -3,3 +3,6 @@
 .trash/
 .DS_Store
 Thumbs.db
+_site/
+__pycache__/
+*.pyc

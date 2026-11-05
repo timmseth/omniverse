@@ -43,11 +43,13 @@ encounters:
     hp: 11
     ac: 12
     attack: scimitar +3, 1d6+1
+    ref: tropelandia.monster.bandit
   - name: Spy
     count: 2
     hp: 27
     ac: 12
     attack: shortsword +4, 1d6+2
+    ref: tropelandia.monster.spy
   tactics: They are not hostile unless the party is caught stealing.
   treasure: ''
 traps: []

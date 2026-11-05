@@ -33,6 +33,7 @@ encounters:
     hp: 7
     ac: 15
     attack: scimitar +4, 1d6+2
+    ref: tropelandia.monster.goblin
   tactics: They fight if the party crosses the line without talking; they'll let a mediator pass.
   treasure: ''
 traps: []

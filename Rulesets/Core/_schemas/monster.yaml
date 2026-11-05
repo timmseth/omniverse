@@ -1,0 +1,8 @@
+# Schema extension: the Core ruleset block on a monster note, under the `core` key.
+kind: monster
+fields:
+  core:
+    type: map
+    fields:
+      rank: { type: int, required: true, doc: 1 to 10. }
+      descriptors: { type: list, of: string, required: true }

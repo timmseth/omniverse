@@ -29,7 +29,7 @@ A game habit in which adventurers collect everything that is not nailed down, an
 ## Related tropes
 - [[Murderhobo]]
 - [[Bag of Holding]]
-- [[Mimic]]
+- [[The Mimic]]
 
 ## Instances
 None yet. Universes that use this trope add an instance and link back here.

@@ -43,6 +43,8 @@ wandering:
 home_town: tropelandia.settlement.barrowdale
 factions:
 - tropelandia.faction.mildew-court
+quests:
+- tropelandia.quest.ten-rats
 ---
 # The Cellar of Rats
 

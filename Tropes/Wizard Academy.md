@@ -28,7 +28,7 @@ An institution where magic is taught, regulated and, with some regularity, set l
 
 ## Related tropes
 - [[Wizard in a Tower]]
-- [[Lich]]
+- [[The Lich]]
 - [[Rival Adventurers]]
 
 ## Instances

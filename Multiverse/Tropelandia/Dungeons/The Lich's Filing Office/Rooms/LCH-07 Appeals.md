@@ -33,6 +33,7 @@ encounters:
     hp: 45
     ac: 11
     attack: withering touch +5, 4d6
+    ref: tropelandia.monster.ghost-judge
   tactics: They rule on the party's case; they can be persuaded by good arguments (Persuasion DC 16).
   treasure: ''
 traps: []

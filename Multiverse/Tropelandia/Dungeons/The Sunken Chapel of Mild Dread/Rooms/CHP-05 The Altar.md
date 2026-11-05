@@ -43,7 +43,7 @@ puzzles:
   reward: Take the reliquary safely.
 secrets: []
 loot:
-- The Reliquary of Mild Dread (worth 200 gp; sneezes when touched)
+- tropelandia.item.reliquary-of-mild-dread
 dm_notes: ''
 ---
 # CHP-05 The Altar

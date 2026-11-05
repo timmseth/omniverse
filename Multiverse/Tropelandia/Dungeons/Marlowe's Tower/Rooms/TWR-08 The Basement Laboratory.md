@@ -28,6 +28,7 @@ encounters:
     hp: 45
     ac: 8
     attack: pseudopod +5, 2d6 acid
+    ref: tropelandia.monster.green-slime-vat
   tactics: The ooze attacks anyone who stirs the vat; it can be calmed with flour (Marlowe's kitchen).
   treasure: ''
 traps:
@@ -39,8 +40,8 @@ traps:
 puzzles: []
 secrets: []
 loot:
-- A potion of growth
-- A potion of hair restoration
+- tropelandia.item.potion-of-growth
+- tropelandia.item.potion-of-hair-restoration
 - 'Marlowe''s secret: a copy of the unpaid dragon bill from the pantry'
 dm_notes: Where Marlowe hides his experiments. The ooze is a small boss for a low-level party.
 ---

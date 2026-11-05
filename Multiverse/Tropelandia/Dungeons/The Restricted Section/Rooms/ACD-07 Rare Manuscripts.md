@@ -31,7 +31,7 @@ puzzles: []
 secrets: []
 loot:
 - A spellbook with 3 random wizard spells (up to level 3)
-- A bookmark of Feather Fall
+- tropelandia.item.bookmark-of-feather-fall
 dm_notes: ''
 ---
 # ACD-07 Rare Manuscripts

@@ -44,6 +44,8 @@ wandering:
 home_town: tropelandia.settlement.hearthollow
 factions:
 - tropelandia.faction.united-brotherhood-of-goblins-hobs-and-allied-skulkers
+quests:
+- tropelandia.quest.the-strike
 ---
 # The Goblin Union Hall
 

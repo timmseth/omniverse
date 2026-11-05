@@ -25,9 +25,9 @@ traps: []
 puzzles: []
 secrets: []
 loot:
-- A cursed ring of Opinions
-- A returned sword that sulks
-- A bag of holding (slightly used)
+- tropelandia.item.ring-of-opinions
+- tropelandia.item.the-sulking-sword
+- tropelandia.item.bag-of-holding-slightly-used
 dm_notes: 'Cursed Item trope as retail: everything has a defect, and a cheerful receipt.'
 ---
 # DRG-08 Vault of Returns

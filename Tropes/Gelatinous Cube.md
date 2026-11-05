@@ -28,7 +28,7 @@ A mindless, transparent hazard that keeps dungeons tidy and keeps adventurers bu
 
 ## Related tropes
 - [[Dungeon with No Logical Layout]]
-- [[Mimic]]
+- [[The Mimic]]
 
 ## Instances
 None yet. Universes that use this trope add an instance and link back here.

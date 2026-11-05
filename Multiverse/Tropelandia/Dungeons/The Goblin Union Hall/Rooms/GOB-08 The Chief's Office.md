@@ -28,6 +28,7 @@ encounters:
     hp: 7
     ac: 15
     attack: scimitar +4, 1d6+2
+    ref: tropelandia.monster.goblin
   tactics: They'd rather negotiate. If attacked, the coat falls apart and the goblins scatter.
   treasure: ''
 traps: []
@@ -43,7 +44,7 @@ puzzles:
 secrets: []
 loot:
 - A bowler hat (the Chief's)
-- Union membership card (grants favours from goblins)
+- tropelandia.item.union-membership-card
 dm_notes: 'Goblins as Fodder subverted: they are people with grievances, and the best ending is a deal.'
 ---
 # GOB-08 The Chief's Office

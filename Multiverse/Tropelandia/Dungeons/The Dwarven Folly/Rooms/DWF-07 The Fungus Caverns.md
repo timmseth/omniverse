@@ -38,11 +38,13 @@ encounters:
     hp: 13
     ac: 5
     attack: shriek
+    ref: tropelandia.monster.shrieker
   - name: Myconid sovereign
     count: 1
     hp: 60
     ac: 10
     attack: fist +4, 1d6+2
+    ref: tropelandia.monster.myconid-sovereign
   tactics: Shriekers alert duergar nearby; the myconid is friendly if offered rare minerals.
   treasure: ''
 traps: []

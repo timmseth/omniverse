@@ -1,0 +1,19 @@
+# Schema extension: the Six Sides stat block on a monster note, under the `six_sides` key.
+kind: monster
+fields:
+  six_sides:
+    type: map
+    fields:
+      traits:
+        type: map
+        required: true
+        doc: Dice in each trait, 1 to 5.
+        fields:
+          body: { type: int, required: true }
+          wits: { type: int, required: true }
+          nerve: { type: int, required: true }
+          grace: { type: int, required: true }
+      harm: { type: int, required: true, doc: Harm boxes, 1 to 6. At 0 boxes left it is out. }
+      difficulty: { type: int, required: true, doc: Hits needed to harm it, 1 to 4. }
+      moves: { type: list, required: true, of: { type: map, fields: { name: { type: string, required: true }, text: { type: text, required: true } } } }
+      edge: { type: int, doc: Edge points it can spend to re-roll. }

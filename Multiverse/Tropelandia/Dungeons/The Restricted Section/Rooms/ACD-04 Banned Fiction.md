@@ -28,13 +28,14 @@ encounters:
     hp: 5
     ac: 14
     attack: paper cut +4, 1d4+1
+    ref: tropelandia.monster.flying-book
   tactics: 'They try to charm: DC 13 Wis save or the target is charmed for 1 minute.'
   treasure: ''
 traps: []
 puzzles: []
 secrets: []
 loot:
-- A romance novel that grants advantage on Persuasion for a day
+- tropelandia.item.the-persuasive-romance
 dm_notes: ''
 ---
 # ACD-04 Banned Fiction

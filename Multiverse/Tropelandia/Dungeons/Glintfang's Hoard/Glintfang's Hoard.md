@@ -45,6 +45,8 @@ home_town: tropelandia.settlement.last-receipt
 factions:
 - tropelandia.faction.adventurers-licensing-board
 - tropelandia.faction.glintfang-holdings
+quests:
+- tropelandia.quest.guests-of-the-dragon
 ---
 # Glintfang's Hoard
 

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="140" viewBox="0 0 980 140" font-family="Georgia, serif" font-size="13">
+<rect width="100%%" height="100%%" fill="#15131a"/>
+<text x="30" y="20" fill="#e3a72f" font-size="16">Ashfall: places and dungeons</text>
+<path d="M180,60 C210,60 200,60 230,60" stroke="#4a4458" fill="none"/>
+<path d="M380,60 C410,60 400,60 430,60" stroke="#4a4458" fill="none"/>
+<path d="M580,60 C610,60 600,60 630,60" stroke="#4a4458" fill="none"/>
+<rect x="30" y="44" width="150" height="32" rx="6" fill="#221e2b" stroke="#e3a72f"/>
+<text x="38" y="58" fill="#eee">Hearth</text>
+<text x="38" y="71" fill="#8a8396" font-size="9">planet</text>
+<rect x="230" y="44" width="150" height="32" rx="6" fill="#221e2b" stroke="#c08a2a"/>
+<text x="238" y="58" fill="#eee">The Mainland</text>
+<text x="238" y="71" fill="#8a8396" font-size="9">continent</text>
+<rect x="430" y="44" width="150" height="32" rx="6" fill="#221e2b" stroke="#6b8f5e"/>
+<text x="438" y="58" fill="#eee">The Cinder Road</text>
+<text x="438" y="71" fill="#8a8396" font-size="9">region</text>
+<text x="574" y="71" fill="#e3a72f" font-size="10" text-anchor="end">CVT</text>
+<rect x="630" y="44" width="150" height="32" rx="6" fill="#221e2b" stroke="#d9d2e0"/>
+<text x="638" y="58" fill="#eee">Lastlight</text>
+<text x="638" y="71" fill="#8a8396" font-size="9">settlement</text>
+</svg>

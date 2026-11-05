@@ -9,5 +9,5 @@ fields:
   parent: { type: ref, kinds: [universe], required: true }
   category: { type: enum, values: [myth, legend, history, custom, song, prophecy, rumour, treatise], required: true }
   about: { type: list, of: { type: ref }, doc: "Notes this lore concerns." }
-  truth: { type: enum, values: [true, mostly, half, false, unknown], doc: "How true it is, for the DM." }
+  truth: { type: enum, values: [wholly, mostly, half, barely, false, unknown], doc: "How true it is, for the DM." }
   known_by: { type: list, of: string, doc: "Who tells it." }

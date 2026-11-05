@@ -33,6 +33,7 @@ encounters:
     hp: 13
     ac: 13
     attack: stamp +4, 1d6+2
+    ref: tropelandia.monster.skeleton-clerk
   tactics: It insists on forms. It can be bribed with a stamp.
   treasure: ''
 traps: []

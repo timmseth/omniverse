@@ -38,13 +38,14 @@ encounters:
     hp: 9
     ac: 10
     attack: staff +2, 1d6
+    ref: tropelandia.monster.acolyte
   tactics: Not hostile; wants a change. Might join the party if the party offers a better salary.
   treasure: ''
 traps: []
 puzzles: []
 secrets: []
 loot:
-- A robe of useful items (as Robe of Useful Items, with only rent receipts in the patches)
+- tropelandia.item.robe-of-rent-receipts
 dm_notes: 'Wizard in a Tower hook: the party can be recruited as the next apprentice.'
 ---
 # TWR-05 Apprentice's Quarters

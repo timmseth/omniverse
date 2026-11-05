@@ -33,6 +33,7 @@ encounters:
     hp: 78
     ac: 15
     attack: poisoned dagger +6, 3d6+3
+    ref: tropelandia.monster.retired-assassin
   tactics: She prefers conversation; she offers the party a job, and a trap.
   treasure: ''
 traps: []
@@ -48,7 +49,7 @@ puzzles:
 secrets: []
 loot:
 - Tea (a very fine blend, 20 gp)
-- A guild ring (opens guild doors)
+- tropelandia.item.society-ring
 dm_notes: ''
 ---
 # GLD-07 The Guildmaster's Parlour

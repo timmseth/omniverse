@@ -33,6 +33,7 @@ encounters:
     hp: 7
     ac: 15
     attack: scimitar +4, 1d6+2
+    ref: tropelandia.monster.goblin
   tactics: Not hostile; they want a deal. Happy to talk.
   treasure: ''
 traps: []

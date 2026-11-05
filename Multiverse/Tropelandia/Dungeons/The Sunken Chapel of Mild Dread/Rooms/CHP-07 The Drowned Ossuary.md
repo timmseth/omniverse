@@ -28,6 +28,7 @@ encounters:
     hp: 30
     ac: 11
     attack: rattle +4, 2d6
+    ref: tropelandia.monster.swarm-of-bones
   tactics: Triggers if the pillar is smashed rather than solved.
   treasure: ''
 traps: []
@@ -42,7 +43,7 @@ puzzles:
   reward: A hidden niche holding the Bone Key and 100 gp.
 secrets: []
 loot:
-- The Bone Key (opens the reliquary vault)
+- tropelandia.item.the-bone-key
 - 100 gp in ancient coins
 dm_notes: ''
 ---

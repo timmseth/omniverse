@@ -9,3 +9,5 @@ fields:
   kind: { type: const, value: index }
   name: { type: string }
   parent: { type: ref }
+  tags: { type: list, of: string }
+  summary: { type: text }

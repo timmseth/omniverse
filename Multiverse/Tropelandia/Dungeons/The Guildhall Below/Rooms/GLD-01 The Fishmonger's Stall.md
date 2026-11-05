@@ -33,6 +33,7 @@ encounters:
     hp: 32
     ac: 11
     attack: mace +4, 1d6+2
+    ref: tropelandia.monster.thug
   tactics: He asks for the password; the wrong one earns a fish to the face.
   treasure: ''
 traps: []

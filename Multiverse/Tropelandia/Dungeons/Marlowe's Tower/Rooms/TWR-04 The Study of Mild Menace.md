@@ -28,6 +28,7 @@ encounters:
     hp: 22
     ac: 13
     attack: talons +4, 1d6+2
+    ref: tropelandia.monster.animated-owl
   tactics: Attacks if the pie is stolen or the trophy touched.
   treasure: ''
 traps:
@@ -41,7 +42,7 @@ secrets:
 - description: 'A false drawer in the desk holds a letter from Dame Rosalind: ''Your pie was good. I hate you.'''
   dc: 14
 loot:
-- The disputed pie trophy (worth 50 gp, worth a lot more to Rosalind)
+- tropelandia.item.the-disputed-pie-trophy
 - Marlowe's private recipe for blackberry pie
 - A signed IOU from the Mayor
 dm_notes: The Pie Contest Incident is a canon event; this study can reflect it. Marlowe's grudges here are nemesis-system fodder.

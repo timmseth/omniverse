@@ -43,6 +43,7 @@ encounters:
     hp: 45
     ac: 11
     attack: withering touch +5, 4d6 (only if line-cutters)
+    ref: tropelandia.monster.ghost
   tactics: They attack anyone who skips the queue.
   treasure: ''
 traps: []

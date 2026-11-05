@@ -1,0 +1,18 @@
+# Review routing. GitHub asks the listed owner to review any pull request touching the path.
+# Universes are owned by their maintainers; the core (rules, tools, tropes, rulesets, apps) by the Omniverse maintainers.
+
+# Core, owned by Omniverse maintainers
+/_rules/                    @timmseth
+/Tropes/                    @timmseth
+/Rulesets/                  @timmseth
+/Apps/                      @timmseth
+/docs/                      @timmseth
+/Multiverse/_registry.md    @timmseth
+/.github/                   @timmseth
+/CODEOWNERS                 @timmseth
+/README.md                  @timmseth
+/CONTRIBUTING.md            @timmseth
+/LICENSE                    @timmseth
+
+# Universes, owned by their maintainers (one line per universe; add yours in your Universe Join PR)
+/Multiverse/Tropelandia/    @timmseth

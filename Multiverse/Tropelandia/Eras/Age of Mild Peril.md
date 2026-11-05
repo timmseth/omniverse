@@ -4,8 +4,10 @@ kind: era
 name: Age of Mild Peril
 parent: tropelandia
 universe: tropelandia
-from: { year: 1 }
+from:
+  year: 1
 to: null
+character: 'The present age: stakes are real, consequences are mild, and everyone has paperwork.'
 ---
 # Age of Mild Peril
 

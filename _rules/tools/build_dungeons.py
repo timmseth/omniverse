@@ -25,7 +25,7 @@ except ImportError:
 SCHEMA_VERSION = 1
 VEC = {"n": (0, -1), "s": (0, 1), "e": (1, 0), "w": (-1, 0), "ne": (1, -1), "nw": (-1, -1), "se": (1, 1), "sw": (-1, 1)}
 OPP = {"n": "s", "s": "n", "e": "w", "w": "e", "ne": "sw", "sw": "ne", "nw": "se", "se": "nw", "u": "d", "d": "u"}
-KINDS = {"door", "archway", "passage", "stairs", "ladder", "secret", "portal", "hatch"}
+KINDS = {"door", "archway", "passage", "stairs", "ladder", "secret", "portal", "hatch", "window", "chute", "bridge"}
 STATES = {"open", "closed", "locked", "stuck", "barred", "trapped", "hidden", "rubble"}
 
 
@@ -48,6 +48,56 @@ def read_notes(root):
             if isinstance(meta, dict) and "id" in meta:
                 notes.setdefault(meta["id"], (os.path.relpath(p, root), meta))
     return notes
+
+
+def resolve_encounter(en, notes, errors, rel):
+    """Fill monster numbers from the bestiary when a monster has a ref; attach a compact stat block."""
+    out = dict(en)
+    mons = []
+    for mo in en.get("monsters") or []:
+        m = dict(mo)
+        ref = m.get("ref")
+        if ref:
+            b = notes.get(ref)
+            if not b or b[1].get("kind") != "monster":
+                errors.append("%s: monster ref %s is not a bestiary entry" % (rel, ref))
+            else:
+                bm = b[1]
+                m.setdefault("name", bm.get("name"))
+                hp, ac, attack, block = stat_summary(bm)
+                if "hp" not in m: m["hp"] = hp
+                if "ac" not in m: m["ac"] = ac
+                if "attack" not in m: m["attack"] = attack
+                m["stats"] = {"id": ref, "name": bm.get("name"), "size": bm.get("size"), "type": bm.get("type"), "threat": bm.get("threat"),
+                              "ruleset": bm.get("ruleset"), "block": block, "tactics": bm.get("tactics") or "", "lore": bm.get("lore") or ""}
+        mons.append(m)
+    out["monsters"] = mons
+    return out
+
+
+def stat_summary(bm):
+    """(hp, ac, first attack, the ruleset's block) for a bestiary note, whichever ruleset it is written in."""
+    if bm.get("dnd5e"):
+        d = bm["dnd5e"]
+        acts = [a for a in (d.get("actions") or []) if a.get("name") != "Multiattack"]
+        return d.get("hp"), d.get("ac"), (acts[0]["text"] if acts else ""), dict(d, ruleset="dnd5e")
+    if bm.get("six_sides"):
+        d = bm["six_sides"]
+        mv = d.get("moves") or []
+        return d.get("harm"), d.get("difficulty"), (mv[0]["text"] if mv else ""), dict(d, ruleset="six_sides")
+    if bm.get("core"):
+        d = bm["core"]
+        return d.get("rank"), d.get("rank"), ", ".join(d.get("descriptors") or []), dict(d, ruleset="core")
+    return None, None, "", {}
+
+
+def resolve_loot(l, notes):
+    """Loot entries are strings or item ids; ids become objects with the item's details."""
+    if isinstance(l, str) and l in notes and notes[l][1].get("kind") == "item":
+        it = notes[l][1]
+        return {"ref": l, "name": it.get("name"), "type": it.get("item_type"), "rarity": it.get("rarity"), "attunement": bool(it.get("attunement")),
+                "description": it.get("description") or "", "mechanics": it.get("mechanics") or "", "curse": it.get("curse") or ""}
+    return l
 
 
 def place_path(notes, pid):
@@ -122,7 +172,7 @@ def build(root):
                         errors.append("%s: trap %r needs integer %s" % (rel, tr.get("name"), k))
             for en in rm.get("encounters") or []:
                 for mo in en.get("monsters") or []:
-                    if not (isinstance(mo.get("hp"), int) and isinstance(mo.get("count"), int)):
+                    if not isinstance(mo.get("count"), int) or (not mo.get("ref") and not isinstance(mo.get("hp"), int)):
                         errors.append("%s: monster %r needs integer hp and count" % (rel, mo.get("name")))
         # layout: BFS from the entry room
         pos, floors = {}, {}
@@ -171,11 +221,11 @@ def build(root):
                 "exits": [{"dir": e.get("dir"), "to": e.get("to"), "kind": e.get("kind"), "state": e.get("state"), "note": e.get("note") or ""} for e in rm.get("exits") or []],
                 "readAloud": rm.get("read_aloud") or "",
                 "features": rm.get("features") or [],
-                "encounters": rm.get("encounters") or [],
+                "encounters": [resolve_encounter(en, notes, errors, rel) for en in (rm.get("encounters") or [])],
                 "traps": rm.get("traps") or [],
                 "puzzles": rm.get("puzzles") or [],
                 "secrets": rm.get("secrets") or [],
-                "loot": rm.get("loot") or [],
+                "loot": [resolve_loot(l, notes) for l in (rm.get("loot") or [])],
                 "dmNotes": rm.get("dm_notes") or "",
             })
         pp = place_path(notes, dm.get("parent"))

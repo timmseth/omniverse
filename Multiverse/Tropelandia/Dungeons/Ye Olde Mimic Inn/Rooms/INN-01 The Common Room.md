@@ -43,6 +43,7 @@ encounters:
     hp: 58
     ac: 12
     attack: pseudopod +5, 1d8+3 plus adhesion
+    ref: tropelandia.monster.mimic
   tactics: He tries to keep guests comfortable; if the party tries to leave he blocks doors with the building itself.
   treasure: ''
 traps:

@@ -28,6 +28,7 @@ encounters:
     hp: 18
     ac: 11
     attack: bite +3, 1d6+1, swallow
+    ref: tropelandia.monster.giant-frog
   tactics: They ambush from the water as the party approaches the door.
   treasure: ''
 traps: []

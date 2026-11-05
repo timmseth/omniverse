@@ -43,6 +43,7 @@ encounters:
     hp: 17
     ac: 17
     attack: slam +3, 1d6+1
+    ref: tropelandia.monster.flying-sword
   tactics: It tries to remove the party's boots, and fights if refused; it can be bribed with a nice polish.
   treasure: ''
 traps:

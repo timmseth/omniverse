@@ -28,6 +28,7 @@ encounters:
     hp: 135
     ac: 17
     attack: 'paralysing touch +12, 3d6 cold; spells: power word kill, disintegrate, counterspell'
+    ref: tropelandia.monster.lich
   tactics: 'He fights if the party attacks, or tries to take the phylactery. He first offers them a form and a deal: sign here, and live forever, in the Office.'
   treasure: ''
 traps: []
@@ -42,9 +43,9 @@ puzzles:
   reward: Free from the contract, and the Lich is weakened.
 secrets: []
 loot:
-- The Lich's quill (writes any contract)
-- A cloak of undeath resistance
-- The deed to the Office of Eternal Records
+- tropelandia.item.vexmorts-quill
+- tropelandia.item.cloak-of-undeath-resistance
+- tropelandia.item.deed-to-the-office-of-eternal-records
 dm_notes: 'Lich played as a bureaucrat: the final boss is a paperwork fight. The phylactery makes it mechanical.'
 ---
 # LCH-08 The Lich's Corner Office

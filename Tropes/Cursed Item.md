@@ -28,7 +28,7 @@ A magic object with a hidden price, usually discovered after somebody puts it on
 
 ## Related tropes
 - [[Macguffin of Power]]
-- [[Mimic]]
+- [[The Mimic]]
 - [[Looting Every Corpse]]
 
 ## Instances

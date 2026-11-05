@@ -43,6 +43,7 @@ encounters:
     hp: 22
     ac: 12
     attack: life drain +4, 3d6
+    ref: tropelandia.monster.specter
   tactics: They appear if the throne is sat upon; they'll demand the party's names, then ask them to leave.
   treasure: ''
 traps: []

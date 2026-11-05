@@ -33,13 +33,14 @@ encounters:
     hp: 67
     ac: 13
     attack: life drain +6, 4d8
+    ref: tropelandia.monster.wraith
   tactics: They defend the inbox from anyone searching it.
   treasure: ''
 traps: []
 puzzles: []
 secrets: []
 loot:
-- A letter of credit (400 gp)
+- tropelandia.item.letter-of-credit
 - An urgent summons addressed to the party
 dm_notes: ''
 ---

@@ -44,6 +44,8 @@ wandering:
 home_town: tropelandia.settlement.deepfile
 factions:
 - tropelandia.faction.office-of-eternal-records
+quests:
+- tropelandia.quest.pending
 ---
 # The Lich's Filing Office
 

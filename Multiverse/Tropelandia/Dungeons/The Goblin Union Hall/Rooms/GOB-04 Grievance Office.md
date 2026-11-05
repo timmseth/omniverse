@@ -33,6 +33,7 @@ encounters:
     hp: 11
     ac: 18
     attack: longsword +3, 1d8+1
+    ref: tropelandia.monster.hobgoblin-shop-steward
   tactics: Grimble listens if the party addresses him correctly and hands him a petition; he fights if insulted.
   treasure: ''
 traps: []

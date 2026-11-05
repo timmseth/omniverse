@@ -28,7 +28,7 @@ A magic container that defeats the usual limits of carrying capacity and plot.
 
 ## Related tropes
 - [[Looting Every Corpse]]
-- [[Mimic]]
+- [[The Mimic]]
 - [[Cursed Item]]
 
 ## Instances

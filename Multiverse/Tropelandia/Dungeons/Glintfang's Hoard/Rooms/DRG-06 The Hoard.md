@@ -38,6 +38,7 @@ encounters:
     hp: 178
     ac: 18
     attack: bite +10, 2d10+6; fire breath 60 ft, 12d6
+    ref: tropelandia.monster.young-gold-dragon
   tactics: She fights only if robbed or insulted; she'll offer a trade first. In battle she uses her wings and breath, retreating into the coins.
   treasure: ''
 traps:

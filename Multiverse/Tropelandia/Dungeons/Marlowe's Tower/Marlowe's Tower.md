@@ -45,6 +45,8 @@ home_town: tropelandia.settlement.barrowdale
 factions:
 - tropelandia.faction.wizards-union-local-7
 - tropelandia.faction.mildew-court
+quests:
+- tropelandia.quest.the-rent-is-due
 ---
 # Marlowe's Tower
 

@@ -33,6 +33,7 @@ encounters:
     hp: 33
     ac: 18
     attack: slam +4, 2d6+2
+    ref: tropelandia.monster.animated-armor
   tactics: The gate's armour wakes when anyone crosses without announcing themselves.
   treasure: ''
 traps: []

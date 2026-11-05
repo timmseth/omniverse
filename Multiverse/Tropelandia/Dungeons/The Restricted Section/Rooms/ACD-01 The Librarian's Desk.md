@@ -33,6 +33,7 @@ encounters:
     hp: 40
     ac: 12
     attack: fire bolt +6, 2d10
+    ref: tropelandia.monster.mage
   tactics: She attacks only if the rules are broken in front of her; she also enforces silence with a spell.
   treasure: ''
 traps: []

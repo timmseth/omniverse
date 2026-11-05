@@ -33,7 +33,7 @@ puzzles:
   reward: A key clue to the final vault.
 secrets: []
 loot:
-- A map of the Section (reveals the layout of the Stacks)
+- tropelandia.item.map-of-the-restricted-section
 dm_notes: ''
 ---
 # ACD-03 Reference Shelves

@@ -38,11 +38,13 @@ encounters:
     hp: 22
     ac: 8
     attack: slam +3, 1d6+1
+    ref: tropelandia.monster.zombie
   - name: Ghoul
     count: 1
     hp: 22
     ac: 12
     attack: claws +4, 2d4+2 (paralysis)
+    ref: tropelandia.monster.ghoul
   tactics: The ghoul lurks until the party is distracted by the zombies, then strikes.
   treasure: ''
 traps: []

@@ -45,6 +45,8 @@ home_town: tropelandia.settlement.grudgehold
 factions:
 - tropelandia.faction.glintfang-holdings
 - tropelandia.faction.karak-dum-dum-reclamation-trust
+quests:
+- tropelandia.quest.hall-by-hall
 ---
 # The Dwarven Folly
 

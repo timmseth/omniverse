@@ -43,6 +43,7 @@ encounters:
     hp: 13
     ac: 13
     attack: shortsword +4, 1d6+2
+    ref: tropelandia.monster.skeleton
   tactics: They rise if the party touches the altar or disturbs the pews; they will sing, loudly, off-key, which gives disadvantage on Wisdom (Perception).
   treasure: ''
 traps: []

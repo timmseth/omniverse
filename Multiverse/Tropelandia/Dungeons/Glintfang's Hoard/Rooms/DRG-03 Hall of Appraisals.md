@@ -33,6 +33,7 @@ encounters:
     hp: 40
     ac: 12
     attack: bite +5, 2d6
+    ref: tropelandia.monster.mimic
   tactics: Mirrors that copy the party's reflections attack on a failed appraisal.
   treasure: ''
 traps: []

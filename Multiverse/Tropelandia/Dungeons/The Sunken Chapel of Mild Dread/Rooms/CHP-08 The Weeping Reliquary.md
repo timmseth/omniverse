@@ -28,6 +28,7 @@ encounters:
     hp: 22
     ac: 12
     attack: life drain +4, 3d6
+    ref: tropelandia.monster.specter
   tactics: The specter attacks anyone who disturbs the sarcophagus.
   treasure: ''
 traps: []
@@ -36,7 +37,7 @@ secrets:
 - description: 'A hidden compartment in the fresco holds the Chapel''s true relic: a small silver bell'
   dc: 15
 loot:
-- The Saint's Silver Bell (works as a ring of protection when rung, once per day)
+- tropelandia.item.the-saints-silver-bell
 dm_notes: ''
 ---
 # CHP-08 The Weeping Reliquary

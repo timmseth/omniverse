@@ -21,7 +21,7 @@ PLACE_KINDS = ["plane", "galaxy", "star_system", "planet", "continent", "region"
 SLUG = r"[a-z0-9]+(?:-[a-z0-9]+)*"
 ID_PH = {"<universe>": SLUG, "<instance>": SLUG, "<slug>": SLUG, "<dungeon>": SLUG, "<nn>": r"\d{2}", "<nnnn>": r"\d{4}", "<year>": r"\d+"}
 FOLDER_PH = {"<Universe>": r"[^/]+", "<Name>": r"[^/]+", "<Dungeon>": r"[^/]+", "<Place path>": r".+", "<year>": r"\d+", "<nnnn>": r"\d{4}"}
-DICE = re.compile(r"^\d*d\d+(?:[+-]\d+)?$")
+DICE = re.compile(r"^(?:\d+|\d*d\d+(?:[+-]\d+)?)$")
 
 errors, warns = [], []
 def err(m): errors.append(m)
@@ -75,17 +75,18 @@ def as_list(v):
 
 
 def load_notes(root):
-    notes, names, state_ids = {}, {}, []
+    notes, names, state_ids, dups = {}, {}, [], []
     for dp, dn, fn in os.walk(root):
         dn[:] = [d for d in dn if d not in SKIP_DIRS]
         for f in fn:
             full = os.path.join(dp, f)
             rel = os.path.relpath(full, root).replace(os.sep, "/")
             if f.endswith(".md"):
-                if f[:-3] in names and not rel.startswith("_rules/templates/"):
-                    warn("two notes share the name %s (%s, %s); wikilinks to it are ambiguous" % (f[:-3], names[f[:-3]], rel))
+                structural = f.startswith("_") or f == "Campaign.md" or f.startswith("Session ")
+                if f[:-3] in names and not rel.startswith("_rules/templates/") and not structural:
+                    dups.append((f[:-3], names[f[:-3]], rel))
                 names.setdefault(f[:-3], rel)
-            if not (f.endswith(".md") or f.endswith(".yaml")) or rel == "README.md":
+            if not (f.endswith(".md") or f.endswith(".yaml")) or rel in ("README.md", "CONTRIBUTING.md", "Welcome.md") or rel.startswith(".github/"):
                 continue
             src = open(full, encoding="utf-8").read()
             if f.endswith(".md"):
@@ -116,6 +117,12 @@ def load_notes(root):
                 notes[meta["id"]] = (rel, meta)
             elif meta.get("kind") not in ("generated", "template"):
                 warn("%s: note has no id" % rel)
+    bypath = {rel: meta for rel, meta in notes.values()}
+    for name, a, b in dups:
+        ka, kb = (bypath.get(a) or {}).get("kind"), (bypath.get(b) or {}).get("kind")
+        if ka == kb and ka in ("index", "plane", "guide", "calendar"):
+            continue   # every universe has a Factions index and a Material Plane; link to these by path
+        warn("two notes share the name %s (%s, %s); wikilinks to it are ambiguous, use the path" % (name, a, b))
     return notes, names, state_ids
 
 
@@ -198,6 +205,32 @@ def check(val, spec, path, ctx, out):
         check_fields(val, spec.get("fields") or {}, path, ctx, out, spec.get("open", False))
     else:
         out.append("%s: schema uses unknown type %s" % (path, t))
+
+
+def check_table(meta, probs):
+    """Entries must cover 1..N of the die with no gaps or overlaps."""
+    die = str(meta.get("die") or "")
+    m = re.match(r"^(\d*)d(\d+)", die)
+    if not m:
+        return
+    n = int(m.group(2)) * (int(m.group(1) or 1))
+    lo = int(m.group(1) or 1)
+    covered = {}
+    for i, e in enumerate(meta.get("entries") or []):
+        r = e.get("roll") if isinstance(e, dict) else None
+        if isinstance(r, int):
+            a, b = r, r
+        elif isinstance(r, str) and re.match(r"^\d+\s*-\s*\d+$", r):
+            a, b = [int(x) for x in r.split("-")]
+        else:
+            probs.append("entries[%d].roll: expected a number or a range like 6-10, got %r" % (i, r)); continue
+        for v in range(a, b + 1):
+            if v in covered:
+                probs.append("entries[%d]: roll %d is also covered by entry %d" % (i, v, covered[v]))
+            covered[v] = i
+    missing = [v for v in range(lo, n + 1) if v not in covered]
+    if missing:
+        probs.append("WARN table does not cover rolls %s" % ", ".join(str(v) for v in missing[:8]))
 
 
 def check_fields(obj, fields, path, ctx, out, open_=False):
@@ -320,7 +353,7 @@ def main(argv):
     link = re.compile(r"\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]")
     longest = 0
     for dp, dn, fn in os.walk(root):
-        dn[:] = [d for d in dn if d not in SKIP_DIRS or d in ("_generated", "docs")]
+        dn[:] = [d for d in dn if d not in SKIP_DIRS or d == "_generated"]
         for f in fn:
             rel = os.path.relpath(os.path.join(dp, f), root).replace(os.sep, "/")
             full = ROOT_PREFIX + "\\" + rel.replace("/", "\\")
@@ -330,6 +363,11 @@ def main(argv):
             txt = open(os.path.join(dp, f), encoding="utf-8").read()
             for t in link.findall(txt):
                 t = t.strip().replace("\\", "")
+                if "/" in t or "." in t.rsplit("/", 1)[-1]:
+                    cand = t if os.path.splitext(t)[1] else t + ".md"
+                    if not os.path.isfile(os.path.join(root, cand)) and not os.path.isfile(os.path.join(dp, cand)):
+                        err("%s: broken wikilink [[%s]]" % (rel, t))
+                    continue
                 if t and t not in names:
                     err("%s: broken wikilink [[%s]]" % (rel, t))
 

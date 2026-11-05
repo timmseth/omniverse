@@ -28,13 +28,14 @@ encounters:
     hp: 40
     ac: 12
     attack: firebolt +6, 2d10
+    ref: tropelandia.monster.mage
   tactics: He wakes if the decanter is touched. He's grumpy but fair.
   treasure: ''
 traps: []
 puzzles: []
 secrets: []
 loot:
-- A potion of invisibility (the Dean's emergency exit)
+- tropelandia.item.potion-of-invisibility
 - A leather-bound journal of the Academy's secrets
 dm_notes: ''
 ---

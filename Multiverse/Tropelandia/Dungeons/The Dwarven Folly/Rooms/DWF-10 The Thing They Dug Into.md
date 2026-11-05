@@ -28,6 +28,7 @@ encounters:
     hp: 135
     ac: 15
     attack: tentacles +8, 3d6 psychic
+    ref: tropelandia.monster.elder-thing
   tactics: Not hostile at first; it wants someone to fix the leak it came in through. If refused it attacks.
   treasure: ''
 traps: []

@@ -33,13 +33,14 @@ encounters:
     hp: 5
     ac: 12
     attack: dagger +4, 1d4+2
+    ref: tropelandia.monster.kobold
   tactics: Friendly unless threatened; they'll sell the party the layout of the hoard for a drink.
   treasure: ''
 traps: []
 puzzles: []
 secrets: []
 loot:
-- A staff map (reveals the hoard's layout)
+- tropelandia.item.glintfangs-staff-map
 dm_notes: ''
 ---
 # DRG-09 Servants' Quarters

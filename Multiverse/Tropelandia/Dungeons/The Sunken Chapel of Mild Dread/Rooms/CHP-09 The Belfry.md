@@ -28,6 +28,7 @@ encounters:
     hp: 52
     ac: 15
     attack: claws +4, 2d6+2
+    ref: tropelandia.monster.gargoyle
   tactics: They attack if the bell is tampered with; they'll let the party ring it if asked politely.
   treasure: ''
 traps: []

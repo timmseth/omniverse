@@ -27,7 +27,7 @@ An underground complex whose purpose is to be explored, looted and survived.
 - The living dungeon
 
 ## Related tropes
-- [[Mimic]]
+- [[The Mimic]]
 - [[Gelatinous Cube]]
 - [[Looting Every Corpse]]
 

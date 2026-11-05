@@ -19,7 +19,7 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | [omniverse](#omniverse) | The single root note. Everything else descends from it. | `Omniverse.md` | `omniverse` |
 | [multiverse](#multiverse) | The shelf of universes. Its body holds the registry table. | `Multiverse/_registry.md` | `omniverse.multiverse` |
 | [universe](#universe) | A world with its own tone, calendar, canon timeline and ruleset. Its frontmatter is the universe's module manifest. | `Multiverse/<Universe>/_universe.md` | `<universe>` |
-| [module](#module) | Manifest for a generator, view, importer, exporter, DM style, trope pack, schema extension or app. | `<any>/module.md` | `<any>` |
+| [module](#module) | Manifest for a generator, view, importer, exporter, DM style, trope pack, schema extension or app. | `<any>/module.md`, `_rules/core.md` | `<any>` |
 | [ruleset](#ruleset) | A game system: stat schema, power function, resolution, progression. | `Rulesets/<Name>/<Name>.md`, `Multiverse/<Universe>/Rulesets/<Name>/<Name>.md` | `omniverse.ruleset.<slug>`, `<universe>.ruleset.<slug>` |
 | [plane](#plane) | A plane of existence. The top of a universe's space tree. | `Multiverse/<Universe>/<Place path>/<Name>/<Name>.md` | `<universe>.plane.<slug>` |
 | [galaxy](#galaxy) | A galaxy inside a plane. | `Multiverse/<Universe>/<Place path>/<Name>/<Name>.md` | `<universe>.galaxy.<slug>` |
@@ -49,7 +49,7 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | [table](#table) | A rollable table. Tools roll them; DMs read them. | `Multiverse/<Universe>/Tables/<Name>.md`, `Tables/<Name>.md` | `<universe>.table.<slug>`, `omniverse.table.<slug>` |
 | [dungeon](#dungeon) | An adventure site made of rooms. Anyone can submit one by pull request; the build tool indexes it for the DM screen app. | `Multiverse/<Universe>/Dungeons/<Name>/<Name>.md` | `<universe>.dungeon.<slug>` |
 | [room](#room) | One room of a dungeon, with read-aloud text, exits, and everything the DM needs to run it. | `Multiverse/<Universe>/Dungeons/<Dungeon>/Rooms/<Name>.md` | `<universe>.room.<dungeon>.<nn>-<slug>` |
-| [monster](#monster) | A creature stat block, in the ruleset's shape, that rooms and encounters reference by id. | `Multiverse/<Universe>/Bestiary/<Name>.md` | `<universe>.monster.<slug>` |
+| [monster](#monster) | A creature that rooms and encounters reference by id. The core fields are system-agnostic; the stat block sits under the ruleset's own key (dnd5e, six_sides), defined by that ruleset's schema extension. | `Multiverse/<Universe>/Bestiary/<Name>.md` | `<universe>.monster.<slug>` |
 | [item](#item) | A notable object: magic item, trinket, treasure, tool. | `Multiverse/<Universe>/Items/<Name>.md` | `<universe>.item.<slug>` |
 | [instance](#instance) | A playable timeline forked from canon at a point. Sessions log into it; a merge proposes its events back. | `Multiverse/<Universe>/Instances/<Name>/_instance.md` | `<slug>` |
 | [campaign](#campaign) | The party and arc inside an instance. | `Multiverse/<Universe>/Instances/<Name>/Campaign.md` | `<instance>.campaign` |
@@ -141,7 +141,7 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 
 **Module (generic manifest).** Manifest for a generator, view, importer, exporter, DM style, trope pack, schema extension or app.
 
-- Lives at: `<any>/module.md`
+- Lives at: `<any>/module.md`, `_rules/core.md`
 - Id: `<any>`
 - Mixins: base, manifest
 
@@ -164,7 +164,7 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `provides` | any |  | What the module supplies (list or map). |
 | `overrides` | list of string |  | Parts of the extended module this one replaces. |
 | `adds_kinds` | list of string |  | Note kinds this module introduces (declared in its _schemas/). |
-| `module_kind` | one of: `generator`, `view`, `importer`, `exporter`, `dm_style`, `trope_pack`, `schema_extension`, `app` | yes |  |
+| `module_kind` | one of: `core`, `generator`, `view`, `importer`, `exporter`, `dm_style`, `trope_pack`, `schema_extension`, `app` | yes |  |
 | `reads` | list of string |  | What it reads (paths or kinds). |
 | `writes` | list of string |  | What it writes. Generators write events; views write only _generated/. |
 
@@ -954,7 +954,7 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `universe` | ref to universe | yes | The universe this note belongs to. Must match the first segment of the id. |
 | `category` | one of: `myth`, `legend`, `history`, `custom`, `song`, `prophecy`, `rumour`, `treatise` | yes |  |
 | `about` | list of ref to any note |  | Notes this lore concerns. |
-| `truth` | one of: `True`, `mostly`, `half`, `False`, `unknown` |  | How true it is, for the DM. |
+| `truth` | one of: `wholly`, `mostly`, `half`, `barely`, `False`, `unknown` |  | How true it is, for the DM. |
 | `known_by` | list of string |  | Who tells it. |
 
 ### table
@@ -984,7 +984,7 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `entries.roll` | any | yes | A number or a range "6-10". Entries must cover the die without gaps or overlap. |
 | `entries.text` | string | yes |  |
 | `entries.ref` | ref to any note |  | A note the result points at (monster, item, person). |
-| `entries.count` | dice |  | How many, for encounters. |
+| `entries.count` | dice |  | How many, for encounters: a number or dice. |
 
 ## Adventure sites
 
@@ -1081,7 +1081,7 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 
 ### monster
 
-**Monster.** A creature stat block, in the ruleset's shape, that rooms and encounters reference by id.
+**Monster.** A creature that rooms and encounters reference by id. The core fields are system-agnostic; the stat block sits under the ruleset's own key (dnd5e, six_sides), defined by that ruleset's schema extension.
 
 - Lives at: `Multiverse/<Universe>/Bestiary/<Name>.md`
 - Id: `<universe>.monster.<slug>`
@@ -1099,45 +1099,42 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `author` | string |  | Who wrote it (GitHub handle). |
 | `status` | one of: `sample`, `draft`, `playtested`, `canon`, `stub`, `active`, `paused`, `dormant`, `archived`, `retired` |  | Editorial status. |
 | `universe` | ref to universe | yes | The universe this note belongs to. Must match the first segment of the id. |
-| `ruleset` | ref to ruleset | yes |  |
+| `ruleset` | ref to ruleset | yes | The system the stat block is written in. Its key below must be present. |
 | `size` | one of: `tiny`, `small`, `medium`, `large`, `huge`, `gargantuan` | yes |  |
 | `type` | string | yes | beast, humanoid, undead, construct, ... |
-| `cr` | number | yes | Challenge rating or the ruleset's equivalent. |
+| `threat` | int | yes | Omni power, 0 to 100. Rulesets map their own difficulty onto it so creatures from different systems compare. |
 | `alignment` | string |  |  |
-| `ac` | int | yes |  |
-| `hp` | int | yes |  |
-| `hp_dice` | dice |  |  |
-| `speed` | string | yes |  |
-| `abilities` | map | yes |  |
-| `abilities.str` | int | yes |  |
-| `abilities.dex` | int | yes |  |
-| `abilities.con` | int | yes |  |
-| `abilities.int` | int | yes |  |
-| `abilities.wis` | int | yes |  |
-| `abilities.cha` | int | yes |  |
-| `saves` | string |  |  |
-| `skills` | string |  |  |
-| `resistances` | string |  |  |
-| `immunities` | string |  |  |
-| `senses` | string |  |  |
-| `languages` | string |  |  |
-| `traits` | list of map |  |  |
-| `traits.name` | string | yes |  |
-| `traits.text` | text | yes |  |
-| `actions` | list of map | yes |  |
-| `actions.name` | string | yes |  |
-| `actions.text` | text | yes |  |
-| `reactions` | list of map |  |  |
-| `reactions.name` | string | yes |  |
-| `reactions.text` | text | yes |  |
-| `legendary` | list of map |  |  |
-| `legendary.name` | string | yes |  |
-| `legendary.text` | text | yes |  |
 | `tactics` | text |  | How it fights. |
 | `lore` | text |  | What it is in this universe. |
 | `loot` | ref to table |  | What it carries, as a table. |
 | `tropes` | list of ref to trope |  |  |
-| `xp` | int |  |  |
+| `dnd5e` | map |  |  |
+| `dnd5e.cr` | number | yes | Challenge rating. |
+| `dnd5e.ac` | int | yes |  |
+| `dnd5e.hp` | int | yes |  |
+| `dnd5e.hp_dice` | dice |  |  |
+| `dnd5e.speed` | string | yes |  |
+| `dnd5e.abilities` | map | yes |  |
+| `dnd5e.saves` | string |  |  |
+| `dnd5e.skills` | string |  |  |
+| `dnd5e.resistances` | string |  |  |
+| `dnd5e.immunities` | string |  |  |
+| `dnd5e.senses` | string |  |  |
+| `dnd5e.languages` | string |  |  |
+| `dnd5e.traits` | list of map |  |  |
+| `dnd5e.actions` | list of map | yes |  |
+| `dnd5e.reactions` | list of map |  |  |
+| `dnd5e.legendary` | list of map |  |  |
+| `dnd5e.xp` | int |  |  |
+| `six_sides` | map |  |  |
+| `six_sides.traits` | map | yes | Dice in each trait, 1 to 5. |
+| `six_sides.harm` | int | yes | Harm boxes |
+| `six_sides.difficulty` | int | yes | Hits needed to harm it |
+| `six_sides.moves` | list of map | yes |  |
+| `six_sides.edge` | int |  | Edge points it can spend to re-roll. |
+| `core` | map |  |  |
+| `core.rank` | int | yes | 1 to 10. |
+| `core.descriptors` | list of string | yes |  |
 
 ### item
 
@@ -1193,7 +1190,7 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `tags` | list of string |  |  |
 | `summary` | text |  | One to three sentences for indexes and the app. |
 | `author` | string |  | Who wrote it (GitHub handle). |
-| `status` | one of: `active`, `paused`, `finished`, `merged`, `abandoned` | yes |  |
+| `status` | one of: `template`, `active`, `paused`, `finished`, `merged`, `abandoned` | yes |  |
 | `universe` | ref to universe | yes | The universe this note belongs to. Must match the first segment of the id. |
 | `fork_point` | map | yes |  |
 | `fork_point.event` | ref to event |  |  |
@@ -1279,6 +1276,8 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `kind` | `index` |  |  |
 | `name` | string |  |  |
 | `parent` | ref to any note |  |  |
+| `tags` | list of string |  |  |
+| `summary` | text |  |  |
 
 ### guide
 
@@ -1294,6 +1293,8 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `kind` | `guide` |  |  |
 | `name` | string |  |  |
 | `parent` | ref to any note |  |  |
+| `tags` | list of string |  |  |
+| `summary` | text |  |  |
 
 ### template
 

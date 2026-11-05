@@ -28,6 +28,7 @@ encounters:
     hp: 45
     ac: 11
     attack: withering touch +5, 4d6 (only if provoked)
+    ref: tropelandia.monster.ghost
   tactics: He wants someone to finish his sermon. If the party listens, he gives them his blessing and the cabinet key.
   treasure: ''
 traps: []

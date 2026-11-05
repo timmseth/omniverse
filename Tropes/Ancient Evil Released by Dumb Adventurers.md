@@ -28,7 +28,7 @@ The classic way to cause the main plot: an ancient horror, undone by someone who
 
 ## Related tropes
 - [[Cult Summoning a Demon]]
-- [[Lich]]
+- [[The Lich]]
 - [[Ancient Prophecy]]
 
 ## Instances

@@ -1,0 +1,28 @@
+name: New universe (Universe Join)
+description: Propose adding a universe to the multiverse.
+title: "Universe: <name>"
+labels: [universe-join]
+body:
+  - type: input
+    id: name
+    attributes: { label: Universe name }
+    validations: { required: true }
+  - type: input
+    id: tone
+    attributes: { label: Tone, placeholder: "grim, pulp, parody, cosy" }
+    validations: { required: true }
+  - type: input
+    id: ruleset
+    attributes: { label: Ruleset, description: An existing ruleset id, or the one you will add, placeholder: omniverse.ruleset.core }
+    validations: { required: true }
+  - type: textarea
+    id: pitch
+    attributes: { label: What it is, description: A paragraph. What makes it different from the universes already on the shelf? }
+    validations: { required: true }
+  - type: textarea
+    id: brings
+    attributes: { label: What it brings, description: New kinds, a calendar, a trope pack, rifts to other universes. }
+  - type: input
+    id: maintainer
+    attributes: { label: Maintainer (GitHub handle), description: You will own Multiverse/<Universe>/ in CODEOWNERS. }
+    validations: { required: true }

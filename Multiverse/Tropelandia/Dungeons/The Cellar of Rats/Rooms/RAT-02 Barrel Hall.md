@@ -43,6 +43,7 @@ encounters:
     hp: 7
     ac: 12
     attack: bite +4, 1d4+2
+    ref: tropelandia.monster.giant-rat
   tactics: Rats dart out from behind the barrels and try to split the party; they flee when two are killed, and tell the Rat King.
   treasure: ''
 traps: []

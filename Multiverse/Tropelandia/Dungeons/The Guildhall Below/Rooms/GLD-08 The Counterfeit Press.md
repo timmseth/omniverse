@@ -33,6 +33,7 @@ encounters:
     hp: 4
     ac: 10
     attack: pen +2, 1d4
+    ref: tropelandia.monster.commoner-forger
   tactics: They flee and call the guards if disturbed.
   treasure: ''
 traps: []

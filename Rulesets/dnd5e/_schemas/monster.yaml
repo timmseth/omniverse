@@ -1,0 +1,32 @@
+# Schema extension: the D&D 5e stat block on a monster note, under the `dnd5e` key.
+kind: monster
+fields:
+  dnd5e:
+    type: map
+    fields:
+      cr: { type: number, required: true, doc: Challenge rating. }
+      ac: { type: int, required: true }
+      hp: { type: int, required: true }
+      hp_dice: { type: dice }
+      speed: { type: string, required: true }
+      abilities:
+        type: map
+        required: true
+        fields:
+          str: { type: int, required: true }
+          dex: { type: int, required: true }
+          con: { type: int, required: true }
+          int: { type: int, required: true }
+          wis: { type: int, required: true }
+          cha: { type: int, required: true }
+      saves: { type: string }
+      skills: { type: string }
+      resistances: { type: string }
+      immunities: { type: string }
+      senses: { type: string }
+      languages: { type: string }
+      traits: { type: list, of: { type: map, fields: { name: { type: string, required: true }, text: { type: text, required: true } } } }
+      actions: { type: list, required: true, of: { type: map, fields: { name: { type: string, required: true }, text: { type: text, required: true } } } }
+      reactions: { type: list, of: { type: map, fields: { name: { type: string, required: true }, text: { type: text, required: true } } } }
+      legendary: { type: list, of: { type: map, fields: { name: { type: string, required: true }, text: { type: text, required: true } } } }
+      xp: { type: int }

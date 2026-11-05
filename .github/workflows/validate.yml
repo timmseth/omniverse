@@ -1,0 +1,35 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Schemas, links, dungeons, generated files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      - name: Validate every note against the schemas
+        run: python3 _rules/tools/validate.py . --quiet
+      - name: Check the dungeons (exits, layout, codes)
+        run: python3 _rules/tools/build_dungeons.py . --check
+      - name: Rebuild the generated files
+        run: python3 _rules/tools/build_all.py .
+      - name: Generated files must be committed
+        run: |
+          if ! git diff --quiet -- _generated docs/reference Multiverse/*/_timeline.md Apps/dmScreen/app/src/main/assets/dungeons.js; then
+            echo "::error::Generated files are out of date. Run: python3 _rules/tools/build_all.py . and commit the result."
+            git --no-pager diff --stat -- _generated docs/reference Multiverse/*/_timeline.md Apps/dmScreen/app/src/main/assets/dungeons.js
+            exit 1
+          fi
+      - name: No code in content
+        run: |
+          # Content is data. Scripts live only in _rules/tools, Apps and .github.
+          bad=$(git ls-files | grep -Ev '^(_rules/tools/|Apps/|\.github/)' | grep -E '\.(py|js|sh|ps1|cmd|bat|exe|jar|kts)$' || true)
+          if [ -n "$bad" ]; then echo "::error::Executable files outside the tool folders:"; echo "$bad"; exit 1; fi

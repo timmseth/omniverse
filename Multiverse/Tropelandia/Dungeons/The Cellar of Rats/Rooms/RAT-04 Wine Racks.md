@@ -33,11 +33,13 @@ encounters:
     hp: 7
     ac: 12
     attack: bite +4, 1d4+2
+    ref: tropelandia.monster.giant-rat
   - name: Rat Sommelier
     count: 1
     hp: 9
     ac: 13
     attack: bite +4, 1d4+2 (disadvantage if the party is rude about the wine)
+    ref: tropelandia.monster.rat-sommelier
   tactics: The sommelier tries to bargain; refuse and it signals the rest.
   treasure: ''
 traps: []

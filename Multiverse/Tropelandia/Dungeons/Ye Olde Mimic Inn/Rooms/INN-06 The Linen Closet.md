@@ -30,7 +30,7 @@ traps:
 puzzles: []
 secrets: []
 loot:
-- A magic towel (grants advantage on one saving throw vs. fire)
+- tropelandia.item.magic-towel
 dm_notes: ''
 ---
 # INN-06 The Linen Closet

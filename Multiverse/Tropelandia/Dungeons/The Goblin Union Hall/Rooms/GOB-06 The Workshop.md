@@ -36,7 +36,7 @@ puzzles: []
 secrets: []
 loot:
 - Goblin trap parts (worth 25 gp)
-- A foreman's whistle (calls goblins to order)
+- tropelandia.item.foremans-whistle
 dm_notes: ''
 ---
 # GOB-06 The Workshop

@@ -1,0 +1,25 @@
+name: Canon merge
+description: Propose that events from an instance become canon in its universe.
+title: "Canon merge: <instance> into <universe>"
+labels: [canon-merge]
+body:
+  - type: input
+    id: instance
+    attributes: { label: Instance id, placeholder: pie-heist }
+    validations: { required: true }
+  - type: textarea
+    id: events
+    attributes: { label: Events to merge, description: Session and event ids, one per line, with a line on what each changes in the world. }
+    validations: { required: true }
+  - type: textarea
+    id: conflicts
+    attributes: { label: Conflicts, description: Anything in canon since your fork point that these events contradict (a Reality Rift). }
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Checks
+      options:
+        - label: The events are marked `canon: proposed` in the session log
+          required: true
+        - label: Deltas are listed for every state change
+          required: true

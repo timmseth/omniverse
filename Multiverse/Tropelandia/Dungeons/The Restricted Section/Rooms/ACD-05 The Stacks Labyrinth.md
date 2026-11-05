@@ -38,6 +38,7 @@ encounters:
     hp: 22
     ac: 12
     attack: life drain +4, 3d6
+    ref: tropelandia.monster.specter
   tactics: They are lost and want to be shown the exit; they attack if frightened.
   treasure: ''
 traps: []
