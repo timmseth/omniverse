@@ -45,5 +45,7 @@ Every build uses the committed `keystore/debug.keystore` (password `android`, al
 
 ## Version log
 
-- 1.0.0 (2026-11-04) - first version: library, room cards, exits, encounters, traps, puzzles, secrets,
+- 1.1.0 (2026-11-04) - Model tab: 3D dollhouse view of the dungeon with a room panel; full stat blocks and item loot; town, venue, NPC, faction and quest screens; table roller; Sync fetches world.json too.
+
+- 1.0.0 - first version: library, room cards, exits, encounters, traps, puzzles, secrets,
   loot, floor maps, dice, party, run log, sync, submit guide.

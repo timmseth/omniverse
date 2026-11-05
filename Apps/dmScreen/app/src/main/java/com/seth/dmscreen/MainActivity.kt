@@ -138,6 +138,15 @@ class MainActivity : Activity() {
         @JavascriptInterface
         fun saveData(json: String) = writeFile("dungeons.json", json)
 
+        /** Generic file storage for other synced data (world.json). Names are restricted to plain file names. */
+        @JavascriptInterface
+        fun loadFile(name: String): String = if (safeName(name)) readFile(name) else ""
+
+        @JavascriptInterface
+        fun saveFile(name: String, text: String) { if (safeName(name)) writeFile(name, text) }
+
+        private fun safeName(name: String) = Regex("^[A-Za-z0-9_.-]{1,64}$").matches(name) && !name.startsWith(".")
+
         @JavascriptInterface
         fun openUrl(url: String) {
             runOnUiThread { openExternal(url) }
@@ -151,7 +160,7 @@ class MainActivity : Activity() {
             }
         }
 
-        /** Fetches an https URL on a worker thread and calls window.__dmFetch(ok, text). */
+        /** Fetches an https URL on a worker thread and calls window.__dmFetch(ok, text, url). */
         @JavascriptInterface
         fun fetchText(url: String) {
             Thread {
@@ -181,7 +190,7 @@ class MainActivity : Activity() {
                 } catch (e: Exception) {
                     payload = e.message ?: e.javaClass.simpleName
                 }
-                val js = "window.__dmFetch && window.__dmFetch(" + ok + "," + JSONObject.quote(payload) + ")"
+                val js = "window.__dmFetch && window.__dmFetch(" + ok + "," + JSONObject.quote(payload) + "," + JSONObject.quote(url) + ")"
                 runOnUiThread { web.evaluateJavascript(js, null) }
             }.start()
         }
