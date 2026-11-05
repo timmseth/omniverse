@@ -157,11 +157,12 @@ Two principles about the table:
 
 ## 7. Repository layout
 
-**[Proposed]** Folders cover the top of the hierarchy, where there are few nodes, and `parent` links carry the rest. Deep nesting of every level is avoided because it breaks on Windows path-length limits and makes moving a note noisy in git.
+**[Proposed]** The folder tree follows **containment**. A universe's folder contains its planes, which contain galaxies, then star systems, planets, continents, regions, and so on down to settlements, and each settlement's folder contains its people. Browsing the vault is the same as zooming in on the world.
 
 ```
-Omniverse/                              (vault root = git repo root)
+Omniverse/                              (git repo root)
 ├── README.md                           this document
+├── LICENSE                             repository licence
 ├── CODEOWNERS                          who owns which universe (section 15)
 ├── _rules/                             serious, shared, maintained by Omniverse maintainers
 │   ├── schemas/                        frontmatter schemas per kind
@@ -183,23 +184,41 @@ Omniverse/                              (vault root = git repo root)
     │   ├── _universe.md                tone, calendar link, clock, ruleset, maintainers
     │   ├── Calendar.md
     │   ├── Eras/
-    │   ├── Cosmos/                     planes, galaxies, systems, planets (few, flat)
-    │   ├── Places/                     continents → settlements, flat, linked by parent
-    │   ├── People/                     notables (sharded when large)
-    │   ├── Factions/
-    │   ├── Trope Instances/
-    │   ├── Events/<in-world year>/     append-only event files
-    │   ├── _state/                     machine-written (census, locations, grudges)
-    │   └── _generated/                 machine-rendered digests (do not edit)
+    │   ├── Factions/                   cross-cutting: not part of the space tree
+    │   ├── Trope Instances/            cross-cutting
+    │   ├── Events/<in-world year>/     cross-cutting: append-only event files
+    │   ├── _state/                     machine-written (census, locations, grudges), flat, keyed by ID
+    │   ├── _generated/                 machine-rendered digests (do not edit)
+    │   └── Material Plane/                         plane
+    │       ├── Material Plane.md                   folder note (the plane itself)
+    │       └── Gleamhaven/                         galaxy
+    │           └── Mildew Sun/                     star system
+    │               └── Tropos/                     planet
+    │                   ├── Tropos.md
+    │                   └── Mainland/               continent
+    │                       └── Gently Haunted Marsh/   region
+    │                           └── Duchy of Mildew/    country (a province level may sit between)
+    │                               └── Barrowdale/     settlement
+    │                                   ├── Barrowdale.md
+    │                                   ├── Districts/  (optional)
+    │                                   └── People/
+    │                                       └── Marlowe the Mildly Menacing.md
     └── Forgotten Realms/               another universe (later)
 ```
 
-Notes on the layout:
+The conventions that make this work:
+
+- **The space hierarchy is nested folders.** Universe → plane → galaxy → star system → planet → continent → region → province → country → settlement → district → people. Households and groups, which are not places, sit alongside the people they contain.
+- **Levels can be skipped.** A universe with no planes, or a country with no provinces, just leaves that folder out. The `kind` and `parent` fields say what each thing is, so nothing depends on every level being present.
+- **Every place has a folder note.** A place's folder holds a note with the same name (`Barrowdale/Barrowdale.md`) that describes the place itself.
+- **People live in their home settlement's folder.** "Home" means where they were born or settled when created. Where someone is right now is state, and travel never moves a file. If someone permanently relocates, a maintainer may move their note, which git records as a rename.
+- **`parent` stays authoritative.** The folder tree and each note's `parent` chain must agree, and CI checks it. Tools read `parent`, and the folders are for people.
+- **Cross-cutting content sits outside the space tree.** Factions, trope instances, events, eras, state and generated files are not places, so they live beside it.
+- **State is flat.** Sim-written files in `_state/` are keyed by ID rather than nested, so a tick writes to one predictable place and never touches the lore tree.
+- **Mind the Windows path limit.** A full path to a person can get long. Keep folder names under about 24 characters, enable `core.longpaths` in git, and let CI warn when a path passes about 200 characters. Skipping optional levels also helps.
 - **Everything for a universe lives inside its own folder.** That is what makes ownership by path enforceable (section 15).
-- **`Places/` is flat and linked by `parent`.** Obsidian's graph and Bases/Dataview can then present the tree without the folders having to.
 - **`Events/` is sharded by in-world year** so no folder grows without bound.
-- **`_state/` and `_generated/`** are the simulation's territory.
-- **Only the vault root is the repo.** The earlier two-copy arrangement (a vault plus a separate GitHub folder) is a stopgap. The simplest long-term setup is a single git repository whose working tree is the vault. See decision P7.
+- **The GitHub folder is currently the git repository,** and the Obsidian vault is mirrored into it. Decision P7 covers making the vault itself the repository.
 
 ## 8. Notes, IDs and schemas
 
@@ -616,7 +635,7 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 
 - **Files:** with normals as counts, the file count is driven by notables, places and events. A universe with a few thousand notables and a few hundred places is comfortable for Obsidian and git.
 - **Events** are the fastest-growing content. They are sharded by in-world year, and old years can be rolled into yearly summary files (with the raw events kept in history) once they stop changing.
-- **Large folders:** `People/` is sharded when it passes a threshold (for example by settlement or by first letter).
+- **Large folders:** people are already spread across their home settlements' folders. A very large settlement's `People/` folder can be split by district or by first letter once it holds a few hundred notes.
 - **Tick cost:** most entities do nothing most ticks. The engine only loads and rewrites what changed.
 - **Windows paths:** keeping folders shallow avoids the 260-character path limit.
 - **Repository size:** state files are small and text-based. If history grows too large, old events can be archived to a separate repository.
@@ -652,7 +671,7 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 ### Proposed (will proceed unless changed)
 | ID | Proposal |
 |---|---|
-| P2 | Hybrid storage: folders for the top levels, flat notes linked by `parent` below. |
+| P2 | Containment folders: the space hierarchy is nested folders from universe down to settlement, people live in their home settlement's folder, and `parent` stays authoritative (CI checks the two agree). |
 | P3 | Universes join by fork-and-PR with `CODEOWNERS` and a path-guard check (alternative: submodules). |
 | P6 | Trope instances must fill required fields (twist, stakes, hooks offered). |
 | P7 | The vault itself becomes the git repository, replacing the two-copy setup. |
