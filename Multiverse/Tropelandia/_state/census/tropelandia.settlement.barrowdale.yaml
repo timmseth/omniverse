@@ -1,0 +1,10 @@
+# Machine-written. Do not edit by hand.
+id: tropelandia.population.barrowdale
+kind: population
+parent: tropelandia.settlement.barrowdale
+census:
+  total: 412
+  strata: { farmers: 210, craftsfolk: 70, merchants: 38, guards: 20, clergy: 9, other: 65 }
+  mood: amused
+  growth_per_tick: 0.0004
+last_tick: 2210

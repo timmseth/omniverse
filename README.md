@@ -1,7 +1,7 @@
 ---
 title: Omniverse — Design Document
 status: draft
-version: 0.2
+version: 0.3
 updated: 2026-11-04
 owner: Seth
 ---
@@ -10,9 +10,11 @@ owner: Seth
 
 **A persistent, git-native tabletop-RPG multiverse. It runs itself, remembers everything, works with any game system, and anyone can merge their own universe into it.**
 
-> Status: **Draft v0.2.** This document describes the intended design. Nothing here is built yet beyond the empty vault. Each decision is tagged **[Decided]**, **[Proposed]** or **[Open]**. Section 21 collects everything still waiting on an answer.
+> Status: **Draft v0.3.** This document describes the intended design. Nothing here is built yet beyond the empty vault. Each decision is tagged **[Decided]**, **[Proposed]** or **[Open]**. Section 21 collects everything still waiting on an answer.
 >
 > **New in v0.2:** the Omniverse is now system-agnostic. Rulesets are plug-ins (section 14), and D&D 5e is one of them, used by Tropelandia.
+>
+> **New in v0.3:** the folder layout follows containment (section 7), a province now sits inside a country rather than above it, and a small sample world (one node per layer, down to a person) lives in `Multiverse/Tropelandia/`.
 
 ---
 
@@ -136,8 +138,8 @@ Every note has a `kind` and, except for the root, a `parent`. The layers below a
 | 7 | `planet` | A world | Climate, ecology, magic level, calendar | Climate, large events. |
 | 8 | `continent` | A landmass | Geography, trade routes | Migration, long wars. |
 | 9 | `region` | A biome or borderland | Terrain, hazards, trope sites | Hazards, wandering threats. |
-| 10 | `province` | A political subdivision | Local government | Taxes, local conflict. |
-| 11 | `country` | A nation | Government, laws, currency, relations | Diplomacy, war, succession. |
+| 10 | `country` | A nation | Government, laws, currency, relations | Diplomacy, war, succession. |
+| 11 | `province` | A political subdivision of a country | Local government | Taxes, local conflict. |
 | 12 | `settlement` | A city, town or village | Districts, institutions, census | Economy, rumours, local events. |
 | 13 | `district` | A neighbourhood *(optional)* | Local character | Local events. |
 | 14 | `population` | The census of normals in a place | Head counts by stratum, mood | Growth, migration, promotion. |
@@ -197,18 +199,20 @@ Omniverse/                              (git repo root)
     │                   ├── Tropos.md
     │                   └── Mainland/               continent
     │                       └── Gently Haunted Marsh/   region
-    │                           └── Duchy of Mildew/    country (a province level may sit between)
-    │                               └── Barrowdale/     settlement
-    │                                   ├── Barrowdale.md
-    │                                   ├── Districts/  (optional)
-    │                                   └── People/
-    │                                       └── Marlowe the Mildly Menacing.md
+    │                           └── Duchy of Mildew/    country
+    │                               └── Dampshire/      province (optional)
+    │                                   └── Barrowdale/     settlement
+    │                                       ├── Barrowdale.md
+    │                                       ├── Districts/  (optional)
+    │                                       ├── Households/
+    │                                       └── People/
+    │                                           └── Marlowe the Mildly Menacing.md
     └── Forgotten Realms/               another universe (later)
 ```
 
 The conventions that make this work:
 
-- **The space hierarchy is nested folders.** Universe → plane → galaxy → star system → planet → continent → region → province → country → settlement → district → people. Households and groups, which are not places, sit alongside the people they contain.
+- **The space hierarchy is nested folders.** Universe → plane → galaxy → star system → planet → continent → region → country → province → settlement → district → people. Households and groups are not places, so each settlement has a `Households/` folder for them.
 - **Levels can be skipped.** A universe with no planes, or a country with no provinces, just leaves that folder out. The `kind` and `parent` fields say what each thing is, so nothing depends on every level being present.
 - **Every place has a folder note.** A place's folder holds a note with the same name (`Barrowdale/Barrowdale.md`) that describes the place itself.
 - **People live in their home settlement's folder.** "Home" means where they were born or settled when created. Where someone is right now is state, and travel never moves a file. If someone permanently relocates, a maintainer may move their note, which git records as a rename.
@@ -608,6 +612,7 @@ Each universe ticks in isolation and writes only to its own `_state/`, `Events/`
 ### 17.1 Tropelandia
 - **Owner:** Seth.
 - **Ruleset:** D&D 5e.
+- **Sample content:** a small sample slice lives in `Multiverse/Tropelandia/`, with one node per layer from the plane down to a person, plus a trope instance, a faction, an event, state files and a generated digest. It is illustrative and will change.
 - **Tone:** Munchkin-style parody of fantasy and RPG tropes. Tongue-in-cheek, never po-faced, always open to whatever a player tries.
 - **Contents:** the first trope instances, a handful of settlements, and a starter roster of notables.
 

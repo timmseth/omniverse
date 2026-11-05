@@ -1,0 +1,15 @@
+# Machine-written. Do not edit by hand.
+id: tropelandia.person.marlowe-the-mildly-menacing
+location: tropelandia.settlement.barrowdale
+hp: { current: 47, max: 47 }
+conditions: []
+relationships:
+  - type: rival
+    with: tropelandia.person.dame-rosalind-quickblade
+    since: { year: 1489, day: 34 }
+    strength: 62
+    cause_event: tropelandia.event.1489-0034-the-pie-contest-incident
+grudges:
+  - { target: tropelandia.person.dame-rosalind-quickblade, intensity: 62, kind: rivalry }
+active_goals: [win the pie contest]
+last_tick: 2210
