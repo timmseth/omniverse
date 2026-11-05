@@ -34,6 +34,12 @@ secrets: []
 loot:
 - A warm stone with a party member's name on it, and a date
 dm_notes: The shelves are the Office of Eternal Records' overflow. It has been filing Ashfall's dead through the Rift for two centuries.
+for_quest:
+- quest: ashfall.quest.the-count
+  when: arrival
+  read_aloud: One of the warm stones near the bottom has been turned to face the wall.
+  dm_notes: Kettle turned it. It is his. The date on it is tomorrow.
+  clue: Kettle's number is next in the queue.
 ---
 # CVT-04 The Shelves
 

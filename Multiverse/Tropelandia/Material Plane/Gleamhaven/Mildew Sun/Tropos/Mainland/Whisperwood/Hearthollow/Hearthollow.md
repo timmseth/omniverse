@@ -46,6 +46,11 @@ from:
   year: 640
   era: tropelandia.era.age-of-mild-peril
 to: null
+for_quest:
+- quest: tropelandia.quest.the-strike
+  when: arrival
+  read_aloud: Hearthollow is untidy. Without the goblins the woodpiles have not been stacked, the market has not been swept, and three signs point to the forest with no one to repaint them.
+  dm_notes: A town that has never noticed how much the goblins did. Point this out and the Reeve's position softens.
 ---
 # Hearthollow
 

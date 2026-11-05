@@ -169,6 +169,7 @@
      "loot": [
       "A ticket stub (the party's place in the queue)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -232,6 +233,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "The carpet is safe; the tiles aren't."
     },
     {
@@ -358,6 +360,7 @@
      ],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -414,6 +417,7 @@
      "loot": [
       "Gold dust (worth 80 gp)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -535,6 +539,7 @@
      ],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "Dragon's Hoard played as a negotiation: the dragon is a businesswoman."
     },
     {
@@ -670,6 +675,7 @@
      "loot": [
       "A portfolio of coins, gems and art (up to 20,000 gp if the party can carry it)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -772,6 +778,7 @@
       "A box of assorted gems (200 gp)",
       "A box of rings (3 magic rings, DM's choice)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -837,6 +844,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": "Cursed Item trope as retail: everything has a defect, and a cheerful receipt."
     },
     {
@@ -954,6 +962,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": ""
     }
    ]
@@ -1144,6 +1153,22 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [
+      {
+       "quest": "tropelandia.quest.the-rent-is-due",
+       "when": "arrival",
+       "read_aloud": "Pinned to the inside of the door: a rent receipt. The tenant's name is Marlowe. The landlord's signature is a small drawing of a tower.",
+       "dm_notes": "The receipts are made out from the tower to Marlowe. The tower is the landlord. Rosalind suspects; nobody else knows.",
+       "clue": "Every receipt in the tower reads the same way."
+      },
+      {
+       "quest": "tropelandia.quest.the-rent-is-due",
+       "when": "investigation",
+       "read_aloud": "Scratched into the stone beside the door, very old and very small: TENANTS 1 to 11, with ten names crossed out.",
+       "dm_notes": "Eleven tenants before Marlowe, over four centuries. The tower keeps wizards the way a cat keeps mice. Marlowe is the twelfth.",
+       "clue": "The study has the ledger of what became of the first eleven."
+      }
+     ],
      "dmNotes": "Establishes tone. Wizard in a Tower beat: the tower tests visitors with a staircase and a rule."
     },
     {
@@ -1252,6 +1277,7 @@
       },
       "Marlowe's overdue rent notices (11)"
      ],
+     "forQuest": [],
      "dmNotes": "The soup is genuinely nourishing; the skeleton is a good-natured cook who wants a day off."
     },
     {
@@ -1332,6 +1358,7 @@
       },
       "A first-edition Guide to Reasonable Rent"
      ],
+     "forQuest": [],
      "dmNotes": "Light puzzle, quick to solve; the library is the trope's first obstacle."
     },
     {
@@ -1453,6 +1480,15 @@
       "Marlowe's private recipe for blackberry pie",
       "A signed IOU from the Mayor"
      ],
+     "forQuest": [
+      {
+       "quest": "tropelandia.quest.the-rent-is-due",
+       "when": "investigation",
+       "read_aloud": "Among the overdue notices is one that is not from the Mayor. It is addressed to the tower, from the Thaumaturgic Academy, and it is a summons.",
+       "dm_notes": "The Academy restricted the tower two centuries ago. It has been 'temporarily' on the Mayor's table for two days because the summons finally arrived and it is thinking about leaving.",
+       "clue": "The Union can contest the summons; so can the Mayor, if he wants the tower to stay."
+      }
+     ],
      "dmNotes": "The Pie Contest Incident is a canon event; this study can reflect it. Marlowe's grudges here are nemesis-system fodder."
     },
     {
@@ -1573,6 +1609,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": "Wizard in a Tower hook: the party can be recruited as the next apprentice."
     },
     {
@@ -1627,6 +1664,7 @@
      ],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "A fun exit for a party that has had enough; also a way to bring in side quests."
     },
     {
@@ -1755,6 +1793,7 @@
        "curse": "Cannot be removed. People will not stop laughing at you, even when you are serious."
       }
      ],
+     "forQuest": [],
      "dmNotes": "Marlowe is a Wizard in a Tower, played straight: sympathetic, trapped by money. His grudge with Rosalind is nemesis-system material."
     },
     {
@@ -1884,6 +1923,7 @@
       },
       "Marlowe's secret: a copy of the unpaid dragon bill from the pantry"
      ],
+     "forQuest": [],
      "dmNotes": "Where Marlowe hides his experiments. The ooze is a small boss for a low-level party."
     }
    ]
@@ -1990,6 +2030,14 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [
+      {
+       "quest": "tropelandia.quest.ten-rats",
+       "when": "arrival",
+       "read_aloud": "A notice is nailed to the inside of the trapdoor, at rat height: VISITORS PLEASE WAIT TO BE SEEN.",
+       "dm_notes": "The rats are expecting them. Any party that waits is received politely in the throne room; any party that does not is received as pest control."
+      }
+     ],
      "dmNotes": "Quiet start. The squeaking is audible here; make the party feel watched, not attacked."
     },
     {
@@ -2108,6 +2156,7 @@
      "loot": [
       "A single silver piece, wedged under a barrel"
      ],
+     "forQuest": [],
      "dmNotes": "If the party leaves a rat alive, it reports to the Rat King; the throne room encounter begins with a lookout."
     },
     {
@@ -2158,6 +2207,7 @@
       "35 gp in the strongbox",
       "A very good ham"
      ],
+     "forQuest": [],
      "dmNotes": "Cheese is a Cursed Item joke: it's non-magical, but the rats believe it is."
     },
     {
@@ -2319,6 +2369,7 @@
      "loot": [
       "A bottle of fine wine worth 25 gp"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -2368,6 +2419,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "Small characters crawl through; Medium characters take a round to squeeze."
     },
     {
@@ -2533,6 +2585,7 @@
       "120 sp scattered through the nests",
       "A tiny silver crown, too small for a human head"
      ],
+     "forQuest": [],
      "dmNotes": "Parley is a real option: if the party speaks or acts reasonably, rats will bring them to the Rat King."
     },
     {
@@ -2700,6 +2753,15 @@
       "A huge gold ring (worth 60 gp), actually the innkeeper's wife's wedding band",
       "The spectacles"
      ],
+     "forQuest": [
+      {
+       "quest": "tropelandia.quest.ten-rats",
+       "when": "investigation",
+       "read_aloud": "Behind the throne, the bills are sorted by year. The oldest is a receipt for a pie, signed with a paw print. The newest is a formal demand addressed to the Mayor.",
+       "dm_notes": "The rats' legal position: nine years of occupancy, rent paid in kind, a landlord who never inspected. The Mayor's clerk would call it a tenancy. The demand asks for recognition as Local 7.",
+       "clue": "The demand needs the Mayor's seal; stage 3 is at Pettigrew Manor."
+      }
+     ],
      "dmNotes": "Gentle subversion of Kill Ten Rats: the ten-rat notice is a joke about bureaucracy. A sweet ending is on offer; the party can still choose violence."
     }
    ]
@@ -2806,6 +2868,7 @@
       }
      ],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "Kettle's prints. He came back out, but his prints do not."
     },
     {
@@ -2854,6 +2917,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "The sound is the Counting Thing, below, turning the ledger."
     },
     {
@@ -2952,6 +3016,7 @@
       }
      ],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "Six is what moves if a lamp fails; the rest keep queueing. Relighting a lamp stops them where they stand."
     },
     {
@@ -2999,6 +3064,15 @@
      "loot": [
       "A warm stone with a party member's name on it, and a date"
      ],
+     "forQuest": [
+      {
+       "quest": "ashfall.quest.the-count",
+       "when": "arrival",
+       "read_aloud": "One of the warm stones near the bottom has been turned to face the wall.",
+       "dm_notes": "Kettle turned it. It is his. The date on it is tomorrow.",
+       "clue": "Kettle's number is next in the queue."
+      }
+     ],
      "dmNotes": "The shelves are the Office of Eternal Records' overflow. It has been filing Ashfall's dead through the Rift for two centuries."
     },
     {
@@ -3045,6 +3119,7 @@
       }
      ],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "This is the Rift: a corridor of the Office of Eternal Records that opened into the Cold Vault. Kettle's paper is 9,114,204: next."
     },
     {
@@ -3150,6 +3225,7 @@
      "loot": [
       "A pen that writes in the Office's hand (the Rift's twin of Vexmort's Quill; writes any contract, which the Office enforces across both worlds)"
      ],
+     "forQuest": [],
      "dmNotes": "The Counting Thing is a clerk of the Office of Eternal Records (Tropelandia) posted to a Rift it does not understand, filing a world it was not sent to. It would like to go home. It does not know the way. The door behind it leads to the Office's lower floor in Deepfile, Tropelandia."
     },
     {
@@ -3183,6 +3259,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "Crossing is a Reality Rift event in both universes and needs both maintainers' agreement to become canon. In an instance, do what you like: the queue is long."
     }
    ]
@@ -3354,6 +3431,7 @@
      "loot": [
       "A dwarven battle standard worth 30 gp"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -3477,6 +3555,7 @@
      "loot": [
       "The map of the lower tunnels (reduces getting lost in the shaft)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -3531,6 +3610,7 @@
       },
       "The brewmaster's recipe (valuable)"
      ],
+     "forQuest": [],
      "dmNotes": "The Last Batch is a Cursed Item: whoever drinks it gains Darkvision and Strong Opinions for a day."
     },
     {
@@ -3641,6 +3721,7 @@
       "Dwarven axes (3, worth 15 gp each)",
       "A tin cup engraved with a name"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -3774,6 +3855,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -3823,6 +3905,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -3996,6 +4079,7 @@
       "Rare mushrooms (potions)",
       "Duergar supplies"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -4097,6 +4181,7 @@
      "loot": [
       "A drowned dwarven vault (50 gp and a gem)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -4146,6 +4231,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -4267,6 +4353,7 @@
      "loot": [
       "A gift from beyond (a wish-adjacent boon, DM's choice)"
      ],
+     "forQuest": [],
      "dmNotes": "Ancient Evil Released by Dumb Adventurers, inverted: the evil isn't evil, just stranded. Keep it weird and polite."
     }
    ]
@@ -4432,6 +4519,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "Wins by talking. Violence is the long way round."
     },
     {
@@ -4552,6 +4640,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "Social encounter: be polite, be patient, bring forms."
     },
     {
@@ -4657,6 +4746,7 @@
       "A mug of fungus tea (restores 1d4 HP)",
       "A list of union demands"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -4773,6 +4863,7 @@
      "loot": [
       "The strike fund key"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -4901,6 +4992,7 @@
      ],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -4962,6 +5054,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -5006,6 +5099,7 @@
       "Strike fund (450 gp)",
       "A ledger showing the fund has been used for mushrooms (it has)"
      ],
+     "forQuest": [],
      "dmNotes": "A moral wrinkle: the fund is theirs. Taking it makes the party scabs and thieves."
     },
     {
@@ -5125,6 +5219,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": "Goblins as Fodder subverted: they are people with grievances, and the best ending is a deal."
     }
    ]
@@ -5296,6 +5391,7 @@
      "loot": [
       "A very large fish"
      ],
+     "forQuest": [],
      "dmNotes": "The password is learnable from Rosa the street kid or by bribing the fishmonger."
     },
     {
@@ -5401,6 +5497,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -5585,6 +5682,7 @@
      ],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -5698,6 +5796,7 @@
       "Stolen goods (sell for 100 gp)",
       "A forged guild membership card"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -5747,6 +5846,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "The course can be used for the initiation test."
     },
     {
@@ -5810,6 +5910,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "Safe path: follow the knight's move pattern (clue in the Moot mural)."
     },
     {
@@ -5948,6 +6049,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -6049,6 +6151,7 @@
       "Forged documents (useful)",
       "Counterfeit currency (risky, 200 gp face value)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -6106,6 +6209,7 @@
       "The real treasure is in the safes: 600 gp and 3 gems",
       "The box is empty, apart from a note: 'Better luck next time'"
      ],
+     "forQuest": [],
      "dmNotes": "Quest Giver Betrays the Party: the Guildmaster wanted the party to try, to test the vault's defences."
     }
    ]
@@ -6277,6 +6381,7 @@
      "loot": [
       "A ticket stub (number 9,114,204)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -6401,6 +6506,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "Queue-cutting is the way to start a fight. Politeness is the way to avoid it."
     },
     {
@@ -6515,6 +6621,7 @@
      ],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -6637,6 +6744,7 @@
       },
       "An urgent summons addressed to the party"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -6777,6 +6885,7 @@
      ],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -6829,6 +6938,7 @@
       "The Lich's phylactery (breaking it ends Vexmort for good)",
       "Dozens of other souls' phylacteries (free them for story rewards)"
      ],
+     "forQuest": [],
      "dmNotes": "The key objective. The Lich will fight to defend it."
     },
     {
@@ -6955,6 +7065,7 @@
      ],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -7109,6 +7220,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": "Lich played as a bureaucrat: the final boss is a paperwork fight. The phylactery makes it mechanical."
     }
    ]
@@ -7286,6 +7398,7 @@
      ],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -7406,6 +7519,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "Stealth makes the encounter trivial; noise makes it deadly."
     },
     {
@@ -7463,6 +7577,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -7573,6 +7688,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -7694,6 +7810,7 @@
      ],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -7819,6 +7936,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -7873,6 +7991,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -7980,6 +8099,7 @@
       },
       "A leather-bound journal of the Academy's secrets"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -8097,6 +8217,7 @@
      "loot": [
       "Knowledge (the DM's choice of plot reveal)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     }
    ]
@@ -8261,6 +8382,7 @@
      "loot": [
       "A pouch of lost coins in the reeds (25 gp)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -8377,6 +8499,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "Passive hazard: moving quietly keeps the congregation asleep (DC 12 Stealth)."
     },
     {
@@ -8426,6 +8549,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -8533,6 +8657,7 @@
       "The vestry key",
       "A prayer scroll (bless x1)"
      ],
+     "forQuest": [],
      "dmNotes": "A good place for a roleplay break; the priest can offer clues about the altar."
     },
     {
@@ -8605,6 +8730,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -8765,6 +8891,7 @@
      "loot": [
       "A ring of keys (opens the vestry cabinet and the reliquary vault)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -8884,6 +9011,7 @@
       },
       "100 gp in ancient coins"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -8995,6 +9123,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -9100,6 +9229,7 @@
      "loot": [
       "The Bell itself (worth 500 gp to a church, and more to a cult)"
      ],
+     "forQuest": [],
      "dmNotes": "The bell is the quest item; ringing it correctly (three notes) puts the chapel's dead to rest."
     }
    ]
@@ -9299,6 +9429,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": "Hint: all exits seem to close behind the party. Wisdom (Perception) DC 15 notices there is no draught."
     },
     {
@@ -9400,6 +9531,7 @@
      "loot": [
       "A cauldron of stew (heals 1d8, but you're sleepy)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -9463,6 +9595,7 @@
      "puzzles": [],
      "secrets": [],
      "loot": [],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -9505,6 +9638,7 @@
       "A diamond ring (150 gp)",
       "A bottle of champagne (20 gp)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -9607,6 +9741,7 @@
       "The missing merchants' coin purses (300 gp)",
       "A guest book with a final entry: 'help'"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -9660,6 +9795,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -9711,6 +9847,7 @@
      "loot": [
       "The best wine in Whisperwood (150 gp)"
      ],
+     "forQuest": [],
      "dmNotes": ""
     },
     {
@@ -9838,6 +9975,7 @@
        "curse": ""
       }
      ],
+     "forQuest": [],
      "dmNotes": "Option: a Persuasion check (DC 16) to broker a lasting arrangement with the inn: a regular meal delivery in exchange for safe lodging."
     }
    ]

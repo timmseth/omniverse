@@ -56,6 +56,17 @@ puzzles: []
 secrets: []
 loot: []
 dm_notes: 'Establishes tone. Wizard in a Tower beat: the tower tests visitors with a staircase and a rule.'
+for_quest:
+- quest: tropelandia.quest.the-rent-is-due
+  when: arrival
+  read_aloud: 'Pinned to the inside of the door: a rent receipt. The tenant''s name is Marlowe. The landlord''s signature is a small drawing of a tower.'
+  dm_notes: The receipts are made out from the tower to Marlowe. The tower is the landlord. Rosalind suspects; nobody else knows.
+  clue: Every receipt in the tower reads the same way.
+- quest: tropelandia.quest.the-rent-is-due
+  when: investigation
+  read_aloud: 'Scratched into the stone beside the door, very old and very small: TENANTS 1 to 11, with ten names crossed out.'
+  dm_notes: Eleven tenants before Marlowe, over four centuries. The tower keeps wizards the way a cat keeps mice. Marlowe is the twelfth.
+  clue: The study has the ledger of what became of the first eleven.
 ---
 # TWR-01 Entrance Hall
 

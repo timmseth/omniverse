@@ -13,7 +13,7 @@
   "table": 16,
   "faction": 12,
   "dungeon": 11,
-  "quest": 10,
+  "quest": 11,
   "settlement": 9,
   "region": 8,
   "deity": 7,
@@ -119,6 +119,7 @@
     "ashfall.monster.the-counting-thing",
     "ashfall.pantheon-index",
     "ashfall.plane.material-plane",
+    "ashfall.quest.the-count",
     "ashfall.quests-index",
     "ashfall.table.road-encounters",
     "ashfall.tables-index"
@@ -349,6 +350,7 @@
    "status": "sample",
    "refs": [
     "ashfall.faction.the-wardens-of-the-last-light",
+    "ashfall.quest.the-count",
     "ashfall.region.the-cinder-road",
     "ashfall.room.the-cold-vault.01-the-door",
     "ashfall.settlement.lastlight",
@@ -365,6 +367,7 @@
     "ashfall.event.211-0044-the-vault-opens",
     "ashfall.event.88-0300-the-vault-shut",
     "ashfall.faction.the-wardens-of-the-last-light",
+    "ashfall.quest.the-count",
     "ashfall.room.the-cold-vault.01-the-door",
     "ashfall.room.the-cold-vault.02-the-stair",
     "ashfall.room.the-cold-vault.03-the-cold-hall",
@@ -431,7 +434,9 @@
     },
     "author": "seth",
     "status": "sample",
-    "quests": []
+    "quests": [
+     "ashfall.quest.the-count"
+    ]
    },
    "body": "# The Cold Vault\n\nA vault in the hillside that the Wardens' oath says must stay shut. It opened at dawn.\n\nRooms are in `Rooms/`. Entry: [[CVT-01 The Door]]. Home town: [[Lastlight]].\n\nThis dungeon is one end of a Reality Rift; the other end is [[The Lich's Filing Office]] in Tropelandia."
   },
@@ -667,6 +672,7 @@
     "ashfall.factions-index",
     "ashfall.person.brother-ash",
     "ashfall.person.warden-maren-vosk",
+    "ashfall.quest.the-count",
     "ashfall.settlement.lastlight",
     "ashfall.venue.the-wardens-keep"
    ],
@@ -1232,6 +1238,7 @@
    "refs": [
     "ashfall.era.the-long-dusk",
     "ashfall.faction.the-wardens-of-the-last-light",
+    "ashfall.quest.the-count",
     "ashfall.settlement.lastlight",
     "ashfall.venue.the-wardens-keep",
     "omniverse.ruleset.six-sides"
@@ -1239,6 +1246,7 @@
    "links": [],
    "referencedBy": [
     "ashfall.faction.the-wardens-of-the-last-light",
+    "ashfall.quest.the-count",
     "ashfall.settlement.lastlight",
     "ashfall.venue.the-wardens-keep"
    ],
@@ -1286,7 +1294,16 @@
      "day": 1,
      "era": "ashfall.era.the-long-dusk"
     },
-    "to": null
+    "to": null,
+    "for_quest": [
+     {
+      "quest": "ashfall.quest.the-count",
+      "when": "stage",
+      "stage": 2,
+      "dm_notes": "Stage 2: once the party has been in the Vault, Vosk asks one question: did the dead have papers. If the answer is yes, she sits down for the first time in the scene and tells them her stone's date.",
+      "clue": "Her appointment is the first winter date on the shelves."
+     }
+    ]
    },
    "body": "# Warden Maren Vosk\n\n*Warden of Lastlight.*\n\n**Voice.** Quiet. Says a thing once. Looks at the lamps while she talks.\n\n**Wants** the oil to last; to know what opened the Vault. **Fears** the count being wrong; the dark learning to count.\n\n**Secret.** She has been lowering the public oil count on purpose, to make the town ration before it must. The real number is worse than the lie.\n\n*Six Sides:* Body 3, Wits 3, Nerve 5, Grace 2; Harm 4; Difficulty 2."
   },
@@ -1346,6 +1363,109 @@
    "body": "# Hearth\n\nDescribe it."
   },
   {
+   "id": "ashfall.quest.the-count",
+   "kind": "quest",
+   "name": "The Count",
+   "universe": "ashfall",
+   "parent": "ashfall",
+   "path": "Multiverse/Ashfall/Quests/The Count.md",
+   "summary": "The Cold Vault opened at dawn; the oil count is wrong; the dead are facing the hill.",
+   "tags": [
+    "quest"
+   ],
+   "status": "sample",
+   "refs": [
+    "ashfall.dungeon.the-cold-vault",
+    "ashfall.faction.the-wardens-of-the-last-light",
+    "ashfall.person.warden-maren-vosk",
+    "ashfall.settlement.lastlight",
+    "ashfall.venue.the-wardens-keep",
+    "omniverse.trope.ancient-evil-released-by-dumb-adventurers",
+    "omniverse.trope.lich"
+   ],
+   "links": [
+    "ashfall.dungeon.the-cold-vault"
+   ],
+   "referencedBy": [
+    "ashfall.dungeon.the-cold-vault",
+    "ashfall.person.warden-maren-vosk",
+    "ashfall.quests-index",
+    "ashfall.room.the-cold-vault.04-the-shelves",
+    "ashfall.venue.the-ember-hall"
+   ],
+   "children": [],
+   "data": {
+    "giver": "ashfall.person.warden-maren-vosk",
+    "start": "ashfall.venue.the-wardens-keep",
+    "level_range": [
+     1,
+     3
+    ],
+    "premise": "The Cold Vault opened at dawn. Kettle came out with a coin and a paper and will not say which pocket it is in. The Warden's oil count has been wrong for nine days, and the dead of the Road have started facing the hill.",
+    "hooks": [
+     "The Warden pays in oil to learn what opened the Vault.",
+     "Kettle wants an escort and will not say where.",
+     "Brother Ash heard the Flame ask for an appointment."
+    ],
+    "stages": [
+     {
+      "name": "The count is wrong",
+      "goal": "Learn why the chalked oil count keeps shrinking, and what Kettle brought out of the dark.",
+      "where": "ashfall.settlement.lastlight",
+      "complications": [
+       "Vosk will not lie, but she will not volunteer.",
+       "Kettle wants to be asked kindly."
+      ],
+      "clue": "The paper has a queue number; the dead in the Vault hold the same papers."
+     },
+     {
+      "name": "The Vault",
+      "goal": "Go down, past the standing dead, to the shelves and the counter.",
+      "dungeon": "ashfall.dungeon.the-cold-vault",
+      "complications": [
+       "A lamp out means six step forward.",
+       "The Counting Thing is polite and cannot be refused."
+      ],
+      "clue": "The warm stones name the living, with dates. Vosk's is first."
+     },
+     {
+      "name": "The appointment",
+      "goal": "Decide what to do with the Warden's date, the Counting Thing, and the door behind it.",
+      "dungeon": "ashfall.dungeon.the-cold-vault",
+      "complications": [
+       "Writing your name in the ledger opens the door and puts you in the queue forever.",
+       "The Flame has an opinion."
+      ],
+      "clue": ""
+     }
+    ],
+    "rewards": [
+     "a year of oil for Lastlight",
+     "The Queue Paper (someone must hold it)",
+     "the Warden's trust"
+    ],
+    "on_success": "The dates on the stones are moved, or the counter is closed, or the town knows what is coming and rations honestly. The dead stop facing the hill.",
+    "on_failure": "Vosk is called. The Keep's slate goes blank. The town learns the real count the hard way.",
+    "factions": [
+     "ashfall.faction.the-wardens-of-the-last-light"
+    ],
+    "dungeons": [
+     "ashfall.dungeon.the-cold-vault"
+    ],
+    "tropes_involved": [
+     "omniverse.trope.lich",
+     "omniverse.trope.ancient-evil-released-by-dumb-adventurers"
+    ],
+    "status": "sample",
+    "author": "seth",
+    "tags": [
+     "quest"
+    ],
+    "summary": "The Cold Vault opened at dawn; the oil count is wrong; the dead are facing the hill."
+   },
+   "body": "# The Count\n\n*Levels 1 to 3. Starts at the Warden's Keep. Dungeon: [[The Cold Vault]].*\n\nThe Cold Vault opened at dawn. Kettle came out with a coin and a paper. The Warden's oil count has been wrong for nine days.\n\n## Stages\n1. **The count is wrong.** Learn why the chalked count keeps shrinking, and what Kettle brought out.\n2. **The Vault.** Down past the standing dead to the shelves and the counter.\n3. **The appointment.** The Warden's date, the Counting Thing, the door."
+  },
+  {
    "id": "ashfall.quests-index",
    "kind": "index",
    "name": "Quests",
@@ -1356,14 +1476,16 @@
    "tags": [],
    "status": null,
    "refs": [],
-   "links": [],
+   "links": [
+    "ashfall.quest.the-count"
+   ],
    "referencedBy": [
     "ashfall",
     "tropelandia"
    ],
    "children": [],
    "data": {},
-   "body": "# Quests of Ashfall\n\nNone yet. The Cold Vault's quest is the first thing to write."
+   "body": "# Quests of Ashfall\n\n- [[The Count]] (levels 1 to 3)"
   },
   {
    "id": "ashfall.region.the-cinder-road",
@@ -1501,6 +1623,7 @@
    "status": null,
    "refs": [
     "ashfall.dungeon.the-cold-vault",
+    "ashfall.quest.the-count",
     "ashfall.room.the-cold-vault.03-the-cold-hall"
    ],
    "links": [],
@@ -1637,6 +1760,7 @@
     "ashfall.person.brother-ash",
     "ashfall.person.kettle",
     "ashfall.person.warden-maren-vosk",
+    "ashfall.quest.the-count",
     "ashfall.region.the-cinder-road",
     "ashfall.venue.the-ember-hall",
     "ashfall.venue.the-wardens-keep"
@@ -1827,6 +1951,7 @@
    "refs": [
     "ashfall.era.the-long-dusk",
     "ashfall.person.kettle",
+    "ashfall.quest.the-count",
     "ashfall.settlement.lastlight"
    ],
    "links": [
@@ -1859,7 +1984,23 @@
      "day": 1,
      "era": "ashfall.era.the-long-dusk"
     },
-    "to": null
+    "to": null,
+    "for_quest": [
+     {
+      "quest": "ashfall.quest.the-count",
+      "when": "arrival",
+      "read_aloud": "Kettle is not humming. He is sitting with one boot off, looking at it.",
+      "dm_notes": "The paper is in the boot. He has decided to show someone and has not decided whom. If the party is kind to him first, it is them.",
+      "clue": "The paper has a number on it, eight digits long."
+     },
+     {
+      "quest": "ashfall.quest.the-count",
+      "when": "investigation",
+      "read_aloud": "On the wall behind the bar, where the oil count is chalked each day, the numbers for the last nine days have been rubbed out and written again, smaller each time.",
+      "dm_notes": "Vosk has been lowering the public count. The real count is on a slate in the Keep. The gap is three weeks of oil.",
+      "clue": "The Warden's Keep has the real slate."
+     }
+    ]
    },
    "body": "# The Ember Hall\n\n> A long hall built against the fire-pit, warm on one side and cold on the other. People sit facing the flames and do not talk much. The currency is coal.\n\nKept by [[Kettle]] in [[Lastlight]]."
   },
@@ -1886,6 +2027,7 @@
    "referencedBy": [
     "ashfall.faction.the-wardens-of-the-last-light",
     "ashfall.person.warden-maren-vosk",
+    "ashfall.quest.the-count",
     "ashfall.settlement.lastlight"
    ],
    "children": [],
@@ -2482,6 +2624,7 @@
    ],
    "referencedBy": [
     "ashfall.dungeon.the-cold-vault",
+    "ashfall.quest.the-count",
     "omniverse.trope-library",
     "omniverse.trope.ancient-prophecy",
     "omniverse.trope.cult-summoning-a-demon",
@@ -3862,6 +4005,7 @@
    ],
    "referencedBy": [
     "ashfall.dungeon.the-cold-vault",
+    "ashfall.quest.the-count",
     "omniverse.trope-library",
     "omniverse.trope.ancient-evil-released-by-dumb-adventurers",
     "omniverse.trope.wizard-academy",
@@ -16455,6 +16599,7 @@
    "status": null,
    "refs": [
     "tropelandia.era.age-of-mild-peril",
+    "tropelandia.quest.ten-rats",
     "tropelandia.settlement.barrowdale",
     "tropelandia.venue.the-gilded-tankard"
    ],
@@ -16488,7 +16633,15 @@
      "year": 1440,
      "era": "tropelandia.era.age-of-mild-peril"
     },
-    "to": null
+    "to": null,
+    "for_quest": [
+     {
+      "quest": "tropelandia.quest.ten-rats",
+      "when": "investigation",
+      "dm_notes": "If asked directly why he has not been down in nine years, he says 'damp'. A DC 12 Insight check: he cannot read the notice he keeps reposting; the spectacles are the whole story.",
+      "clue": "The Rat King is wearing them."
+     }
+    ]
    },
    "body": "# Barnaby Stoutwhistle\n\n*Innkeeper of the Gilded Tankard.* Usually found at [[The Gilded Tankard]] in [[Barrowdale]].\n\n**Voice.** Hearty, evasive, changes the subject to pie.\n\n**Wants** the cellar sorted without going down there. **Fears** the cellar.\n\n**Secret.** He lost his spectacles in the cellar nine years ago and has been too proud to admit he cannot read the job notice he keeps reposting."
   },
@@ -18960,7 +19113,11 @@
     "starter-kit.campaign",
     "starter-kit.guide.the-arc",
     "tropelandia.dungeon.cellar-of-rats",
-    "tropelandia.quests-index"
+    "tropelandia.person.barnaby-stoutwhistle",
+    "tropelandia.quests-index",
+    "tropelandia.room.cellar-of-rats.01-cellar-stairs",
+    "tropelandia.room.cellar-of-rats.07-the-rat-kings-pantry",
+    "tropelandia.venue.the-gilded-tankard"
    ],
    "children": [],
    "data": {
@@ -19167,7 +19324,10 @@
     "starter-kit.campaign",
     "starter-kit.guide.the-arc",
     "tropelandia.dungeon.marlowes-tower",
-    "tropelandia.quests-index"
+    "tropelandia.quests-index",
+    "tropelandia.room.marlowes-tower.01-entrance-hall",
+    "tropelandia.room.marlowes-tower.04-the-study-of-mild-menace",
+    "tropelandia.venue.pettigrew-manor"
    ],
    "children": [],
    "data": {
@@ -19271,7 +19431,9 @@
     "starter-kit.campaign",
     "starter-kit.guide.the-arc",
     "tropelandia.dungeon.goblin-union-hall",
-    "tropelandia.quests-index"
+    "tropelandia.quests-index",
+    "tropelandia.settlement.hearthollow",
+    "tropelandia.venue.union-hiring-hall-closed"
    ],
    "children": [],
    "data": {
@@ -19631,6 +19793,7 @@
    "status": null,
    "refs": [
     "tropelandia.dungeon.cellar-of-rats",
+    "tropelandia.quest.ten-rats",
     "tropelandia.room.cellar-of-rats.02-barrel-hall"
    ],
    "links": [],
@@ -19814,6 +19977,7 @@
     "tropelandia.dungeon.cellar-of-rats",
     "tropelandia.monster.giant-rat",
     "tropelandia.monster.rat-king",
+    "tropelandia.quest.ten-rats",
     "tropelandia.room.cellar-of-rats.06-the-warren"
    ],
    "links": [],
@@ -21173,6 +21337,7 @@
    "refs": [
     "tropelandia.dungeon.marlowes-tower",
     "tropelandia.monster.flying-sword",
+    "tropelandia.quest.the-rent-is-due",
     "tropelandia.room.marlowes-tower.02-wizards-kitchen",
     "tropelandia.room.marlowes-tower.03-the-library",
     "tropelandia.room.marlowes-tower.08-the-basement-laboratory"
@@ -21267,6 +21432,7 @@
     "tropelandia.dungeon.marlowes-tower",
     "tropelandia.item.the-disputed-pie-trophy",
     "tropelandia.monster.animated-owl",
+    "tropelandia.quest.the-rent-is-due",
     "tropelandia.room.marlowes-tower.03-the-library"
    ],
    "links": [],
@@ -22681,6 +22847,7 @@
     "tropelandia.person.mr-welcome",
     "tropelandia.person.reeve-tobias-ashgrove",
     "tropelandia.person.shop-steward-grizzle",
+    "tropelandia.quest.the-strike",
     "tropelandia.region.whisperwood",
     "tropelandia.venue.honeywell-apothecary",
     "tropelandia.venue.reeves-table",
@@ -22781,7 +22948,15 @@
      "year": 640,
      "era": "tropelandia.era.age-of-mild-peril"
     },
-    "to": null
+    "to": null,
+    "for_quest": [
+     {
+      "quest": "tropelandia.quest.the-strike",
+      "when": "arrival",
+      "read_aloud": "Hearthollow is untidy. Without the goblins the woodpiles have not been stacked, the market has not been swept, and three signs point to the forest with no one to repaint them.",
+      "dm_notes": "A town that has never noticed how much the goblins did. Point this out and the Reeve's position softens."
+     }
+    ]
    },
    "body": "# Hearthollow\n\n> Hearthollow is a town of timber and honey-smoke at the edge of Whisperwood, built around a hollow oak so large the market fits inside it. The trees at the forest's edge lean in to listen. The innkeepers lean in to smile.\n\nA logging and honey town that has prospered by being the last comfortable place before the deep forest. It has learned not to ask which of its inns are inns.\n\n## Venues\n- [[The Laughing Stag]]\n- [[Reeve's Table]]\n- [[Honeywell Apothecary]]\n- [[Union Hiring Hall (closed)]]\n\n## People\n- [[Reeve Tobias Ashgrove]], Reeve of Hearthollow\n- [[Marigold Thorne]], Landlady of the Laughing Stag\n- [[Dr Fennimore Honeywell]], Apothecary\n- [[Shop Steward Grizzle]], Shop steward, Local 7\n- [[Mr Welcome]], Landlord of the Roadside Welcome\n\n## Nearby dungeons\n- [[The Goblin Union Hall]]\n- [[Ye Olde Mimic Inn]]\n\n## Factions present\n- [[United Brotherhood of Goblins, Hobs and Allied Skulkers]]\n- [[Roadside Hospitality Association]]"
   },
@@ -24926,6 +25101,7 @@
     "tropelandia.era.age-of-mild-peril",
     "tropelandia.faction.mildew-court",
     "tropelandia.person.mayor-bartholomew-pettigrew",
+    "tropelandia.quest.the-rent-is-due",
     "tropelandia.settlement.barrowdale"
    ],
    "links": [
@@ -24956,7 +25132,30 @@
      "year": 112,
      "era": "tropelandia.era.age-of-mild-peril"
     },
-    "to": null
+    "to": null,
+    "for_quest": [
+     {
+      "quest": "tropelandia.quest.the-rent-is-due",
+      "when": "arrival",
+      "read_aloud": "The judging table on the lawn has a tower on it. The tower has a FOR LET sign in an upper window that was not there yesterday.",
+      "dm_notes": "The tower is advertising for a new tenant. Marlowe is still inside. This is the first sign that the tower, not the Mayor, is the landlord.",
+      "clue": "The sign gives a contact: 'enquire within'."
+     },
+     {
+      "quest": "tropelandia.quest.the-rent-is-due",
+      "when": "investigation",
+      "read_aloud": "In the Mayor's study, the auditor's letters are in a drawer that does not quite close. The top one is dated next week. The second one is dated last year.",
+      "dm_notes": "The Mayor has been hiding the audit for a year. A party that knows this has leverage over him for the rest of the campaign.",
+      "clue": "The audit is next week, during the Pie Contest."
+     },
+     {
+      "quest": "tropelandia.quest.the-rent-is-due",
+      "when": "stage",
+      "stage": 3,
+      "read_aloud": "The Mayor has moved the judging to the far end of the lawn and is pretending the tower is a decoration.",
+      "dm_notes": "Stage 3: the contest. The auditor is judging. Whatever the party arranged in the tower pays off here."
+     }
+    ]
    },
    "body": "# Pettigrew Manor\n\n> A fine house with a pie-shaped weathervane and a judging table on the lawn with a tower on it.\n\nKept by [[Mayor Bartholomew Pettigrew]] in [[Barrowdale]]."
   },
@@ -25427,6 +25626,7 @@
    "refs": [
     "tropelandia.era.age-of-mild-peril",
     "tropelandia.person.barnaby-stoutwhistle",
+    "tropelandia.quest.ten-rats",
     "tropelandia.settlement.barrowdale"
    ],
    "links": [
@@ -25460,7 +25660,30 @@
      "year": 112,
      "era": "tropelandia.era.age-of-mild-peril"
     },
-    "to": null
+    "to": null,
+    "for_quest": [
+     {
+      "quest": "tropelandia.quest.ten-rats",
+      "when": "arrival",
+      "read_aloud": "The job notice is where it has always been, but tonight someone has pinned a second, much smaller notice beneath it, in a hand no bigger than a grain of rice.",
+      "dm_notes": "The rats' counter-notice: TERMS AVAILABLE ON REQUEST. Barnaby has not noticed. If a player reads it, the Rat King knows their name by the time they reach the cellar.",
+      "clue": "The trapdoor behind the bar has a chair on it."
+     },
+     {
+      "quest": "tropelandia.quest.ten-rats",
+      "when": "investigation",
+      "read_aloud": "Under the bar, the floorboards are worn into a path that leads from the trapdoor to the pie counter and back. The path is a hand's width across.",
+      "dm_notes": "Nine years of rat traffic. The rats have been eating the pies and leaving the money; Barnaby's accounts balance, which is why he has never looked.",
+      "clue": "Barnaby's spectacles went down there with the first pie."
+     },
+     {
+      "quest": "tropelandia.quest.ten-rats",
+      "when": "stage",
+      "stage": 3,
+      "read_aloud": "Barnaby is polishing the same tankard he was polishing an hour ago. He does not ask how it went. He asks whether anyone saw a pair of spectacles.",
+      "dm_notes": "Stage 3: the party has the rats' claim. Barnaby will concede anything to get his spectacles back, including a tenancy agreement he cannot read."
+     }
+    ]
    },
    "body": "# The Gilded Tankard\n\n> A warm, low-beamed inn with a fire, a pie counter, and a job notice so old it has become a decoration. A trapdoor behind the bar has a chair on it.\n\nKept by [[Barnaby Stoutwhistle]] in [[Barrowdale]]."
   },
@@ -25619,6 +25842,7 @@
     "tropelandia.era.age-of-mild-peril",
     "tropelandia.faction.united-brotherhood-of-goblins-hobs-and-allied-skulkers",
     "tropelandia.person.shop-steward-grizzle",
+    "tropelandia.quest.the-strike",
     "tropelandia.settlement.hearthollow"
    ],
    "links": [
@@ -25646,7 +25870,22 @@
      "year": 640,
      "era": "tropelandia.era.age-of-mild-peril"
     },
-    "to": null
+    "to": null,
+    "for_quest": [
+     {
+      "quest": "tropelandia.quest.the-strike",
+      "when": "arrival",
+      "read_aloud": "The picket has a goat. The goat has a placard. The placard says LOCAL 7 on one side and, on the other, a name you recognise from Barrowdale.",
+      "dm_notes": "The Grand Steward's name. The goblins' charter was written in Thaumaton by the wizards' union; the two Locals are one organisation.",
+      "clue": "Grizzle will admit it if asked kindly and off the record."
+     },
+     {
+      "quest": "tropelandia.quest.the-strike",
+      "when": "investigation",
+      "dm_notes": "Two of the stewards on the picket have Court-issued boots. They are the informants. Grizzle does not know; the party now does.",
+      "clue": "Stage 3 can trade the informants' names for the Reeve's cooperation."
+     }
+    ]
    },
    "body": "# Union Hiring Hall (closed)\n\n> A shuttered hut with a hand-painted sign: NO FODDER, NO WORK. Three goblins with placards look at you with the hope of the recently unionised.\n\nKept by [[Shop Steward Grizzle]] in [[Hearthollow]]."
   }

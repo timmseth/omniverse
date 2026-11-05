@@ -442,6 +442,13 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `hooks` | list of string |  | Reasons for a party to get involved. |
 | `trade` | list of string |  | What it makes, sells or is known for. |
 | `law` | string |  | How justice works here, in a line. |
+| `for_quest` | list of map |  | Detail that only applies while a quest is active. The app shows an entry when that quest is active in the run (arrival), after the DM taps Investigate (investigation), or once the quest has reached the stage (stage). Nothing shows for quests the party is not on. |
+| `for_quest.quest` | ref to quest | yes |  |
+| `for_quest.when` | one of: `arrival`, `investigation`, `stage` | yes |  |
+| `for_quest.stage` | int |  | Required when `when: stage`: the 1-based stage of the quest from which this applies. |
+| `for_quest.read_aloud` | text |  | What the party notices, as read aloud. |
+| `for_quest.dm_notes` | text |  | What it means, for the DM. |
+| `for_quest.clue` | string |  | What it points to next. |
 
 ### district
 
@@ -499,6 +506,13 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `hooks` | list of string |  |  |
 | `read_aloud` | text |  | What the party sees when they walk in. |
 | `dm_notes` | text |  |  |
+| `for_quest` | list of map |  | Detail that only applies while a quest is active. The app shows an entry when that quest is active in the run (arrival), after the DM taps Investigate (investigation), or once the quest has reached the stage (stage). Nothing shows for quests the party is not on. |
+| `for_quest.quest` | ref to quest | yes |  |
+| `for_quest.when` | one of: `arrival`, `investigation`, `stage` | yes |  |
+| `for_quest.stage` | int |  | Required when `when: stage`: the 1-based stage of the quest from which this applies. |
+| `for_quest.read_aloud` | text |  | What the party notices, as read aloud. |
+| `for_quest.dm_notes` | text |  | What it means, for the DM. |
+| `for_quest.clue` | string |  | What it points to next. |
 
 ### household
 
@@ -575,6 +589,13 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `player_character` | bool |  | True for a party member. |
 | `pregen` | bool |  | True for a ready-made character handed to a player. |
 | `player` | string |  | Who plays them. |
+| `for_quest` | list of map |  | Detail that only applies while a quest is active. The app shows an entry when that quest is active in the run (arrival), after the DM taps Investigate (investigation), or once the quest has reached the stage (stage). Nothing shows for quests the party is not on. |
+| `for_quest.quest` | ref to quest | yes |  |
+| `for_quest.when` | one of: `arrival`, `investigation`, `stage` | yes |  |
+| `for_quest.stage` | int |  | Required when `when: stage`: the 1-based stage of the quest from which this applies. |
+| `for_quest.read_aloud` | text |  | What the party notices, as read aloud. |
+| `for_quest.dm_notes` | text |  | What it means, for the DM. |
+| `for_quest.clue` | string |  | What it points to next. |
 
 ### faction
 
@@ -1078,6 +1099,13 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `secrets.dc` | int | yes |  |
 | `loot` | list of any |  | Strings, or item ids. |
 | `dm_notes` | text |  |  |
+| `for_quest` | list of map |  | Detail that only applies while a quest is active. The app shows an entry when that quest is active in the run (arrival), after the DM taps Investigate (investigation), or once the quest has reached the stage (stage). Nothing shows for quests the party is not on. |
+| `for_quest.quest` | ref to quest | yes |  |
+| `for_quest.when` | one of: `arrival`, `investigation`, `stage` | yes |  |
+| `for_quest.stage` | int |  | Required when `when: stage`: the 1-based stage of the quest from which this applies. |
+| `for_quest.read_aloud` | text |  | What the party notices, as read aloud. |
+| `for_quest.dm_notes` | text |  | What it means, for the DM. |
+| `for_quest.clue` | string |  | What it points to next. |
 
 ### monster
 

@@ -16,3 +16,15 @@ fields:
   hooks: { type: list, of: string }
   read_aloud: { type: text, doc: "What the party sees when they walk in." }
   dm_notes: { type: text }
+  for_quest:
+    type: list
+    doc: "Detail that only applies while a quest is active. The app shows an entry when that quest is active in the run (arrival), after the DM taps Investigate (investigation), or once the quest has reached the stage (stage). Nothing shows for quests the party is not on."
+    of:
+      type: map
+      fields:
+        quest: { type: ref, kinds: [quest], required: true }
+        when: { type: enum, values: [arrival, investigation, stage], required: true }
+        stage: { type: int, doc: "Required when `when: stage`: the 1-based stage of the quest from which this applies." }
+        read_aloud: { type: text, doc: "What the party notices, as read aloud." }
+        dm_notes: { type: text, doc: "What it means, for the DM." }
+        clue: { type: string, doc: "What it points to next." }

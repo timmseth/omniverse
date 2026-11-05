@@ -7,7 +7,7 @@
   var REPO_URL = 'https://github.com/timmseth/omniverse';
   var GUIDE_URL = REPO_URL + '/blob/main/_rules/Submitting%20a%20Dungeon.md';
   var bridge = (window.Android && typeof window.Android.loadState === 'function') ? window.Android : null;
-  var VERSION = '1.1.0';
+  var VERSION = '1.2.0';
   try { if (bridge && bridge.version) VERSION = bridge.version(); } catch (e) { /* keep default */ }
 
   var DIRNAME = { n: 'North', s: 'South', e: 'East', w: 'West', ne: 'NE', nw: 'NW', se: 'SE', sw: 'SW', u: 'Up', d: 'Down', out: 'Out' };
@@ -43,6 +43,20 @@
     document.body.removeChild(ta);
     toast(ok ? 'Copied' : 'Could not copy');
   }
+  function shareText(title, text) {
+    try { if (bridge && bridge.shareText) { bridge.shareText(title, text); return; } } catch (e) { /* ignore */ }
+    if (navigator.share) { navigator.share({ title: title, text: text }).catch(function () {}); }
+  }
+  function tickTimer() {
+    var el = $('#timer');
+    if (!el) return;
+    if (!ui.timerEnd) { el.style.display = 'none'; return; }
+    var left = Math.max(0, Math.round((ui.timerEnd - Date.now()) / 1000));
+    el.style.display = 'block'; el.className = left <= 10 ? 'red' : '';
+    el.textContent = Math.floor(left / 60) + ':' + ('0' + (left % 60)).slice(-2);
+    if (left === 0) { ui.timerEnd = 0; toast('Time!'); setTimeout(function () { el.style.display = 'none'; }, 1500); }
+  }
+  setInterval(tickTimer, 500);
   function openUrl(url) {
     try { if (bridge && bridge.openUrl) { bridge.openUrl(url); return; } } catch (e) { /* ignore */ }
     window.open(url, '_blank');
@@ -72,6 +86,8 @@
     try { var s = JSON.parse(rd('state') || 'null'); if (s && s.v === 1) return s; } catch (e) { /* ignore */ }
     return { v: 1, runs: {}, party: [], syncedAt: null, big: false };
   })();
+  store.activeQuests = store.activeQuests || {}; store.questStage = store.questStage || {}; store.purse = store.purse || { gp: 0, sp: 0, cp: 0 };
+  store.sessions = store.sessions || {}; store.instanceId = store.instanceId || 'my-campaign'; store.worldDate = store.worldDate || { year: 1489, day: 36 };
   var saveT = null;
   function save() { clearTimeout(saveT); saveT = setTimeout(function () { wr('state', JSON.stringify(store)); }, 150); }
 
@@ -155,12 +171,13 @@
   // runView(d) only reads, so browsing a dungeon never starts a run.
   function run(d) { return store.runs[d.id] || (store.runs[d.id] = newRun(d)); }
   function runView(d) { return store.runs[d.id] || newRun(d); }
-  function logit(d, msg) {
+  function logit(d, msg, type, data) {
     var r = store.runs[d.id];
     if (!r) return;
-    r.log.unshift(now() + '  ' + msg);
-    if (r.log.length > 200) r.log.length = 200;
+    r.log.unshift({ t: now(), text: msg, type: type || 'note', data: data || {} });
+    if (r.log.length > 400) r.log.length = 400;
   }
+  function logLine(l) { return typeof l === 'string' ? l : (l.t + '  ' + l.text); }
   function exitState(r, room, e) {
     var o = r.ex[room.id + '|' + e.dir];
     return o || e.state || 'open';
@@ -181,6 +198,7 @@
     if (p[0] === 'submit') return { name: 'submit' };
     if (p[0] === 'about') return { name: 'about' };
     if (p[0] === 'towns') return { name: 'library', section: 'towns' };
+    if (p[0] === 'quests') return { name: 'library', section: 'quests' };
     if (p[0] === 'factions') return { name: 'library', section: 'factions' };
     if (p[0] === 'tables') return p[1] ? { name: 'table', id: decodeURIComponent(p[1]) } : { name: 'library', section: 'tables' };
     var kindRoute = { t: 'settlement', v: 'venue', p: 'person', f: 'faction', q: 'quest' }[p[0]];
@@ -203,7 +221,7 @@
 
   // ------------------------------------------------------------------ views
   var filters = { q: '', band: 'all', section: 'dungeons' };
-  var ui = { fl: {}, diceMode: 'n', diceMod: 0, diceLast: null, diceHist: [], sol: {}, stats: {}, reveal: {}, confirm: null, panelRoom: {}, tableLast: {} };
+  var ui = { fl: {}, diceMode: 'n', diceMod: 0, diceLast: null, diceHist: [], sol: {}, stats: {}, reveal: {}, investigate: {}, confirm: null, panelRoom: {}, tableLast: {}, exprLast: null, crit: false, split: null, timerEnd: 0, exportText: null };
 
   function header(title, sub, back) {
     return '<div class="top">' + (back ? '<button class="back" data-act="back" aria-label="Back">&#8592;</button>' : '') +
@@ -225,7 +243,7 @@
     var sec = route.section || filters.section || 'dungeons';
     filters.section = sec;
     var html = header('dmScreen', data.dungeons.length + ' dungeons · ' + (world.byKind.settlement || []).length + ' towns · ' + (syncInfo.source === 'synced' ? 'synced' : 'bundled'), false);
-    html += '<div class="chips seg">' + [['dungeons', 'Dungeons', '#/'], ['towns', 'Towns', '#/towns'], ['factions', 'Factions', '#/factions'], ['tables', 'Tables', '#/tables']].map(function (t) {
+    html += '<div class="chips seg">' + [['dungeons', 'Dungeons', '#/'], ['quests', 'Quests', '#/quests'], ['towns', 'Towns', '#/towns'], ['factions', 'Factions', '#/factions'], ['tables', 'Tables', '#/tables']].map(function (t) {
       return '<a class="chip ' + (sec === t[0] ? 'on' : '') + '" href="' + t[2] + '">' + t[1] + '</a>';
     }).join('') + '</div>';
     html += '<div class="search"><input id="q" type="search" placeholder="Search" value="' + esc(filters.q) + '"></div>';
@@ -252,6 +270,16 @@
         return '<div class="card link" data-act="nav" data-h="#/t/' + encodeURIComponent(t.id) + '"><div class="head"><h3>' + esc(t.name) + '</h3><span class="badge">' + esc(t.data.size_class || '') + '</span></div>' +
           '<div class="small muted">' + esc(wname(t.universe)) + ' · ' + (t.data.venues || []).length + ' venues · ' + (t.data.notable_people || []).length + ' people · ' + dungeonsOf(t.data.nearest_dungeons).map(function (d) { return d.code; }).join(' ') + '</div>' +
           '<p class="small">' + esc(t.summary) + '</p></div>';
+      }).join('');
+    }
+    if (sec === 'quests') {
+      var qs = (world.byKind.quest || []).filter(function (x) { return matches(q, [x.name, x.summary, x.universe]); }).sort(function (a, b) { return (a.universe || '').localeCompare(b.universe || '') || (a.data.level_range || [0])[0] - (b.data.level_range || [0])[0]; });
+      if (!qs.length) return '<div class="card muted">No quests match.</div>';
+      return qs.map(function (x) {
+        var lr = x.data.level_range || [0, 0], act = questActive(x.id);
+        return '<div class="card ' + (act ? 'on' : '') + '"><div class="head"><h3><a href="#/q/' + encodeURIComponent(x.id) + '">' + esc(x.name) + '</a></h3><span class="badge lvl">Lv ' + lr[0] + '–' + lr[1] + '</span></div>' +
+          '<div class="small muted">' + esc(wname(x.universe)) + ' · ' + dungeonsOf(x.data.dungeons).map(function (dd) { return dd.code; }).join(' ') + (act ? ' · <b>active, stage ' + questStage(x.id) + '</b>' : '') + '</div>' +
+          '<p class="small">' + esc(x.summary) + '</p><button class="sm ' + (act ? '' : 'primary') + '" data-act="qact" data-q="' + esc(x.id) + '">' + (act ? 'Deactivate' : 'Activate') + '</button></div>';
       }).join('');
     }
     if (sec === 'factions') {
@@ -293,6 +321,10 @@
       '<span class="badge info">' + esc(d.tone) + '</span><span class="badge">' + esc(d.status || '') + '</span></div>' +
       '<p>' + esc(d.summary) + '</p>' +
       '<div class="small muted">By ' + esc(d.author || 'unknown') + ' · ' + esc(d.universe || '') + ' · ' + d.rooms.length + ' rooms</div></div>';
+    if (r && r.log && r.log.length) {
+      var rc = window.DMX.recap(r.log, 6);
+      if (rc.length) html += '<div class="readaloud"><div class="lbl"><span>Previously on…</span></div>' + rc.map(function (t) { return '<div class="small">• ' + esc(t) + '</div>'; }).join('') + '</div>';
+    }
     html += '<div class="card"><div class="row">' +
       (r ? '<button class="primary grow" data-act="tab" data-t="room">Resume at ' + esc(d._byId[r.cur] ? d._byId[r.cur].code : '') + '</button>' : '<button class="primary grow" data-act="start">Start run</button>') +
       (r ? (ui.confirm === 'reset' ? '<button class="danger" data-act="reset">Tap again to reset</button>' : '<button class="ghost" data-act="reset">Reset run</button>') : '') +
@@ -318,6 +350,34 @@
     return html + tabs(d, 'overview');
   }
 
+  function questActive(q) { return !!store.activeQuests[q]; }
+  function questStage(q) { return store.questStage[q] || 1; }
+  function questLayerHtml(entries, key) {
+    if (!entries || !entries.length) return '';
+    var byQ = {};
+    entries.forEach(function (e) { if (questActive(e.quest)) (byQ[e.quest] = byQ[e.quest] || []).push(e); });
+    var qs = Object.keys(byQ);
+    if (!qs.length) return '';
+    var h = '';
+    qs.forEach(function (q) {
+      var show = [], hidden = 0, later = 0;
+      byQ[q].forEach(function (e) {
+        if (e.when === 'arrival') show.push(e);
+        else if (e.when === 'investigation') { if (ui.investigate[key + '|' + q]) show.push(e); else hidden++; }
+        else if (e.when === 'stage') { if (questStage(q) >= (e.stage || 1)) show.push(e); else later++; }
+      });
+      h += '<div class="qlayer"><div class="lbl"><span>Quest: ' + wlink(q) + ' <span class="muted small">stage ' + questStage(q) + '</span></span>' +
+        (hidden ? '<button class="sm" data-act="investigate" data-k="' + esc(key + '|' + q) + '">Investigate</button>' : '') + '</div>';
+      show.forEach(function (e) {
+        h += '<div class="qentry ' + esc(e.when) + '">' + (e.when !== 'arrival' ? '<span class="badge">' + esc(e.when === 'stage' ? 'stage ' + e.stage : 'investigation') + '</span>' : '') +
+          (e.read_aloud ? '<div class="qra">' + esc(e.read_aloud) + '</div>' : '') + (e.dm_notes ? '<div class="small dm">' + esc(e.dm_notes) + '</div>' : '') + (e.clue ? '<div class="hint">Clue: ' + esc(e.clue) + '</div>' : '') + '</div>';
+      });
+      if (!show.length && !hidden && later) h += '<div class="small muted">Nothing yet at this stage.</div>';
+      else if (later) h += '<div class="small muted">' + later + ' more at a later stage.</div>';
+      h += '</div>';
+    });
+    return h;
+  }
   function roomBadges(d, rm) {
     var r = store.runs[d.id];
     var b = '';
@@ -348,7 +408,9 @@
       '<button class="grow" data-act="vis" data-r="' + esc(rm.id) + '">' + (r.visited[rm.id] ? 'Unmark visited' : 'Mark visited') + '</button>' +
       '<button class="grow" data-act="clr" data-r="' + esc(rm.id) + '">' + (r.cleared[rm.id] ? 'Uncleared' : 'Mark cleared') + '</button></div></div>';
 
+    html += combatBar(d);
     html += '<div class="readaloud ' + (store.big ? 'big' : '') + '"><div class="lbl"><span>Read aloud</span><span class="row tight"><button class="sm" data-act="big">' + (store.big ? 'Smaller' : 'Larger') + '</button><button class="sm" data-act="copyra" data-r="' + esc(rm.id) + '">Copy</button></span></div>' + esc(rm.readAloud) + '</div>';
+    html += questLayerHtml(rm.forQuest, rm.id);
 
     // exits
     html += '<div class="sect"><h4>Exits</h4>';
@@ -368,8 +430,10 @@
     if (rm.features.length) html += '<div class="sect"><h4>Features</h4><ul>' + rm.features.map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') + '</ul></div>';
 
     // encounters
+    html += combatCard(d, rm);
     rm.encounters.forEach(function (en, ei) {
-      html += '<div class="card" style="margin:12px 14px 0"><div class="head"><h3>⚔ ' + esc(en.name) + '</h3><button class="sm" data-act="enc-reset" data-r="' + esc(rm.id) + '" data-e="' + ei + '">Reset HP</button></div>';
+      var inFight = r.combat && r.combat.room === rm.id && r.combat.enc === ei;
+      html += '<div class="card" style="margin:12px 14px 0"><div class="head"><h3>⚔ ' + esc(en.name) + '</h3><span class="row tight">' + (inFight ? '' : '<button class="sm primary" data-act="cstart" data-r="' + esc(rm.id) + '" data-e="' + ei + '">Start combat</button>') + '<button class="sm" data-act="enc-reset" data-r="' + esc(rm.id) + '" data-e="' + ei + '">Reset HP</button></span></div>';
       (en.monsters || []).forEach(function (mo, mi) {
         for (var i = 0; i < (mo.count || 1); i++) {
           var key = rm.id + '|' + ei + '.' + mi + '.' + i;
@@ -531,6 +595,7 @@
     var sub = n.kind === 'settlement' ? (d.size_class || '') + ' · ' + wname(n.universe) : (n.kind === 'person' ? (d.role || '') : (n.kind === 'venue' ? (d.venue_type || '') + ' in ' + wname(n.parent) : wname(n.universe)));
     var h = header(n.name, sub, true);
     if (n.readAloud) h += '<div class="readaloud ' + (store.big ? 'big' : '') + '"><div class="lbl"><span>Read aloud</span><button class="sm" data-act="copy" data-t="' + esc(n.readAloud) + '">Copy</button></div>' + esc(n.readAloud) + '</div>';
+    h += questLayerHtml(d.for_quest, n.id);
     if (n.kind === 'settlement') {
       h += '<div class="card"><p>' + esc(n.summary) + '</p><div class="small">Ruler: ' + wlink(d.ruler) + (d.population ? ' · pop. ' + d.population : '') + '</div>' +
         (d.law ? '<div class="small muted">' + esc(d.law) + '</div>' : '') + (d.trade ? '<div>' + d.trade.map(function (t) { return '<span class="badge">' + esc(t) + '</span>'; }).join('') + '</div>' : '') + '</div>';
@@ -542,7 +607,16 @@
       if (tbls.length) h += '<div class="sect"><h4>Tables here</h4>' + tbls.map(function (t) { return tableCard(t, true); }).join('') + '</div>';
     } else if (n.kind === 'venue') {
       h += '<div class="card"><div class="small">Keeper: ' + wlink(d.keeper) + (d.faction ? ' · ' + wlink(d.faction) : '') + ' · in ' + wlink(n.parent) + '</div></div>';
-      h += bullets('Services', d.services) + links('For sale', d.stock) + bullets('Rumours', d.rumours) + bullets('Hooks', d.hooks);
+      h += list('Services', d.services, function (x) {
+        var pr = window.DMX.priceIn(x);
+        return '<div class="li">• ' + esc(x) + (pr ? ' <button class="sm" data-act="buy" data-c="' + esc(window.DMX.fmtCoins(pr)) + '" data-w="' + esc(x.replace(/\s*\(.*$/, '')) + '">Buy</button>' : '') + '</div>';
+      });
+      h += list('For sale', (d.stock || []).filter(function (i) { return W(i); }), function (i) {
+        var it = W(i), v = it.data.value_gp;
+        return '<div class="li">' + wlink(i) + (v ? ' <span class="muted">' + v + ' gp</span> <button class="sm" data-act="buy" data-c="' + v + ' gp" data-w="' + esc(it.name) + '">Buy</button>' : '') + '</div>';
+      });
+      h += '<div class="small muted pad">Purse: ' + esc(window.DMX.fmtCoins(store.purse)) + '</div>';
+      h += bullets('Rumours', d.rumours) + bullets('Hooks', d.hooks);
       if (d.dm_notes) h += '<div class="sect"><h4>DM notes</h4><div class="dm">' + esc(d.dm_notes) + '</div></div>';
     } else if (n.kind === 'person') {
       h += '<div class="card"><div class="small">' + esc(d.species || '') + (d.faction ? ' · ' + wlink(d.faction) : '') + (d.location ? ' · at ' + wlink(d.location) : '') + (n.parent && W(n.parent) ? ' · ' + wlink(n.parent) : '') + '</div>' +
@@ -558,8 +632,11 @@
       if (dl2.length) h += '<div class="sect"><h4>Dungeons</h4>' + dl2.map(function (x) { return '<div class="li"><a href="#/d/' + encodeURIComponent(x.code) + '">' + esc(x.name) + '</a></div>'; }).join('') + '</div>';
       h += secretBox(n.id, d.secret) + bullets('Hooks', d.hooks);
     } else if (n.kind === 'quest') {
-      var lr = d.level_range || [0, 0];
-      h += '<div class="card"><div class="small"><span class="badge lvl">Lv ' + lr[0] + '–' + lr[1] + '</span> ' + (d.giver ? 'from ' + wlink(d.giver) : '') + (d.start ? ' · starts at ' + wlink(d.start) : '') + '</div><p>' + esc(d.premise) + '</p></div>';
+      var lr = d.level_range || [0, 0], act = questActive(n.id), nst = (d.stages || []).length || 1;
+      h += '<div class="card"><div class="small"><span class="badge lvl">Lv ' + lr[0] + '–' + lr[1] + '</span> ' + (d.giver ? 'from ' + wlink(d.giver) : '') + (d.start ? ' · starts at ' + wlink(d.start) : '') + '</div><p>' + esc(d.premise) + '</p>' +
+        '<div class="row"><button class="' + (act ? 'grow' : 'primary grow') + '" data-act="qact" data-q="' + esc(n.id) + '">' + (act ? 'Deactivate' : 'Activate for this campaign') + '</button>' +
+        (act ? '<div class="stepper"><button class="sm" data-act="qstage" data-q="' + esc(n.id) + '" data-n="-1">−</button><b>stage ' + questStage(n.id) + '/' + nst + '</b><button class="sm" data-act="qstage" data-q="' + esc(n.id) + '" data-n="1">+</button></div>' : '') + '</div>' +
+        (act ? '<div class="small muted">Active: rooms, venues, towns and people show their detail for this quest; Investigate reveals the deeper look.</div>' : '') + '</div>';
       h += bullets('Hooks', d.hooks);
       h += list('Stages', d.stages, function (st, i) {
         var dd = st.dungeon ? dungeonBy(st.dungeon) : null;
@@ -648,6 +725,54 @@
     return html + tabs(d, 'map');
   }
 
+  // ------------------------------------------------------------------ combat
+  function combatBar(d) {
+    var r = runView(d), c = r.combat;
+    if (!c || !c.order.length) return '';
+    var live = c.order.filter(function (o) { return o.init != null; });
+    var sorted = window.DMX.sortOrder(live);
+    var cur = sorted.length ? sorted[c.turn % sorted.length] : null;
+    return '<div class="combatbar"><span><b>Round ' + c.round + '</b>' + (cur ? ' · ' + esc(cur.name) + '’s turn' : ' · roll initiative') + '</span><span class="row tight"><button class="sm" data-act="cnext">Next</button><button class="sm" data-act="peek" data-n="' + (d._byId[c.room] ? d._byId[c.room].number : '') + '">Fight</button></span></div>';
+  }
+  function startCombat(d, rm, ei) {
+    var r = run(d), en = rm.encounters[ei], order = [];
+    store.party.forEach(function (p, i) {
+      p.init = p.init || 0;
+      order.push({ id: 'p' + i, name: p.name, kind: 'party', bonus: p.init, init: null, conds: [], pi: i });
+    });
+    (en.monsters || []).forEach(function (mo, mi) {
+      for (var i = 0; i < (mo.count || 1); i++) {
+        var bonus = window.DMX.dexMod(mo.stats);
+        order.push({ id: rm.id + '|' + ei + '.' + mi + '.' + i, name: mo.name + (mo.count > 1 ? ' #' + (i + 1) : ''), kind: 'monster', bonus: bonus, init: window.DMX.d20() + bonus, conds: [], max: mo.hp || 1 });
+      }
+    });
+    r.combat = { room: rm.id, enc: ei, round: 1, turn: 0, order: order };
+    logit(d, 'Combat: ' + en.name + ' in ' + rm.code, 'combat', { where: rm.id });
+    save();
+  }
+  function combatCard(d, rm) {
+    var r = runView(d), c = r.combat;
+    if (!c || c.room !== rm.id) return '';
+    var sorted = window.DMX.sortOrder(c.order.filter(function (o) { return o.init != null; }));
+    var pending = c.order.filter(function (o) { return o.init == null; });
+    var cur = sorted.length ? sorted[c.turn % sorted.length] : null;
+    var h = '<div class="card combat"><div class="head"><h3>⚔ Combat, round ' + c.round + '</h3><span class="row tight"><button class="sm" data-act="cnext">Next turn</button><button class="sm danger" data-act="cend">End</button></span></div>';
+    if (pending.length) h += '<div class="small">Initiative: ' + pending.map(function (o) { return '<button class="sm" data-act="cinit" data-i="' + esc(o.id) + '">' + esc(o.name) + ' roll</button>'; }).join(' ') + ' <button class="sm" data-act="cinitall">All party</button></div>';
+    sorted.forEach(function (o) {
+      var hp = '', dead = false;
+      if (o.kind === 'party') { var p = store.party[o.pi]; if (p) { hp = p.hp + '/' + p.max; dead = p.hp <= 0; } }
+      else { var v = r.hp[o.id]; hp = (v == null ? o.max : v) + '/' + o.max; dead = v === 0; }
+      h += '<div class="cmb ' + (cur && cur.id === o.id ? 'cur' : '') + (dead ? ' dead' : '') + '"><span class="init">' + o.init + '</span><span class="nm">' + esc(o.name) + ' <span class="muted small">' + hp + '</span></span>' +
+        '<span class="conds">' + o.conds.map(function (cn) { return '<span class="badge warn" data-act="ccond" data-i="' + esc(o.id) + '" data-c="' + esc(cn) + '">' + esc(cn) + ' ✕</span>'; }).join('') +
+        '<select class="condsel" data-i="' + esc(o.id) + '"><option value="">+ condition</option>' + window.DMX.CONDITIONS.map(function (cn) { return '<option>' + cn + '</option>'; }).join('') + '</select></span></div>';
+      if (o.kind === 'party' && dead) {
+        var ds = (store.party[o.pi] || {}).ds || { s: 0, f: 0 };
+        h += '<div class="ds small">Death saves: <span class="ok">' + '●'.repeat(ds.s) + '○'.repeat(3 - ds.s) + '</span> <span class="bad">' + '●'.repeat(ds.f) + '○'.repeat(3 - ds.f) + '</span> <button class="sm" data-act="dsroll" data-i="' + o.pi + '">Roll</button><button class="sm" data-act="dsok" data-i="' + o.pi + '">+save</button><button class="sm" data-act="dsfail" data-i="' + o.pi + '">+fail</button>' + (ds.status ? ' <b>' + esc(ds.status) + '</b>' : '') + '</div>';
+      }
+    });
+    return h + '</div>';
+  }
+
   // ------------------------------------------------------------------ model (dollhouse)
   var m3 = null, m3Key = null;
   function modelFloor(d) {
@@ -707,15 +832,23 @@
       '<button class="sm" data-act="roll" data-s="20" data-dis="1">d20 dis</button></div>' +
       (ui.diceLast ? '<div class="result">' + ui.diceLast.total + '<span class="nat muted">' + esc(ui.diceLast.text) + '</span></div>' : '<p class="muted small">Tap a die. The modifier applies to every roll.</p>') + '</div>';
 
+    html += '<div class="card"><h3>Dice notation</h3><div class="row" style="margin-top:8px"><input id="dexpr" type="text" placeholder="2d6+3, d20, 3d8-1" value="' + esc(ui.exprLast ? ui.exprLast.expr : '') + '" style="flex:1"><button class="primary" data-act="rollx">Roll</button><button class="sm ' + (ui.crit ? 'primary' : '') + '" data-act="crit">Crit</button></div>' +
+      (ui.exprLast ? '<div class="result">' + ui.exprLast.total + '<span class="nat muted">' + esc(ui.exprLast.text) + '</span></div>' : '<p class="muted small">A critical doubles the dice, never the modifier.</p>') + '</div>';
     html += '<div class="card"><div class="head"><h3>Party</h3><button class="sm" data-act="padd">Add member</button></div>';
     if (!store.party.length) html += '<p class="muted small">Add your characters to track their HP at the table.</p>';
     store.party.forEach(function (p, i) {
       html += '<div class="mon ' + (p.hp <= 0 ? 'dead' : '') + '"><div class="nm"><input type="text" class="pname" data-i="' + i + '" value="' + esc(p.name) + '" style="min-height:36px;padding:6px 8px"></div>' +
         '<button class="sm" data-act="php" data-i="' + i + '" data-n="-5">−5</button><button class="sm" data-act="php" data-i="' + i + '" data-n="-1">−1</button>' +
         '<div class="hp">' + p.hp + '/' + p.max + '</div><button class="sm" data-act="php" data-i="' + i + '" data-n="1">+1</button><button class="sm" data-act="php" data-i="' + i + '" data-n="5">+5</button>' +
-        '<button class="sm danger" data-act="pdel" data-i="' + i + '">✕</button></div>';
+        '<button class="sm danger" data-act="pdel" data-i="' + i + '">✕</button></div>' +
+        '<div class="small muted" style="margin:-4px 0 8px 4px">init bonus <input type="number" class="pinit" data-i="' + i + '" value="' + (p.init || 0) + '" style="width:56px;min-height:30px;padding:2px 6px"> · max HP <input type="number" class="pmax" data-i="' + i + '" value="' + p.max + '" style="width:64px;min-height:30px;padding:2px 6px"></div>';
     });
     html += '</div>';
+    html += '<div class="card"><div class="head"><h3>Purse</h3><b>' + esc(window.DMX.fmtCoins(store.purse)) + '</b></div><div class="row"><input id="purseval" type="text" placeholder="set: 34 gp 2 sp 5 cp" style="flex:1"><button class="sm" data-act="purseset">Set</button>' +
+      '<button class="sm" data-act="purse" data-n="100">+1 gp</button><button class="sm" data-act="purse" data-n="-100">−1 gp</button></div>' +
+      '<div class="row" style="margin-top:8px"><input id="splitval" type="text" placeholder="split loot: 120 gp" style="flex:1"><button class="sm" data-act="split">Split ' + Math.max(1, store.party.length) + ' ways</button></div>' +
+      (ui.split ? '<div class="result tbl"><span>Each share: <b>' + esc(window.DMX.fmtCoins(ui.split.share)) + '</b>' + (window.DMX.toCp(ui.split.remainder) ? ' · ' + esc(window.DMX.fmtCoins(ui.split.remainder)) + ' to the party fund' : '') + '</span><button class="sm" data-act="splitadd">Bank it all</button></div>' : '') + '</div>';
+    html += '<div class="card"><div class="head"><h3>Timer</h3>' + (ui.timerEnd ? '<button class="sm danger" data-act="timeroff">Stop</button>' : '') + '</div><div class="row">' + [[30, '30 s'], [60, '1 min'], [120, '2 min'], [300, '5 min']].map(function (t) { return '<button class="grow" data-act="timer" data-s="' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div></div>';
 
     var tbls = (world.byKind.table || []).filter(function (t) { return t.universe === d.universe || t.universe === 'omniverse'; }).sort(function (a, b) { return a.name.localeCompare(b.name); });
     if (tbls.length) {
@@ -723,8 +856,13 @@
       html += '<div class="card"><h3>Tables</h3><select id="tablesel" style="margin:8px 0;width:100%">' + tbls.map(function (t) { return '<option value="' + esc(t.id) + '"' + (t.id === selT.id ? ' selected' : '') + '>' + esc(t.name) + ' (' + esc(t.data.die) + ')</option>'; }).join('') + '</select>' + tableCard(selT, true).replace('<div class="card">', '<div>') + '</div>';
     }
     html += '<div class="card"><h3>Run notes</h3><textarea id="runnote" placeholder="Notes for this run">' + esc(r.rnotes || '') + '</textarea></div>';
+    html += '<div class="card"><h3>Export session</h3><div class="small muted">Instance id and world date go into the session note. Session ' + ((store.sessions[d.id] || 0) + 1) + ' of this dungeon.</div>' +
+      '<div class="row" style="margin-top:6px"><input id="instid" type="text" value="' + esc(store.instanceId) + '" placeholder="instance id" style="flex:2"><input id="wyear" type="number" value="' + store.worldDate.year + '" style="flex:1" placeholder="year"><input id="wday" type="number" value="' + store.worldDate.day + '" style="flex:1" placeholder="day"></div>' +
+      '<div class="row" style="margin-top:6px"><button class="primary grow" data-act="export" data-t="note">Omniverse session note</button><button class="grow" data-act="export" data-t="journal">Journal (Markdown)</button></div>' +
+      (ui.exportText ? '<div class="small muted" style="margin-top:6px">' + esc(ui.exportText.title) + ' · ' + esc(ui.exportText.info) + '</div><pre class="small export">' + esc(ui.exportText.text.slice(0, 1200)) + (ui.exportText.text.length > 1200 ? '\n…' : '') + '</pre>' +
+        '<div class="row"><button class="primary grow" data-act="exportdone">Copy, share and count it</button><button class="grow" data-act="exportcopy">Copy only</button></div>' : '') + '</div>';
     html += '<div class="card"><div class="head"><h3>Run log</h3><button class="sm" data-act="copylog">Copy</button></div><div class="log">' +
-      (r.log.length ? r.log.map(function (l) { return '<div>' + esc(l) + '</div>'; }).join('') : '<span class="muted">Nothing yet. Moves, rolls and results appear here.</span>') + '</div></div>';
+      (r.log.length ? r.log.map(function (l) { return '<div>' + esc(logLine(l)) + '</div>'; }).join('') : '<span class="muted">Nothing yet. Moves, rolls and results appear here.</span>') + '</div></div>';
     return html + tabs(d, 'tools');
   }
 
@@ -763,7 +901,7 @@
     r.cur = roomId; r.visited[roomId] = 1;
     var rm = d._byId[roomId];
     r.fl = rm.floor; delete ui.fl[d.id];
-    logit(d, 'Party enters ' + rm.code + ' ' + rm.name + (via ? ' (' + via + ')' : ''));
+    logit(d, 'Party enters ' + rm.code + ' ' + rm.name + (via ? ' (' + via + ')' : ''), 'enter', { where: rm.id, room: rm.code + ' ' + rm.name });
     save();
   }
   function rollDie(sides) { return 1 + Math.floor(Math.random() * sides); }
@@ -787,7 +925,7 @@
     var n = rollDie(sides), line = null;
     (w.entries || []).forEach(function (e) { if (e.indexOf(n + ':') === 0) line = e; });
     var msg = 'Wandering roll ' + n + (line ? ': ' + line.replace(/^\d+:\s*/, '') : '');
-    logit(d, msg); save(); toast(msg);
+    logit(d, msg, 'wander', { result: n }); save(); toast(msg);
   }
 
   function onAct(el) {
@@ -802,7 +940,7 @@
       case 'open': go('#/d/' + encodeURIComponent(g('c'))); return false;
       case 'tab': go('#/d/' + encodeURIComponent(d.code || d.id) + '/' + g('t')); return false;
       case 'band': filters.band = g('b'); return true;
-      case 'start': run(d); logit(d, 'Run started'); save(); go('#/d/' + encodeURIComponent(d.code || d.id) + '/room'); return false;
+      case 'start': run(d); logit(d, 'Run started in ' + d.name, 'note'); save(); go('#/d/' + encodeURIComponent(d.code || d.id) + '/room'); return false;
       case 'reset':
         if (ui.confirm === 'reset') { delete store.runs[d.id]; ui.confirm = null; save(); toast('Run reset'); } else { ui.confirm = 'reset'; }
         return true;
@@ -816,23 +954,85 @@
         if (route.name === 'model') { ui.panelRoom[d.id] = g('r'); renderModelParts(d); return false; }
         go('#/d/' + encodeURIComponent(d.code || d.id) + '/room'); return false;
       case 'vis': var rr = run(d); rr.visited[g('r')] = rr.visited[g('r')] ? 0 : 1; save(); return true;
-      case 'clr': var r2 = run(d); r2.cleared[g('r')] = r2.cleared[g('r')] ? 0 : 1; logit(d, (r2.cleared[g('r')] ? 'Cleared ' : 'Reopened ') + d._byId[g('r')].code); save(); return true;
+      case 'clr': var r2 = run(d); r2.cleared[g('r')] = r2.cleared[g('r')] ? 0 : 1; logit(d, (r2.cleared[g('r')] ? 'Cleared ' : 'Reopened ') + d._byId[g('r')].code + ' ' + d._byId[g('r')].name, r2.cleared[g('r')] ? 'clear' : 'note', { where: g('r') }); save(); return true;
       case 'big': store.big = !store.big; save(); return true;
       case 'copyra': copyText(d._byId[g('r')].readAloud); return false;
       case 'copy': copyText(g('t')); return false;
       case 'stats': ui.stats[g('k')] = !ui.stats[g('k')]; return true;
       case 'reveal': ui.reveal[g('k')] = true; return true;
+      case 'investigate': ui.investigate[g('k')] = true; if (d) { logit(d, 'Investigated for ' + wname(g('k').split('|').pop()), 'note'); save(); } if (route.name === 'model') { renderModelParts(d); return false; } return true;
+      case 'qact': store.activeQuests[g('q')] = !store.activeQuests[g('q')]; if (!store.activeQuests[g('q')]) delete store.activeQuests[g('q')]; save(); toast(wname(g('q')) + (store.activeQuests[g('q')] ? ' active' : ' off')); return true;
+      case 'qstage':
+        var qn_ = W(g('q')), max_ = qn_ && qn_.data.stages ? qn_.data.stages.length : 9, from_ = questStage(g('q'));
+        store.questStage[g('q')] = Math.max(1, Math.min(max_, from_ + parseInt(g('n'), 10)));
+        if (d) logit(d, wname(g('q')) + ' stage ' + from_ + ' to ' + store.questStage[g('q')], 'quest', { quest: g('q'), from: from_, to: store.questStage[g('q')] });
+        save(); return true;
       case 'roll-table':
         var tt = W(g('t')); if (!tt) return false;
         var res = rollTable(tt); ui.tableLast[tt.id] = res;
-        if (d) { logit(d, 'Table ' + tt.name + ': ' + res.n + (res.e ? ' ' + res.e.text : '')); save(); }
+        if (d) { logit(d, 'Table ' + tt.name + ': ' + res.n + (res.e ? ' ' + res.e.text : ''), 'table', { result: res.n }); save(); }
         return true;
       case 'peek3d': ui.panelRoom[d.id] = g('r'); renderModelParts(d); return false;
       case 'm3reset': if (m3) { m3.setDungeon(d, runView(d), modelFloor(d)); } return false;
+      case 'cstart': startCombat(d, d._byId[g('r')], parseInt(g('e'), 10)); if (route.name === 'model') { renderModelParts(d); return false; } return true;
+      case 'cnext':
+        var cc = run(d).combat; if (!cc) return false;
+        var n_ = cc.order.filter(function (o) { return o.init != null; }).length || 1;
+        cc.turn++; if (cc.turn % n_ === 0) { cc.round++; logit(d, 'Round ' + cc.round, 'note'); }
+        save(); if (route.name === 'model') { renderModelParts(d); return false; } return true;
+      case 'cend':
+        var ce = run(d).combat; if (ce) logit(d, 'Combat over after ' + ce.round + ' round' + (ce.round === 1 ? '' : 's') + ' in ' + d._byId[ce.room].code, 'combat', { where: ce.room });
+        delete run(d).combat; store.party.forEach(function (p) { delete p.ds; }); save(); if (route.name === 'model') { renderModelParts(d); return false; } return true;
+      case 'cinit':
+        var ci = run(d).combat; ci.order.forEach(function (o) { if (o.id === g('i')) o.init = window.DMX.d20() + o.bonus; }); save(); if (route.name === 'model') { renderModelParts(d); return false; } return true;
+      case 'cinitall':
+        var ca = run(d).combat; ca.order.forEach(function (o) { if (o.init == null) o.init = window.DMX.d20() + o.bonus; }); save(); if (route.name === 'model') { renderModelParts(d); return false; } return true;
+      case 'ccond':
+        var cco = run(d).combat; cco.order.forEach(function (o) { if (o.id === g('i')) o.conds = o.conds.filter(function (x) { return x !== g('c'); }); }); save(); if (route.name === 'model') { renderModelParts(d); return false; } return true;
+      case 'dsroll':
+        var pd = store.party[parseInt(g('i'), 10)], roll_ = window.DMX.d20(); pd.ds = window.DMX.deathSave(pd.ds || { s: 0, f: 0 }, roll_);
+        if (pd.ds.status === 'revived') { pd.hp = 1; }
+        logit(d, pd.name + ' death save: ' + roll_ + (pd.ds.status ? ' (' + pd.ds.status + ')' : ''), 'roll', { result: roll_ }); save(); return true;
+      case 'dsok': var po = store.party[parseInt(g('i'), 10)]; po.ds = po.ds || { s: 0, f: 0 }; po.ds.s = Math.min(3, po.ds.s + 1); if (po.ds.s >= 3) po.ds.status = 'stable'; save(); return true;
+      case 'dsfail': var pf = store.party[parseInt(g('i'), 10)]; pf.ds = pf.ds || { s: 0, f: 0 }; pf.ds.f = Math.min(3, pf.ds.f + 1); if (pf.ds.f >= 3) pf.ds.status = 'dead'; save(); return true;
+      case 'rollx':
+        var ex_ = window.DMX.parseDice($('#dexpr') ? $('#dexpr').value : '');
+        if (!ex_) { toast('Try 2d6+3, d20, 3d8-1'); return false; }
+        var rx = window.DMX.rollDice(ex_, ui.crit); ui.exprLast = { expr: ex_.text, total: rx.total, text: rx.text };
+        if (d) { logit(d, 'Roll ' + ex_.text + ': ' + rx.text + ' = ' + rx.total, 'roll', { result: rx.total }); save(); }
+        return true;
+      case 'crit': ui.crit = !ui.crit; return true;
+      case 'purse':
+        var pc = window.DMX.toCp(store.purse) + parseInt(g('n'), 10); store.purse = window.DMX.fromCp(pc); save(); return true;
+      case 'purseset':
+        var pv_ = window.DMX.parseCoins($('#purseval') ? $('#purseval').value : ''); if (!pv_) { toast('e.g. 34 gp 2 sp 5 cp'); return false; }
+        store.purse = window.DMX.fromCp(window.DMX.toCp(pv_)); save(); return true;
+      case 'split':
+        var sv = window.DMX.parseCoins($('#splitval') ? $('#splitval').value : ''); if (!sv) { toast('e.g. 120 gp or 34 gp 2 sp 5 cp'); return false; }
+        ui.split = window.DMX.splitLoot(sv, Math.max(1, store.party.length)); ui.split.total = sv; return true;
+      case 'splitadd': if (ui.split) { store.purse = window.DMX.fromCp(window.DMX.toCp(store.purse) + window.DMX.toCp(ui.split.total)); if (d) logit(d, 'Loot banked: ' + window.DMX.fmtCoins(ui.split.total), 'loot', { where: runView(d).cur, item: window.DMX.fmtCoins(ui.split.total) }); ui.split = null; save(); } return true;
+      case 'buy':
+        var cost = window.DMX.parseCoins(g('c')); if (!cost) return false;
+        var have = window.DMX.toCp(store.purse), need = window.DMX.toCp(cost);
+        if (have < need) { toast('Not enough in the purse (' + window.DMX.fmtCoins(store.purse) + ')'); return false; }
+        store.purse = window.DMX.fromCp(have - need); save(); toast('Bought ' + g('w') + ' for ' + window.DMX.fmtCoins(cost)); return true;
+      case 'timer': ui.timerEnd = Date.now() + parseInt(g('s'), 10) * 1000; tickTimer(); return true;
+      case 'timeroff': ui.timerEnd = 0; tickTimer(); return true;
+      case 'export':
+        var kind_ = g('t'), rr_ = runView(d), nn_ = (store.sessions[d.id] || 0) + 1;
+        var slugI = (store.instanceId || 'my-campaign').toLowerCase().replace(/[^a-z0-9-]+/g, '-');
+        var opts_ = { instance: store.instanceId, session: nn_, dungeon: { id: d.id, name: d.name, universe: d.universe }, party: store.party.map(function (p) { return p.name; }),
+                      partyIds: store.party.map(function (p) { return slugI + '.person.' + String(p.name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }),
+                      log: rr_.log, worldDate: store.worldDate, notes: rr_.rnotes };
+        if (kind_ === 'note') { var sn = window.DMX.sessionNote(opts_); ui.exportText = { title: sn.file, text: sn.text, info: sn.events + ' events, ' + sn.rolls + ' rolls' }; }
+        else ui.exportText = { title: d.name + ' session ' + nn_ + '.md', text: window.DMX.journal(opts_), info: 'journal' };
+        return true;
+      case 'exportdone': store.sessions[d.id] = (store.sessions[d.id] || 0) + 1; if (ui.exportText) { copyText(ui.exportText.text); shareText(ui.exportText.title, ui.exportText.text); } ui.exportText = null; save(); return true;
+      case 'exportcopy': if (ui.exportText) copyText(ui.exportText.text); return false;
       case 'exit':
         var rm = d._byId[g('r')], dir = g('d'), ex = rm.exits.filter(function (e) { return e.dir === dir; })[0];
         var rn = run(d), st = exitState(rn, rm, ex);
-        if (ex.to === 'outside') { logit(d, 'Party leaves the dungeon via ' + rm.code); save(); toast('Out of the dungeon'); return true; }
+        if (ex.to === 'outside') { logit(d, 'Party leaves the dungeon via ' + rm.code, 'leave', { where: rm.id }); save(); toast('Out of the dungeon'); return true; }
         if (st === 'locked' || st === 'barred') { toast('That exit is ' + st + '. Use Open when the party gets through.'); return false; }
         if (st === 'hidden') { toast('Hidden: use Open once the party finds it.'); return false; }
         move(d, ex.to, DIRNAME[dir] + ', ' + ex.kind);
@@ -862,25 +1062,37 @@
         var re = run(d), pre = g('r') + '|' + g('e') + '.';
         Object.keys(re.hp).forEach(function (kk) { if (kk.indexOf(pre) === 0) delete re.hp[kk]; });
         save(); return true;
-      case 'trap': var rt = run(d), kt = g('k'); rt.tr[kt] = rt.tr[kt] === g('v') ? '' : g('v'); save(); return true;
+      case 'trap':
+        var rt = run(d), kt = g('k'); rt.tr[kt] = rt.tr[kt] === g('v') ? '' : g('v');
+        if (rt.tr[kt]) { var tr_ = d._byId[kt.split('|')[0]].traps[parseInt(kt.split('|')[1], 10)]; logit(d, 'Trap ' + (tr_ ? tr_.name : '') + ' ' + rt.tr[kt], 'trap', { where: kt.split('|')[0] }); }
+        save(); return true;
       case 'hint':
         var rp = run(d), kp = g('k'), cp = rp.pz[kp] || { h: 0, solved: false };
         cp.h++; rp.pz[kp] = cp; save(); return true;
       case 'sol': ui.sol[g('k')] = !ui.sol[g('k')]; return true;
       case 'solved':
         var rs = run(d), ks = g('k'), cs = rs.pz[ks] || { h: 0, solved: false };
-        cs.solved = !cs.solved; rs.pz[ks] = cs; if (cs.solved) logit(d, 'Puzzle solved in ' + ks.split('|')[0].split('.').slice(-1)[0]); save(); return true;
-      case 'tog': var rg = run(d); rg[g('g')][g('k')] = rg[g('g')][g('k')] ? 0 : 1; save(); return true;
+        cs.solved = !cs.solved; rs.pz[ks] = cs;
+        if (cs.solved) { var pz_ = d._byId[ks.split('|')[0]].puzzles[parseInt(ks.split('|')[1], 10)]; logit(d, 'Puzzle solved: ' + (pz_ ? pz_.name : '') + ' in ' + d._byId[ks.split('|')[0]].code, 'solved', { where: ks.split('|')[0], name: pz_ ? pz_.name : '' }); }
+        save(); return true;
+      case 'tog':
+        var rg = run(d); rg[g('g')][g('k')] = rg[g('g')][g('k')] ? 0 : 1;
+        if (rg[g('g')][g('k')]) {
+          var rid_ = g('k').split('|')[0], idx_ = parseInt(g('k').split('|')[1], 10), rm_ = d._byId[rid_];
+          if (g('g') === 'lt') { var it_ = rm_.loot[idx_]; logit(d, 'Loot taken in ' + rm_.code + ': ' + (typeof it_ === 'string' ? it_ : it_.name), 'loot', { where: rid_, item: typeof it_ === 'string' ? it_ : it_.name }); }
+          else { var sc_ = rm_.secrets[idx_]; logit(d, 'Secret found in ' + rm_.code + ': ' + (sc_ ? sc_.description : ''), 'secret', { where: rid_ }); }
+        }
+        save(); return true;
       case 'floor': ui.fl[d.id] = parseInt(g('f'), 10); if (route.name === 'model') { renderModelParts(d); return false; } return true;
       case 'roll':
         var res = doRoll(parseInt(g('s'), 10), g('adv'), g('dis'));
-        if (d) { logit(d, 'Roll ' + res.text + ' = ' + res.total); save(); }
+        if (d) { logit(d, 'Roll ' + res.text + ' = ' + res.total, 'roll', { result: res.total }); save(); }
         return true;
       case 'mod': ui.diceMod = Math.max(-20, Math.min(20, ui.diceMod + parseInt(g('n'), 10))); return true;
       case 'padd': store.party.push({ name: 'Hero ' + (store.party.length + 1), hp: 10, max: 10 }); save(); return true;
       case 'pdel': store.party.splice(parseInt(g('i'), 10), 1); save(); return true;
       case 'php': var p = store.party[parseInt(g('i'), 10)]; p.hp = Math.max(0, Math.min(p.max, p.hp + parseInt(g('n'), 10))); save(); return true;
-      case 'copylog': copyText(runView(d).log.slice().reverse().join('\n')); return false;
+      case 'copylog': copyText(runView(d).log.slice().reverse().map(logLine).join('\n')); return false;
       case 'sync': doSync(); return false;
       case 'url': openUrl(g('u')); return false;
       case 'tpl': copyText(TPL[g('t')]); return false;
@@ -992,9 +1204,19 @@
       else if (t.className && String(t.className).indexOf('rnote') >= 0 && route.d) { run(route.d).notes[t.getAttribute('data-r')] = t.value; save(); }
       else if (t.id === 'runnote' && route.d) { run(route.d).rnotes = t.value; save(); }
       else if (t.className && String(t.className).indexOf('pname') >= 0) { store.party[parseInt(t.getAttribute('data-i'), 10)].name = t.value; save(); }
+      else if (t.className && String(t.className).indexOf('pinit') >= 0) { store.party[parseInt(t.getAttribute('data-i'), 10)].init = parseInt(t.value, 10) || 0; save(); }
+      else if (t.className && String(t.className).indexOf('pmax') >= 0) { var pm = store.party[parseInt(t.getAttribute('data-i'), 10)]; pm.max = Math.max(1, parseInt(t.value, 10) || 1); pm.hp = Math.min(pm.hp, pm.max); save(); }
+      else if (t.id === 'instid') { store.instanceId = t.value; save(); }
+      else if (t.id === 'wyear') { store.worldDate.year = parseInt(t.value, 10) || 0; save(); }
+      else if (t.id === 'wday') { store.worldDate.day = parseInt(t.value, 10) || 0; save(); }
     });
     appEl.addEventListener('change', function (ev) {
       if (ev.target.id === 'tablesel') { ui.toolTable = ev.target.value; render(); }
+      if (ev.target.className && String(ev.target.className).indexOf('condsel') >= 0 && route.d && ev.target.value) {
+        var cc_ = run(route.d).combat, id_ = ev.target.getAttribute('data-i'), val_ = ev.target.value;
+        if (cc_) cc_.order.forEach(function (o) { if (o.id === id_ && o.conds.indexOf(val_) < 0) o.conds.push(val_); });
+        save(); if (route.name === 'model') renderModelParts(route.d); else render();
+      }
     });
     window.addEventListener('hashchange', render);
     window.addEventListener('resize', function () { if (m3) m3.redraw(); });
@@ -1002,6 +1224,6 @@
     render();
   }
 
-  window.__dm = { render: render, store: function () { return store; }, data: function () { return data; }, world: function () { return world; }, applySync: applySync, applyWorld: applyWorld, rollTable: rollTable };
+  window.__dm = { render: render, store: function () { return store; }, data: function () { return data; }, world: function () { return world; }, applySync: applySync, applyWorld: applyWorld, rollTable: rollTable, ui: ui, startCombat: startCombat };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

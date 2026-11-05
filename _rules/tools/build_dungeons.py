@@ -226,6 +226,7 @@ def build(root):
                 "puzzles": rm.get("puzzles") or [],
                 "secrets": rm.get("secrets") or [],
                 "loot": [resolve_loot(l, notes) for l in (rm.get("loot") or [])],
+                "forQuest": rm.get("for_quest") or [],
                 "dmNotes": rm.get("dm_notes") or "",
             })
         pp = place_path(notes, dm.get("parent"))

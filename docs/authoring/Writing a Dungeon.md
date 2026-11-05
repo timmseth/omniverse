@@ -22,6 +22,7 @@ A dungeon is a folder note plus one note per room. The build tool turns them int
 - **`secrets`**: `{description, dc}`.
 - **`loot`**: strings, or item ids for anything notable (`tropelandia.item.the-bone-key`).
 - **`dm_notes`**: what is really going on, how the room connects to the quest, what to do if the party does something clever.
+- **`for_quest`**: detail that only applies while a given quest is active (`arrival`, `investigation` or from a `stage`), each with `read_aloud`, `dm_notes` and a `clue`. See [Writing a Quest](Writing%20a%20Quest.md).
 
 ## Layout rules
 The map is derived, not drawn: the tool walks exits from the entry room and places rooms on a grid. Two rooms cannot land on the same cell; a room reachable by two routes must land in the same place by both. Keep layouts simple (a corridor, a ring, a tree) and let the prose supply the strangeness. Check with:

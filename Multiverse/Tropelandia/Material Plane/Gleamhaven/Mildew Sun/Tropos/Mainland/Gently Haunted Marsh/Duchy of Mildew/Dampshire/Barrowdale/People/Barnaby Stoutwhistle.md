@@ -20,6 +20,11 @@ from:
   year: 1440
   era: tropelandia.era.age-of-mild-peril
 to: null
+for_quest:
+- quest: tropelandia.quest.ten-rats
+  when: investigation
+  dm_notes: 'If asked directly why he has not been down in nine years, he says ''damp''. A DC 12 Insight check: he cannot read the notice he keeps reposting; the spectacles are the whole story.'
+  clue: The Rat King is wearing them.
 ---
 # Barnaby Stoutwhistle
 

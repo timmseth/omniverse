@@ -45,6 +45,7 @@ Every build uses the committed `keystore/debug.keystore` (password `android`, al
 
 ## Version log
 
+- 1.2.0 (2026-11-05) - Quest layers (per-quest details on rooms, venues, NPCs; activate quests, stage stepper, Investigate); combat tracker with initiative, conditions and death saves; dice notation; party purse, loot splitter and Buy buttons; session timer; recap; session export to the repo's session note format (copy or share).
 - 1.1.0 (2026-11-04) - Model tab: 3D dollhouse view of the dungeon with a room panel; full stat blocks and item loot; town, venue, NPC, faction and quest screens; table roller; Sync fetches world.json too.
 
 - 1.0.0 - first version: library, room cards, exits, encounters, traps, puzzles, secrets,

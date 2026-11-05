@@ -26,6 +26,9 @@ An NPC with a voice, a want, a fear and a secret can be run cold.
 
 A faction needs a rival. Two factions that want the same dungeon is a campaign.
 
+## Quest layers
+Any town, venue or person can carry `for_quest` entries: what is different here while a particular quest is active, and what a deeper look (`investigation`) turns up. The app shows them only when that quest is on. See [Writing a Quest](Writing%20a%20Quest.md).
+
 ## Linking
 - Towns list their venues, people and factions; factions list members and dungeons; dungeons list factions and a home town; people list a faction and a location. Keep these in step; the validator checks every id exists, and the backlinks file shows what points where.
 - In the body, wikilink by name: `[[Mildew Court]]`. If two notes share a name, the validator warns; rename one.

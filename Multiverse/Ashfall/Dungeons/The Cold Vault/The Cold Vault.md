@@ -42,7 +42,8 @@ wandering:
   - '6: Nothing. The cold gets into the boots.'
 author: seth
 status: sample
-quests: []
+quests:
+- ashfall.quest.the-count
 ---
 # The Cold Vault
 

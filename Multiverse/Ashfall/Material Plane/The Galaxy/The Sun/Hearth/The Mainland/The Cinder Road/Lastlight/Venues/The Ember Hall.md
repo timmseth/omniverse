@@ -20,6 +20,17 @@ from:
   day: 1
   era: ashfall.era.the-long-dusk
 to: null
+for_quest:
+- quest: ashfall.quest.the-count
+  when: arrival
+  read_aloud: Kettle is not humming. He is sitting with one boot off, looking at it.
+  dm_notes: The paper is in the boot. He has decided to show someone and has not decided whom. If the party is kind to him first, it is them.
+  clue: The paper has a number on it, eight digits long.
+- quest: ashfall.quest.the-count
+  when: investigation
+  read_aloud: On the wall behind the bar, where the oil count is chalked each day, the numbers for the last nine days have been rubbed out and written again, smaller each time.
+  dm_notes: Vosk has been lowering the public count. The real count is on a slate in the Keep. The gap is three weeks of oil.
+  clue: The Warden's Keep has the real slate.
 ---
 # The Ember Hall
 

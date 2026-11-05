@@ -52,6 +52,12 @@ loot:
 - A huge gold ring (worth 60 gp), actually the innkeeper's wife's wedding band
 - The spectacles
 dm_notes: 'Gentle subversion of Kill Ten Rats: the ten-rat notice is a joke about bureaucracy. A sweet ending is on offer; the party can still choose violence.'
+for_quest:
+- quest: tropelandia.quest.ten-rats
+  when: investigation
+  read_aloud: Behind the throne, the bills are sorted by year. The oldest is a receipt for a pie, signed with a paw print. The newest is a formal demand addressed to the Mayor.
+  dm_notes: 'The rats'' legal position: nine years of occupancy, rent paid in kind, a landlord who never inspected. The Mayor''s clerk would call it a tenancy. The demand asks for recognition as Local 7.'
+  clue: The demand needs the Mayor's seal; stage 3 is at Pettigrew Manor.
 ---
 # RAT-07 The Rat King's Pantry
 

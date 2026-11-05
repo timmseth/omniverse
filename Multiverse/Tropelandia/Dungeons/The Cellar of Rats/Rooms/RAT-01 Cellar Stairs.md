@@ -31,6 +31,11 @@ puzzles: []
 secrets: []
 loot: []
 dm_notes: Quiet start. The squeaking is audible here; make the party feel watched, not attacked.
+for_quest:
+- quest: tropelandia.quest.ten-rats
+  when: arrival
+  read_aloud: 'A notice is nailed to the inside of the trapdoor, at rat height: VISITORS PLEASE WAIT TO BE SEEN.'
+  dm_notes: The rats are expecting them. Any party that waits is received politely in the throne room; any party that does not is received as pest control.
 ---
 # RAT-01 Cellar Stairs
 

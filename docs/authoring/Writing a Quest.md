@@ -15,5 +15,21 @@ Stage one is in town (a venue, a conversation, a choice). Stage two is the dunge
 
 Every quest in Tropelandia is also listed on its dungeon (`quests:`) and its index page. Run `build_all` after adding one.
 
+## Quest-conditional detail (`for_quest`)
+Rooms, venues, settlements and people can carry detail that only matters while a quest is active:
+```yaml
+for_quest:
+  - quest: tropelandia.quest.ten-rats
+    when: arrival            # arrival | investigation | stage
+    read_aloud: Someone has pinned a second, much smaller notice beneath the job notice.
+    dm_notes: The rats' counter-notice. Barnaby has not noticed.
+    clue: The trapdoor behind the bar has a chair on it.
+  - quest: tropelandia.quest.ten-rats
+    when: stage
+    stage: 3
+    dm_notes: Barnaby will concede anything to get his spectacles back.
+```
+`arrival` shows as soon as the party is there with the quest active; `investigation` only when the DM taps Investigate (the party dug deeper); `stage` once the quest has reached that stage. The DM screen app hides every entry for quests the party is not on, so the DM reads nothing they need to un-know. Put the hook in the quest and the texture here.
+
 ## Linking into a campaign
 A campaign note lists the quests it uses in `quests:`. The Starter Kit's [The Arc](../../Multiverse/Tropelandia/Instances/starter-kit/The%20Arc.md) shows three quests run in sequence with threads planted between them.

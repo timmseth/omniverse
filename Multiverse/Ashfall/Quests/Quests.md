@@ -6,4 +6,4 @@ parent: ashfall
 ---
 # Quests of Ashfall
 
-None yet. The Cold Vault's quest is the first thing to write.
+- [[The Count]] (levels 1 to 3)

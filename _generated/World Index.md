@@ -32,7 +32,7 @@ generated: build_world.py
 | event | 31 |
 | trope | 50 |
 | trope_instance | 1 |
-| quest | 10 |
+| quest | 11 |
 | lore | 7 |
 | table | 16 |
 | dungeon | 11 |
@@ -122,7 +122,7 @@ generated: build_world.py
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[Lastlight]] | ashfall | `ashfall.settlement.lastlight` | 8 |
+| [[Lastlight]] | ashfall | `ashfall.settlement.lastlight` | 9 |
 | [[Barrowdale]] | tropelandia | `tropelandia.settlement.barrowdale` | 23 |
 | [[Deepfile]] | tropelandia | `tropelandia.settlement.deepfile` | 11 |
 | [[Greyharbour]] | tropelandia | `tropelandia.settlement.greyharbour` | 12 |
@@ -143,7 +143,7 @@ generated: build_world.py
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
 | [[The Ember Hall]] | ashfall | `ashfall.venue.the-ember-hall` | 3 |
-| [[The Warden's Keep]] | ashfall | `ashfall.venue.the-wardens-keep` | 3 |
+| [[The Warden's Keep]] | ashfall | `ashfall.venue.the-wardens-keep` | 4 |
 | [[Bone & Binding]] | tropelandia | `tropelandia.venue.bone-binding` | 2 |
 | [[Dunewright Exchange]] | tropelandia | `tropelandia.venue.dunewright-exchange` | 5 |
 | [[Gribble's Sundries]] | tropelandia | `tropelandia.venue.gribbles-sundries` | 2 |
@@ -184,7 +184,7 @@ generated: build_world.py
 |---|---|---|---|
 | [[Brother Ash]] | ashfall | `ashfall.person.brother-ash` | 2 |
 | [[Kettle]] | ashfall | `ashfall.person.kettle` | 2 |
-| [[Warden Maren Vosk]] | ashfall | `ashfall.person.warden-maren-vosk` | 3 |
+| [[Warden Maren Vosk]] | ashfall | `ashfall.person.warden-maren-vosk` | 4 |
 | [[Abbess Prudence Dimly]] | tropelandia | `tropelandia.person.abbess-prudence-dimly` | 4 |
 | [[Barnaby Stoutwhistle]] | tropelandia | `tropelandia.person.barnaby-stoutwhistle` | 3 |
 | [[Bashir Two-Cups]] | tropelandia | `tropelandia.person.bashir-two-cups` | 2 |
@@ -229,7 +229,7 @@ generated: build_world.py
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[The Wardens of the Last Light]] | ashfall | `ashfall.faction.the-wardens-of-the-last-light` | 7 |
+| [[The Wardens of the Last Light]] | ashfall | `ashfall.faction.the-wardens-of-the-last-light` | 8 |
 | [[Adventurers' Licensing Board]] | tropelandia | `tropelandia.faction.adventurers-licensing-board` | 18 |
 | [[Church of the Reasonably Benevolent]] | tropelandia | `tropelandia.faction.church-of-the-reasonably-benevolent` | 13 |
 | [[Glintfang Holdings]] | tropelandia | `tropelandia.faction.glintfang-holdings` | 12 |
@@ -339,7 +339,7 @@ generated: build_world.py
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
 | [[Aloof Elf]] |  | `omniverse.trope.aloof-elf` | 2 |
-| [[Ancient Evil Released by Dumb Adventurers]] |  | `omniverse.trope.ancient-evil-released-by-dumb-adventurers` | 9 |
+| [[Ancient Evil Released by Dumb Adventurers]] |  | `omniverse.trope.ancient-evil-released-by-dumb-adventurers` | 10 |
 | [[Ancient Prophecy]] |  | `omniverse.trope.ancient-prophecy` | 7 |
 | [[Bag of Holding]] |  | `omniverse.trope.bag-of-holding` | 2 |
 | [[Bard Who Flirts with Everything]] |  | `omniverse.trope.bard-who-flirts-with-everything` | 2 |
@@ -380,7 +380,7 @@ generated: build_world.py
 | [[Tavern Brawl]] |  | `omniverse.trope.tavern-brawl` | 3 |
 | [[The Chosen One]] |  | `omniverse.trope.the-chosen-one` | 5 |
 | [[The Heist]] |  | `omniverse.trope.the-heist` | 7 |
-| [[The Lich]] |  | `omniverse.trope.lich` | 8 |
+| [[The Lich]] |  | `omniverse.trope.lich` | 9 |
 | [[The Mimic]] |  | `omniverse.trope.mimic` | 9 |
 | [[The Tavern Where It All Starts]] |  | `omniverse.trope.the-tavern-where-it-all-starts` | 8 |
 | [[Thieves' Guild]] |  | `omniverse.trope.thieves-guild` | 6 |
@@ -395,20 +395,21 @@ generated: build_world.py
 |---|---|---|---|
 | [[Marlowe's Rented Tower]] | tropelandia | `tropelandia.instance.marlowe-tower` | 4 |
 
-## quest (10)
+## quest (11)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
+| [[The Count]] | ashfall | `ashfall.quest.the-count` | 5 |
 | [[Guests of the Dragon]] | tropelandia | `tropelandia.quest.guests-of-the-dragon` | 2 |
 | [[Hall by Hall]] | tropelandia | `tropelandia.quest.hall-by-hall` | 2 |
 | [[Honest Reviews]] | tropelandia | `tropelandia.quest.honest-reviews` | 3 |
 | [[Overdue]] | tropelandia | `tropelandia.quest.overdue` | 2 |
 | [[Pending]] | tropelandia | `tropelandia.quest.pending` | 2 |
 | [[Ring Once]] | tropelandia | `tropelandia.quest.ring-once` | 3 |
-| [[Ten Rats]] | tropelandia | `tropelandia.quest.ten-rats` | 5 |
+| [[Ten Rats]] | tropelandia | `tropelandia.quest.ten-rats` | 9 |
 | [[The Ledger]] | tropelandia | `tropelandia.quest.the-ledger` | 3 |
-| [[The Rent Is Due]] | tropelandia | `tropelandia.quest.the-rent-is-due` | 5 |
-| [[The Strike]] | tropelandia | `tropelandia.quest.the-strike` | 5 |
+| [[The Rent Is Due]] | tropelandia | `tropelandia.quest.the-rent-is-due` | 8 |
+| [[The Strike]] | tropelandia | `tropelandia.quest.the-strike` | 7 |
 
 ## lore (7)
 
@@ -447,7 +448,7 @@ generated: build_world.py
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[The Cold Vault]] | ashfall | `ashfall.dungeon.the-cold-vault` | 12 |
+| [[The Cold Vault]] | ashfall | `ashfall.dungeon.the-cold-vault` | 13 |
 | [[Glintfang's Hoard]] | tropelandia | `tropelandia.dungeon.glintfang-hoard` | 15 |
 | [[Marlowe's Tower]] | tropelandia | `tropelandia.dungeon.marlowes-tower` | 14 |
 | [[The Cellar of Rats]] | tropelandia | `tropelandia.dungeon.cellar-of-rats` | 14 |

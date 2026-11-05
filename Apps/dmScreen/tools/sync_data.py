@@ -15,9 +15,9 @@ from pathlib import Path
 WORLD_KINDS = {"universe", "settlement", "venue", "person", "faction", "quest", "table", "item", "monster", "deity", "holiday", "region"}
 WORLD_DATA_FIELDS = {
     "universe": ["tone", "ruleset", "status"],
-    "settlement": ["size_class", "population", "ruler", "venues", "factions", "notable_people", "nearest_dungeons", "trade", "law", "rumours", "hooks"],
-    "venue": ["venue_type", "keeper", "faction", "services", "stock", "rumours", "hooks", "read_aloud", "dm_notes"],
-    "person": ["species", "role", "faction", "location", "voice", "wants", "fears", "secret", "goals", "relationships", "stat_block", "stats", "player_character", "pregen"],
+    "settlement": ["size_class", "population", "ruler", "venues", "factions", "notable_people", "nearest_dungeons", "trade", "law", "rumours", "hooks", "for_quest"],
+    "venue": ["venue_type", "keeper", "faction", "services", "stock", "rumours", "hooks", "read_aloud", "dm_notes", "for_quest"],
+    "person": ["species", "role", "faction", "location", "voice", "wants", "fears", "secret", "goals", "relationships", "stat_block", "stats", "player_character", "pregen", "for_quest"],
     "faction": ["faction_type", "reach", "base", "leader", "members", "goals", "methods", "assets", "allies", "rivals", "dungeons", "reputation", "secret", "hooks"],
     "quest": ["giver", "start", "level_range", "premise", "hooks", "stages", "rewards", "on_success", "on_failure", "factions", "dungeons", "status"],
     "table": ["category", "die", "where", "entries"],

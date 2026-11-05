@@ -30,6 +30,18 @@ Open a dungeon. Six tabs along the bottom:
 
 Everything about a run (position, visited and cleared rooms, doors opened, HP, trap and puzzle state, loot taken, notes, log) is saved on the phone per dungeon and survives closing the app.
 
+## Quests and quest layers
+Open a quest (from a dungeon's Overview, a town, or the Library's Quests section) and tap **Activate**. While a quest is active, every room, venue, town and NPC that carries detail for it shows a **Quest** box: what the party notices on arrival, and a **Investigate** button for what a deeper look turns up. A stage stepper on the quest page unlocks the entries that only apply later. Nothing appears for quests that are not active, so you never read ahead of the table.
+
+## Running a fight
+From any encounter, **Start combat**: the monsters join the initiative with their DEX, party members roll or type theirs, and a combat bar pins to the top of the Room and Model tabs with the turn order and round counter. **Next** advances; conditions can be toggled on anyone; a party member at 0 HP gets death-save pips (nat 20 revives, nat 1 counts double). **End combat** clears it and logs the result.
+
+## Dice, purse, timer
+The Tools tab takes dice notation (`2d6+3`, `d20`, `3d8-1`) with a crit toggle that doubles the dice and never the modifier. The **purse** holds the party's gp/sp/cp; **Split loot** does the change math across the members. **Timer** pins a countdown over every screen (red under ten seconds).
+
+## Session export
+Tools, **Export session**: the run log becomes an Omniverse session note (YAML frontmatter, events with deltas, rolls, `canon: local`) ready to drop into an instance's `log/` folder, or a plain journal in Markdown. Both go to the clipboard and the Android share sheet. When you resume a run, **Previously on…** recaps the last session's notable moments from the same log.
+
 ## Towns, people, factions, quests
 From the Library or from a dungeon's Overview, open a town: its read-aloud, ruler, trade and law, venues, people, factions, rumours, hooks, nearby dungeons and local tables. Venue pages show the keeper, services and prices, rumours and hooks. NPC pages show species, role, where they are, **Voice** (how to play them), **Wants** and **Fears**, a **Secret** behind a Reveal button, relationships and a stat block if they have one. Faction pages show goals, methods, assets, members, allies, rivals, dungeons, hooks and the secret. Quest pages show the premise, hooks, stages with clues, rewards and the outcomes of success and failure.
 

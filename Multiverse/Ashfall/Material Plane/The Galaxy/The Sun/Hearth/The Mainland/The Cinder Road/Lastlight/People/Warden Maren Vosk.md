@@ -35,6 +35,12 @@ from:
   day: 1
   era: ashfall.era.the-long-dusk
 to: null
+for_quest:
+- quest: ashfall.quest.the-count
+  when: stage
+  stage: 2
+  dm_notes: 'Stage 2: once the party has been in the Vault, Vosk asks one question: did the dead have papers. If the answer is yes, she sits down for the first time in the scene and tells them her stone''s date.'
+  clue: Her appointment is the first winter date on the shelves.
 ---
 # Warden Maren Vosk
 

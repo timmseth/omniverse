@@ -9,5 +9,6 @@ Never overwrite an earlier build.
 |---|---|---|
 | 1.0.0 | `dmScreen-v1.0.0-20261104-2057.apk` | first version |
 | 1.1.0 | `dmScreen-v1.1.0-20261104-2305.apk` | Model (3D) tab, stat blocks, towns/NPCs/factions/quests, table roller |
+| 1.2.0 | `dmScreen-v1.2.0-20261105-1041.apk` | quest layers, combat tracker, dice notation, purse/loot/buy, timer, recap, session export |
 
 To build another: run `build-apk.cmd -NoVault` from `Apps/dmScreen/` (or use the build bot), then commit the files that appear here.

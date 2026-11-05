@@ -46,3 +46,55 @@ Agreed after v1.0.0 ("add a 3d mode where you can look down at the map with the 
 - **Towns**: the Library gets a Towns section. A town page shows its read-aloud, venues, people, factions, rumours, hooks and nearest dungeons; venue and NPC cards (voice, wants, fears, secret behind a tap); faction pages (goals, members, allies, rivals, dungeons, secret); quest pages (stages, rewards, outcomes) linked from dungeon overviews.
 - **Table roller** in Tools and on town pages: roll any table, with refs resolved to monsters and items.
 - Not in 1.1: map export, editing, instance logs.
+
+## v1.2.0: quest layers, and the table tools from partyInterface
+
+Two sources for this version. The Discord feedback (Taykaim): attach quest-relevant
+details to locations and only surface them when the party is there *for that quest*
+or digs deeper. And Seth's own ask: reuse the useful parts of the old partyInterface
+app (session export that pairs with the repo, initiative, dice, purse) instead of
+reinventing them.
+
+### Quest layers (repo + app)
+
+- Rooms, venues, settlements and NPCs can carry a `for_quest` list (schema in
+  `_rules/schemas/`): `{quest, when: arrival|investigation|stage, stage, read_aloud,
+  dm_notes, clue}`.
+- `build_dungeons.py` passes rooms' entries through as `forQuest`; `sync_data.py`
+  carries the same field for world notes.
+- In the app a quest can be **activated** from its page, and has a stage stepper.
+  A room/venue/NPC card then shows a quest strip under the read-aloud text:
+  `arrival` entries show at once, `stage` entries when the quest is at that stage,
+  `investigation` entries sit behind an **Investigate** button. Entries for quests
+  that are not active stay hidden, so a DM is not spoiled by other campaigns.
+- Library has a **Quests** section (`#/quests`) listing quests by universe with
+  their active state.
+
+### Ported from partyInterface (`table.js`, `window.DMX`)
+
+- **Dice notation**: `2d6+3`, `d20`, `4d6kh3`-style not needed; `NdM+K`, multiple
+  terms, crit doubles the dice. Dice card accepts an expression and logs rolls.
+- **Combat tracker**: "Start combat" on any encounter seeds the tracker with the
+  monsters (HP/AC from the stat summary) plus the party. Initiative (roll all, or
+  type), turn pointer, HP +/-, conditions (dropdown of the standard list), death
+  saves for party members at 0 HP (three boxes each way; nat 20 revives, nat 1
+  counts double), end combat writes a log line with the outcome.
+- **Party**: members gain an initiative bonus and max HP.
+- **Purse and loot splitter**: a party purse in cp/sp/gp/pp, "split" distributes
+  room loot across members with the remainder in the purse; venue services and
+  stock have **Buy** buttons that deduct from the purse (and warn when short).
+- **Timer**: a floating session/encounter timer (start, pause, reset; turns red
+  past the target).
+- **Recap**: "Previously on..." on the Overview, built from the last session's log.
+- **Session export**: structured log entries (enter, clear, leave, trap, solved,
+  loot, secret, roll, table, wander, combat) are rendered into a session note in the
+  repo's `session` schema (`<instance>.session.NN`, events with types, deltas, rolls,
+  `canon: local`) plus a prose journal. Export copies to the clipboard or opens the
+  Android share sheet (`shareText` bridge), ready to paste into an instance folder
+  and run `merge_instance.py`.
+
+### Not ported (deliberately)
+
+Transports (Nearby/Firebase), conditional knowledge, fog of war, whispers, polls,
+achievements. Those belong to the multi-phone table app; dmScreen is the DM's own
+screen. A later partyInterface could import `dungeons.json` instead.

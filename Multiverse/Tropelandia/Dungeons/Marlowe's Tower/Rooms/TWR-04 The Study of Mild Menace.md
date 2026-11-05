@@ -46,6 +46,12 @@ loot:
 - Marlowe's private recipe for blackberry pie
 - A signed IOU from the Mayor
 dm_notes: The Pie Contest Incident is a canon event; this study can reflect it. Marlowe's grudges here are nemesis-system fodder.
+for_quest:
+- quest: tropelandia.quest.the-rent-is-due
+  when: investigation
+  read_aloud: Among the overdue notices is one that is not from the Mayor. It is addressed to the tower, from the Thaumaturgic Academy, and it is a summons.
+  dm_notes: The Academy restricted the tower two centuries ago. It has been 'temporarily' on the Mayor's table for two days because the summons finally arrived and it is thinking about leaving.
+  clue: The Union can contest the summons; so can the Mayor, if he wants the tower to stay.
 ---
 # TWR-04 The Study of Mild Menace
 

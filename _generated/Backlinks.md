@@ -28,6 +28,7 @@ generated: build_world.py
 - [[211-0044 The Vault Opens]] (event)
 - [[88-0300 The Vault Shut]] (event)
 - [[The Wardens of the Last Light]] (faction)
+- [[The Count]] (quest)
 - [[Lastlight]] (settlement)
 - [[1489-0035 The Overflow Corridor]] (event)
 - 7 rooms
@@ -55,6 +56,7 @@ generated: build_world.py
 - [[Factions]] (index)
 - [[Brother Ash]] (person)
 - [[Warden Maren Vosk]] (person)
+- [[The Count]] (quest)
 - [[Lastlight]] (settlement)
 - [[The Warden's Keep]] (venue)
 
@@ -107,6 +109,7 @@ generated: build_world.py
 
 ## [[Warden Maren Vosk]] `ashfall.person.warden-maren-vosk`
 - [[The Wardens of the Last Light]] (faction)
+- [[The Count]] (quest)
 - [[Lastlight]] (settlement)
 - [[The Warden's Keep]] (venue)
 
@@ -118,6 +121,13 @@ generated: build_world.py
 ## [[Hearth]] `ashfall.planet.hearth`
 - [[The Mainland]] (continent)
 - [[1-0001 The Dimming]] (event)
+
+## [[The Count]] `ashfall.quest.the-count`
+- [[The Cold Vault]] (dungeon)
+- [[Warden Maren Vosk]] (person)
+- [[Quests]] (index)
+- [[The Ember Hall]] (venue)
+- 1 room
 
 ## [[Quests]] `ashfall.quests-index`
 - [[_universe]] (universe)
@@ -135,6 +145,7 @@ generated: build_world.py
 - [[Brother Ash]] (person)
 - [[Kettle]] (person)
 - [[Warden Maren Vosk]] (person)
+- [[The Count]] (quest)
 - [[The Cinder Road]] (region)
 - [[The Ember Hall]] (venue)
 - [[The Warden's Keep]] (venue)
@@ -157,6 +168,7 @@ generated: build_world.py
 ## [[The Warden's Keep]] `ashfall.venue.the-wardens-keep`
 - [[The Wardens of the Last Light]] (faction)
 - [[Warden Maren Vosk]] (person)
+- [[The Count]] (quest)
 - [[Lastlight]] (settlement)
 
 ## [[_registry]] `omniverse.multiverse`
@@ -263,6 +275,7 @@ generated: build_world.py
 
 ## [[Ancient Evil Released by Dumb Adventurers]] `omniverse.trope.ancient-evil-released-by-dumb-adventurers`
 - [[The Cold Vault]] (dungeon)
+- [[The Count]] (quest)
 - [[Trope Library]] (index)
 - [[Ancient Prophecy]] (trope)
 - [[Cult Summoning a Demon]] (trope)
@@ -435,6 +448,7 @@ generated: build_world.py
 
 ## [[The Lich]] `omniverse.trope.lich`
 - [[The Cold Vault]] (dungeon)
+- [[The Count]] (quest)
 - [[Trope Library]] (index)
 - [[Ancient Evil Released by Dumb Adventurers]] (trope)
 - [[Wizard Academy]] (trope)
@@ -1750,7 +1764,10 @@ generated: build_world.py
 - [[Campaign]] (campaign)
 - [[The Arc]] (guide)
 - [[The Cellar of Rats]] (dungeon)
+- [[Barnaby Stoutwhistle]] (person)
 - [[Quests]] (index)
+- [[The Gilded Tankard]] (venue)
+- 2 rooms
 
 ## [[The Ledger]] `tropelandia.quest.the-ledger`
 - [[The Arc]] (guide)
@@ -1763,6 +1780,8 @@ generated: build_world.py
 - [[The Arc]] (guide)
 - [[Marlowe's Tower]] (dungeon)
 - [[Quests]] (index)
+- [[Pettigrew Manor]] (venue)
+- 2 rooms
 
 ## [[The Strike]] `tropelandia.quest.the-strike`
 - [[_instance]] (instance)
@@ -1770,6 +1789,8 @@ generated: build_world.py
 - [[The Arc]] (guide)
 - [[The Goblin Union Hall]] (dungeon)
 - [[Quests]] (index)
+- [[Hearthollow]] (settlement)
+- [[Union Hiring Hall (closed)]] (venue)
 
 ## [[Crooked Peaks]] `tropelandia.region.crooked-peaks`
 - [[Mainland]] (continent)

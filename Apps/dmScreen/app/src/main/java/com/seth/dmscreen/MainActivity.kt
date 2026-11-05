@@ -160,6 +160,19 @@ class MainActivity : Activity() {
             }
         }
 
+        /** Opens the Android share sheet with plain text (session exports, recaps). */
+        @JavascriptInterface
+        fun shareText(title: String, text: String) {
+            runOnUiThread {
+                val send = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_SUBJECT, title)
+                    putExtra(Intent.EXTRA_TEXT, text)
+                }
+                try { startActivity(Intent.createChooser(send, title)) } catch (_: Exception) { }
+            }
+        }
+
         /** Fetches an https URL on a worker thread and calls window.__dmFetch(ok, text, url). */
         @JavascriptInterface
         fun fetchText(url: String) {
