@@ -6,7 +6,7 @@ Run a session tonight. Everything below works from Obsidian alone; the app makes
 `Multiverse/Tropelandia/Instances/starter-kit/` is a complete three-session arc (levels 1 to 3) with a Session Zero page, five pregens and three dungeons. Copy the folder to `Instances/<your-name>/`, change the `id` in `_instance.md` and `Campaign.md`, and read [Session Zero](../../Multiverse/Tropelandia/Instances/starter-kit/Session%20Zero.md).
 
 ## Running a dungeon
-**With the app.** Install the latest APK from `Apps/dmScreen/releases/`. Open the dungeon; the Room tab shows read-aloud text, exits as buttons, encounters with HP trackers, traps, puzzles with hints you reveal one at a time, secrets, loot and your notes. The Map tab is one floor at a time. Tools has dice, a party tracker and a run log. Sync pulls the latest dungeons from GitHub.
+**With the app.** Install the latest APK from `Apps/dmScreen/releases/` (full guide: [The DM Screen App](The%20DM%20Screen%20App.md)). Open the dungeon; the Room tab shows read-aloud text, exits as buttons, encounters with HP trackers, traps, puzzles with hints you reveal one at a time, secrets, loot and your notes. The Map tab is one floor at a time. Tools has dice, a party tracker and a run log. Sync pulls the latest dungeons from GitHub.
 
 **From Obsidian.** Open the dungeon's folder note, then the rooms in order. Every room note has the same sections the app shows. The dungeon's `wandering` table is on the folder note.
 

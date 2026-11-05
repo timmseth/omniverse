@@ -298,6 +298,7 @@ Two principles about the table:
 Omniverse/                              (git repo root)
 ├── README.md                           this document
 ├── CONTRIBUTING.md                     how to contribute (short); docs/ has the long version
+├── AGENTS.md · CLAUDE.md               entry points for LLMs and agents asked to contribute
 ├── LICENSE                             public domain (Unlicense)
 ├── CODEOWNERS                          who reviews which path (section 16)
 ├── .github/                            CI (validate, site), PR and issue templates
@@ -306,6 +307,7 @@ Omniverse/                              (git repo root)
 ├── _rules/                             the core, maintained by Omniverse maintainers
 │   ├── schemas/                        one YAML per note kind + _mixins.yaml; the validator reads these
 │   ├── templates/                      copy-and-fill notes
+│   ├── skills/                         SKILL.md files for LLM contributors (contribute, dungeon, town, review, dm)
 │   ├── tools/                          validate, build_dungeons, build_world, build_timeline, build_maps,
 │   │                                   schema_reference, build_site, build_all, new_universe, merge_instance
 │   └── Submitting a Dungeon.md         the contributor guide for dungeons (section 17.8)
@@ -938,7 +940,7 @@ Below the frontmatter come the narration, the hooks left open, and loot and XP.
 Every event is `public` or `private`. DM secrets and knowledge only some players have stay `private`, and private events can never be merged upstream. A campaign can stay entirely private.
 
 ### 17.5 The DM skill
-A Claude skill kept in the repo (`_rules/skills/dm/`), so every contributor runs the same one. Universes can add a **DM style** (a module) so Tropelandia plays as parody.
+A Claude skill kept in the repo (`_rules/skills/omniverse-dm/SKILL.md`), so every contributor runs the same one. Universes can add a **DM style** (a module) so Tropelandia plays as parody.
 
 | Command | What it does |
 |---|---|
@@ -1027,6 +1029,7 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 - **Tools** (Python, in `_rules/tools/`, documented in `docs/concepts/Tools.md`): `validate.py` (schema-driven), `build_dungeons.py`, `build_world.py` (the world index), `build_timeline.py`, `build_maps.py`, `schema_reference.py`, `build_site.py`, `build_all.py`, `new_universe.py` (Universe Join scaffold), `merge_instance.py` (canon-merge drafter with rift detection). Event replay (`replay.py`) is still to come.
 - **CI** (`.github/workflows/validate.yml`) validates every note, checks the dungeons, rebuilds the generated files and fails if they differ from what is committed, and rejects scripts outside the tool folders. `site.yml` publishes the static site to GitHub Pages.
 - **DM skill** (`omniverse-dm`, a Claude skill): runs a campaign in an instance and keeps the log (section 17).
+- **LLM contribution** **[Decided, v0.6]**: `AGENTS.md` at the root is the entry point for any language model asked to help; `docs/getting-started/For LLMs and Agents.md` gives the workflow and the prompts humans use; `_rules/skills/` holds SKILL.md files (`omniverse-contribute`, `-dungeon`, `-town`, `-review`, `-dm`) that encode the jobs. The human describes the vision; the model does the folders, ids, frontmatter, links, validator and pull request, and the human reviews.
 - **dmScreen app** (`Apps/dmScreen/`): the Android DM screen that reads the dungeon index (section 17.7).
 - **Narrator** (optional): an LLM that reads events and writes prose into `_generated/`.
 

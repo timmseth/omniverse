@@ -83,10 +83,10 @@ def load_notes(root):
             rel = os.path.relpath(full, root).replace(os.sep, "/")
             if f.endswith(".md"):
                 structural = f.startswith("_") or f == "Campaign.md" or f.startswith("Session ")
-                if f[:-3] in names and not rel.startswith("_rules/templates/") and not structural:
+                if f[:-3] in names and not rel.startswith("_rules/templates/") and not rel.startswith("_rules/skills/") and not structural:
                     dups.append((f[:-3], names[f[:-3]], rel))
                 names.setdefault(f[:-3], rel)
-            if not (f.endswith(".md") or f.endswith(".yaml")) or rel in ("README.md", "CONTRIBUTING.md", "Welcome.md") or rel.startswith(".github/"):
+            if not (f.endswith(".md") or f.endswith(".yaml")) or rel in ("README.md", "CONTRIBUTING.md", "AGENTS.md", "CLAUDE.md", "Welcome.md") or rel.startswith(".github/") or (rel.startswith("_rules/skills/") and f == "SKILL.md"):
                 continue
             src = open(full, encoding="utf-8").read()
             if f.endswith(".md"):

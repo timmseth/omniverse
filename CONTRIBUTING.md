@@ -16,6 +16,9 @@ The Omniverse is a shared, modular, system-agnostic tabletop-RPG multiverse kept
    The validator reports every problem with the file and field. `build_all` regenerates the indexes (`_generated/`, the schema reference, the timelines, the app data); commit what it changes.
 5. **Open a pull request.** One thing per PR (one dungeon, one quest, one town). Fill in the template. CI runs the same checks; the owner of the path you touched (see `CODEOWNERS`) reviews it.
 
+## Prefer to describe it and let a model do the YAML?
+Point Claude (or any agent that reads `AGENTS.md`) at this repository and describe what you want. It reads the schemas, writes the notes in the universe's voice, links them, validates, and opens the PR; you review. See [Contributing with an LLM](docs/authoring/Contributing%20with%20an%20LLM.md). Ready-made skills are in `_rules/skills/`.
+
 ## What you can contribute
 
 | Kind | Where | Guide |
@@ -30,6 +33,7 @@ The Omniverse is a shared, modular, system-agnostic tabletop-RPG multiverse kept
 | A whole universe | `Multiverse/<Universe>/` | [Adding a Universe](docs/authoring/Adding%20a%20Universe.md) |
 | Canon from your campaign | an instance's `log/` | [Running and Logging a Campaign](docs/authoring/Running%20and%20Logging%20a%20Campaign.md) |
 | Tools, docs, the app | `_rules/tools/`, `docs/`, `Apps/` | open an issue first |
+| A skill for LLM contributors | `_rules/skills/<name>/SKILL.md` | copy an existing one |
 
 ## Rules of the road
 

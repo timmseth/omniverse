@@ -43,7 +43,7 @@ generated: build_world.py
 | session | 1 |
 | ruleset | 3 |
 | module | 1 |
-| index | 16 |
+| index | 17 |
 | guide | 3 |
 | multiverse | 1 |
 | omniverse | 1 |
@@ -584,7 +584,7 @@ generated: build_world.py
 |---|---|---|---|
 | [[core]] |  | `omniverse-core` | 0 |
 
-## index (16)
+## index (17)
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
@@ -601,6 +601,7 @@ generated: build_world.py
 | [[Quests]] |  | `ashfall.quests-index` | 2 |
 | [[Quests]] |  | `tropelandia.quests-index` | 0 |
 | [[_README]] |  | `omniverse.schemas` | 0 |
+| [[README]] |  | `omniverse.skills-index` | 5 |
 | [[Tables]] |  | `ashfall.tables-index` | 2 |
 | [[Tables]] |  | `tropelandia.tables-index` | 0 |
 | [[Trope Library]] |  | `omniverse.trope-library` | 0 |

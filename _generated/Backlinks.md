@@ -244,6 +244,13 @@ generated: build_world.py
 - [[Kettle]] (person)
 - [[Warden Maren Vosk]] (person)
 
+## [[README]] `omniverse.skills-index`
+- [[Omniverse]] (omniverse)
+- [[Submitting a Dungeon]] (guide)
+- [[Core]] (ruleset)
+- [[dnd5e]] (ruleset)
+- [[Trope Library]] (index)
+
 ## [[Dungeon Template]] `omniverse.template.dungeon`
 - [[Submitting a Dungeon]] (guide)
 

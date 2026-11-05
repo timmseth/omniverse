@@ -7,6 +7,8 @@ Start here. The design document is the repository [README](../README.md); these 
 - [For DMs](getting-started/For%20DMs.md): run a dungeon tonight with the DM screen app or Obsidian.
 - [For Contributors](getting-started/For%20Contributors.md): add a note, pass the validator, open a pull request.
 - [For Universe Builders](getting-started/For%20Universe%20Builders.md): bring your own world and ruleset.
+- [For LLMs and Agents](getting-started/For%20LLMs%20and%20Agents.md): the entry point for a language model asked to help (see also `AGENTS.md`).
+- [The DM Screen App](getting-started/The%20DM%20Screen%20App.md): install and run dmScreen on a phone.
 
 ## Concepts
 - [Core Concepts](concepts/Core%20Concepts.md): layers, ids, events, instances, canon merges, modules.
@@ -23,6 +25,7 @@ Start here. The design document is the repository [README](../README.md); these 
 - [Writing a Ruleset](authoring/Writing%20a%20Ruleset.md)
 - [Adding a Universe](authoring/Adding%20a%20Universe.md)
 - [Running and Logging a Campaign](authoring/Running%20and%20Logging%20a%20Campaign.md)
+- [Contributing with an LLM](authoring/Contributing%20with%20an%20LLM.md): describe it; the model does the YAML.
 
 ## Reference
 - [Schema Reference](reference/Schema%20Reference.md) (generated from `_rules/schemas/`)

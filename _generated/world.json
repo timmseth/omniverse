@@ -9,7 +9,7 @@
   "item": 32,
   "event": 31,
   "venue": 29,
-  "index": 16,
+  "index": 17,
   "table": 16,
   "faction": 12,
   "dungeon": 11,
@@ -1920,7 +1920,8 @@
    "status": null,
    "refs": [],
    "links": [
-    "omniverse.multiverse"
+    "omniverse.multiverse",
+    "omniverse.skills-index"
    ],
    "referencedBy": [],
    "children": [
@@ -1931,6 +1932,7 @@
     "omniverse.ruleset.dnd5e",
     "omniverse.ruleset.six-sides",
     "omniverse.schemas",
+    "omniverse.skills-index",
     "omniverse.template.dungeon",
     "omniverse.template.room",
     "omniverse.trope-library",
@@ -2042,6 +2044,7 @@
    "status": null,
    "refs": [],
    "links": [
+    "omniverse.skills-index",
     "omniverse.template.dungeon",
     "omniverse.template.room"
    ],
@@ -2090,7 +2093,9 @@
    "tags": [],
    "status": "stub",
    "refs": [],
-   "links": [],
+   "links": [
+    "omniverse.skills-index"
+   ],
    "referencedBy": [],
    "children": [],
    "data": {
@@ -2122,7 +2127,9 @@
    "tags": [],
    "status": "stub",
    "refs": [],
-   "links": [],
+   "links": [
+    "omniverse.skills-index"
+   ],
    "referencedBy": [
     "pie-heist.campaign",
     "pie-heist.person.tess-underbough",
@@ -2278,6 +2285,29 @@
    "body": "# Schemas\n\nOne file per note kind. The validator (`_rules/tools/validate.py`) reads these, so a note\nis valid when it matches its kind's file here, and the Schema Reference in `docs/` is\ngenerated from them. Change a schema and both follow.\n\nA schema says: which folder the kind lives in, what its id looks like, and its fields.\n\n```yaml\nkind: faction                      # the value of `kind:` in the note\ntitle: Faction\nsummary: One line on what this kind is for.\nmodule: core                       # core | universe | ruleset\nfolder: Multiverse/<Universe>/Factions/<Name>.md\nid: <universe>.faction.<slug>\nmixins: [base, dated]              # field sets shared by many kinds (see _mixins.yaml)\nfields:\n  base: { type: ref, kinds: [settlement, district], doc: Where it operates from. }\n  goals: { type: list, of: string, doc: What it wants, in its own words. }\n```\n\nField types: `string`, `text` (multi-line), `int`, `number`, `bool`, `any`, `id` (the note's\nown id), `ref` (an id of another note; `kinds:` restricts which), `enum` (`values:`),\n`const` (`value:`), `list` (`of:` another type), `map` (`fields:` nested), `when` (a date:\n`primordial`, `null`, or `{year, day, era}`), `dice` (`d6`, `2d8+1`).\n\nEvery field may carry `required: true`, `nullable: true`, `pattern:` (regex for strings) and\n`doc:`. Unknown fields are warnings, unless the key is namespaced (`dnd5e.initiative`),\nwhich a schema extension in a module's `_schemas/` folder may declare.\n\nPlaceholders in `folder` and `id`: `<Universe>` and `<universe>` (folder name and slug),\n`<Name>`, `<slug>`, `<dungeon>`, `<nn>` (two digits), `<year>`, `<nnnn>`, `<Place path>`."
   },
   {
+   "id": "omniverse.skills-index",
+   "kind": "index",
+   "name": "Skills",
+   "universe": null,
+   "parent": "omniverse",
+   "path": "_rules/skills/README.md",
+   "summary": "",
+   "tags": [],
+   "status": null,
+   "refs": [],
+   "links": [],
+   "referencedBy": [
+    "omniverse",
+    "omniverse.guide.submitting-a-dungeon",
+    "omniverse.ruleset.core",
+    "omniverse.ruleset.dnd5e",
+    "omniverse.trope-library"
+   ],
+   "children": [],
+   "data": {},
+   "body": "# Skills for LLMs and agents\n\nEach folder holds a `SKILL.md`: instructions a language model follows for one kind of job in this repository. Claude users can save them as skills; Claude Code and other agents can read them as instructions. `AGENTS.md` at the root points here.\n\n| Skill | Job |\n|---|---|\n| [[omniverse-contribute/SKILL\\|omniverse-contribute]] | Turn a description into valid, linked notes and a pull request |\n| [[omniverse-dungeon/SKILL\\|omniverse-dungeon]] | Write a dungeon: rooms, exits, bestiary, loot, quest, build check |\n| [[omniverse-town/SKILL\\|omniverse-town]] | Write a town: settlement, venues, NPCs, factions, links |\n| [[omniverse-review/SKILL\\|omniverse-review]] | Review a pull request against schema, style, licence and links |\n| [[omniverse-dm/SKILL\\|omniverse-dm]] | Run a campaign in an instance, recommend scenarios, log, propose canon |\n\nFormat: YAML frontmatter with `name` and `description` (the description decides when the skill is used), then the instructions. Keep each one short enough to read before the job and specific enough to do it."
+  },
+  {
    "id": "omniverse.template.dungeon",
    "kind": "template",
    "name": "Dungeon Template",
@@ -2327,6 +2357,7 @@
    "status": null,
    "refs": [],
    "links": [
+    "omniverse.skills-index",
     "omniverse.trope.aloof-elf",
     "omniverse.trope.ancient-evil-released-by-dumb-adventurers",
     "omniverse.trope.ancient-prophecy",
