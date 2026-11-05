@@ -2,11 +2,11 @@
 kind: generated
 generated: sample    # hand-written example; the narrator will produce these
 about: tropelandia.settlement.barrowdale
-as_of: { year: 1489, day: 34, omni_tick: 2210 }
+as_of: { year: 1489, day: 34 }
 ---
 # Previously on Barrowdale
 
-*(Do not edit. Regenerated after every tick.)*
+*(Do not edit. Regenerated whenever the event log changes.)*
 
 Last week's pie contest ended with a tower on the judges' table and two bitter rivals. [[Marlowe the Mildly Menacing]] is three months behind on rent, and [[Mayor Bartholomew Pettigrew]] has noticed. [[Dame Rosalind Quickblade]] is looking for allies, and for a better recipe.
 

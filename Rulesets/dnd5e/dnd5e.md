@@ -15,4 +15,4 @@ provides:
 ---
 # D&D 5e ruleset
 
-Used by Tropelandia. The numbers on the sample people are illustrative and will be validated against the SRD data once it is imported. See section 14 of [[README]].
+Used by Tropelandia. The numbers on the sample people are illustrative and will be validated against the SRD data once it is imported. See section 15 of [[README]].

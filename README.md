@@ -1,20 +1,18 @@
 ---
 title: Omniverse — Design Document
 status: draft
-version: 0.3
+version: 0.4
 updated: 2026-11-04
 owner: Seth
 ---
 
 # Omniverse
 
-**A persistent, git-native tabletop-RPG multiverse. It runs itself, remembers everything, works with any game system, and anyone can merge their own universe into it.**
+**A collaborative, modular tabletop-RPG multiverse in git. Bring a universe, a ruleset, a trope pack or a campaign: plug it in, own it, extend it. Worlds stay still until someone plays them, and what matters gets merged back into canon.**
 
-> Status: **Draft v0.3.** This document describes the intended design. Nothing here is built yet beyond the empty vault. Each decision is tagged **[Decided]**, **[Proposed]** or **[Open]**. Section 21 collects everything still waiting on an answer.
+> Status: **Draft v0.4.** This document describes the intended design. Only a small sample world exists so far. Each decision is tagged **[Decided]**, **[Proposed]** or **[Open]**. Section 22 collects everything still waiting on an answer.
 >
-> **New in v0.2:** the Omniverse is now system-agnostic. Rulesets are plug-ins (section 14), and D&D 5e is one of them, used by Tropelandia.
->
-> **New in v0.3:** the folder layout follows containment (section 7), a province now sits inside a country rather than above it, and a small sample world (one node per layer, down to a person) lives in `Multiverse/Tropelandia/`.
+> **New in v0.4:** the design is organised around collaborative, modular extensibility (section 5). The tick system is gone: worlds are event-sourced and static until events are merged. Playable timelines are *instances*, merged into canon with a *canon merge*. Adding a universe is a *Universe Join* (formerly Convergence). Section 17 covers campaigns and the DM skill.
 
 ---
 
@@ -24,24 +22,25 @@ owner: Seth
 2. Goals and non-goals
 3. Design principles
 4. Glossary
-5. How the repository is organised: lore, state, generated
-6. The layer model
-7. Repository layout
-8. Notes, IDs and schemas
-9. Tropes: the shared library
-10. Time
-11. The simulation: ticks
-12. People, population and promotion
-13. Relationships and the nemesis system
-14. Rulesets: bring your own system
-15. The multiverse: universes, maintainers and merging
-16. Joining the world as a player
-17. Planned universes
-18. Tooling and automation
-19. Scale and performance
-20. Risks
-21. Decisions log
-22. Roadmap
+5. Modules and extension points
+6. How the repository is organised: lore, events, state, generated
+7. The layer model
+8. Repository layout
+9. Notes, IDs and schemas
+10. Tropes: the shared library
+11. Time
+12. Timelines, instances and canon merges
+13. People, population and promotion
+14. Relationships and the nemesis system
+15. Rulesets: bring your own system
+16. The multiverse: universes, maintainers and joining
+17. Playing: instances, campaigns and the DM skill
+18. Planned universes
+19. Tooling and automation
+20. Scale and performance
+21. Risks
+22. Decisions log
+23. Roadmap
 - Appendix A: Example notes
 - Appendix B: Example CODEOWNERS and CI checks
 
@@ -49,89 +48,213 @@ owner: Seth
 
 ## 1. Summary
 
-Omniverse is a shared, living fantasy setting stored as plain Markdown files in a git repository and browsed in Obsidian.
+Omniverse is a shared fantasy setting stored as plain Markdown in a git repository and browsed in Obsidian. It is designed to be built by many people at once.
 
-- It is a **multiverse**: many self-contained universes sit side by side under one set of rules. Anyone can build a universe and merge it in, and they stay its maintainer.
-- It is **persistent**. The world has a full roster of notable people, head counts for everyone else, a built-in event log, and a simulation that runs offline on a schedule. The world keeps changing whether or not anyone is playing, so people who join are joining an ongoing story.
-- It is **built from tropes**. A shared library of fantasy and RPG tropes sits at the top level, and each universe *instantiates* those tropes in its own way. The first universe, **Tropelandia**, plays them for laughs in a Munchkin-style parody where players can do anything: become the tower wizard's apprentice, join the bad guys, or become the chosen one's accountant.
-- It is **granular**. The hierarchy runs from the omniverse itself down to an individual person, and detail increases as you go down.
-- It is **system-agnostic**. Each universe brings its own ruleset: a published system, a home-brew one, or the built-in minimal one. Tropelandia uses D&D 5e, but the Omniverse itself is tied to no game system.
-- It has a **nemesis system** and a web of **typed relationships**, so grudges, rivalries, mentors and families persist and evolve.
-- **Git is the metaphysics.** A branch is an alternate timeline, a commit is history, merging a universe is an in-world event (a *Convergence*), and a merge conflict is a *Reality Rift*.
+- **Collaborative.** Everyone owns something: a universe, a ruleset, a trope pack, a campaign. Contributions arrive as pull requests, and ownership is enforced by path, so people can work in parallel without stepping on each other.
+- **Modular.** A small core defines schemas, module contracts and merge rules. Everything else is a *module* that plugs into published extension points: universes, rulesets, trope packs, generators, DM styles, views and importers (section 5).
+- **Event-sourced and static by default.** The world is a log of events. State is whatever the log adds up to, and nothing changes until new events are merged. There is no background simulation. A universe that wants one can bring it as an optional module.
+- **Played in instances.** To play, you make an *instance*: a divergent timeline that forks from a universe's canon and keeps its own log. What happens there stays there (apocrypha) unless it matters, and then you *canon merge* the chosen events into the universe.
+- **A multiverse.** Many universes sit side by side under one set of rules. Anyone can build a universe and add it (a *Universe Join*), and they stay its maintainer.
+- **Built from tropes.** A shared library of fantasy and RPG tropes sits at the top level, and each universe *instantiates* those tropes in its own way. The first universe, **Tropelandia**, plays them for laughs in a Munchkin-style parody where players can do anything: become the tower wizard's apprentice, join the bad guys, or become the chosen one's accountant.
+- **Granular.** The hierarchy runs from the omniverse itself down to an individual person, and detail increases as you go down.
+- **System-agnostic.** Each universe brings its own ruleset: a published system, a home-brew one, or the built-in minimal one. Tropelandia uses D&D 5e, but the Omniverse itself is tied to no game system.
+- **A nemesis system and typed relationships.** Grudges, rivalries, mentors and families persist, and they change through events.
+- **Git is the metaphysics.** An instance is an alternate timeline, a commit is history, a Universe Join adds a universe to the multiverse, a canon merge writes an instance into canon, and a conflict between them is a *Reality Rift*.
+
+How the pieces fit:
+
+```
+Omniverse                core: schemas, module contracts, merge rules
+├── Modules              rulesets · trope packs · generators · DM styles · views
+└── Multiverse
+    └── Universe         a module: lore + canon timeline (static until merged)
+        └── Instance     a playable timeline: fork point + log + overlay
+```
 
 ## 2. Goals and non-goals
 
 ### Goals
-- A world that is always changing and always consistent, with one continuous existence and one history.
+- **Anyone can extend the world** without asking the core's permission: write a module, publish it, own it, and let others build on it.
+- **Anyone can play and contribute back:** run a campaign in an instance, then merge what matters into canon.
+- **Modules compose.** A universe can mix a ruleset, a trope pack and a calendar from different authors, because they all meet at documented contracts.
+- **One consistent canon.** Each universe has one history, and state can always be rebuilt by replaying its log.
 - Tongue-in-cheek fun in Tropelandia, with room for serious and straight-faced universes elsewhere.
 - As much granularity as possible, down to individual people, without making the world impossible to run.
-- Easy for others to contribute: bring a universe, own it, keep it.
 - Everything readable and editable as plain text, with no hidden database.
-- Deterministic and auditable simulation: any tick can be replayed.
 
 ### Non-goals (for now)
 - A real-time game server or a graphical client. This is a text-and-files world.
-- Full combat simulation, under any ruleset, for every NPC every tick. Offstage events use cheap resolution (section 14).
+- A background simulation on a schedule. Universes may bring one as an optional module; the core has none.
+- Full combat simulation, under any ruleset, for every NPC. Offstage events use cheap resolution (section 15).
+- A plugin runtime that executes contributed code. Modules are data (section 5).
 - Hosting copyrighted book text. The project uses openly licensed rules content and original writing.
 
 ## 3. Design principles
 
-1. **Omniverse is serious; universes bring the personality.** The foundation (rules, schemas, engine) is neutral and consistent. Tone, jokes and flavour belong to individual universes.
-2. **Tropes are classes; universes hold the instances.** A trope describes an archetype. How it plays out (straight, parody, subverted) is decided where it is instantiated.
-3. **One file per thing.** Small files, stable IDs and fewer overlapping edits mean fewer merge conflicts.
-4. **Two writers, never one file.** Humans write *lore*. The simulation writes *state* and *events*. They never edit the same file. This is what lets ticks and contributors coexist in one repository.
-5. **Detail follows interest.** Detail drops as you go up the hierarchy. Simulation depth is spent where something is happening and saved everywhere else.
-6. **Deterministic by default.** The same inputs and the same seed always produce the same tick.
-7. **Hierarchy lives in data, not just in folders.** Each note records its parent explicitly, so the structure can change without breaking.
-8. **Maintainers own their universe.** Whoever merges a universe in keeps authority over it.
-9. **Everything is recorded.** If it happened, it is an event. If it is an event, it has a date, a place and participants.
-10. **Rules are plug-ins.** The Omniverse is tied to no game system. Each universe chooses its own ruleset, and the core simulation depends only on a small, system-neutral contract (section 14).
+1. **Small core, many modules.** The core defines contracts. Everything interesting is a module someone else can write.
+2. **Collaboration by ownership.** Every module, universe and instance has an owner. Contributions are pull requests, and ownership is enforced by path.
+3. **Extend, don't edit.** Modules add kinds, fields, events and hooks. They never change what a core field means. Where behaviour must differ, a module extends another and says what it overrides.
+4. **Data, not code.** Modules are declarative. CI validates them and never executes them.
+5. **Omniverse is serious; universes bring the personality.** The foundation is neutral and consistent. Tone, jokes and flavour belong to individual universes.
+6. **Tropes are classes; universes hold the instances.** A trope describes an archetype. How it plays out (straight, parody, subverted) is decided where it is instantiated.
+7. **The log is the truth.** Events are append-only. State is derived from them, and a universe is static until events are merged.
+8. **Branch to play, merge to matter.** Play happens in instances. Anything unmerged is apocrypha, and canon only changes through a reviewed canon merge.
+9. **One file per thing, with stable IDs.** Small files and namespaced IDs mean fewer overlapping edits and fewer merge conflicts.
+10. **Hierarchy lives in data.** Each note records its parent, so the structure can change without breaking. Folders follow it for people's convenience.
 
 ## 4. Glossary
 
 | Term | Meaning |
 |---|---|
-| **Omniverse** | The root of everything. Owns the rules, engine and trope library. |
+| **Omniverse** | The root of everything. Owns the core: schemas, module contracts and merge rules. |
 | **Multiverse** | The shelf on which universes sit. |
-| **Universe** | A complete, self-contained world with its own calendar, tone, canon and maintainer. The unit that is merged in. |
+| **Module** | A self-contained, versioned, owned folder with a manifest that plugs into a core extension point (section 5). |
+| **Universe** | A complete, self-contained world with its own calendar, tone, ruleset, canon timeline and maintainer. A module, and the unit that is added to the multiverse. |
+| **Universe Join** | A universe being added to the multiverse by pull request. |
+| **Canon timeline** | A universe's accepted event log. Its latest date is the **frontier**. |
+| **Instance** | A playable, divergent timeline of a universe: a fork point plus its own log and overlay. Not to be confused with a *trope instance*. |
+| **Fork point** | The place in canon's timeline where an instance diverges. |
+| **Overlay** | The lore an instance adds or changes (characters, invented NPCs) without touching canon. |
+| **Campaign** | The play record inside an instance: party, adventures, sessions. Usually one per instance. |
+| **Adventure / session / scene** | An arc with a goal; one sitting; one continuous stretch of play. |
+| **Canon / apocrypha** | Merged events are canon. Anything unmerged is apocrypha. |
+| **Canon merge** | Merging an instance's chosen events into a universe's canon, as a pull request. |
+| **Reality Rift** | A conflict that needs a maintainer's ruling, such as a canon merge whose "before" values no longer match canon. |
 | **Layer / kind** | A level of the hierarchy (planet, city, person…), recorded in a note's `kind` field. |
 | **Lore** | Human-written notes: descriptions, histories, intentions. |
-| **State** | Machine-written current facts: where someone is, how many people live somewhere, how angry someone is. |
-| **Event** | An immutable record of something that happened, with an in-world date. |
-| **Tick** | One step of the simulation in a universe. |
+| **Event** | An immutable record of something that happened, with an in-world date and the state changes it caused. |
+| **State** | Current facts derived by replaying events. A cache that can be rebuilt. |
+| **Generator** | An optional module that writes background events on demand. |
 | **Census** | The head count and breakdown of "normals" in a place. |
 | **Notable** | A named person with their own note. |
 | **Promotion** | A normal becoming a notable because something significant happened to them. |
 | **Trope** | A shared archetype in the library. |
-| **Instance** | A specific thing in a universe that realises a trope. |
-| **Convergence** | The event of a universe merging into the multiverse. |
-| **Reality Rift** | A conflict between two canons that a maintainer must resolve. |
-| **Omni tick** | The absolute, universe-independent counter used to order things across universes. |
-| **Ruleset** | The mechanical system a universe uses for its people, monsters, conflicts and progression (D&D 5e, a home-brew system, or the built-in Core ruleset). |
+| **Trope instance** | A specific thing in a universe that realises a trope. |
+| **Ruleset** | The mechanical system a universe uses for its people, monsters, conflicts and progression. |
 | **Omni power** | A shared 0–100 scale that every ruleset maps its entities onto, so events can cross rulesets. |
+| **Omni day** | The absolute, universe-independent day counter used to order things across universes. |
 
-## 5. How the repository is organised: lore, state, generated
+## 5. Modules and extension points
 
-Everything in the repository is one of three kinds of content.
+### 5.1 The idea **[Decided]**
+Omniverse is a small core plus modules. The core defines only the note and event schemas, the module manifest, the extension-point contracts and the merge rules. Everything that makes a world interesting or a game playable is a module that someone else can write, own, publish and combine with others.
+
+Collaboration happens at module boundaries. Each module has an owner, contributions to it are pull requests, and ownership is by path.
+
+### 5.2 Module kinds
+
+| Module kind | What it adds | Lives in | Contract |
+|---|---|---|---|
+| **Universe** | A world: lore, calendar, canon timeline, tone | `Multiverse/<Universe>/` | Note schemas, calendar, clock, ruleset reference (section 16) |
+| **Ruleset** | A game system | `Rulesets/<name>/` or inside a universe | Stat schema, power function, resolution, progression (section 15) |
+| **Trope pack** | Archetypes with beats and hooks | `Tropes/` | Trope schema (section 10) |
+| **Generator** | Optional background events, run on demand | `Generators/<name>/` or inside a universe | Reads state at a date; writes ordinary events with seeds recorded (section 12.8) |
+| **DM style** | How the DM skill runs a universe: tone, pacing, house rules | `<universe>/_dm/` | A style file the DM skill reads (section 17.5) |
+| **Schema extension** | Extra kinds or fields for a universe or ruleset | `<module>/_schemas/` | Namespaced fields; the core ignores what it does not know |
+| **View** | Read-only queries and digests: rosters, timelines, rumour boards | `_rules/views/` or any module | Reads data, writes only `_generated/` |
+| **Importer / exporter** | Brings data in or out (the SRD, other tools) | `_rules/importers/` or any module | Produces ordinary notes |
+| **Instance** | A playable timeline of a universe | `<universe>/Instances/<name>/` | Log format and overlay rules (sections 12 and 17) |
+
+### 5.3 Manifests
+Every module carries a manifest in its frontmatter (`module.md`, or `_universe.md` for a universe):
+
+```yaml
+---
+id: omniverse.ruleset.dnd5e
+kind: ruleset
+name: D&D 5e
+version: 0.1.0
+owner: seth
+licence: CC-BY-4.0 (SRD content)
+requires:
+  omniverse-core: ">=0.4 <0.5"
+extends: null
+provides: [stat_schema, power_function, offstage_resolution, progression]
+---
+```
+
+A module can build on another. This variant keeps everything from `dnd5e` and replaces only its offstage resolution:
+
+```yaml
+---
+id: tropelandia.ruleset.dnd5e-silly
+kind: ruleset
+version: 0.1.0
+owner: seth
+extends: omniverse.ruleset.dnd5e
+overrides: [offstage_resolution]
+---
+```
+
+A new universe declares what it brings and what it needs:
+
+```yaml
+# Multiverse/Starfall/_universe.md (excerpt)
+id: starfall
+kind: universe
+requires:
+  omniverse-core: ">=0.4 <0.5"
+  omniverse.ruleset.core: "*"
+  starfall.tropes.space-opera: "^1.0"
+adds_kinds: [starship, sector]
+```
+
+### 5.4 Composition rules
+- **The core never depends on a specific module.**
+- **A module depends only on core contracts** and on the modules it lists in `requires`.
+- **Extension is additive.** Modules add kinds, fields, events, hooks and tables. They never change what a core field means.
+- **Namespaces.** Fields and IDs a module adds carry its namespace (`dnd5e.*`, `starfall.*`), so independent modules cannot collide.
+- **Versioned contracts.** The core and every module use semantic versions, and CI checks `requires` ranges.
+- **Data, not code.** Modules are schemas, tables, formulas in a restricted expression language, prompts and style files. CI never runs contributed code. A module that truly needs code is proposed as an engine plugin and reviewed by Omniverse maintainers as part of the core.
+
+### 5.5 How people collaborate
+- **Ownership:** each module's owner is listed in its manifest and in `CODEOWNERS`.
+- **Four ways to contribute:**
+  - *Publish:* add a new module by pull request.
+  - *Improve:* send a pull request to a module you do not own; its owner reviews it.
+  - *Fork and extend:* make your own variant with `extends`, without needing anyone's permission.
+  - *Compose:* a universe lists the modules it wants in `requires`.
+- **Review:** the owner reviews changes to their module. Omniverse maintainers review only core and cross-module changes.
+- **Discovery:** each module kind has a generated index listing modules, owners, versions, licences and status.
+- **Licences:** every module declares one, and CI checks the declaration.
+
+### 5.6 Extension points
+These are the places a module can plug in:
+- new **layer kinds**, with parent rules (a `starship` layer, a `sector` layer)
+- new **relationship types** and **event types**, each with a schema and its effect on state
+- **rulesets**, **calendars** and **trope packs**
+- new **hook types** that trope instances can offer
+- **generators** for optional background events
+- **DM styles** and house rules for the DM skill
+- **views** and **digests** that read the log
+- **importers** and **exporters**
+- extra **CI checks**, written as declarative rules
+
+### 5.7 What this buys
+Someone who wants a sci-fi universe does not touch Tropelandia, the core or anyone else's modules. They add a universe, a `starship` layer, a ruleset (or the Core one) and a trope pack, and declare what they need. A different contributor who likes their ruleset can extend it. Nobody had to ask permission, and nothing breaks if one module is removed.
+
+## 6. How the repository is organised: lore, events, state, generated
+
+Everything in the repository is one of four kinds of content.
 
 | Kind | Written by | Examples | Rule |
 |---|---|---|---|
-| **Lore** | Humans (maintainers, players) | A planet's description, a person's backstory, a trope definition | Edited through normal pull requests. |
-| **State** | The simulation | Current location of a person, a city's population breakdown, grudge intensities | Never hand-edited. Each tick rewrites only the state files it needs to. |
-| **Events** | The simulation, plus humans for backfilled history | "The Siege of Barrowdale, 1489" | Append-only. One file per event. Corrections are new events. |
-| **Generated** | Scripts | "Previously on…" digests, rosters, rumour boards | Safe to regenerate at any time. Do not edit. |
+| **Lore** | Humans (maintainers, players) | A planet's description, a person's backstory, a trope definition | Edited through pull requests. |
+| **Events** | Humans, the DM skill (in instances), optional generators | "The Pie Contest Incident, 1489" | Append-only. One file per event. Corrections are new events. **This is the truth.** |
+| **State** | Derived by replaying events | Where someone is, a settlement's head count, grudge intensities | A cache. Never hand-edited, and safe to delete and rebuild from the events. |
+| **Generated** | Scripts and the narrator | "Previously on…" digests, rosters, timelines | Regenerated whenever the log changes. Do not edit. |
 
-Because the simulation touches only state, event and generated paths, and humans touch only lore, ticks and pull requests rarely collide.
+Because state and generated files are derived, there are only two things to write, review and argue about: lore and events.
 
-## 6. The layer model
+## 7. The layer model
 
 Every note has a `kind` and, except for the root, a `parent`. The layers below are the starting set. They are data, so new layers can be added later without restructuring anything.
 
-| # | Layer (`kind`) | What it is | What it owns | Simulated detail |
+| # | Layer (`kind`) | What it is | What it owns | Level of detail |
 |---|---|---|---|---|
 | 1 | `omniverse` | The root | Rules, engine, trope library, merge law | None. Configuration only. |
-| 2 | `multiverse` | The shelf of universes | The universe registry, Convergence history | None. |
-| 3 | `universe` | A complete world | Calendar, tone, canon, maintainer, tick settings | Clock and global events. |
+| 2 | `multiverse` | The shelf of universes | The universe registry, Universe Join history | None. |
+| 3 | `universe` | A complete world | Calendar, tone, ruleset, canon timeline, maintainer | Clock and global events. |
 | 4 | `plane` | A realm or plane (Material, Feywild, Shadowfell…) | Planar rules, time-flow rate | Planar events. |
 | 5 | `galaxy` | A galaxy | A name and a container | Almost none. |
 | 6 | `star_system` | A star and its worlds | Calendar-relevant facts, omens | Light and seasons. |
@@ -157,7 +280,7 @@ Two principles about the table:
 - The levels are guidance, not a straitjacket. A person may belong directly to a region, and a settlement may sit directly under a planet.
 - The "etc" levels you can see here (`plane`, `province`, `district`, `household`) are proposals. If they prove unnecessary they can be dropped without touching anything else.
 
-## 7. Repository layout
+## 8. Repository layout
 
 **[Proposed]** The folder tree follows **containment**. A universe's folder contains its planes, which contain galaxies, then star systems, planets, continents, regions, and so on down to settlements, and each settlement's folder contains its people. Browsing the vault is the same as zooming in on the world.
 
@@ -165,23 +288,24 @@ Two principles about the table:
 Omniverse/                              (git repo root)
 ├── README.md                           this document
 ├── LICENSE                             repository licence
-├── CODEOWNERS                          who owns which universe (section 15)
+├── CODEOWNERS                          who owns which universe (section 16)
 ├── _rules/                             serious, shared, maintained by Omniverse maintainers
 │   ├── schemas/                        frontmatter schemas per kind
 │   ├── templates/                      note and universe templates
-│   ├── engine/                         tick engine, validators, generators
+│   ├── engine/                         event replay, validators, importers
 │   └── conventions.md                  naming, IDs, style
-├── Rulesets/                           the shared ruleset library (section 14)
+├── Rulesets/                           the shared ruleset library (section 15)
 │   ├── Core/                           built-in minimal ruleset
 │   ├── dnd5e/                          D&D 5e ruleset (SRD data, attributed)
 │   └── …
+├── Generators/                         optional event generators (modules)
 ├── Tropes/                             the shared trope library
 │   ├── Wizard in a Tower.md
 │   ├── Dark Lord.md
 │   └── …
 └── Multiverse/
     ├── _registry.md                    list of universes, owners, status
-    ├── _events/                        Convergences and multiverse-level events
+    ├── _events/                        Universe Joins and multiverse-level events
     ├── Tropelandia/                    a universe (owner: Seth)
     │   ├── _universe.md                tone, calendar link, clock, ruleset, maintainers
     │   ├── Calendar.md
@@ -189,8 +313,10 @@ Omniverse/                              (git repo root)
     │   ├── Factions/                   cross-cutting: not part of the space tree
     │   ├── Trope Instances/            cross-cutting
     │   ├── Events/<in-world year>/     cross-cutting: append-only event files
-    │   ├── _state/                     machine-written (census, locations, grudges), flat, keyed by ID
+    │   ├── _state/                     derived cache of current state, rebuildable from Events/
     │   ├── _generated/                 machine-rendered digests (do not edit)
+    │   ├── _timeline.md                generated: frontier, fork points, merged instances
+    │   ├── Instances/                  divergent timelines (overlays), one folder each (section 12)
     │   └── Material Plane/                         plane
     │       ├── Material Plane.md                   folder note (the plane itself)
     │       └── Gleamhaven/                         galaxy
@@ -218,15 +344,15 @@ The conventions that make this work:
 - **People live in their home settlement's folder.** "Home" means where they were born or settled when created. Where someone is right now is state, and travel never moves a file. If someone permanently relocates, a maintainer may move their note, which git records as a rename.
 - **`parent` stays authoritative.** The folder tree and each note's `parent` chain must agree, and CI checks it. Tools read `parent`, and the folders are for people.
 - **Cross-cutting content sits outside the space tree.** Factions, trope instances, events, eras, state and generated files are not places, so they live beside it.
-- **State is flat.** Sim-written files in `_state/` are keyed by ID rather than nested, so a tick writes to one predictable place and never touches the lore tree.
+- **State is a cache.** Files in `_state/` are keyed by ID rather than nested, and they are derived from the event log, so they can be deleted and rebuilt at any time.
 - **Mind the Windows path limit.** A full path to a person can get long. Keep folder names under about 24 characters, enable `core.longpaths` in git, and let CI warn when a path passes about 200 characters. Skipping optional levels also helps.
-- **Everything for a universe lives inside its own folder.** That is what makes ownership by path enforceable (section 15).
+- **Everything for a universe lives inside its own folder.** That is what makes ownership by path enforceable (section 16).
 - **`Events/` is sharded by in-world year** so no folder grows without bound.
 - **The GitHub folder is currently the git repository,** and the Obsidian vault is mirrored into it. Decision P7 covers making the vault itself the repository.
 
-## 8. Notes, IDs and schemas
+## 9. Notes, IDs and schemas
 
-### 8.1 IDs
+### 9.1 IDs
 Every note has a stable, unique `id`:
 
 ```
@@ -240,7 +366,7 @@ tropelandia.person.marlowe-the-mildly-menacing
 - `parent` and every relationship refer to IDs. Obsidian wiki-links are used for human navigation alongside them.
 - Everything a universe owns is namespaced by its universe slug, so two contributors can never collide on an ID.
 
-### 8.2 Common frontmatter
+### 9.2 Common frontmatter
 
 ```yaml
 ---
@@ -257,10 +383,10 @@ tags: []
 ```
 
 - `from` and `to` are in-world dates in the universe's calendar. `to: null` means still existing.
-- Kind-specific fields are layered on top (section 8.3).
+- Kind-specific fields are layered on top (section 9.3).
 - Each `kind` has a schema in `_rules/schemas/`. CI rejects notes that do not validate.
 
-### 8.3 Kind-specific fields (examples)
+### 9.3 Kind-specific fields (examples)
 
 **Settlement (lore):**
 ```yaml
@@ -276,8 +402,7 @@ census:
   total: 412
   strata: { farmers: 210, craftsfolk: 70, merchants: 38, guards: 20, clergy: 9, other: 65 }
   mood: weary
-  growth_per_tick: 0.0004
-last_tick: 2210
+as_of: { year: 1489, day: 34 }
 ```
 
 **Person (lore):** name, species, background, personality, goals, appearance, backstory, and a `stats:` block whose fields come from the universe's ruleset (for D&D 5e: class and level, ability scores, proficiencies).
@@ -286,9 +411,9 @@ last_tick: 2210
 
 **Event:** see Appendix A.
 
-## 9. Tropes: the shared library
+## 10. Tropes: the shared library
 
-### 9.1 What a trope note is
+### 10.1 What a trope note is
 A trope lives in the top-level `Tropes/` folder. It defines an archetype in neutral terms, with no jokes and no setting.
 
 ```yaml
@@ -313,7 +438,7 @@ required_in_instance: [twist, stakes, hooks_offered]
 
 The body of a trope note can list common variations, related tropes, and typical story functions.
 
-### 9.2 What an instance is
+### 10.2 What an instance is
 An instance lives in a universe and says: *here is the trope, in this place, played this way.*
 
 ```yaml
@@ -333,104 +458,156 @@ hooks_offered: [apprentice_to_wizard, deliver_a_package_to_the_tower, help_marlo
 ---
 ```
 
-### 9.3 Why this split
+### 10.3 Why this split
 - **The joke is in the instance.** The same trope can be played straight in one universe, grimdark in another, and absurd in Tropelandia.
-- **Instances carry the required fields** (twist, stakes, hooks offered) so the simulation can read them reliably. The trope defines which fields are required.
+- **Instances carry the required fields** (twist, stakes, hooks offered) so tools and generators can read them reliably. The trope defines which fields are required.
 - **Backlinks are the index.** A trope's backlinks list every instance across the multiverse with no extra bookkeeping.
 - **Tropes generate the world.** When seeding a region, the generator can ask for "a dark lord and a farm boy" and create instances with the tone of the target universe.
 - **Hooks are what players can do.** A hook is a named, reusable prompt for player action ("join the bad guys"). The trope defines the hook; the instance decides whether to offer it and how.
 
-### 9.4 Tropelandia's approach
+### 10.4 Tropelandia's approach
 Tropelandia treats tropes as raw material for caricature, in the spirit of Munchkin. Everything is tongue-in-cheek, no setting takes itself seriously, and players are free to explore: the world should always have a funny, workable answer to whatever a player decides to try.
 
-## 10. Time
+## 11. Time
 
 Time is a cross-cutting layer. Everything in the hierarchy exists in it.
 
-### 10.1 Per-universe clocks **[Decided]**
-Each universe has its own calendar and its own tick rate. The Omniverse keeps only a shared **omni tick**, an absolute counter used to order things across universes.
+### 11.1 Per-universe clocks **[Decided]**
+Each universe has its own calendar. The Omniverse keeps only a shared **omni day**, an absolute day counter used to order things across universes.
 
 ```yaml
 # Multiverse/Tropelandia/_universe.md
 clock:
   calendar: tropelandia.calendar.standard
-  epoch_omni_tick: 0           # omni tick at which this universe's year 1 began
-  ticks_per_world_day: 1
-  world_days_per_real_day: 1   # pacing; set by the maintainer within engine limits
+  epoch_omni_day: 0            # omni day on which this universe's year 1 began
 ```
 
-### 10.2 Calendars
+### 11.2 Calendars
 A calendar note defines month names and lengths, weekday names, year numbering, era names and the leap rules. Forgotten Realms gets its own year-reckoning, Tropelandia can invent something silly, and a sci-fi universe could use stardates.
 
-### 10.3 Eras
+### 11.3 Eras
 Eras are named spans (`Age of Mild Peril`) with a start, an end and a short summary. Events and entities reference an era for context.
 
-### 10.4 Lifespans
+### 11.4 Lifespans
 Every entity carries `from` and `to` dates. That makes questions like "who ruled Cormyr in 1358?" and "what stood here before the war?" into simple queries.
 
-### 10.5 Events are the timeline
-The timeline is the event log. Each event has an in-world date and links to its places and participants. Obsidian can show it chronologically, and the tick engine appends to it.
+### 11.5 Events are the timeline
+The timeline is the event log. Each event has an in-world date and links to its places and participants. Obsidian can show it chronologically. It grows only through merged events (section 12).
 
-### 10.6 Git time versus story time
-Commits record when a change was *made*. Event dates record when something *happened in the story*. Keeping them separate allows backfilling history (for example, writing events from a century ago) without falsifying the commit date. Git tags can snapshot "the world as of tick N", and a branch is an alternate timeline.
+### 11.6 Git time versus story time
+Commits record when a change was *made*. Event dates record when something *happened in the story*. Keeping them separate allows backfilling history (for example, writing events from a century ago) without falsifying the commit date. Git tags can snapshot "the world as of this event", and an instance is an alternate timeline (section 12).
 
-### 10.7 Time differences between places
+### 11.7 Time differences between places
 A plane can have its own time-flow rate. A character who spends a "day" in the Feywild can emerge years later in the Material Plane. This is expressed as a rate on the plane, applied to anyone who crosses.
 
-### 10.8 Reconciling clocks at a Convergence
-When a universe merges in, the Convergence event records the mapping between its calendar and the omni tick. Cross-universe travel and events use that mapping.
+### 11.8 Reconciling clocks at a Universe Join
+When a universe joins, the Universe Join event records the mapping between its calendar and the omni day. Cross-universe travel and events use that mapping.
 
-## 11. The simulation: ticks
+## 12. Timelines, instances and canon merges
 
-### 11.1 The idea
-A tick is one turn of the world. A script advances a universe's clock, decides what happens, writes the results as events and state, and commits them. Ticks run offline on a schedule, so the world keeps moving between sessions.
+### 12.1 Static by default **[Decided]**
+A universe does not change on its own. There is no scheduled simulation. Its canon only moves when events are merged into it, whether they come from its maintainer, from contributors, or from an instance's canon merge. Between merges the world is exactly as its log says.
 
-### 11.2 Determinism
-All randomness is seeded:
+### 12.2 The event log is the truth
+State is derived. The state of anything at any date is the result of replaying the log up to that date. The cached state files in `_state/` are an optimisation and can be rebuilt at any time.
+
+An event carries:
+- an `id`, an in-world date (`when`), a place (`where`) and `participants`
+- a `type` and a `severity`, from 0 (trivial) to 5 (world-changing)
+- `deltas`: the state changes it causes, each with the value before and the value after
+- `visibility`: `public` or `private`
+- `canon`: `local`, `proposed` or `canon`
+- `source` and credit: who or what wrote it (`maintainer`, `instance:<name>`, `generator:<name>`)
+
+```yaml
+deltas:
+  - entity: tropelandia.person.dame-rosalind-quickblade
+    field: relationships.pie-heist.person.tess-underbough
+    from: null
+    to: { type: grudge, strength: 40 }
+```
+
+The "before" value is what makes merging safe. An event applies only if the world is still the way the event assumed it was.
+
+### 12.3 The canon timeline and the frontier
+A universe's canon timeline is the ordered log in its `Events/` folder. The date of its latest event is the **frontier**. A new universe is simply backfilled history up to a chosen frontier.
+
+### 12.4 Instances **[Proposed]**
+An **instance** is a divergent timeline of a universe: a fork point in canon, plus a log and an overlay of its own. It is where a campaign is played. An instance does not copy the world, it stores only its differences. Reading the world inside an instance means canon up to the fork point, then the instance's events, then its overlay on top.
+
+An instance is not a *trope instance*, which is the realisation of a trope in a universe (section 10).
 
 ```
-seed = SHA-256( universe_id + ":" + tick + ":" + stage + ":" + entity_id )
+Multiverse/Tropelandia/
+├── Events/<year>/                 the canon timeline
+├── _timeline.md                   generated: frontier, fork points, merged instances
+└── Instances/
+    └── pie-heist/
+        ├── _instance.md           fork point, status, players, maintainer
+        ├── Campaign.md            the campaign: adventures index
+        ├── log/                   sessions and events in the standard format (section 17)
+        ├── Overlay/               new or changed lore: your characters, invented NPCs
+        └── _state/                derived cache, rebuildable
 ```
 
-Entities are processed in sorted-ID order. Given the same repository state, the same tick always produces the same result. That makes ticks reproducible, reviewable and safe to re-run.
+The rules for an instance:
+- **It writes only inside its own folder.** Canon is never touched.
+- **Its IDs are namespaced with its slug** (`pie-heist.person.tess-underbough`), so they never collide with canon or with other instances.
+- **One campaign per instance by default.** A maintainer may let one instance host several parties, such as a community table.
+- **It can live in a personal fork** (private or public), or upstream under the universe's `Instances/` folder as a public instance that others can join.
 
-### 11.3 The tick pipeline
-Each tick runs these stages in order:
+```yaml
+---
+id: pie-heist
+kind: instance
+name: The Pie Heist
+parent: tropelandia
+universe: tropelandia
+fork_point: { event: tropelandia.event.1489-0034-the-pie-contest-incident, year: 1489, day: 34 }
+status: active
+visibility: private        # private | public
+maintainers: [seth]
+---
+```
 
-1. **Load** the universe's lore and state, and validate them.
-2. **Advance the clock**: day, season, era boundaries, scheduled events.
-3. **Environment**: weather, seasons, omens, disasters.
-4. **Settlements**: census growth, economy, shortages, festivals, rumours.
-5. **Factions**: pursue goals, shift relations, recruit, declare wars, make deals.
-6. **Notables**: each notable picks and resolves an action: travel, work, scheme, court, train, feud.
-7. **Trope beats**: instances check whether a beat is due (the wizard sets a new riddle, the dark lord posts a recruitment notice).
-8. **Conflicts**: resolve fights, duels and sieges with offstage rules (section 14).
-9. **Relationships and nemeses**: update grudges, loyalties and bonds (section 13).
-10. **Promotion and fading**: promote normals who did something remarkable, and let long-quiet notables fade (section 12).
-11. **Write**: append events, rewrite only the state files that changed.
-12. **Validate** the result against the schemas.
-13. **Render** generated digests.
-14. **Commit** the tick as a single commit with a structured message.
+### 12.5 Fork anywhere **[Proposed]**
+Because state is the replay of a log, an instance can fork at any past date, not only at the frontier. A campaign set in 1450 simply replays canon up to 1450. The cost shows up at canon merge: the older the fork, the more later canon the new events must stay compatible with.
 
-### 11.4 Where ticks run **[Proposed]**
-A scheduled GitHub Action runs each universe's tick as an isolated job, so a failure in one universe never blocks another. A universe maintainer can pause their universe, and can choose their tick rate within engine limits. Ticks can also run locally from a scheduled task on a maintainer's computer for testing.
+### 12.6 Canon merge **[Decided]**
+A **canon merge** takes events from an instance and merges them into the universe's canon. It is a pull request titled `Canon merge: <adventure>`.
 
-### 11.5 What a tick may and may not write
-A tick writes only to the universe's `_state/`, `Events/` and `_generated/` paths. It never edits lore. This is the two-writer rule from section 3.
+1. **Choose.** The usual unit is an adventure, and events can be cherry-picked. Only `public` events travel. The DM skill suggests what to merge.
+2. **Build.** The skill copies the chosen events into the universe's `Events/<year>/` with `source: instance:<name>` and credit. It also brings the lore they need: new NPCs, new places, and any characters being retired into the world. It rewrites their IDs from the instance namespace into the universe's.
+3. **Replay in CI.** Events are inserted in world-date order, and every "before" value must match the state at that point in canon. A mismatch is a Reality Rift (section 16.6).
+4. **Review.** The universe maintainer, acting as that universe's DM, approves, edits or rejects.
+5. **Merge.** Canon's frontier moves forward, and the adventure appears on the timeline with its party credited.
+6. **Rebase.** Other instances can replay their logs on the new canon. Events that no longer apply are flagged.
 
-### 11.6 Narration is separate from simulation
-An optional narrator (an LLM) reads events and writes prose: chronicles, tavern gossip, rumour boards, "previously on…" digests. It writes only to `_generated/`. It cannot change state, so the simulation stays deterministic, cheap and auditable. Narration is a feature that can be switched off entirely.
+An event is a candidate for canon merge when it has any of these: severity 3 or higher; a named notable killed, created or changed sides; a ruler or owner changed; a place founded or destroyed; a faction relation flipped; a nemesis created or promoted; a trope instance's beat resolved; or the party crossed universes. The skill suggests, and the player decides.
 
-## 12. People, population and promotion
+### 12.7 Timeline view
+`_timeline.md` is generated from the logs. It shows canon as the trunk, each instance as a branch from its fork point, and merged adventures marked. Instances that never merge remain alternate timelines.
 
-### 12.1 Two kinds of people
+### 12.8 Optional generators
+Some universes will want background activity: seasons, politics, a rival's schemes. That is a module, not part of the core.
+- A **generator** is a declarative module (event tables, rules, or a prompt for the DM skill's `turn` command) that is run on demand.
+- It reads state at a date and writes ordinary events with `source: generator:<name>` and its seed recorded.
+- It runs inside an instance, for example to cover a time skip. Its output is reviewed like any other event.
+- A universe that wants something scheduled can bring that as a module too. The core has no schedule.
+
+### 12.9 Narration
+An optional narrator reads the log and writes prose into `_generated/`: chronicles, tavern gossip, rumour boards and "previously on…" digests. It cannot change the log.
+
+## 13. People, population and promotion
+
+### 13.1 Two kinds of people
 - **Notables** are named people with their own note and state: heroes, villains, rulers, innkeepers with a past. Everyone you can name is a notable.
 - **Normals** are everyone else, tracked as counts in each place's census by stratum (farmers, merchants, guards…).
 
 This keeps the world full without a file for every peasant.
 
-### 12.2 Promotion
-Something remarkable happens to one of the 412: they survive a dragon attack, win a duel, or become the unlikely hero of a festival. The simulation *promotes* them: it removes one from the census count, creates a new person note and state, and logs a Promotion event. From then on the world remembers them.
+### 13.2 Promotion
+Something remarkable happens to one of the 412: they survive a dragon attack, win a duel, or become the unlikely hero of a festival. A promotion removes one from the census count, creates a new person note, and logs a Promotion event. It is written by the DM skill, a generator or a human. From then on the world remembers them.
 
 Promotion triggers are rules, for example:
 - surviving an event above a severity threshold
@@ -438,15 +615,15 @@ Promotion triggers are rules, for example:
 - crossing a deed or reputation threshold
 - being chosen by a trope beat ("the prophecy needs a farm boy")
 
-### 12.3 Fading
+### 13.3 Fading
 Notables who have had no events and no active relationships for a long time can *fade*: they are archived (flagged, not deleted) and may be returned to the census count. Notes are never deleted from history.
 
-### 12.4 Rosters
-Each universe's `_generated/` folder holds rosters: who is notable, where they are, and what they are doing. These are rebuilt after each tick.
+### 13.4 Rosters
+Each universe's `_generated/` folder holds rosters: who is notable, where they are, and what they are doing. These are rebuilt from the log whenever it changes.
 
-## 13. Relationships and the nemesis system
+## 14. Relationships and the nemesis system
 
-### 13.1 Relationships
+### 14.1 Relationships
 Relationships are typed, directional edges between people and factions.
 
 | Family | Types |
@@ -468,7 +645,7 @@ Relationships are typed, directional edges between people and factions.
 
 Stable relationships (family) live in lore. Changing ones live in state. The tooling keeps both ends of an edge consistent.
 
-### 13.2 Grudges and the nemesis system
+### 14.2 Grudges and the nemesis system
 Grudges are records of intensity, cause and history between two parties. Intensity moves with events:
 
 - **Increases** after defeat, humiliation, betrayal or loss.
@@ -477,16 +654,16 @@ Grudges are records of intensity, cause and history between two parties. Intensi
 
 When a notable defeats a player character or another notable, they can be **promoted**: they gain rank, a title, better gear drawn from the fallen foe's inventory, and *memory* of what happened (a line they remember, a scar, a nickname). Next time the pair meet, the record shapes the encounter. Nemeses escape, return stronger, get rivals of their own, and can reconcile or be reconciled by events.
 
-All of this runs in the tick pipeline, so grudges evolve while no one is playing.
+Grudges change through events: a defeat, an insult, a betrayal, a rescue. Nothing changes while no one is playing, unless a universe adds an optional generator for long time skips (section 12).
 
-## 14. Rulesets: bring your own system
+## 15. Rulesets: bring your own system
 
-### 14.1 The principle **[Decided]**
+### 15.1 The principle **[Decided]**
 The Omniverse is not tied to any game system. Every universe declares a **ruleset**: the mechanical system that governs its people, monsters, conflicts and progression. A universe can use a published system, a home-brewed one, or the built-in minimal ruleset. Tropelandia uses D&D 5e; another universe might use something entirely different.
 
-The core simulation (clocks, census, events, relationships, nemeses) never mentions any specific system. It talks to rulesets only through the small contract below.
+The core (clocks, census, events, relationships, nemeses) never mentions any specific system. It talks to rulesets only through the small contract below.
 
-### 14.2 What a ruleset provides
+### 15.2 What a ruleset provides
 A ruleset answers a fixed set of questions for the engine:
 
 | Question | What the ruleset supplies |
@@ -499,13 +676,13 @@ A ruleset answers a fixed set of questions for the engine:
 | What are things called? | A **terminology map** (for example, "level" versus "rank", "hit points" versus "stress"). |
 | How do characters cross over? | An **import mapping** to and from the Omni power scale and, where possible, other rulesets. |
 
-### 14.3 Rulesets are data, not code **[Proposed]**
-Consistent with the safety rule in section 15.5, a ruleset is declarative: schema files, tables, and formulas written in a small, restricted expression language that the engine interprets. CI never executes code from a ruleset.
+### 15.3 Rulesets are data, not code **[Proposed]**
+Consistent with the safety rule in section 16.5, a ruleset is declarative: schema files, tables, and formulas written in a small, restricted expression language that the engine interprets. CI never executes code from a ruleset.
 
 If a system cannot be expressed that way, its author can propose an **engine plugin**. Omniverse maintainers review it as part of the engine, not as universe content.
 
-### 14.4 The Omni power scale **[Proposed]**
-So events can cross rulesets (a traveller from one universe in another, or a Convergence that mixes casts), every ruleset must map its entities onto a shared **Omni power scale**, 0 to 100 and roughly logarithmic.
+### 15.4 The Omni power scale **[Proposed]**
+So events can cross rulesets (a traveller from one universe in another, or a Universe Join that mixes casts), every ruleset must map its entities onto a shared **Omni power scale**, 0 to 100 and roughly logarithmic.
 
 - Inside a universe, offstage resolution uses the universe's own ruleset formula.
 - Across universes, the engine falls back to Omni power with a single seeded roll:
@@ -518,21 +695,21 @@ with `k` tuned in play.
 
 - A character who crosses into a universe with a different ruleset is converted through the destination ruleset's import mapping. Until then, they take part at their Omni power.
 
-### 14.5 The built-in Core ruleset
-For universes that do not want a game system, or have not chosen one yet, the engine ships a minimal ruleset: a few descriptive attributes, a 1 to 10 rank, and a handful of injury states. It is enough for the simulation to run, and a universe can move to a fuller ruleset later.
+### 15.5 The built-in Core ruleset
+For universes that do not want a game system, or have not chosen one yet, the engine ships a minimal ruleset: a few descriptive attributes, a 1 to 10 rank, and a handful of injury states. It is enough for the core to run, and a universe can move to a fuller ruleset later.
 
-### 14.6 Onstage versus offstage
+### 15.6 Onstage versus offstage
 - **Onstage:** when a player is involved, or a scene is flagged as important (a nemesis duel, a siege), the scene is played using the universe's ruleset by its table or DM, and the result is recorded as an event.
-- **Offstage:** the simulation resolves things cheaply using the ruleset's formula and one seeded roll, and writes the outcome as an event.
+- **Offstage:** when something happens away from the table (a generator covering a time skip, or a DM resolving a distant event), it is resolved cheaply using the ruleset's formula and one seeded roll, and the outcome is written as an event.
 
 Either way, the result reaches the core as an ordinary event, whichever system produced it.
 
-### 14.7 Where rulesets live
+### 15.7 Where rulesets live
 - **`Rulesets/`**: the shared library, like `Tropes/`. It holds Core and any ruleset contributed for general use. Omniverse maintainers own it, and each ruleset declares its licence.
 - **`Multiverse/<Universe>/_ruleset/`**: a ruleset local to one universe, for home-brew systems. Its universe maintainer owns it.
 - A universe selects its ruleset with the `ruleset:` field in `_universe.md`.
 
-### 14.8 The D&D 5e ruleset
+### 15.8 The D&D 5e ruleset
 Tropelandia (and later the Forgotten Realms universe) use the `dnd5e` ruleset. The package contains:
 
 - **Stat schema:** ability scores and modifiers, proficiency bonus by level, skills, saves, classes and subclasses, species, backgrounds, hit points, armour class, alignment, level versus challenge rating.
@@ -546,35 +723,35 @@ Tropelandia (and later the Forgotten Realms universe) use the `dnd5e` ruleset. T
 
 **[Open]** Whether `dnd5e` follows the **2014** or **2024** rules. They differ in classes, species, backgrounds and some stat blocks. This is a decision for the ruleset and for Tropelandia, not for the Omniverse. One edition is chosen as the base and the other can be a variant.
 
-### 14.9 Licensing
+### 15.9 Licensing
 Each ruleset declares its source and licence, and CI checks the declaration. Home-brew and original systems are welcome. A published system needs an open licence or the publisher's permission. The Omniverse core itself contains no third-party game-system content.
 
-## 15. The multiverse: universes, maintainers and merging
+## 16. The multiverse: universes, maintainers and joining
 
-### 15.1 The model **[Decided]**
+### 16.1 The model **[Decided]**
 Anyone can **pull-request their world into the multiverse and become the maintainer of their universe.**
 
 | Role | Owns | Can do |
 |---|---|---|
 | **Omniverse maintainers** | `_rules/`, `Tropes/`, `Multiverse/_registry.md`, `Multiverse/_events/`, CI and the engine | Approve new universes, change shared rules, resolve Reality Rifts, archive or remove a universe (for example for safety or IP reasons). |
-| **Universe maintainers** | Everything under `Multiverse/<their universe>/` | Set tone, canon, calendar and ruleset; accept or reject player pull requests; choose tick pace within limits; pause the universe; appoint co-maintainers. |
+| **Universe maintainers** | Everything under `Multiverse/<their universe>/` | Set tone, canon, calendar and ruleset; review canon merges from instances; accept or reject player pull requests; pause or archive the universe; appoint co-maintainers. |
 | **Players / contributors** | Their own contributions | Submit pull requests to a universe, create characters, play. |
 
 A universe maintainer is effectively the DM of their universe.
 
-### 15.2 How a universe joins
+### 16.2 How a universe joins
 1. **Build** the universe from the template in `_rules/templates/universe/`, in a fork. It must include a `_universe.md` (declaring its ruleset), a calendar, a clock and at least one populated place.
-2. **Open a pull request** titled `Convergence: <Universe>`. It may only add files under `Multiverse/<Universe>/` and one line in the registry.
-3. **CI checks** (section 15.5): schema validity, unique IDs, namespacing, calendar and clock present, path scope, no executable content, attribution for third-party material.
+2. **Open a pull request** titled `Universe join: <Universe>`. It may only add files under `Multiverse/<Universe>/` and one line in the registry.
+3. **CI checks** (section 16.5): schema validity, unique IDs, namespacing, calendar and clock present, path scope, no executable content, attribution for third-party material.
 4. **Review** by Omniverse maintainers, covering fit with the shared rules, content standards and IP.
-5. **Merge.** A Convergence event is written to the multiverse event log, the universe is added to the registry, its omni-tick mapping is recorded, and the author is added to `CODEOWNERS` as its maintainer.
+5. **Merge.** A Universe Join event is written to the multiverse event log, the universe is added to the registry, its omni-day mapping is recorded, and the author is added to `CODEOWNERS` as its maintainer.
 
-### 15.3 After joining
+### 16.3 After joining
 - The maintainer's later pull requests that touch **only their own universe path** pass through the CI checks and merge without Omniverse maintainer review.
 - Pull requests touching anything **outside** the universe path (shared rules, tropes, other universes) need Omniverse maintainer approval.
 - Players contribute to a universe by pull request to it, and the universe maintainer reviews and merges, as a DM would.
 
-### 15.4 A note on GitHub permissions
+### 16.4 A note on GitHub permissions
 GitHub does not support per-folder write permissions natively. The design therefore relies on three things together:
 - **Fork-and-pull-request** for all contributors.
 - **`CODEOWNERS`** to route review of each path to its maintainer.
@@ -582,85 +759,155 @@ GitHub does not support per-folder write permissions natively. The design theref
 
 **[Proposed]** Alternatively, a universe can live in its own repository and be pulled into the Omniverse as a submodule or subtree, which gives the maintainer full control of their repo at the cost of more machinery (decision P3).
 
-### 15.5 Security and safety checks
+### 16.5 Security and safety checks
 Since contributors are trusted only within their own folder, CI must treat contributions as **data, never code**:
 - Validation reads files and never executes anything from a universe.
 - Pull requests may not change workflows, `_rules/engine/`, `CODEOWNERS`, or other universes without maintainer approval.
 - Third-party IP (for example Forgotten Realms material) must declare its source and licence.
 
-### 15.6 Reality Rifts
-A **Reality Rift** is a conflict that a path-guard cannot resolve on its own: two universes claim the same trope slot, a shared rule change breaks a universe, or a cross-universe event contradicts canon. Rifts are logged as events and resolved by Omniverse maintainers, who can pick one canon, keep both as variants, or ask for a rewrite. **[Open]** whether this is one person's call or a vote (decision P5).
+### 16.6 Reality Rifts
+A **Reality Rift** is a conflict that a path-guard cannot resolve on its own: a canon merge whose "before" values no longer match canon, two universes claiming the same trope slot, a shared rule change that breaks a universe, or a cross-universe event that contradicts canon. The owner of the affected module rules on it. For a canon merge that is the universe maintainer, and for shared modules it is the Omniverse maintainers. They can pick one version, keep both as variants, or ask for a rewrite. **[Open]** whether this is one person's call or a vote (decision P5).
 
-### 15.7 Ticks and universes
-Each universe ticks in isolation and writes only to its own `_state/`, `Events/` and `_generated/`. Maintainers decide their own tick pace, can pause, and can opt out of narration. A universe whose maintainer has left becomes *dormant* (ticks paused, still readable) until someone adopts it.
+### 16.7 Universes between merges
+A universe is static between merges. Its maintainer decides what gets merged and can pause or archive it. A universe whose maintainer has left becomes *dormant*: it accepts no merges, but it stays readable and can still be played in instances, until someone adopts it.
 
-### 15.8 Other cross-universe events
+### 16.8 Other cross-universe events
 - **Schism:** a universe splitting into two, recorded as a branch event.
-- **Portals / crossovers:** travel between universes uses the clock mapping recorded at Convergence, and requires both maintainers' agreement. Characters moving between universes with different rulesets are converted through the Omni power scale (section 14.4).
+- **Portals / crossovers:** travel between universes uses the clock mapping recorded at the Universe Join, and requires both maintainers' agreement. Characters moving between universes with different rulesets are converted through the Omni power scale (section 15.4).
 
-## 16. Joining the world as a player
+## 17. Playing: instances, campaigns and the DM skill
 
-1. **Pick a universe** (each has its own tone and maintainer).
-2. **Create a character** from the universe's person template, using its ruleset (for D&D 5e: species, class and background), plus a hook from the trope instances on offer.
-3. **Pull request** the character into the universe. The maintainer reviews it.
-4. **Start where the world is.** A generated **"Previously on…"** digest summarises recent events near the character: who's feuding, what's brewing, who's looking for adventurers. The world is already in motion.
-5. **Play.** Onstage scenes are played with a DM or table; the results are recorded as events. Everything else carries on through ticks.
-6. **Be remembered.** The world tracks the character's deeds, grudges and reputation.
+### 17.1 How a player joins **[Proposed]**
+1. **Pick a universe.** Each has its own tone, ruleset and maintainer.
+2. **Create an instance.** Choose a fork point (the frontier by default). The DM skill makes the folder, pins the fork point, and writes a "Previously on…" digest of what is going on near it.
+3. **Create characters** in the instance's overlay, using the universe's ruleset, plus a hook from the trope instances on offer.
+4. **Play.** Sessions run with Claude as DM, or with a human DM and Claude as scribe. Everything is written to the log.
+5. **Canon merge what matters.** When an adventure affects the world, merge it upstream (section 12.6).
+6. **Be remembered.** A merged adventure is credited on the timeline, a retired character can join the world as a notable, and nemeses you created keep their grudges for the next party.
 
-## 17. Planned universes
+### 17.2 Structure
+**Campaign → adventure → session → scene → event.**
+- An **adventure** is an arc with a goal and an ending. It is the usual unit of canon merge.
+- A **session** is one sitting, and each session is one log file.
+- A **scene** is a continuous stretch of play in one place.
+- An **event** is the atom. It uses the same schema as a world event (section 12.2), so merging it into canon is a copy, not a rewrite.
 
-### 17.1 Tropelandia
+### 17.3 The log format
+A session log is Markdown with structured frontmatter and a narrated body. A validator checks the frontmatter, and every ID must resolve.
+
+```yaml
+---
+id: pie-heist.session.01
+kind: session
+parent: pie-heist.campaign
+campaign: pie-heist
+adventure: steal-the-trophy
+session: 1
+real_date: 2026-11-04
+world_date: { year: 1489, day: 36 }
+party: [pie-heist.person.tess-underbough]
+events:
+  - id: pie-heist.event.s01-e01
+    type: recruitment
+    where: tropelandia.settlement.barrowdale
+    participants: [pie-heist.person.tess-underbough, tropelandia.person.marlowe-the-mildly-menacing]
+    severity: 1
+    visibility: public
+    canon: local
+    deltas:
+      - { entity: tropelandia.person.marlowe-the-mildly-menacing, field: apprentices, from: [], to: [pie-heist.person.tess-underbough] }
+rolls:
+  - { seed: 8841, what: Persuasion against the Mayor's suspicion, result: "d20=17 vs DC 15" }
+---
+```
+
+Below the frontmatter come the narration, the hooks left open, and loot and XP.
+
+### 17.4 Visibility and secrets
+Every event is `public` or `private`. DM secrets and knowledge only some players have stay `private`, and private events can never be merged upstream. A campaign can stay entirely private.
+
+### 17.5 The DM skill
+A Claude skill kept in the repo (`_rules/skills/dm/`), so every contributor runs the same one. Universes can add a **DM style** (a module) so Tropelandia plays as parody.
+
+| Command | What it does |
+|---|---|
+| `new` | Create an instance: pick a universe and fork point, build characters under the universe's ruleset, write the first digest. |
+| `play` | Run the table. Load context by zooming through the hierarchy (the scene, then its settlement, notables and relationships) so the whole world is never loaded. Adjudicate with the ruleset, roll with logged seeds, and write each consequential fact as it happens. |
+| `recap` | Summarise the story so far from the log. |
+| `turn` | Run a generator across a time skip, if the universe has one. |
+| `wrap` | Write the session log, validate it, update the cache, and score the world impact. |
+| `propose` | Build a canon merge pull request from an adventure's public events. |
+
+It works in two modes: **DM mode**, where Claude runs the game, and **scribe mode**, where a human DM runs the table and Claude keeps the log.
+
+The skill follows these rules:
+- State comes from the files, never from memory.
+- Anything that matters is written down immediately, including every invented NPC, which gets a proper note and ID.
+- Dice are seeded, and the seed is logged.
+- It never touches canon. Only a canon merge does.
+
+Its extension points are DM styles, house rules and ruleset adapters, all modules.
+
+### 17.6 Legacy and credit
+A canonized adventure appears on the universe's timeline with its party credited. Retired characters can be added to the world as notables that other parties meet. Nemeses created in an instance keep their grudges, rank and memories once merged, and can show up in other campaigns.
+
+## 18. Planned universes
+
+### 18.1 Tropelandia
 - **Owner:** Seth.
 - **Ruleset:** D&D 5e.
 - **Sample content:** a small sample slice lives in `Multiverse/Tropelandia/`, with one node per layer from the plane down to a person, plus a trope instance, a faction, an event, state files and a generated digest. It is illustrative and will change.
 - **Tone:** Munchkin-style parody of fantasy and RPG tropes. Tongue-in-cheek, never po-faced, always open to whatever a player tries.
 - **Contents:** the first trope instances, a handful of settlements, and a starter roster of notables.
 
-### 17.2 Forgotten Realms (Toril)
+### 18.2 Forgotten Realms (Toril)
 - **Idea:** a canon-style universe covering Toril, Faerûn, its regions, cities, factions, deities and famous NPCs.
 - **Approach:** build top-down: skeleton first (planet, continents, regions, a few dozen cities, factions), then around a hundred notables, with census figures *estimated* rather than canonical.
 - **Ruleset:** D&D 5e, shared with Tropelandia.
-- **Time:** the calendar is Dalereckoning. History is backfilled as logged events up to a chosen year, and the simulation starts at a chosen "now". **[Open]** which year (the 5e-era 1490s is the natural choice).
+- **Time:** the calendar is Dalereckoning. History is backfilled as logged events up to a chosen year, which becomes the canon frontier. **[Open]** which year (the 5e-era 1490s is the natural choice).
 - **Sources and IP:** the lore belongs to Wizards of the Coast. Facts and structure can be modelled in original words; book text is not copied. **[Open]** whether this universe stays in a private repository, since a public repository raises IP questions. The community wiki is believed to be under a CC-BY-SA licence, which would need to be verified before it is used as a source.
 - **Trope link:** Forgotten Realms instances of tropes (for example a wise wizard mentor) appear alongside Tropelandia's parodies of the same trope in the trope's backlinks.
 
-### 17.3 Others
+### 18.3 Others
 Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a published campaign world. Each one is a universe with its own maintainer.
 
-## 18. Tooling and automation
+## 19. Tooling and automation
 
 - **Obsidian** is the reader and editor. Bases or Dataview give the tree, roster and timeline views. `workspace.json` is excluded from git because it changes constantly and is per-machine.
 - **Git and GitHub** hold history, pull requests, `CODEOWNERS` and Actions.
-- **Engine** (Python or Node, in `_rules/engine/`): validators, tick runner, importers (ruleset data), generators (digests, rosters).
+- **Engine** (Python or Node, in `_rules/engine/`): validators, event replay, importers (ruleset data), digest and roster generators.
 - **CI** validates schemas, IDs, path scope and licences on every pull request.
-- **Scheduler**: GitHub Actions cron for ticks; optionally a local scheduled task for development.
+- **DM skill** (a Claude skill, in `_rules/skills/dm/`): runs a campaign in an instance and keeps the log (section 17).
 - **Narrator** (optional): an LLM that reads events and writes prose into `_generated/`.
 
-## 19. Scale and performance
+## 20. Scale and performance
 
 - **Files:** with normals as counts, the file count is driven by notables, places and events. A universe with a few thousand notables and a few hundred places is comfortable for Obsidian and git.
 - **Events** are the fastest-growing content. They are sharded by in-world year, and old years can be rolled into yearly summary files (with the raw events kept in history) once they stop changing.
 - **Large folders:** people are already spread across their home settlements' folders. A very large settlement's `People/` folder can be split by district or by first letter once it holds a few hundred notes.
-- **Tick cost:** most entities do nothing most ticks. The engine only loads and rewrites what changed.
+- **Replay cost:** state is cached, and replay starts from the last snapshot rather than from the start of the log.
 - **Windows paths:** keeping folders shallow avoids the 260-character path limit.
 - **Repository size:** state files are small and text-based. If history grows too large, old events can be archived to a separate repository.
 
-## 20. Risks
+## 21. Risks
 
 | Risk | Mitigation |
 |---|---|
-| Ticks and contributors conflict in git. | Two-writer rule; separate paths; each universe ticks in isolation. |
-| The world becomes boring or chaotic. | Tunable event tables, trope beats as story drivers, maintainer control of pace. |
+| Canon merges conflict with canon that has moved on. | Events carry before/after values; CI replays them; conflicts become Rifts for the maintainer; instances can rebase. |
+| A universe feels empty because it is static. | Public instances, optional generators, "Previously on…" digests, and trope hooks that invite play. |
 | Schema drift as the project grows. | Versioned schemas in `_rules/schemas/`, validated in CI. |
 | IP problems (especially Forgotten Realms). | Original wording, openly licensed rules content (such as the SRD), a declared licence for every ruleset and source, private repository for canon-derived universes. |
 | Malicious or broken contributions. | Data-only validation, path guard, protected workflows and engine code. |
 | Tone clashes between universes. | Tone belongs to the universe; the Omniverse stays neutral. |
+| The DM skill contradicts canon or invents things it never records. | State is read from files; every consequential fact is written immediately; validators check IDs and before/after values. |
+| Module sprawl and incompatible modules. | Manifests with versioned contracts, declared dependencies, namespaced fields, and compatibility checks in CI. |
+| Secrets leak from private campaigns. | Per-event `visibility`; only `public` events can be merged upstream. |
 | A game system cannot be expressed as declarative data. | Engine plugins reviewed by Omniverse maintainers; the Core ruleset as a fallback. |
-| Bot and automation permissions. | Least-privilege tokens; tick commits limited to universe paths. |
+| Automation permissions. | Least-privilege tokens; automation limited to validating and replaying data. |
 | Cost of narration. | Optional; limited to `_generated/`; can be disabled per universe. |
 | Maintainer abandonment. | Dormant state, adoption process. |
 
-## 21. Decisions log
+## 22. Decisions log
 
 ### Decided
 | ID | Decision |
@@ -668,10 +915,13 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 | D1 | Omniverse is the serious, top-level foundation; personality lives in universes. |
 | D2 | Tropes are a top-level shared library; universes hold instances of them. |
 | D3 | Tropelandia is one universe in the multiverse, not the whole thing. |
-| D4 | Each universe has its own clock; the Omniverse keeps a shared absolute tick. |
-| D5 | The world is persistent: offline ticks, an event log, rosters of notables, census counts for normals, a nemesis system and typed relationships. |
-| D6 | People pull-request their universes in and remain their maintainers. *(Mechanism in section 15 is proposed.)* |
+| D4 | Each universe has its own clock; the Omniverse keeps a shared absolute day counter (omni day). |
+| D5 | The world is event-sourced: the log is the truth, state is derived, and a universe is static until events are merged. There is no tick system; background activity comes only from optional generators. Rosters, census counts, the nemesis system and typed relationships all work through events. |
+| D6 | People pull-request their universes in and remain their maintainers. *(Mechanism in section 16 is proposed.)* |
 | D7 | The Omniverse is system-agnostic: each universe brings its own ruleset. D&D 5e is one ruleset, used by Tropelandia. |
+| D8 | Playable timelines are *instances* that fork from a universe's canon. A *canon merge* brings chosen instance events into canon. |
+| D9 | Naming: *Universe Join* (a universe is added to the multiverse) and *Canon Merge* (instance events enter canon). Convergence is retired. |
+| D10 | Collaborative, modular extensibility is the organising principle: a small core plus owned, versioned modules (section 5). |
 
 ### Proposed (will proceed unless changed)
 | ID | Proposal |
@@ -682,29 +932,32 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 | P7 | The vault itself becomes the git repository, replacing the two-copy setup. |
 | P11 | Rulesets are declarative data (schemas, tables, a restricted expression language), not code. |
 | P12 | Every ruleset maps onto a shared Omni power scale so crossovers work. |
+| P13 | One campaign per instance by default; instances are overlay folders; an instance can fork at any past date; public instances may live upstream or in forks. |
+| P14 | Modules carry manifests with versioned contracts, declared dependencies and namespaced fields. |
 
 ### Open (need an answer)
 | ID | Question | Options |
 |---|---|---|
 | P1 | D&D 5e edition for the `dnd5e` ruleset (Tropelandia) | 2014 or 2024 |
-| P4 | Default tick cadence | e.g. one world-day per real day, or faster |
 | P5 | Who decides Reality Rifts | Single decision-maker or a vote |
 | P8 | Are `_generated/` files committed? | Committed to the repo, on a separate branch, or built in CI only |
 | P9 | Forgotten Realms: which year, and public or private repo | e.g. 1490s DR; private recommended |
 | P10 | Final file name and location of this document | `README.md` at the root (current) or a different name |
+| P15 | Naming clash: *instance* (a playable timeline) versus *trope instance* | Keep both with the prefix, or rename trope instances (for example to "bindings" or "realisations") |
 
-## 22. Roadmap
+## 23. Roadmap
 
 | Milestone | Delivers | Done when |
 |---|---|---|
 | **M0 — Skeleton** | Folder layout, `.gitignore`, git initialised, this document | The repo exists and opens cleanly in Obsidian. |
-| **M1 — Schemas and templates** | Frontmatter schemas, note templates for each kind, conventions | A new note from a template validates. |
+| **M1 — Core contracts and module manifests** | Frontmatter schemas, note templates, the module manifest format, conventions | A new note and a new module manifest both validate. |
 | **M2 — Tropelandia seed** | Universe note, calendar, a few places and notables, a starter set of tropes and instances | The world can be browsed top to bottom. |
-| **M3 — Tick engine MVP** | Clock, census growth, event writing, validation, determinism | A tick runs, commits cleanly and replays identically. |
+| **M3 — Event log and replay** | Event schema with before/after values, validator, state replay | State rebuilt from the log matches the cached state. |
 | **M4 — Rulesets** | Ruleset contract, Core ruleset, `dnd5e` ruleset (SRD import, stat blocks), offstage resolution | Two notables can fight offstage under `dnd5e` and the outcome is logged, and a Core-ruleset universe also runs. |
-| **M5 — Relationships and nemeses** | Edge types, grudge ladder, promotion of normals and victors | A grudge visibly escalates over several ticks. |
-| **M6 — Contribution flow** | `CODEOWNERS`, path guard, CI checks, universe template, "Previously on…" digest | A test universe can be merged in by pull request and run by its maintainer. |
-| **M7 — Forgotten Realms** | Skeleton universe with backfilled history | Toril browsable to settlement level with a starter cast. |
+| **M5 — Relationships and nemeses** | Edge types, grudge ladder, promotion of normals and victors | A grudge visibly escalates over several logged events. |
+| **M6 — Collaboration flow** | `CODEOWNERS`, path guard, CI checks, universe template, Universe Join and Canon Merge | A test universe joins by pull request, and an instance's events canon-merge into it. |
+| **M7 — DM skill** | Session log format, instance templates, the `new`, `play`, `wrap` and `propose` commands, scribe mode | A short campaign is played in an instance and its log passes validation. |
+| **M8 — Forgotten Realms** | Skeleton universe with backfilled history | Toril browsable to settlement level with a starter cast. |
 
 ---
 
@@ -716,16 +969,25 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 id: tropelandia.event.1489-0034-the-pie-contest-incident
 kind: event
 name: The Pie Contest Incident
-when: { year: 1489, day: 34, omni_tick: 2210 }
+when: { year: 1489, day: 34, omni_day: 2210 }
 where: tropelandia.settlement.barrowdale
 participants:
   - tropelandia.person.marlowe-the-mildly-menacing
   - tropelandia.person.dame-rosalind-quickblade
 type: social_conflict
 severity: 2            # 0 trivial … 5 world-changing
-outcomes:
-  - relationship: { type: rival, between: [marlowe, rosalind], strength_delta: +30 }
-  - census: { settlement: barrowdale, mood: amused }
+visibility: public
+canon: canon
+source: maintainer
+deltas:
+  - entity: tropelandia.person.marlowe-the-mildly-menacing
+    field: relationships.tropelandia.person.dame-rosalind-quickblade
+    from: null
+    to: { type: rival, strength: 62 }
+  - entity: tropelandia.population.barrowdale
+    field: census.mood
+    from: weary
+    to: amused
 tropes_involved: [omniverse.trope.rival-adventurers]
 ---
 Marlowe's entry, "Pie of Mild Menace", beat Dame Rosalind's three-time-champion
@@ -759,7 +1021,7 @@ conditions: []
 grudges:
   - { target: tropelandia.person.dame-rosalind-quickblade, intensity: 62, kind: rivalry }
 active_goals: [win_the_pie_contest]
-last_tick: 2210
+as_of: { year: 1489, day: 34 }
 ```
 
 ### A.4 Universe note
@@ -775,9 +1037,7 @@ maintainers: [seth]
 status: active            # active | paused | dormant | archived
 clock:
   calendar: tropelandia.calendar.standard
-  epoch_omni_tick: 0
-  ticks_per_world_day: 1
-  world_days_per_real_day: 1
+  epoch_omni_day: 0
 ---
 ```
 
@@ -789,6 +1049,7 @@ clock:
 /_rules/                    @omniverse-maintainers
 /Tropes/                    @omniverse-maintainers
 /Rulesets/                  @omniverse-maintainers
+/Generators/                @omniverse-maintainers
 /Multiverse/_registry.md    @omniverse-maintainers
 /Multiverse/_events/        @omniverse-maintainers
 /.github/                   @omniverse-maintainers
@@ -807,4 +1068,5 @@ clock:
 6. **No executable content**: nothing in a universe is ever run by CI.
 7. **Attribution and licence** declared for third-party material.
 8. **Link integrity**: every `parent` and relationship target exists.
-9. **Determinism check** (for engine changes): replaying a reference tick gives the same output.
+9. **Replay check**: replaying the event log reproduces the cached state.
+10. **Module manifests** are valid and their declared dependencies are satisfied.

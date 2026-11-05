@@ -12,4 +12,4 @@ relationships:
 grudges:
   - { target: tropelandia.person.dame-rosalind-quickblade, intensity: 62, kind: rivalry }
 active_goals: [win the pie contest]
-last_tick: 2210
+as_of: { year: 1489, day: 34 }

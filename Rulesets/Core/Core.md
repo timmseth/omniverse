@@ -14,4 +14,4 @@ provides:
 ---
 # Core ruleset
 
-The minimal built-in ruleset, for universes that do not want a game system yet. See section 14 of [[README]]. Stub: schema and formulas still to be written.
+The minimal built-in ruleset, for universes that do not want a game system yet. See section 15 of [[README]]. Stub: schema and formulas still to be written.

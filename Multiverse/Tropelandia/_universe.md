@@ -9,9 +9,7 @@ maintainers: [seth]
 status: active            # active | paused | dormant | archived
 clock:
   calendar: tropelandia.calendar.standard
-  epoch_omni_tick: 0
-  ticks_per_world_day: 1
-  world_days_per_real_day: 1
+  epoch_omni_day: 0
 from: primordial
 to: null
 ---

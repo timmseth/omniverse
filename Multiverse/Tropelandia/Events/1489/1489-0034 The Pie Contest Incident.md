@@ -4,7 +4,7 @@ kind: event
 name: The Pie Contest Incident
 parent: tropelandia
 universe: tropelandia
-when: { year: 1489, day: 34, omni_tick: 2210 }
+when: { year: 1489, day: 34, omni_day: 2210 }
 where: tropelandia.settlement.barrowdale
 participants:
   - tropelandia.person.marlowe-the-mildly-menacing
@@ -12,9 +12,18 @@ participants:
   - tropelandia.person.mayor-bartholomew-pettigrew
 type: social_conflict
 severity: 2            # 0 trivial ... 5 world-changing
-outcomes:
-  - relationship: { type: rival, between: [marlowe, rosalind], strength_delta: +30 }
-  - census: { settlement: barrowdale, mood: amused }
+visibility: public
+canon: canon
+source: maintainer
+deltas:
+  - entity: tropelandia.person.marlowe-the-mildly-menacing
+    field: relationships.tropelandia.person.dame-rosalind-quickblade
+    from: null
+    to: { type: rival, strength: 62 }
+  - entity: tropelandia.population.barrowdale
+    field: census.mood
+    from: weary
+    to: amused
 tropes_involved: [omniverse.trope.rival-adventurers]
 ---
 # The Pie Contest Incident
