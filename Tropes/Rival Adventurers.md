@@ -2,6 +2,7 @@
 id: omniverse.trope.rival-adventurers
 parent: omniverse
 kind: trope
+category: character
 name: Rival Adventurers
 roles: [foil, recurring_antagonist, reluctant_ally]
 beats:

@@ -2,6 +2,7 @@
 id: omniverse.trope.wizard-in-a-tower
 parent: omniverse
 kind: trope
+category: character
 name: Wizard in a Tower
 aliases: [Reclusive Archmage]
 roles: [mentor, quest_giver, antagonist, hermit]
