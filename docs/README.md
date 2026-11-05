@@ -1,6 +1,6 @@
 # Omniverse documentation
 
-Start here. The design document is the repository [README](../README.md); these pages are the practical guides.
+Start here. The design document is the repository [README](../README.md); these pages are the practical guides. The whole vault is also browsable as a site at https://timmseth.github.io/omniverse/.
 
 ## Getting started
 - [For Players](getting-started/For%20Players.md): join a campaign in twenty minutes.
