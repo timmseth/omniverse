@@ -6,16 +6,35 @@ parent: tropelandia.settlement.barrowdale
 universe: tropelandia
 species: half-elf
 ruleset: omniverse.ruleset.dnd5e
-stats:                   # sample values, to be validated against the SRD import
-  class: { name: fighter, level: 8, subclass: champion }
-  abilities: { str: 18, dex: 12, con: 16, int: 10, wis: 12, cha: 13 }
+stats:
+  class:
+    name: fighter
+    level: 8
+    subclass: champion
+  abilities:
+    str: 18
+    dex: 12
+    con: 16
+    int: 10
+    wis: 12
+    cha: 13
   proficiency_bonus: 3
   hp: 76
   ac: 18
-tropes: [omniverse.trope.rival-adventurers]
-goals: [win the pie contest for the fourth time, be taken seriously as a baker]
-from: { year: 1455, era: tropelandia.era.age-of-mild-peril }
+tropes:
+- omniverse.trope.rival-adventurers
+goals:
+- win the pie contest for the fourth time
+- be taken seriously as a baker
+from:
+  year: 1455
+  era: tropelandia.era.age-of-mild-peril
 to: null
+role: Licensed adventurer and fencing master
+faction: tropelandia.faction.adventurers-licensing-board
+location: tropelandia.venue.quickblades-fencing-school
+voice: Crisp, competitive, grades everyone's footwork aloud.
+secret: She lost the pie contest on purpose. She needed Marlowe's tower on that table for a reason she has not told anyone.
 ---
 # Dame Rosalind Quickblade
 

@@ -41,6 +41,9 @@ wandering:
   - '4: A forger offers a good price on ''certificates'''
   - '5: The lights flicker; someone has pawned the generator'
   - '6: A cat that is probably a spy watches from a ledge'
+home_town: tropelandia.settlement.greyharbour
+factions:
+- tropelandia.faction.honourable-society-of-independent-acquisitionists
 ---
 # The Guildhall Below
 

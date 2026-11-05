@@ -1,0 +1,18 @@
+kind: venue
+title: Venue
+summary: A tavern, shop, temple, guildhall or other place inside a settlement that a party can walk into.
+module: core
+folder: Multiverse/<Universe>/<Place path>/<Name>/Venues/<Name>.md
+id: <universe>.venue.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [settlement, district], required: true }
+  venue_type: { type: enum, values: [tavern, inn, shop, smith, temple, shrine, guildhall, market, library, jail, manor, hall, stable, dock, academy, other], required: true }
+  keeper: { type: ref, kinds: [person], doc: "Who runs it." }
+  faction: { type: ref, kinds: [faction], doc: "Who owns or controls it, if not the keeper." }
+  services: { type: list, of: string, doc: "What you can buy or do here, with prices if they matter." }
+  stock: { type: list, of: { type: ref, kinds: [item] }, doc: "Notable items for sale." }
+  rumours: { type: list, of: string }
+  hooks: { type: list, of: string }
+  read_aloud: { type: text, doc: "What the party sees when they walk in." }
+  dm_notes: { type: text }

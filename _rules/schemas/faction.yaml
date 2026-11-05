@@ -1,0 +1,24 @@
+kind: faction
+title: Faction
+summary: "An organisation with goals, assets and rivals: guild, cult, court, company, gang, order."
+module: core
+folder: Multiverse/<Universe>/Factions/<Name>.md
+id: <universe>.faction.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  faction_type: { type: enum, values: [guild, cult, government, noble_house, company, gang, order, church, academy, union, militia, tribe, other] }
+  reach: { type: enum, values: [local, regional, national, planar, cosmic] }
+  base: { type: ref, kinds: [settlement, district, venue, dungeon, region], doc: "Where it operates from." }
+  leader: { type: ref, kinds: [person] }
+  members: { type: list, of: { type: ref, kinds: [person] } }
+  goals: { type: list, of: string, required: true }
+  methods: { type: list, of: string, doc: "How it goes about its goals." }
+  assets: { type: list, of: string, doc: "What it controls: places, money, secrets, armies." }
+  allies: { type: list, of: { type: ref, kinds: [faction] } }
+  rivals: { type: list, of: { type: ref, kinds: [faction] } }
+  dungeons: { type: list, of: { type: ref, kinds: [dungeon] }, doc: "Sites it built, holds, wants or fears." }
+  reputation: { type: string, doc: "What ordinary people think of it." }
+  secret: { type: text, doc: "What it does not want known." }
+  hooks: { type: list, of: string }
+  tropes: { type: list, of: { type: ref, kinds: [trope, trope_instance] } }

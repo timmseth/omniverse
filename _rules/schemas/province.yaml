@@ -1,0 +1,12 @@
+kind: province
+title: Province
+summary: A subdivision of a country.
+module: core
+folder: Multiverse/<Universe>/<Place path>/<Name>/<Name>.md
+id: <universe>.province.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [country], required: true }
+  ruler: { type: ref, kinds: [person, faction] }
+  capital: { type: ref, kinds: [settlement] }
+  seat: { type: ref, kinds: [settlement], doc: Where the ruler sits. }

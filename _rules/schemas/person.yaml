@@ -1,0 +1,46 @@
+kind: person
+title: Person
+summary: A named character, player or non-player. NPCs live under the settlement they belong to; instance characters live under their instance.
+module: core
+folder:
+  - Multiverse/<Universe>/<Place path>/<Name>/People/<Name>.md
+  - Multiverse/<Universe>/Factions/<Name>/People/<Name>.md
+  - Multiverse/<Universe>/Instances/<Name>/Overlay/<Name>.md
+  - Multiverse/<Universe>/Instances/<Name>/Pregens/<Name>.md
+  - Multiverse/<Universe>/Dungeons/<Dungeon>/People/<Name>.md
+id:
+  - <universe>.person.<slug>
+  - <instance>.person.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [settlement, district, household, faction, dungeon, region, campaign, universe], required: true }
+  species: { type: string }
+  role: { type: string, doc: "Their job or place in the story, e.g. innkeeper, cult leader, rival." }
+  faction: { type: ref, kinds: [faction], doc: "Primary allegiance." }
+  household: { type: ref, kinds: [household] }
+  instance: { type: ref, kinds: [instance], doc: Set for characters that exist only in one instance. }
+  sheet: { type: any, doc: Character sheet for player characters, in the ruleset's shape. }
+  location: { type: ref, doc: "Where they usually are (venue, settlement, dungeon room)." }
+  ruleset: { type: ref, kinds: [ruleset] }
+  stats: { type: any, doc: "Stat block in the ruleset's own shape." }
+  stat_block: { type: ref, kinds: [monster], doc: "Use a bestiary entry instead of inline stats." }
+  appearance: { type: text }
+  voice: { type: text, doc: "How to play them at the table, in a line or two." }
+  wants: { type: list, of: string }
+  fears: { type: list, of: string }
+  secret: { type: text, doc: "Something the party can discover." }
+  goals: { type: list, of: string }
+  relationships:
+    type: list
+    of:
+      type: map
+      fields:
+        type: { type: string, required: true, doc: "member_of, rival, debtor, patron, lover, sibling, ..." }
+        with: { type: ref, required: true }
+        note: { type: string }
+        strength: { type: int }
+  tropes: { type: list, of: { type: ref, kinds: [trope, trope_instance] } }
+  instance_roles: { type: list, of: { type: ref, kinds: [trope_instance] } }
+  player_character: { type: bool, doc: "True for a party member." }
+  pregen: { type: bool, doc: "True for a ready-made character handed to a player." }
+  player: { type: string, doc: "Who plays them." }

@@ -1,0 +1,11 @@
+kind: region
+title: Region
+summary: "A natural region: a marsh, a range, a forest, a desert."
+module: core
+folder: Multiverse/<Universe>/<Place path>/<Name>/<Name>.md
+id: <universe>.region.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [continent, planet], required: true }
+  biome: { type: string }
+  hazards: { type: list, of: string, doc: "What the land itself does to travellers." }

@@ -1,0 +1,23 @@
+kind: calendar
+title: Calendar
+summary: How a universe counts days.
+module: core
+folder: Multiverse/<Universe>/Calendar.md
+id: <universe>.calendar.<slug>
+mixins: [base, in_universe]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  year_length_days: { type: int, required: true }
+  months:
+    type: list
+    required: true
+    of:
+      type: map
+      fields:
+        name: { type: string, required: true }
+        days: { type: int, required: true }
+        season: { type: string }
+  weekdays: { type: list, of: string }
+  year_zero: { type: string, doc: "What year 1 counts from." }
+  holidays: { type: list, of: { type: ref, kinds: [holiday] } }
+  moons: { type: list, of: { type: map, fields: { name: { type: string, required: true }, cycle_days: { type: int, required: true } } } }

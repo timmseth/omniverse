@@ -1,0 +1,11 @@
+kind: template
+title: Template
+summary: A copy-and-fill template. Its fields are placeholders and are not validated.
+module: core
+folder: <any>
+id: <any>
+fields:
+  id: { type: id }
+  kind: { type: const, value: template }
+  name: { type: string }
+  parent: { type: ref }

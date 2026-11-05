@@ -1,0 +1,28 @@
+kind: dungeon
+title: Dungeon
+summary: An adventure site made of rooms. Anyone can submit one by pull request; the build tool indexes it for the DM screen app.
+module: core
+folder: Multiverse/<Universe>/Dungeons/<Name>/<Name>.md
+id: <universe>.dungeon.<slug>
+mixins: [base, in_universe]
+fields:
+  parent: { type: ref, kinds: [settlement, district, region, province, country, venue, plane], required: true, doc: "The place that contains it." }
+  code: { type: string, pattern: '^[A-Z]{3,4}$', required: true, doc: "Short unique code, used in room codes and app routes." }
+  ruleset: { type: ref, kinds: [ruleset], required: true }
+  level_range: { type: list, of: int, length: 2, required: true }
+  tone: { type: string, required: true }
+  entry: { type: ref, kinds: [room], required: true, doc: "The room the party enters through." }
+  home_town: { type: ref, kinds: [settlement], doc: "Where a party stages from." }
+  factions: { type: list, of: { type: ref, kinds: [faction] }, doc: "Who built it, holds it, or wants what is in it." }
+  tropes_involved: { type: list, of: { type: ref, kinds: [trope] } }
+  summary: { type: text, required: true }
+  hooks: { type: list, of: string, required: true }
+  rumours: { type: list, of: string }
+  wandering:
+    type: map
+    fields:
+      die: { type: dice, required: true }
+      entries: { type: list, of: string, required: true }
+  author: { type: string, required: true }
+  status: { type: enum, values: [sample, draft, playtested, canon], required: true }
+  quests: { type: list, of: { type: ref, kinds: [quest] } }

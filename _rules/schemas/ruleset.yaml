@@ -1,0 +1,28 @@
+kind: ruleset
+title: Ruleset (module manifest)
+summary: "A game system: stat schema, power function, resolution, progression."
+module: core
+folder:
+  - Rulesets/<Name>/<Name>.md
+  - Multiverse/<Universe>/Rulesets/<Name>/<Name>.md
+id:
+  - omniverse.ruleset.<slug>
+  - <universe>.ruleset.<slug>
+mixins: [base, manifest]
+fields:
+  parent: { type: ref, kinds: [omniverse, universe], required: true }
+  status: { type: enum, values: [stub, draft, usable, stable], required: true }
+  source: { type: string }
+  edition: { type: string }
+  provides:
+    type: map
+    required: true
+    open: true
+    fields:
+      stat_schema: { type: any, required: true }
+      power_function: { type: any, required: true }
+      offstage_resolution: { type: any, required: true }
+      progression: { type: any, required: true }
+      injuries: { type: any }
+  stat_mapping: { type: map, open: true, doc: "How this ruleset's stats map to Omni power and to other rulesets." }
+  dice: { type: string, doc: "Core dice mechanic in a line." }

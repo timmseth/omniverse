@@ -1,0 +1,11 @@
+kind: planet
+title: Planet
+summary: A world.
+module: core
+folder: Multiverse/<Universe>/<Place path>/<Name>/<Name>.md
+id: <universe>.planet.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [star_system], required: true }
+  climate: { type: string }
+  magic_level: { type: string }

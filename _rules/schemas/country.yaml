@@ -1,0 +1,14 @@
+kind: country
+title: Country
+summary: "A polity: kingdom, duchy, republic, empire."
+module: core
+folder: Multiverse/<Universe>/<Place path>/<Name>/<Name>.md
+id: <universe>.country.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [region, continent], required: true }
+  ruler: { type: ref, kinds: [person, faction] }
+  capital: { type: ref, kinds: [settlement] }
+  government: { type: string }
+  currency: { type: string }
+  seat: { type: ref, kinds: [settlement], doc: Where the ruler sits. }

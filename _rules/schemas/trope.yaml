@@ -1,0 +1,17 @@
+kind: trope
+title: Trope
+summary: A reusable story pattern with beats and hooks. Shared by every universe.
+module: core
+folder: Tropes/<Name>.md
+id: omniverse.trope.<slug>
+mixins: [base]
+fields:
+  parent: { type: ref, kinds: [omniverse], required: true }
+  category: { type: enum, values: [character, place, plot, item, monster, encounter, structure, party, meta, setting], required: true }
+  roles: { type: list, of: string }
+  beats: { type: list, of: string, required: true }
+  hooks: { type: list, of: string, required: true }
+  required_in_instance: { type: list, of: string }
+  subverts: { type: list, of: { type: ref, kinds: [trope] } }
+  related: { type: list, of: { type: ref, kinds: [trope] } }
+  examples: { type: list, of: string }

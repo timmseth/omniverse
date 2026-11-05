@@ -32,4 +32,4 @@ A powerful spellcaster lives alone in a tall tower, surrounded by books, experim
 - Dark Lord
 
 ## Instances
-Backlinks to this note list every instance across the multiverse, for example [[Marlowe's Tower]].
+Backlinks to this note list every instance across the multiverse, for example [[Marlowe's Rented Tower]].

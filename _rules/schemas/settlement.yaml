@@ -1,0 +1,22 @@
+kind: settlement
+title: Settlement
+summary: A city, town, village or outpost. The hub a party starts from.
+module: core
+folder: Multiverse/<Universe>/<Place path>/<Name>/<Name>.md
+id: <universe>.settlement.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [province, country, region], required: true }
+  size_class: { type: enum, values: [outpost, hamlet, village, town, city, metropolis], required: true }
+  population: { type: int }
+  ruler: { type: ref, kinds: [person, faction] }
+  districts: { type: list, of: { type: ref, kinds: [district] } }
+  venues: { type: list, of: { type: ref, kinds: [venue] }, doc: "Taverns, shops, temples; see venue." }
+  factions: { type: list, of: { type: ref, kinds: [faction] }, doc: "Factions with a presence here." }
+  notable_people: { type: list, of: { type: ref, kinds: [person] } }
+  nearest_dungeons: { type: list, of: { type: ref, kinds: [dungeon] } }
+  tropes: { type: list, of: { type: ref, kinds: [trope_instance] } }
+  rumours: { type: list, of: string, doc: "What people here are saying." }
+  hooks: { type: list, of: string, doc: "Reasons for a party to get involved." }
+  trade: { type: list, of: string, doc: "What it makes, sells or is known for." }
+  law: { type: string, doc: "How justice works here, in a line." }

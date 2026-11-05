@@ -10,3 +10,6 @@ to: null
 # Glittering Sands
 
 A desert in the south where the dunes shine with gold dust and the wind brings rumours of dragons. Caravans cross it quickly and carefully, and with receipts.
+
+## Settlements
+- [[Last Receipt]]

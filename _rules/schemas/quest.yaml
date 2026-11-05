@@ -1,0 +1,34 @@
+kind: quest
+title: Quest
+summary: A chain of stages threading towns, factions and dungeons, with outcomes that can become canon events.
+module: core
+folder: Multiverse/<Universe>/Quests/<Name>.md
+id: <universe>.quest.<slug>
+mixins: [base, in_universe]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  giver: { type: ref, kinds: [person, faction, venue] }
+  start: { type: ref, kinds: [settlement, venue, dungeon], doc: "Where it begins." }
+  level_range: { type: list, of: int, length: 2, required: true }
+  premise: { type: text, required: true }
+  hooks: { type: list, of: string, required: true }
+  stages:
+    type: list
+    required: true
+    of:
+      type: map
+      fields:
+        name: { type: string, required: true }
+        goal: { type: text, required: true }
+        where: { type: ref }
+        dungeon: { type: ref, kinds: [dungeon] }
+        complications: { type: list, of: string }
+        clue: { type: string, doc: "What points to the next stage." }
+  rewards: { type: list, of: { type: any }, doc: "Strings or item ids." }
+  on_success: { type: text, required: true, doc: "What changes in the world." }
+  on_failure: { type: text, required: true }
+  factions: { type: list, of: { type: ref, kinds: [faction] } }
+  dungeons: { type: list, of: { type: ref, kinds: [dungeon] } }
+  tropes_involved: { type: list, of: { type: ref, kinds: [trope] } }
+  status: { type: enum, values: [sample, draft, playtested, canon], required: true }
+  author: { type: string, required: true }

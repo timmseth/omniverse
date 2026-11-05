@@ -1,0 +1,11 @@
+kind: star_system
+title: Star system
+summary: A star and what orbits it.
+module: core
+folder: Multiverse/<Universe>/<Place path>/<Name>/<Name>.md
+id: <universe>.star_system.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [galaxy], required: true }
+  star: { type: map, fields: { name: { type: string, required: true }, type: { type: string } } }
+

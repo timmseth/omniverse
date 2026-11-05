@@ -1,0 +1,11 @@
+kind: index
+title: Index
+summary: A hand-written index note (a folder note or library front page).
+module: core
+folder: <any>
+id: <any>
+fields:
+  id: { type: id }
+  kind: { type: const, value: index }
+  name: { type: string }
+  parent: { type: ref }

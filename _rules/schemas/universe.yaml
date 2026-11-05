@@ -1,0 +1,19 @@
+kind: universe
+title: Universe (module manifest)
+summary: A world with its own tone, calendar, canon timeline and ruleset. Its frontmatter is the universe's module manifest.
+module: core
+folder: Multiverse/<Universe>/_universe.md
+id: <universe>
+mixins: [base, dated, manifest]
+fields:
+  tone:        { type: string, required: true, doc: "One or two words, e.g. parody, grim, pulp." }
+  ruleset:     { type: ref, kinds: [ruleset], required: true, doc: "Default ruleset for the universe." }
+  maintainers: { type: list, of: string, required: true }
+  status:      { type: enum, values: [active, paused, dormant, archived], required: true }
+  clock:
+    type: map
+    required: true
+    fields:
+      calendar:       { type: ref, kinds: [calendar], required: true }
+      epoch_omni_day: { type: int, required: true, doc: "Omni-day that corresponds to this universe's year 1, day 1." }
+  rifts: { type: list, of: { type: ref, kinds: [event, lore] }, doc: "Known Reality Rifts and Universe Joins touching this universe." }

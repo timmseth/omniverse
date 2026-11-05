@@ -40,6 +40,9 @@ wandering:
   - '4: 2 giant rats, hungry (hp 7, AC 12)'
   - '5: The innkeeper''s boy, sent to check on the party, bearing cheese'
   - '6: Nothing; the dark seems smug'
+home_town: tropelandia.settlement.barrowdale
+factions:
+- tropelandia.faction.mildew-court
 ---
 # The Cellar of Rats
 

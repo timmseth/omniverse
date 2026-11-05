@@ -10,3 +10,6 @@ to: null
 # Scholars' Spire
 
 A tall, thin region around the Thaumaturgic Academy, where towers outnumber houses and every tower has a long and complicated opinion about the others.
+
+## Settlements
+- [[Thaumaton]]

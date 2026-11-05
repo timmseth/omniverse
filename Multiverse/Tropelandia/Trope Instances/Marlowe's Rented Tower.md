@@ -1,7 +1,7 @@
 ---
 id: tropelandia.instance.marlowe-tower
 kind: trope_instance
-name: Marlowe's Tower
+name: Marlowe's Rented Tower
 parent: tropelandia
 universe: tropelandia
 instance_of: omniverse.trope.wizard-in-a-tower
@@ -20,7 +20,7 @@ hooks_offered:
 from: { year: 1442, era: tropelandia.era.age-of-mild-peril }
 to: null
 ---
-# Marlowe's Tower
+# Marlowe's Rented Tower
 
 An instance of [[Wizard in a Tower]], played for laughs. The tower sits on [[The Crooked Lane]] and belongs to the landlord, [[Mayor Bartholomew Pettigrew]].
 

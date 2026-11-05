@@ -1,0 +1,11 @@
+kind: household
+title: Household
+summary: A family or house, with members and goals.
+module: core
+folder: Multiverse/<Universe>/<Place path>/<Name>/Households/<Name>.md
+id: <universe>.household.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [settlement, district], required: true }
+  members: { type: list, of: { type: ref, kinds: [person] } }
+  goals: { type: list, of: string }

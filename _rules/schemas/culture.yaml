@@ -1,0 +1,18 @@
+kind: culture
+title: Culture
+summary: A people and how they live.
+module: core
+folder: Multiverse/<Universe>/Lore/Cultures/<Name>.md
+id: <universe>.culture.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  homeland: { type: ref }
+  peoples: { type: list, of: string }
+  languages: { type: list, of: { type: ref, kinds: [language] } }
+  values: { type: list, of: string, required: true }
+  customs: { type: list, of: string, required: true }
+  dress: { type: string }
+  food: { type: string }
+  names: { type: map, open: true, doc: "Name lists by category (given, family, place)." }
+  deities: { type: list, of: { type: ref, kinds: [deity] } }

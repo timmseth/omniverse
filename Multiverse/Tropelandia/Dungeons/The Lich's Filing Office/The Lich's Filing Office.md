@@ -41,6 +41,9 @@ wandering:
   - '4: A ghostly auditor arrives'
   - '5: A stamp falls from the ceiling (2d6)'
   - '6: A distant voice: ''WHO LOST THE FILE?'''
+home_town: tropelandia.settlement.deepfile
+factions:
+- tropelandia.faction.office-of-eternal-records
 ---
 # The Lich's Filing Office
 

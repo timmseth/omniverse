@@ -41,6 +41,10 @@ wandering:
   - '4: A flying inkpot attacks, then apologises'
   - '5: A magical rodent scuttles past, carrying a note'
   - '6: Distant shouting: ''WHO PUT THE ROOF ON THE JUDGES'' TABLE?'''
+home_town: tropelandia.settlement.barrowdale
+factions:
+- tropelandia.faction.wizards-union-local-7
+- tropelandia.faction.mildew-court
 ---
 # Marlowe's Tower
 

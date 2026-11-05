@@ -1,0 +1,13 @@
+kind: lore
+title: Lore
+summary: A myth, legend, history, custom or song. The text is the note body.
+module: core
+folder: Multiverse/<Universe>/Lore/<Name>.md
+id: <universe>.lore.<slug>
+mixins: [base, in_universe]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  category: { type: enum, values: [myth, legend, history, custom, song, prophecy, rumour, treatise], required: true }
+  about: { type: list, of: { type: ref }, doc: "Notes this lore concerns." }
+  truth: { type: enum, values: [true, mostly, half, false, unknown], doc: "How true it is, for the DM." }
+  known_by: { type: list, of: string, doc: "Who tells it." }

@@ -1,0 +1,76 @@
+kind: room
+title: Room
+summary: One room of a dungeon, with read-aloud text, exits, and everything the DM needs to run it.
+module: core
+folder: Multiverse/<Universe>/Dungeons/<Dungeon>/Rooms/<Name>.md
+id: <universe>.room.<dungeon>.<nn>-<slug>
+mixins: [base, in_universe]
+fields:
+  parent: { type: ref, kinds: [dungeon], required: true }
+  dungeon: { type: ref, kinds: [dungeon], required: true }
+  number: { type: int, required: true }
+  code: { type: string, pattern: '^[A-Z]{3,4}-\d{2}$', required: true }
+  light: { type: string }
+  size: { type: string, doc: e.g. "30 x 20 ft" or "irregular, about 40 ft across". }
+  exits:
+    type: list
+    required: true
+    of:
+      type: map
+      fields:
+        dir: { type: enum, values: [n, s, e, w, ne, nw, se, sw, u, d, out], required: true }
+        to: { type: string, required: true, doc: Room id, or "outside". }
+        kind: { type: enum, values: [door, archway, passage, stairs, ladder, secret, portal, hatch, window, chute, bridge], required: true }
+        state: { type: enum, values: [open, closed, locked, stuck, barred, trapped, hidden, rubble], required: true }
+        note: { type: string }
+  read_aloud: { type: text, required: true }
+  features: { type: list, of: string }
+  encounters:
+    type: list
+    of:
+      type: map
+      fields:
+        name: { type: string, required: true }
+        monsters:
+          type: list
+          required: true
+          of:
+            type: map
+            fields:
+              ref: { type: ref, kinds: [monster], doc: "Bestiary entry. Supplies the stats." }
+              name: { type: string, doc: "Required when no ref." }
+              count: { type: int, required: true }
+              hp: { type: int, doc: "Per creature. From the bestiary when ref is set." }
+              ac: { type: int }
+              attack: { type: string }
+        tactics: { type: text }
+        treasure: { type: string, doc: What the encounter carries or guards. }
+  traps:
+    type: list
+    of:
+      type: map
+      fields:
+        name: { type: string, required: true }
+        trigger: { type: string, required: true }
+        effect: { type: string, required: true }
+        detect_dc: { type: int, required: true }
+        disarm_dc: { type: int, required: true }
+  puzzles:
+    type: list
+    of:
+      type: map
+      fields:
+        name: { type: string, required: true }
+        description: { type: text, required: true }
+        solution: { type: text, required: true }
+        hints: { type: list, of: string }
+        reward: { type: string }
+  secrets:
+    type: list
+    of:
+      type: map
+      fields:
+        description: { type: string, required: true }
+        dc: { type: int, required: true }
+  loot: { type: list, of: { type: any }, doc: "Strings, or item ids." }
+  dm_notes: { type: text }

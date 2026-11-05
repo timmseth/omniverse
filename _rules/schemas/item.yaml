@@ -1,0 +1,22 @@
+kind: item
+title: Item
+summary: "A notable object: magic item, trinket, treasure, tool."
+module: core
+folder: Multiverse/<Universe>/Items/<Name>.md
+id: <universe>.item.<slug>
+mixins: [base, in_universe]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  item_type: { type: enum, values: [weapon, armor, shield, wondrous, potion, scroll, ring, rod, staff, wand, tool, trinket, treasure, consumable, document, key, other], required: true }
+  rarity: { type: enum, values: [common, uncommon, rare, very_rare, legendary, artifact, mundane], required: true }
+  attunement: { type: bool }
+  value_gp: { type: number }
+  weight_lb: { type: number }
+  description: { type: text, required: true, doc: "What it looks like and does, as read to players." }
+  mechanics: { type: text, doc: "Rules text." }
+  properties: { type: list, of: string }
+  curse: { type: text }
+  history: { type: text, doc: "Where it came from." }
+  owner: { type: ref, kinds: [person, faction, monster] }
+  location: { type: ref, kinds: [room, venue, settlement, dungeon] }
+  tropes: { type: list, of: { type: ref, kinds: [trope] } }

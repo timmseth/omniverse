@@ -1,0 +1,15 @@
+kind: trope_instance
+title: Trope instance
+summary: A trope made concrete in one universe, bound to people and places, with a twist.
+module: core
+folder: Multiverse/<Universe>/Trope Instances/<Name>.md
+id: <universe>.instance.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  instance_of: { type: ref, kinds: [trope], required: true }
+  bound_to: { type: map, open: true, doc: "Keys are roles (person, place, item, faction); values are ids." }
+  tone: { type: string }
+  twist: { type: text, required: true }
+  stakes: { type: text, required: true }
+  hooks_offered: { type: list, of: string, required: true }

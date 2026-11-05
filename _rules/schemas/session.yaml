@@ -1,0 +1,33 @@
+kind: session
+title: Session
+summary: "One sitting's log: what happened, as events with deltas, plus the rolls."
+module: core
+folder: Multiverse/<Universe>/Instances/<Name>/log/<Name>.md
+id: <instance>.session.<nn>
+fields:
+  id: { type: id, required: true }
+  kind: { type: const, value: session }
+  parent: { type: ref, kinds: [campaign], required: true }
+  campaign: { type: ref, kinds: [instance], required: true }
+  adventure: { type: string }
+  session: { type: int, required: true }
+  real_date: { type: any, required: true }
+  world_date: { type: when, required: true }
+  party: { type: list, of: { type: ref, kinds: [person] }, required: true }
+  events:
+    type: list
+    required: true
+    of:
+      type: map
+      fields:
+        id: { type: string, required: true }
+        type: { type: string, required: true }
+        where: { type: ref }
+        participants: { type: list, of: { type: ref } }
+        severity: { type: int, required: true }
+        visibility: { type: enum, values: [public, rumoured, secret], required: true }
+        canon: { type: enum, values: [local, proposed, canon, rejected], required: true }
+        deltas: { type: list, of: { type: map, fields: { entity: { type: ref, required: true }, field: { type: string, required: true }, from: { type: any, nullable: true }, to: { type: any, nullable: true } } } }
+        summary: { type: string }
+  rolls: { type: list, of: { type: map, fields: { seed: { type: int }, what: { type: string, required: true }, result: { type: string, required: true } } } }
+  summary: { type: text }

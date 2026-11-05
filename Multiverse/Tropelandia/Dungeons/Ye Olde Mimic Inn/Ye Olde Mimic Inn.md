@@ -41,6 +41,9 @@ wandering:
   - '4: Tentacles retract into the wall'
   - '5: The innkeeper offers a free drink'
   - '6: A distant, satisfied sigh'
+home_town: tropelandia.settlement.hearthollow
+factions:
+- tropelandia.faction.roadside-hospitality-association
 ---
 # Ye Olde Mimic Inn
 

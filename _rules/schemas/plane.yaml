@@ -1,0 +1,10 @@
+kind: plane
+title: Plane
+summary: A plane of existence. The top of a universe's space tree.
+module: core
+folder: Multiverse/<Universe>/<Place path>/<Name>/<Name>.md
+id: <universe>.plane.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  time_rate: { type: number, doc: "Time flow relative to the universe clock (1.0 is normal)." }

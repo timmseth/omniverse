@@ -41,6 +41,10 @@ wandering:
   - '4: A cave-in (DC 13 Dex or 2d6)'
   - '5: A lost miner''s ghost asks for a hat'
   - '6: Silence, which in a dwarven hall is itself a warning'
+home_town: tropelandia.settlement.grudgehold
+factions:
+- tropelandia.faction.glintfang-holdings
+- tropelandia.faction.karak-dum-dum-reclamation-trust
 ---
 # The Dwarven Folly
 

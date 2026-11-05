@@ -1,0 +1,21 @@
+kind: deity
+title: Deity
+summary: A god, spirit or power that people pray to.
+module: core
+folder: Multiverse/<Universe>/Pantheon/<Name>.md
+id: <universe>.deity.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  title: { type: string, doc: Epithet, e.g. "the Damp Lady". }
+  domains: { type: list, of: string, required: true }
+  alignment: { type: string }
+  symbol: { type: string }
+  tenets: { type: list, of: string, required: true }
+  worshippers: { type: list, of: string }
+  church: { type: ref, kinds: [faction] }
+  holy_days: { type: list, of: { type: ref, kinds: [holiday] } }
+  allies: { type: list, of: { type: ref, kinds: [deity] } }
+  rivals: { type: list, of: { type: ref, kinds: [deity] } }
+  boons: { type: list, of: string, doc: "What the faithful get." }
+  wrath: { type: list, of: string, doc: "What the faithless get." }

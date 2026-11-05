@@ -41,6 +41,10 @@ wandering:
   - '4: Whispers from a banned poetry book'
   - '5: A scroll unrolls and tries to read you'
   - '6: A distant, furious SHHH'
+home_town: tropelandia.settlement.thaumaton
+factions:
+- tropelandia.faction.adventurers-licensing-board
+- tropelandia.faction.thaumaturgic-academy
 ---
 # The Restricted Section
 

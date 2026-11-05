@@ -1,0 +1,13 @@
+kind: holiday
+title: Holiday
+summary: A recurring day on a calendar, with customs a party can walk into.
+module: core
+folder: Multiverse/<Universe>/Holidays/<Name>.md
+id: <universe>.holiday.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [calendar], required: true }
+  when: { type: map, required: true, fields: { month: { type: int, required: true }, day: { type: int, required: true }, length_days: { type: int } } }
+  observed_by: { type: list, of: { type: ref, kinds: [settlement, country, faction, culture, deity] } }
+  customs: { type: list, of: string, required: true }
+  hooks: { type: list, of: string }

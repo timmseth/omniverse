@@ -41,6 +41,9 @@ wandering:
   - '4: 3 angry goblins (hp 7, AC 15)'
   - '5: A tired hobgoblin asks for a mediator'
   - '6: A long, uneasy silence; someone coughs'
+home_town: tropelandia.settlement.hearthollow
+factions:
+- tropelandia.faction.united-brotherhood-of-goblins-hobs-and-allied-skulkers
 ---
 # The Goblin Union Hall
 

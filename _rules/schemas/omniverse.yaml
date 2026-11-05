@@ -1,0 +1,13 @@
+kind: omniverse
+title: Omniverse
+summary: The single root note. Everything else descends from it.
+module: core
+folder: Omniverse.md
+id: omniverse
+fields:
+  id:   { type: id, required: true }
+  kind: { type: const, value: omniverse }
+  name: { type: string, required: true }
+  parent: { type: any, nullable: true, doc: "Always null. The only note without a parent." }
+  from: { type: when }
+  to:   { type: when, nullable: true }

@@ -41,6 +41,9 @@ wandering:
   - '4: A swarm of marsh bats (hp 5, AC 12)'
   - '5: Water rises 1 ft; disadvantage on Dex'
   - '6: A distant hymn, slightly off-key'
+home_town: tropelandia.settlement.soggy-bottom
+factions:
+- tropelandia.faction.church-of-the-reasonably-benevolent
 ---
 # The Sunken Chapel of Mild Dread
 

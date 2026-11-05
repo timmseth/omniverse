@@ -1,0 +1,8 @@
+kind: multiverse
+title: Multiverse registry
+summary: The shelf of universes. Its body holds the registry table.
+module: core
+folder: Multiverse/_registry.md
+id: omniverse.multiverse
+mixins: [base, dated]
+fields: {}

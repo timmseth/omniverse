@@ -1,0 +1,30 @@
+kind: event
+title: Event
+summary: Something that happened in canon, with the state changes it caused. The timeline is the ordered set of these.
+module: core
+folder: Multiverse/<Universe>/Events/<year>/<year>-<nnnn> <Name>.md
+id: <universe>.event.<year>-<nnnn>-<slug>
+mixins: [base, in_universe]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  when: { type: when, required: true }
+  where: { type: ref, doc: "Place it happened." }
+  participants: { type: list, of: { type: ref } }
+  type: { type: string, required: true, doc: "battle, founding, death, discovery, social_conflict, disaster, decree, rift, ..." }
+  severity: { type: int, required: true, doc: "0 trivial to 5 world-changing." }
+  visibility: { type: enum, values: [public, rumoured, secret], required: true }
+  canon: { type: enum, values: [canon, local, proposed, rejected], required: true }
+  source: { type: string, doc: "maintainer, generator name, or instance id." }
+  era: { type: ref, kinds: [era] }
+  deltas:
+    type: list
+    of:
+      type: map
+      fields:
+        entity: { type: ref, required: true }
+        field: { type: string, required: true }
+        from: { type: any, nullable: true }
+        to: { type: any, nullable: true }
+  tropes_involved: { type: list, of: { type: ref, kinds: [trope] } }
+  caused_by: { type: list, of: { type: ref, kinds: [event] } }
+  quest: { type: ref, kinds: [quest] }

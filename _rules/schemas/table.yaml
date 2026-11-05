@@ -1,0 +1,26 @@
+kind: table
+title: Random table
+summary: A rollable table. Tools roll them; DMs read them.
+module: core
+folder:
+  - Multiverse/<Universe>/Tables/<Name>.md
+  - Tables/<Name>.md
+id:
+  - <universe>.table.<slug>
+  - omniverse.table.<slug>
+mixins: [base, in_universe]
+fields:
+  parent: { type: ref, kinds: [universe, omniverse], required: true }
+  category: { type: enum, values: [rumour, encounter, weather, name, complication, loot, treasure, event, reaction, hook, other], required: true }
+  die: { type: dice, required: true, doc: "What to roll, e.g. d20 or d100." }
+  where: { type: ref, doc: "Place this table applies to, if any." }
+  entries:
+    type: list
+    required: true
+    of:
+      type: map
+      fields:
+        roll: { type: any, required: true, doc: A number or a range "6-10". Entries must cover the die without gaps or overlap. }
+        text: { type: string, required: true }
+        ref: { type: ref, doc: "A note the result points at (monster, item, person)." }
+        count: { type: dice, doc: "How many, for encounters." }

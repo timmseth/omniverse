@@ -1,0 +1,14 @@
+kind: campaign
+title: Campaign
+summary: The party and arc inside an instance.
+module: core
+folder: Multiverse/<Universe>/Instances/<Name>/Campaign.md
+id: <instance>.campaign
+mixins: [base]
+fields:
+  parent: { type: ref, kinds: [instance], required: true }
+  campaign: { type: ref, kinds: [instance], required: true }
+  party: { type: list, of: { type: ref, kinds: [person] }, required: true }
+  ruleset: { type: ref, kinds: [ruleset], required: true }
+  arc: { type: text }
+  quests: { type: list, of: { type: ref, kinds: [quest] } }

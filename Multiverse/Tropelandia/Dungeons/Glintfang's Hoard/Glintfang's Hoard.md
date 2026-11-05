@@ -41,6 +41,10 @@ wandering:
   - '4: A magic mirror asks the party''s net worth'
   - '5: An appraiser''s apprentice offers a quote'
   - '6: Distant gold coins rattling, as if the dragon is sleeping'
+home_town: tropelandia.settlement.last-receipt
+factions:
+- tropelandia.faction.adventurers-licensing-board
+- tropelandia.faction.glintfang-holdings
 ---
 # Glintfang's Hoard
 

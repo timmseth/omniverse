@@ -1,0 +1,10 @@
+kind: continent
+title: Continent
+summary: A landmass on a planet.
+module: core
+folder: Multiverse/<Universe>/<Place path>/<Name>/<Name>.md
+id: <universe>.continent.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [planet], required: true }
+

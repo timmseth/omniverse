@@ -1,0 +1,25 @@
+# Field sets shared by many kinds. A schema lists them under `mixins:`.
+base:
+  id:       { type: id, required: true, doc: "Namespaced id, unique across the repository." }
+  kind:     { type: string, required: true, doc: "The note kind. Must match this schema." }
+  name:     { type: string, required: true, doc: "Display name. Also the file name." }
+  parent:   { type: ref, required: true, doc: "The note this one sits under. Every note but the Omniverse has one." }
+  aliases:  { type: list, of: string, doc: "Other names it goes by." }
+  tags:     { type: list, of: string }
+  summary:  { type: text, doc: "One to three sentences for indexes and the app." }
+  author:   { type: string, doc: "Who wrote it (GitHub handle)." }
+  status:   { type: enum, values: [sample, draft, playtested, canon, stub, active, paused, dormant, archived, retired], doc: "Editorial status." }
+in_universe:
+  universe: { type: ref, kinds: [universe], required: true, doc: "The universe this note belongs to. Must match the first segment of the id." }
+dated:
+  from:     { type: when, doc: "When it came to be. `primordial` for things older than the calendar." }
+  to:       { type: when, nullable: true, doc: "When it ended. `null` while it still exists." }
+manifest:
+  version:  { type: string, pattern: '^\d+\.\d+\.\d+$', doc: "Semantic version of this module." }
+  owner:    { type: string, doc: "Maintainer (GitHub handle). Mirrored in CODEOWNERS." }
+  licence:  { type: string, doc: "Licence of this module's content." }
+  requires: { type: map, open: true, doc: 'Module id to version range, e.g. omniverse-core: ">=0.6 <0.7".' }
+  extends:  { type: ref, nullable: true, doc: "Module this one builds on." }
+  provides: { type: any, doc: "What the module supplies (list or map)." }
+  overrides: { type: list, of: string, doc: "Parts of the extended module this one replaces." }
+  adds_kinds: { type: list, of: string, doc: "Note kinds this module introduces (declared in its _schemas/)." }

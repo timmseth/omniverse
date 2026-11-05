@@ -1,0 +1,11 @@
+kind: district
+title: District
+summary: A quarter of a settlement.
+module: core
+folder: Multiverse/<Universe>/<Place path>/<Name>/Districts/<Name>.md
+id: <universe>.district.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [settlement], required: true }
+  character: { type: string, doc: "The district in a phrase." }
+  venues: { type: list, of: { type: ref, kinds: [venue] } }

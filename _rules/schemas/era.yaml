@@ -1,0 +1,11 @@
+kind: era
+title: Era
+summary: A named span of a universe's history.
+module: core
+folder: Multiverse/<Universe>/Eras/<Name>.md
+id: <universe>.era.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  from: { type: when, required: true }
+  character: { type: string, doc: "The era in a phrase." }

@@ -1,0 +1,11 @@
+kind: guide
+title: Guide
+summary: A how-to for contributors or players.
+module: core
+folder: <any>
+id: <any>
+fields:
+  id: { type: id }
+  kind: { type: const, value: guide }
+  name: { type: string }
+  parent: { type: ref }

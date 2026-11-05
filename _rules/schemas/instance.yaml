@@ -1,0 +1,14 @@
+kind: instance
+title: Instance
+summary: A playable timeline forked from canon at a point. Sessions log into it; a merge proposes its events back.
+module: core
+folder: Multiverse/<Universe>/Instances/<Name>/_instance.md
+id: <slug>
+mixins: [base, in_universe]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  fork_point: { type: map, required: true, fields: { event: { type: ref, kinds: [event] }, year: { type: int, required: true }, day: { type: int, required: true } } }
+  status: { type: enum, values: [active, paused, finished, merged, abandoned], required: true }
+  visibility: { type: enum, values: [private, public], required: true }
+  maintainers: { type: list, of: string, required: true }
+  scenario: { type: string, doc: "The starting scenario chosen at session zero." }

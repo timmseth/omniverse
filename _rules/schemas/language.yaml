@@ -1,0 +1,13 @@
+kind: language
+title: Language
+summary: A tongue, with who speaks it and how it sounds.
+module: core
+folder: Multiverse/<Universe>/Lore/Languages/<Name>.md
+id: <universe>.language.<slug>
+mixins: [base, in_universe]
+fields:
+  parent: { type: ref, kinds: [universe], required: true }
+  speakers: { type: list, of: string, required: true }
+  script: { type: string }
+  sound: { type: string, doc: "How to fake it at the table." }
+  phrases: { type: list, of: { type: map, fields: { say: { type: string, required: true }, means: { type: string, required: true } } } }

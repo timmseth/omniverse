@@ -15,3 +15,6 @@ A boggy lowland where the ghosts are present but apologetic. Travellers report b
 
 ## Contains
 - [[Duchy of Mildew]]
+
+## Settlements
+- [[Soggy Bottom]]

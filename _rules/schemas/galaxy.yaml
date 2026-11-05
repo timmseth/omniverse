@@ -1,0 +1,10 @@
+kind: galaxy
+title: Galaxy
+summary: A galaxy inside a plane.
+module: core
+folder: Multiverse/<Universe>/<Place path>/<Name>/<Name>.md
+id: <universe>.galaxy.<slug>
+mixins: [base, in_universe, dated]
+fields:
+  parent: { type: ref, kinds: [plane], required: true }
+
