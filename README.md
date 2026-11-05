@@ -954,7 +954,7 @@ A canonized adventure appears on the universe's timeline with its party credited
 
 **Where it lives.** Source is in `Apps/dmScreen/` (Gradle project, WebView shell, plain HTML/CSS/JS interface, no third-party dependencies) and each built APK is kept in `Apps/dmScreen/releases/`, named by version and build time. APKs are debug-signed with a committed keystore, so each version installs over the last. `Apps/dmScreen/build-apk.cmd` builds one on any machine with the Android SDK and a JDK. Nothing in the world depends on the app: the dungeon notes are readable and playable from Obsidian alone.
 
-**Status.** The app source is complete and in the repository. The first APK is committed to `releases/` once it has been built on a machine with the Android SDK; until then `releases/` holds only a note saying so.
+**Status.** dmScreen v1.0.0 is built: the source is in `Apps/dmScreen/` and the debug-signed APK is in `Apps/dmScreen/releases/`. It has not yet been tried on a phone.
 
 **Scope of v1.** Read, navigate and run; sync from GitHub; submission guidance. Not in v1: authoring dungeons inside the app, running a whole instance's log, or networked play.
 

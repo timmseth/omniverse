@@ -3,7 +3,10 @@
 Built APKs are kept here, one per build, named `dmScreen-v<version>-<yyyyMMdd-HHmm>.apk`
 with a matching `-build-notes.md`. Every build is signed with the committed debug
 keystore (`../keystore/debug.keystore`), so each version installs over the previous one.
+Never overwrite an earlier build.
 
-No APK has been committed yet. To produce one, run `build-apk.cmd -NoVault` from
-`Apps/dmScreen/` on a machine with the Android SDK and a JDK, then commit the files
-that appear in this folder. (Never overwrite an earlier build.)
+| Version | Build | Notes |
+|---|---|---|
+| 1.0.0 | `dmScreen-v1.0.0-20261104-2057.apk` | first version |
+
+To build another: run `build-apk.cmd -NoVault` from `Apps/dmScreen/` (or use the build bot), then commit the files that appear here.
