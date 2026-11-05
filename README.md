@@ -779,7 +779,7 @@ A universe is static between merges. Its maintainer decides what gets merged and
 
 ### 17.1 How a player joins **[Proposed]**
 1. **Pick a universe.** Each has its own tone, ruleset and maintainer.
-2. **Create an instance.** Choose a fork point (the frontier by default). The DM skill makes the folder, pins the fork point, and writes a "Previously on…" digest of what is going on near it.
+2. **Create an instance.** Choose a fork point (the frontier by default). The DM skill reads what is going on near it, offers a few recommended starting scenarios to choose from (or takes your own idea), makes the folder, pins the fork point, and writes a "Previously on…" digest.
 3. **Create characters** in the instance's overlay, using the universe's ruleset, plus a hook from the trope instances on offer.
 4. **Play.** Sessions run with Claude as DM, or with a human DM and Claude as scribe. Everything is written to the log.
 5. **Canon merge what matters.** When an adventure affects the world, merge it upstream (section 12.6).
@@ -831,7 +831,7 @@ A Claude skill kept in the repo (`_rules/skills/dm/`), so every contributor runs
 
 | Command | What it does |
 |---|---|
-| `new` | Create an instance: pick a universe and fork point, build characters under the universe's ruleset, write the first digest. |
+| `new` | Create an instance: pick a universe and fork point, then **prompt for a starting scenario with recommendations** (3 to 4 options drawn from open trope hooks, live grudges, unresolved canon events and troubled factions, plus "surprise me" and "my own idea"), build characters under the universe's ruleset, write the first digest. |
 | `play` | Run the table. Load context by zooming through the hierarchy (the scene, then its settlement, notables and relationships) so the whole world is never loaded. Adjudicate with the ruleset, roll with logged seeds, and write each consequential fact as it happens. |
 | `recap` | Summarise the story so far from the log. |
 | `turn` | Run a generator across a time skip, if the universe has one. |
