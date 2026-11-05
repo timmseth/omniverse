@@ -51,5 +51,5 @@ as_of: { year: 1489, day: 35 }
 
 | Instance | Status | Visibility | Fork point | Sessions | Events logged |
 |---|---|---|---|---|---|
-| [[Multiverse/Tropelandia/Instances/starter-kit/_instance\|Starter Kit]] | template | public | 1489 day 36 | 0 | 0 |
 | [[Multiverse/Tropelandia/Instances/pie-heist/_instance\|The Pie Heist]] | active | private | 1489 day 34 | 1 | 2 |
+| [[Multiverse/Tropelandia/Instances/starter-kit/_instance\|Starter Kit]] | template | public | 1489 day 36 | 0 | 0 |

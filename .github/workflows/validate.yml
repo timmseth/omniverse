@@ -26,6 +26,7 @@ jobs:
           if ! git diff --quiet -- _generated docs/reference Multiverse/*/_timeline.md Apps/dmScreen/app/src/main/assets/dungeons.js; then
             echo "::error::Generated files are out of date. Run: python3 _rules/tools/build_all.py . and commit the result."
             git --no-pager diff --stat -- _generated docs/reference Multiverse/*/_timeline.md Apps/dmScreen/app/src/main/assets/dungeons.js
+            git --no-pager diff -- _generated docs/reference Multiverse/*/_timeline.md | head -200
             exit 1
           fi
       - name: No code in content

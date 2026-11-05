@@ -588,21 +588,21 @@ generated: build_world.py
 
 | Note | Universe | Id | Refs in |
 |---|---|---|---|
-| [[Bestiary]] |  | `tropelandia.bestiary-index` | 0 |
 | [[Bestiary]] |  | `ashfall.bestiary-index` | 2 |
-| [[Factions]] |  | `tropelandia.factions-index` | 0 |
+| [[Bestiary]] |  | `tropelandia.bestiary-index` | 0 |
 | [[Factions]] |  | `ashfall.factions-index` | 2 |
-| [[Items]] |  | `tropelandia.items-index` | 0 |
+| [[Factions]] |  | `tropelandia.factions-index` | 0 |
 | [[Items]] |  | `ashfall.items-index` | 2 |
-| [[Lore]] |  | `tropelandia.lore-index` | 0 |
+| [[Items]] |  | `tropelandia.items-index` | 0 |
 | [[Lore]] |  | `ashfall.lore-index` | 2 |
-| [[Pantheon]] |  | `tropelandia.pantheon-index` | 0 |
+| [[Lore]] |  | `tropelandia.lore-index` | 0 |
 | [[Pantheon]] |  | `ashfall.pantheon-index` | 2 |
-| [[Quests]] |  | `tropelandia.quests-index` | 0 |
+| [[Pantheon]] |  | `tropelandia.pantheon-index` | 0 |
 | [[Quests]] |  | `ashfall.quests-index` | 2 |
+| [[Quests]] |  | `tropelandia.quests-index` | 0 |
 | [[_README]] |  | `omniverse.schemas` | 0 |
-| [[Tables]] |  | `tropelandia.tables-index` | 0 |
 | [[Tables]] |  | `ashfall.tables-index` | 2 |
+| [[Tables]] |  | `tropelandia.tables-index` | 0 |
 | [[Trope Library]] |  | `omniverse.trope-library` | 0 |
 
 ## guide (3)
