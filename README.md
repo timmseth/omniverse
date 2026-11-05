@@ -952,7 +952,9 @@ A canonized adventure appears on the universe's timeline with its party credited
 
 **Data.** The app ships with the dungeons that existed when it was built, so it works offline. A **Sync** action downloads the latest `dungeons.json` from the repository on GitHub and uses it from then on, so a dungeon merged yesterday appears without a new app version. The app never writes to the repository.
 
-**Where it lives.** Source is in `Apps/dmScreen/` and each built APK is kept in `Apps/dmScreen/releases/`, named by version. APKs are debug-signed with a committed keystore, so each version installs over the last. Nothing in the world depends on the app: the dungeon notes are readable and playable from Obsidian alone.
+**Where it lives.** Source is in `Apps/dmScreen/` (Gradle project, WebView shell, plain HTML/CSS/JS interface, no third-party dependencies) and each built APK is kept in `Apps/dmScreen/releases/`, named by version and build time. APKs are debug-signed with a committed keystore, so each version installs over the last. `Apps/dmScreen/build-apk.cmd` builds one on any machine with the Android SDK and a JDK. Nothing in the world depends on the app: the dungeon notes are readable and playable from Obsidian alone.
+
+**Status.** The app source is complete and in the repository. The first APK is committed to `releases/` once it has been built on a machine with the Android SDK; until then `releases/` holds only a note saying so.
 
 **Scope of v1.** Read, navigate and run; sync from GitHub; submission guidance. Not in v1: authoring dungeons inside the app, running a whole instance's log, or networked play.
 

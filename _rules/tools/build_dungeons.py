@@ -187,6 +187,15 @@ def build(root):
             "wandering": dm.get("wandering") or {}, "tropes": [notes[t][1].get("name") for t in dm.get("tropes_involved") or [] if t in notes],
             "author": dm.get("author"), "status": dm.get("status"), "entry": dm.get("entry"), "rooms": rl,
         })
+    seen = {}
+    for d in result:
+        c = d.get("code")
+        if not c:
+            errors.append("%s: dungeon has no code" % d["id"])
+        elif c in seen:
+            errors.append("dungeon code %s is used by both %s and %s; codes must be unique (the app routes by code)" % (c, seen[c], d["id"]))
+        else:
+            seen[c] = d["id"]
     return result, errors, warns
 
 
