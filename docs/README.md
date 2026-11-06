@@ -9,6 +9,7 @@ Start here. The design document is the repository [README](../README.md); these 
 - [For Universe Builders](getting-started/For%20Universe%20Builders.md): bring your own world and ruleset.
 - [For LLMs and Agents](getting-started/For%20LLMs%20and%20Agents.md): the entry point for a language model asked to help (see also `AGENTS.md`).
 - [The DM Screen App](getting-started/The%20DM%20Screen%20App.md): install and run dmScreen on a phone.
+- [The Note Wizard](getting-started/The%20Note%20Wizard.md): pick a kind of note, fill in the blanks, export a valid file or save it into the repo.
 
 ## Concepts
 - [Core Concepts](concepts/Core%20Concepts.md): layers, ids, events, instances, canon merges, modules.

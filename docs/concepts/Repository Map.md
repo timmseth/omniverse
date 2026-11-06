@@ -21,7 +21,8 @@ omniverse/
 │   ├── dnd5e/                D&D 5e (SRD shape)
 │   └── Six Sides/            a light d6 pool system, with stat mapping
 ├── Apps/
-│   └── dmScreen/             the Android DM screen: source, build scripts, releases/
+│   ├── dmScreen/             the Android DM screen: source, build scripts, releases/
+│   └── wizard/               the Note Wizard: template and the generated one-file page
 └── Multiverse/
     ├── _registry.md          the shelf of universes
     ├── Tropelandia/          the first universe (parody, D&D 5e)
@@ -48,4 +49,4 @@ omniverse/
 
 **Where a new thing goes:** look up its kind in the [Schema Reference](../reference/Schema%20Reference.md); the `Lives at` column is the rule. The place tree is the only part with nesting; everything else is one folder per kind under the universe.
 
-**What not to touch by hand:** `_generated/`, `_state/`, `_timeline.md`, `docs/reference/Schema Reference.md`, `Apps/dmScreen/app/src/main/assets/dungeons.js`. They are rebuilt by `python3 _rules/tools/build_all.py .`.
+**What not to touch by hand:** `_generated/`, `_state/`, `_timeline.md`, `docs/reference/Schema Reference.md`, `Apps/dmScreen/app/src/main/assets/dungeons.js`, `Apps/wizard/omniverse-wizard.html`. They are rebuilt by `python3 _rules/tools/build_all.py .`.

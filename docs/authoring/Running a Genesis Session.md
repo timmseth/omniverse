@@ -111,6 +111,8 @@ The sealed Ledger is the universe's founding canon.
 5. Create an instance for the campaign and fork it at the frontier. Pacts become Fates in the characters' overlay notes.
 6. Validate and build as usual (`validate.py`, `build_all.py`). An LLM can do steps 2 to 5 from the Ledger; see [Contributing with an LLM](Contributing%20with%20an%20LLM.md).
 
+Prefer to do it yourselves? The [Note Wizard](../getting-started/The%20Note%20Wizard.md) turns each Ledger entry into a valid note: pick the kind, fill in the blanks, and save the whole basket into the new universe's folder.
+
 ## Scribe's checklist
 - Before: print the handouts; pick a ruleset; decide the tone (a parody, grim, mythic); read the Opening aloud once to yourself.
 - During: keep the Ledger current, call time at six minutes, keep the Veil, make sure every Act has an Anchor and a Mark, offer the clash rule instead of vetoing.

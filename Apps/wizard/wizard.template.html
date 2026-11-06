@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Omniverse Note Wizard</title>
+<style>
+:root{--bg:#f6f4ef;--panel:#fff;--ink:#1f1d1a;--mute:#6b665e;--line:#ddd7cb;--accent:#5b3fa8;--accent-ink:#fff;--ok:#1d7a46;--warn:#9a6700;--err:#b3261e;--code:#f0ece3;--chip:#ece6f7}
+@media (prefers-color-scheme:dark){:root{--bg:#16141a;--panel:#201d27;--ink:#ece8f2;--mute:#a49eb3;--line:#38334a;--accent:#a68bf0;--accent-ink:#14111c;--ok:#5fcf8d;--warn:#e0b04a;--err:#ff8a80;--code:#191622;--chip:#2e2845}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding:.8rem 1rem;border-bottom:1px solid var(--line);background:var(--panel)}
+header h1{font-size:1.1rem;margin:0;flex:1 1 auto}
+header .tools{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.status{font-size:.8rem;color:var(--mute)}
+.status b{color:var(--ink)}
+main{max-width:1180px;margin:0 auto;padding:1rem}
+button,.btn{font:inherit;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:.45rem .8rem;border-radius:8px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button:disabled{opacity:.5;cursor:not-allowed}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.4rem .55rem;width:100%}
+textarea{resize:vertical;min-height:4.5rem}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.steps{display:flex;gap:.5rem;margin:0 0 1rem;font-size:.85rem;color:var(--mute)}
+.steps span.on{color:var(--ink);font-weight:600}
+.intro{color:var(--mute);margin:.2rem 0 1rem}
+.search{max-width:360px;margin-bottom:1rem}
+h2.group{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin:1.2rem 0 .5rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.7rem}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:.8rem;text-align:left;display:flex;flex-direction:column;gap:.3rem;min-height:110px}
+.card:hover{border-color:var(--accent)}
+.card b{font-size:1rem}
+.card span.sum{color:var(--mute);font-size:.82rem;flex:1}
+.chip{display:inline-block;background:var(--chip);color:var(--ink);border-radius:999px;padding:.05rem .55rem;font-size:.72rem;width:fit-content}
+.cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1rem;align-items:start}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem}
+.panel h3{margin:.1rem 0 .7rem;font-size:1rem}
+.field{margin:0 0 .8rem}
+.lab{font-weight:600;font-size:.88rem;margin-bottom:.15rem}
+.lab .req{color:var(--err);margin-left:.15rem}
+.doc{color:var(--mute);font-size:.78rem;margin:0 0 .25rem}
+.row{display:flex;gap:.4rem;align-items:flex-start;margin-bottom:.35rem}
+.row>.grow{flex:1;min-width:0}
+.row button{flex:0 0 auto}
+fieldset{border:1px solid var(--line);border-radius:10px;margin:0 0 .7rem;padding:.6rem .7rem}
+legend{font-size:.8rem;color:var(--mute);padding:0 .3rem}
+details{margin:.4rem 0 1rem}
+details>summary{cursor:pointer;font-weight:600;margin-bottom:.6rem}
+.when{display:grid;grid-template-columns:150px 1fr 1fr 1fr;gap:.4rem}
+@media (max-width:560px){.when{grid-template-columns:1fr 1fr}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media (max-width:560px){.two{grid-template-columns:1fr}}
+.refnote{font-size:.74rem;color:var(--mute);margin-top:.15rem;min-height:1em}
+.refnote.bad{color:var(--warn)}
+.preview{position:sticky;top:.6rem}
+pre.out{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:.7rem;overflow:auto;max-height:46vh;font:12.5px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre-wrap;word-break:break-word;margin:.4rem 0}
+.path{font:12.5px ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
+.probs{list-style:none;margin:.3rem 0;padding:0;font-size:.84rem}
+.probs li{padding:.1rem 0}
+.probs .error{color:var(--err)}
+.probs .warn{color:var(--warn)}
+.probs .ok{color:var(--ok)}
+.actions{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0}
+.basket{margin-top:1rem;border-top:1px solid var(--line);padding-top:.7rem}
+.basket li{display:flex;gap:.5rem;align-items:center;justify-content:space-between;font-size:.84rem;padding:.2rem 0}
+.toast{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.5rem .9rem;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9;max-width:90vw}
+.toast.show{opacity:1}
+.hint{background:var(--chip);border-radius:10px;padding:.6rem .8rem;margin:0 0 1rem;font-size:.86rem}
+.link{background:none;border:0;color:var(--accent);padding:0;text-decoration:underline}
+</style>
+</head>
+<body>
+<header>
+  <h1>Omniverse Note Wizard</h1>
+  <div class="tools">
+    <span class="status" id="worldStatus"></span>
+    <button id="btnRepo" title="Pick your Omniverse repo folder: loads the world index and lets you save notes straight into it">Open repo folder</button>
+    <button id="btnWorld" title="Load _generated/world.json so references can be checked">Load world.json</button>
+    <input type="file" id="fileWorld" accept=".json,application/json" hidden>
+  </div>
+</header>
+<main id="app"></main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><main><p>This page needs JavaScript.</p></main></noscript>
+<script id="schema-data" type="application/json">__SCHEMA_JSON__</script>
+<script>
+'use strict';
+const SCHEMA = JSON.parse(document.getElementById('schema-data').textContent);
+
+// ==CORE==
+// Pure logic: no DOM. The build test loads this block in Node.
+const RESERVED = /^(true|false|yes|no|on|off|null|y|n|~)$/i;
+const KIND_GROUPS = [
+  ['Places', ['plane', 'galaxy', 'star_system', 'planet', 'continent', 'region', 'country', 'province', 'settlement', 'district', 'venue', 'household']],
+  ['People and powers', ['person', 'deity', 'faction', 'culture', 'monster']],
+  ['Things and lore', ['item', 'lore', 'language', 'table', 'holiday']],
+  ['Time', ['era', 'event']],
+  ['Adventure', ['dungeon', 'room', 'quest', 'trope_instance']],
+  ['Campaign', ['instance', 'campaign', 'session']],
+  ['Worlds and systems', ['universe', 'calendar', 'ruleset']]
+];
+// Genesis Session sizes: which kinds are usually a Grand, Middling or Small creation.
+const GENESIS = {
+  plane: ['Grand', 'A realm or plane of existence.'],
+  galaxy: ['Grand', 'A galaxy.'],
+  star_system: ['Grand', 'A sun and what circles it.'],
+  planet: ['Grand', 'A world.'],
+  continent: ['Grand', 'A continent, shaped by something that happened to it.'],
+  culture: ['Grand', 'A people or race. Say what makes them who they are.'],
+  lore: ['Grand', 'A law of reality, a myth or a custom. Use the body for the story.'],
+  deity: ['Grand', 'Your god: domains are your Domain; tenets come from your First Word and your Marks.'],
+  region: ['Middling', 'A region with a character of its own.'],
+  country: ['Middling', 'A country and the one thing it will never forgive.'],
+  province: ['Middling', 'A province of a country.'],
+  settlement: ['Middling', 'A city, town or village with a strange reason to exist.'],
+  faction: ['Middling', 'A group with a noble goal and a bad method.'],
+  monster: ['Middling', 'A monster species and why it is hated or protected.'],
+  era: ['Middling', 'A span of history with a name.'],
+  event: ['Middling', 'A war, famine or miracle. Dates can be primordial.'],
+  holiday: ['Middling', 'A holiday and the story everyone gets wrong.'],
+  language: ['Middling', 'A language, with one word that cannot be translated.'],
+  person: ['Small', 'Someone with a want, a fear and a secret.'],
+  item: ['Small', 'A relic and what it cost.'],
+  venue: ['Small', 'A tavern, shop or temple with a story.'],
+  household: ['Small', 'A family and its grudge.'],
+  district: ['Small', 'A district of a settlement.'],
+  quest: ['Small', 'A chain of three or four stages.']
+};
+const NOTES = {
+  universe: 'This writes the universe manifest and its LICENSE.md. A playable universe also needs a calendar, an era and a place tree: run new_universe.py for the full scaffold (see Adding a Universe), then edit the manifest.',
+  ruleset: 'This writes the ruleset manifest and its LICENSE.md. Stat schemas live in the ruleset folder; see Writing a Ruleset.',
+  monster: 'Stat blocks sit under the ruleset key (dnd5e, six_sides, core). Add rows as key and value; numbers and JSON such as {"str": 12} are understood. Copying an existing monster is often faster.',
+  calendar: 'A universe has one calendar, at a fixed path. If one already exists, this would replace it.',
+  person: 'People live under the place, faction or dungeon they belong to: set the parent to that note so the file lands in the right folder.',
+  event: 'Dates are in the universe calendar. The event number counts up within each year.'
+};
+const NO_CREDIT = ['Unlicense', 'CC0-1.0'];
+const ID_PH = { universe: '[a-z0-9]+(?:-[a-z0-9]+)*', instance: '[a-z0-9]+(?:-[a-z0-9]+)*', slug: '[a-z0-9]+(?:-[a-z0-9]+)*', dungeon: '[a-z0-9]+(?:-[a-z0-9]+)*', nn: '\\d{2}', nnnn: '\\d{4}', year: '\\d+' };
+const FOLDER_PH = { Universe: '[^/]+', Name: '[^/]+', Dungeon: '[^/]+', 'Place path': '.+', year: '\\d+', nnnn: '\\d{4}' };
+const CONTAINERS = 'Venues|Districts|Households|People|log|Overlay|Pregens';
+const VAR_LABELS = {
+  'Place path': 'Place path (folders between the universe and this note)',
+  'Parent folder': "The parent's folder",
+  year: 'Year', nnnn: 'Event number (4 digits)', Dungeon: 'Dungeon name', instance: 'Instance (name or slug)', nn: 'Number (2 digits)'
+};
+
+function slugify(s) {
+  return String(s || '').normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase()
+    .replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+function norm(spec) {
+  if (!spec) return { type: 'any' };
+  if (typeof spec === 'string') return { type: spec };
+  return spec;
+}
+function listOf(spec) { return norm(spec.of || 'string'); }
+function pick(x, i) { return Array.isArray(x) ? (x[i || 0] || x[0]) : x; }
+function arr(x) { return Array.isArray(x) ? x : [x]; }
+function pad(n, w) { const s = String(n == null ? '' : n).trim(); return /^\d+$/.test(s) ? s.padStart(w, '0') : s; }
+
+function kindFields(kind) {
+  const s = SCHEMA.kinds[kind], f = {};
+  (s.mixins || []).forEach(m => Object.assign(f, SCHEMA.mixins[m] || {}));
+  Object.assign(f, s.fields || {});
+  return f;
+}
+const HEAD = ['id', 'kind', 'name', 'parent', 'universe'];
+const TAIL = ['aliases', 'author', 'status', 'tags', 'summary', 'from', 'to'];
+function fieldOrder(kind) {
+  const s = SCHEMA.kinds[kind], f = kindFields(kind);
+  const own = Object.keys(s.fields || {}).filter(k => !HEAD.includes(k) && !TAIL.includes(k));
+  const base = [...HEAD, ...own, ...TAIL].filter(k => k in f);
+  const extra = Object.keys(f).filter(k => !base.includes(k));
+  const i = base.indexOf('aliases');
+  const at = i < 0 ? base.length : i;
+  return [...base.slice(0, at), ...extra, ...base.slice(at)];
+}
+// Fields the wizard asks for (everything but the ones it fills itself).
+function formFields(kind) {
+  const f = kindFields(kind);
+  return fieldOrder(kind).filter(k => !HEAD.includes(k) && norm(f[k]).type !== 'const');
+}
+
+// ---- YAML emitter (the subset the notes use) ----
+function plainOK(s) {
+  if (s === '' || /^\s|\s$/.test(s) || /[\n\r\t]/.test(s)) return false;
+  if (/^[-?:,\[\]{}#&*!|>'"%@`]/.test(s)) return false;
+  if (/: |:$| #/.test(s) || RESERVED.test(s)) return false;
+  if (/^[-+]?(\d[\d_]*)?(\.\d*)?([eE][-+]?\d+)?$/.test(s)) return false;
+  if (/^0x[0-9a-f]+$/i.test(s) || /^\d{4}-\d{2}-\d{2}/.test(s)) return false;
+  return true;
+}
+function plainKey(k) { return /^[A-Za-z_][\w.\-]*$/.test(k) && !RESERVED.test(k) ? k : JSON.stringify(k); }
+function scalar(v, ind) {
+  if (v === null) return 'null';
+  if (typeof v === 'boolean' || typeof v === 'number') return String(v);
+  const s = String(v);
+  if (plainOK(s)) return s;
+  const lines = s.split('\n');
+  if (lines.length > 1 && !/\r/.test(s) && lines.every(l => !/^[ \t]/.test(l) && !/[ \t]$/.test(l)) && !/\n$/.test(s) && lines[0] !== '') {
+    return '|-\n' + lines.map(l => l === '' ? '' : ' '.repeat(ind + 2) + l).join('\n');
+  }
+  return JSON.stringify(s);
+}
+function flowItem(v) {
+  if (typeof v === 'string') return plainOK(v) && !/[,\[\]{}]/.test(v) ? v : null;
+  if (typeof v === 'number' || typeof v === 'boolean') return String(v);
+  return null;
+}
+function emitMap(obj, ind) {
+  const out = [], p = ' '.repeat(ind);
+  for (const [k, v] of Object.entries(obj)) {
+    if (v === undefined) continue;
+    const key = plainKey(k);
+    if (Array.isArray(v)) {
+      if (!v.length) { out.push(p + key + ': []'); continue; }
+      const fl = v.map(flowItem);
+      if (fl.every(x => x !== null) && fl.join(', ').length <= 70) { out.push(p + key + ': [' + fl.join(', ') + ']'); continue; }
+      out.push(p + key + ':');
+      for (const it of v) out.push(...emitItem(it, ind));
+    } else if (v && typeof v === 'object') {
+      if (!Object.keys(v).length) { out.push(p + key + ': {}'); continue; }
+      out.push(p + key + ':');
+      out.push(...emitMap(v, ind + 2));
+    } else out.push(p + key + ': ' + scalar(v, ind));
+  }
+  return out;
+}
+function emitItem(it, ind) {
+  const p = ' '.repeat(ind);
+  if (it && typeof it === 'object' && !Array.isArray(it)) {
+    const lines = emitMap(it, ind + 2);
+    if (!lines.length) return [p + '- {}'];
+    lines[0] = p + '- ' + lines[0].slice(ind + 2);
+    return lines;
+  }
+  if (Array.isArray(it)) return [p + '- ' + JSON.stringify(it)];
+  return [p + '- ' + scalar(it, ind)];
+}
+function toFileText(fm, body) {
+  return '---\n' + emitMap(fm, 0).join('\n') + '\n---\n' + String(body || '').replace(/\s+$/, '') + '\n';
+}
+
+// ---- form state <-> values ----
+function defaultState(spec, key) {
+  spec = norm(spec);
+  switch (spec.type) {
+    case 'list': return [];
+    case 'map': return spec.fields ? Object.fromEntries(Object.entries(spec.fields).map(([k, s]) => [k, defaultState(s, k)])) : [];
+    case 'when':
+      if (key === 'to') return { mode: 'null' };
+      if (key === 'from') return { mode: 'primordial' };
+      return spec.required ? { mode: 'date' } : { mode: 'primordial' };
+    default: return '';
+  }
+}
+function toValue(spec, st) {
+  spec = norm(spec);
+  const t = spec.type;
+  const str = x => (x == null ? '' : String(x));
+  switch (t) {
+    case 'const': return spec.value;
+    case 'string': case 'ref': case 'dice': case 'enum': { const s = str(st).trim(); return s === '' ? undefined : s; }
+    case 'text': { const s = str(st).replace(/\s+$/, ''); return s.trim() === '' ? undefined : s; }
+    case 'int': { const s = str(st).trim(); if (s === '') return undefined; return /^-?\d+$/.test(s) ? parseInt(s, 10) : s; }
+    case 'number': { const s = str(st).trim(); if (s === '') return undefined; return s !== '' && !isNaN(Number(s)) ? Number(s) : s; }
+    case 'bool': return st === 'yes' ? true : st === 'no' ? false : undefined;
+    case 'when': {
+      if (!st) return undefined;
+      if (st.mode === 'primordial') return 'primordial';
+      if (st.mode === 'null') return null;
+      const y = str(st.year).trim(), d = str(st.day).trim();
+      if (y === '' && d === '' && !str(st.era).trim()) return undefined;
+      const o = { year: /^-?\d+$/.test(y) ? parseInt(y, 10) : y, day: /^-?\d+$/.test(d) ? parseInt(d, 10) : d };
+      if (str(st.era).trim()) o.era = str(st.era).trim();
+      return o;
+    }
+    case 'list': {
+      const o = listOf(spec);
+      const a = (st || []).map(x => toValue(o, x)).filter(v => v !== undefined);
+      return a.length ? a : undefined;
+    }
+    case 'map': {
+      if (spec.fields) {
+        const o = {};
+        for (const k of Object.keys(spec.fields)) {
+          const v = toValue(spec.fields[k], st ? st[k] : undefined);
+          if (v !== undefined) o[k] = v;
+        }
+        return Object.keys(o).length ? o : undefined;
+      }
+      const o = {};
+      for (const r of (st || [])) {
+        const k = str(r.k).trim(), v = str(r.v).trim();
+        if (!k) continue;
+        let val = v;
+        if (/^(-?\d|\[|\{|true$|false$|null$)/.test(v)) { try { val = JSON.parse(v); } catch (e) { val = v; } }
+        o[k] = val;
+      }
+      return Object.keys(o).length ? o : undefined;
+    }
+    default: {
+      const s = str(st).trim();
+      if (s === '') return undefined;
+      try { return JSON.parse(s); } catch (e) { return s; }
+    }
+  }
+}
+
+// ---- ids, paths ----
+function rewriteFolder(t) {
+  const m = String(t).match(new RegExp('^(.*)/<Name>/(' + CONTAINERS + ')/(.*)$'));
+  return m ? '<Parent folder>/' + m[2] + '/' + m[3] : t;
+}
+function folderOf(path) {
+  const parts = path.split('/'), file = parts.pop(), base = file.replace(/\.md$/, '');
+  const dir = parts.join('/'), last = parts[parts.length - 1];
+  return (base === last || base.startsWith('_') || base === 'Campaign') ? dir : dir + '/' + base;
+}
+function neededVars(form) {
+  const s = SCHEMA.kinds[form.kind];
+  const idT = pick(s.id, form.idVariant), foT = rewriteFolder(pick(s.folder, form.folderVariant));
+  const set = [];
+  [idT, foT].forEach(t => (String(t).match(/<[^>]+>/g) || []).forEach(x => {
+    const k = x.slice(1, -1);
+    if (['Universe', 'universe', 'Name', 'slug', 'any'].includes(k)) return;
+    const key = k === 'dungeon' ? 'Dungeon' : k;
+    if (!set.includes(key)) set.push(key);
+  }));
+  return set;
+}
+function universeInfo(form, W) {
+  const typed = (form.kind === 'universe' ? (form.name || '') : (form.universeName || '')).trim();
+  let slug = slugify(typed), name = typed, folder = typed;
+  if (W) {
+    const u = W.universes.find(x => (x.name || '').toLowerCase() === typed.toLowerCase() || x.id === slug);
+    if (u) {
+      slug = u.id; name = u.name;
+      const m = /^Multiverse\/([^/]+)\//.exec(u.path || '');
+      folder = m ? m[1] : u.name;
+    }
+  }
+  return { slug, name, folder };
+}
+function derivedVars(form, W, uni) {
+  const d = {};
+  const parentId = (form.parent || '').trim() || (form.kind !== 'universe' ? uni.slug : '');
+  const p = W && W.byId[parentId];
+  if (p && p.path) {
+    const pf = folderOf(p.path);
+    d['Parent folder'] = pf;
+    const pre = 'Multiverse/' + uni.folder;
+    d['Place path'] = pf === pre ? '' : (pf.startsWith(pre + '/') ? pf.slice(pre.length + 1) : pf);
+  } else if (parentId === uni.slug && uni.folder) {
+    d['Parent folder'] = 'Multiverse/' + uni.folder;
+    d['Place path'] = '';
+  }
+  const whenSt = form.values && form.values.when;
+  if (whenSt && whenSt.mode === 'date' && /^-?\d+$/.test(String(whenSt.year || '').trim())) d.year = String(parseInt(whenSt.year, 10));
+  if (form.kind === 'event' && W && d.year) {
+    let max = 0;
+    for (const n of W.notes) {
+      const m = n.kind === 'event' && n.id.startsWith(uni.slug + '.event.') && new RegExp('^' + uni.slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\.event\\.' + d.year + '-(\\d{4})-').exec(n.id);
+      if (m) max = Math.max(max, parseInt(m[1], 10));
+    }
+    d.nnnn = String(max + 1).padStart(4, '0');
+  }
+  return d;
+}
+function computeCtx(form, W) {
+  const name = (form.name || '').trim();
+  const slug = slugify(name);
+  const uni = universeInfo(form, W);
+  const derived = derivedVars(form, W, uni);
+  const vars = {};
+  for (const k of neededVars(form)) vars[k] = (form.vars && k in form.vars) ? form.vars[k] : (derived[k] || '');
+  return { name, slug, uni, vars, derived };
+}
+function buildId(form, ctx) {
+  const s = SCHEMA.kinds[form.kind];
+  const tpl = pick(s.id, form.idVariant), miss = [];
+  const id = String(tpl).replace(/<([^>]+)>/g, (a, k) => {
+    let v;
+    switch (k) {
+      case 'universe': v = form.kind === 'universe' ? ctx.slug : ctx.uni.slug; break;
+      case 'slug': case 'any': v = ctx.slug; break;
+      case 'dungeon': v = slugify(ctx.vars.Dungeon); break;
+      case 'instance': v = slugify(ctx.vars.instance); break;
+      case 'nn': v = pad(ctx.vars.nn, 2); break;
+      case 'nnnn': v = pad(ctx.vars.nnnn, 4); break;
+      default: v = ctx.vars[k];
+    }
+    if (!v) miss.push(k);
+    return v || '';
+  });
+  return { id, miss };
+}
+function buildPath(form, ctx) {
+  const s = SCHEMA.kinds[form.kind];
+  const tpl = rewriteFolder(pick(s.folder, form.folderVariant)), miss = [];
+  const path = tpl.replace(/<([^>]+)>/g, (a, k) => {
+    let v;
+    if (k === 'Universe') v = ctx.uni.folder;
+    else if (k === 'Name') v = ctx.name;
+    else if (k === 'nnnn') v = pad(ctx.vars.nnnn, 4);
+    else v = ctx.vars[k];
+    if (!v && k !== 'Place path') miss.push(k);
+    return v || '';
+  }).replace(/\/{2,}/g, '/');
+  return { path, miss };
+}
+
+// ---- patterns (mirror validate.py) ----
+function phRegex(pattern, table) {
+  if (pattern.includes('<any>')) return null;
+  let rx = pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  rx = rx.replace(/<Place path>\//g, '(?:.+/)?');
+  rx = rx.replace(/<([^>]+)>/g, (a, k) => table[k] || '[^/]+');
+  return new RegExp('^' + rx + '$');
+}
+function matchesAny(patterns, value, table) {
+  const rx = arr(patterns).map(p => phRegex(p, table)).filter(Boolean);
+  return !rx.length || rx.some(r => r.test(value));
+}
+function dashes(l) { let s = l; for (let i = 0; i < 2; i++) s = s.replace('-', ' '); return s.replace(/-/g, ' '); }
+function licenceFiles(kind, name, fm, path) {
+  if (!['universe', 'ruleset'].includes(kind) || !fm.licence) return [];
+  const L = (SCHEMA.licences || {})[fm.licence];
+  if (!L) return [];
+  const dir = path.split('/').slice(0, -1).join('/');
+  let t = '# Licence: the ' + name + ' ' + kind + '\n\n**' + fm.licence + '** \u2014 ' + L[0] + '\n' + L[1] + '\n\n' + L[2] + '\n\n';
+  if (fm.attribution) t += '**Credit line to reproduce:** ' + fm.attribution + '\n\n';
+  t += 'Everything under this folder is covered. Contributions merged here are released under this licence too.\n\n';
+  t += 'This folder is *content*, not the framework. The Omniverse framework (schemas, tools, docs, app) is separately released under the Unlicense; see `LICENSING.md` at the repository root for the map.\n';
+  return [{ path: dir + '/LICENSE.md', text: t }];
+}
+
+// ---- build + validate ----
+function buildFrontmatter(form, ctx, id) {
+  const kind = form.kind, f = kindFields(kind), fm = {};
+  for (const k of fieldOrder(kind)) {
+    if (k === 'id') fm.id = id;
+    else if (k === 'kind') fm.kind = kind;
+    else if (k === 'name') fm.name = ctx.name;
+    else if (k === 'parent') {
+      let p = (form.parent || '').trim();
+      if (!p) {
+        if (kind === 'universe') p = 'omniverse.multiverse';
+        else if (norm(f.parent).kinds && norm(f.parent).kinds.includes('universe')) p = ctx.uni.slug;
+      }
+      if (p) fm.parent = p;
+    } else if (k === 'universe') {
+      if (kind !== 'universe' && ctx.uni.slug) fm.universe = ctx.uni.slug;
+    } else {
+      const spec = norm(f[k]);
+      if (spec.type === 'const') { fm[k] = spec.value; continue; }
+      const v = toValue(spec, form.values ? form.values[k] : undefined);
+      if (v !== undefined) fm[k] = v;
+    }
+  }
+  return fm;
+}
+function checkValue(spec, v, path, add, W, extra) {
+  spec = norm(spec);
+  const t = spec.type;
+  if (v === null) { if (!spec.nullable && t !== 'when') add('error', path + ' cannot be empty.'); return; }
+  switch (t) {
+    case 'string': case 'text':
+      if (typeof v !== 'string') { add('error', path + ' must be text.'); break; }
+      if (spec.pattern && !new RegExp(spec.pattern).test(v)) add('error', path + ' does not match ' + spec.pattern + '.');
+      break;
+    case 'int': if (!Number.isInteger(v)) add('error', path + ' must be a whole number.'); break;
+    case 'number': if (typeof v !== 'number') add('error', path + ' must be a number.'); break;
+    case 'bool': if (typeof v !== 'boolean') add('error', path + ' must be yes or no.'); break;
+    case 'enum': if (!(spec.values || []).includes(v)) add('error', path + ' must be one of: ' + (spec.values || []).join(', ') + '.'); break;
+    case 'dice': if (!/^\d*d\d+([+-]\d+)?$/i.test(String(v))) add('error', path + ' must look like d6 or 2d8+1.'); break;
+    case 'ref':
+      if (typeof v !== 'string') { add('error', path + ' must be an id.'); break; }
+      if (W) {
+        const hit = W.byId[v];
+        if (!hit && !(extra && extra.has(v))) add('warn', path + ': ' + v + ' is not in the world index (create it too, or check the spelling).');
+        else if (hit && spec.kinds && !spec.kinds.includes(hit.kind)) add('warn', path + ': ' + v + ' is a ' + hit.kind + '; expected ' + spec.kinds.join(' or ') + '.');
+      }
+      break;
+    case 'when':
+      if (!(v === 'primordial' || (v && typeof v === 'object' && Number.isInteger(v.year) && Number.isInteger(v.day)))) add('error', path + ' needs a whole year and day (or primordial).');
+      break;
+    case 'list': {
+      if (!Array.isArray(v)) { add('error', path + ' must be a list.'); break; }
+      if (spec.length && v.length !== spec.length) add('error', path + ' needs exactly ' + spec.length + ' items.');
+      v.forEach((x, i) => checkValue(listOf(spec), x, path + '[' + (i + 1) + ']', add, W, extra));
+      break;
+    }
+    case 'map':
+      if (!v || typeof v !== 'object') { add('error', path + ' must be a map.'); break; }
+      if (spec.fields) for (const k of Object.keys(spec.fields)) {
+        const sub = norm(spec.fields[k]);
+        if (v[k] === undefined) { if (sub.required) add('error', path + '.' + k + ' is required.'); }
+        else checkValue(sub, v[k], path + '.' + k, add, W, extra);
+      }
+      break;
+    default: break;
+  }
+}
+function buildNote(form, W, extraIds) {
+  const kind = form.kind, f = kindFields(kind);
+  const ctx = computeCtx(form, W);
+  const idRes = buildId(form, ctx);
+  const id = (form.idTouched && form.idOverride) ? form.idOverride.trim() : idRes.id;
+  const pathRes = buildPath(form, ctx);
+  const path = (form.pathTouched && form.pathOverride) ? form.pathOverride.trim() : pathRes.path;
+  const fm = buildFrontmatter(form, ctx, id);
+  if ((kind === 'universe' || kind === 'ruleset') && fm.licence && !NO_CREDIT.includes(fm.licence) && !fm.attribution && ctx.name) {
+    fm.attribution = ctx.name + ' from the Omniverse (https://github.com/timmseth/omniverse), ' + dashes(fm.licence);
+  }
+  const body = form.bodyTouched ? form.body : ('# ' + ctx.name + '\n');
+  const problems = [];
+  const add = (level, msg) => problems.push({ level, msg });
+  if (!ctx.name) add('error', 'Name is required.');
+  if (kind !== 'universe' && !ctx.uni.slug) add('error', 'Universe is required.');
+  if (ctx.name && !id) add('error', 'The id could not be built.');
+  const miss = [...new Set([...(form.idTouched ? [] : idRes.miss), ...(form.pathTouched ? [] : pathRes.miss)])];
+  if (miss.length) add('error', 'Fill in: ' + miss.map(k => VAR_LABELS[k] || k).join(', ') + '.');
+  if (kind === 'universe' && fm.id && W && W.byId[fm.id]) add('error', 'A universe with this id already exists.');
+  for (const k of fieldOrder(kind)) {
+    if (HEAD.includes(k) && k !== 'parent') continue;
+    const spec = norm(f[k]);
+    const v = fm[k];
+    if (v === undefined) { if (spec.required) add('error', k + ' is required.'); continue; }
+    checkValue(spec, v, k, add, W, extraIds);
+  }
+  if (id && !matchesAny(SCHEMA.kinds[kind].id, id, ID_PH)) add('error', 'The id ' + id + ' does not match ' + arr(SCHEMA.kinds[kind].id).join(' or ') + '.');
+  if (path && !matchesAny(SCHEMA.kinds[kind].folder, path, FOLDER_PH)) add('error', 'The file path ' + path + ' is not where a ' + kind + ' belongs (expected ' + arr(SCHEMA.kinds[kind].folder).join(' or ') + '). Check the parent and the path fields.');
+  if (kind === 'universe' || kind === 'ruleset') {
+    if (fm.licence === 'other' && !fm.licence_url) add('error', 'licence_url is required when the licence is other.');
+  }
+  if (W && path) {
+    const there = W.notes.find(n => n.path === path);
+    if (there) add('error', 'A note already lives at ' + path + ' (' + there.id + '). Saving would replace it.');
+  }
+  if (W && id) {
+    if (W.byId[id]) add('error', 'The id ' + id + ' already exists in the world index. Ids are permanent; pick a different name.');
+    const dup = W.notes.find(n => n.id !== id && (n.name || '').toLowerCase() === ctx.name.toLowerCase());
+    if (dup && ctx.name) add('warn', 'Another note is already called "' + ctx.name + '" (' + dup.id + '). Names must be unique across the repository.');
+  }
+  if (path && path.length > 200) add('warn', 'The path is over 200 characters; Windows may struggle.');
+  const text = toFileText(fm, body);
+  const files = [{ path, text }, ...licenceFiles(kind, ctx.name, fm, path)];
+  return { ctx, id, path, fm, text, files, problems, errors: problems.filter(p => p.level === 'error').length };
+}
+// ==/CORE==
+
+// ---- zip (store only) ----
+const CRC_T = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(b) { let c = 0xFFFFFFFF; for (let i = 0; i < b.length; i++) c = CRC_T[(c ^ b[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function makeZip(files) {
+  const enc = new TextEncoder(), chunks = [], central = [];
+  const d = new Date();
+  const time = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
+  const date = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+  let off = 0;
+  for (const f of files) {
+    const nm = enc.encode(f.path), data = enc.encode(f.text), crc = crc32(data);
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true);
+    lh.setUint16(10, time, true); lh.setUint16(12, date, true); lh.setUint32(14, crc, true);
+    lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, nm.length, true); lh.setUint16(28, 0, true);
+    chunks.push(new Uint8Array(lh.buffer), nm, data);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true);
+    ch.setUint16(12, time, true); ch.setUint16(14, date, true); ch.setUint32(16, crc, true);
+    ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true); ch.setUint16(28, nm.length, true);
+    ch.setUint32(42, off, true);
+    central.push(new Uint8Array(ch.buffer), nm);
+    off += 30 + nm.length + data.length;
+  }
+  let csz = 0; central.forEach(c => csz += c.length);
+  const end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+  end.setUint32(12, csz, true); end.setUint32(16, off, true);
+  return new Blob([...chunks, ...central, new Uint8Array(end.buffer)], { type: 'application/zip' });
+}
+
+// ---- app state ----
+const $ = id => document.getElementById(id);
+const app = $('app');
+const state = { step: 'choose', form: null, W: null, repo: null, basket: [], search: '' };
+let idSeq = 0;
+function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === 'class') e.className = v;
+    else if (k.startsWith('on')) e.addEventListener(k.slice(2), v);
+    else if (v === true) e.setAttribute(k, '');
+    else if (v !== false && v != null) e.setAttribute(k, v);
+  }
+  for (const c of kids.flat(Infinity)) { if (c == null || c === false) continue; e.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return e;
+}
+let toastT;
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2600); }
+
+// ---- world index ----
+function setWorld(json, label) {
+  if (!json || !Array.isArray(json.notes)) { toast('That file is not a world index.'); return false; }
+  const W = { notes: json.notes, byId: {}, universes: [] };
+  for (const n of json.notes) { W.byId[n.id] = n; if (n.kind === 'universe') W.universes.push(n); }
+  state.W = W; state.worldLabel = label || 'loaded';
+  document.querySelectorAll('datalist[data-dyn]').forEach(fillDatalist);
+  updateStatus();
+  if (state.step === 'fill') refreshPreview();
+  return true;
+}
+function updateStatus() {
+  const w = state.W ? '<b>' + state.W.notes.length + '</b> notes indexed' : 'no world index (references are not checked)';
+  $('worldStatus').innerHTML = w + (state.repo ? ' &middot; saving to <b>' + escapeHtml(state.repo.name) + '</b>' : '');
+}
+function escapeHtml(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function fillDatalist(dl) {
+  dl.replaceChildren();
+  if (dl.id === 'dl_universes') {
+    (state.W ? state.W.universes : []).forEach(u => dl.append(h('option', { value: u.name })));
+    return;
+  }
+  const kinds = dl.dataset.kinds ? dl.dataset.kinds.split(',') : null;
+  if (!state.W) return;
+  for (const n of state.W.notes) {
+    if (kinds && !kinds.includes(n.kind)) continue;
+    dl.append(h('option', { value: n.id }, (n.name || '') + ' (' + n.kind + ')'));
+  }
+}
+function datalistFor(kinds) {
+  const key = 'dl_' + ((kinds && kinds.length) ? kinds.join('_') : 'any');
+  if (!document.getElementById(key)) {
+    const dl = h('datalist', { id: key, 'data-dyn': '1', 'data-kinds': (kinds || []).join(',') });
+    document.body.append(dl);
+    fillDatalist(dl);
+  }
+  return key;
+}
+function universeList() {
+  let dl = document.getElementById('dl_universes');
+  if (!dl) { dl = h('datalist', { id: 'dl_universes', 'data-dyn': '1' }); document.body.append(dl); }
+  fillDatalist(dl);
+}
+
+// ---- repo folder ----
+const canPick = typeof window.showDirectoryPicker === 'function';
+async function connectRepo() {
+  if (!canPick) { toast('This browser cannot save into a folder. Use Download or Zip instead (Chrome or Edge on a computer can save directly).'); return null; }
+  try {
+    const root = await window.showDirectoryPicker({ mode: 'readwrite' });
+    try { await root.getDirectoryHandle('Multiverse'); } catch (e) { toast('That folder has no Multiverse folder. Pick the repo root.'); return null; }
+    state.repo = root;
+    try {
+      const g = await root.getDirectoryHandle('_generated');
+      const fh = await g.getFileHandle('world.json');
+      const txt = await (await fh.getFile()).text();
+      setWorld(JSON.parse(txt), 'repo');
+    } catch (e) { /* no world.json yet */ }
+    updateStatus();
+    toast('Connected to ' + root.name);
+    return root;
+  } catch (e) { return null; }
+}
+async function writeToRepo(root, rel, text) {
+  const parts = rel.split('/').filter(Boolean);
+  let dir = root;
+  for (const p of parts.slice(0, -1)) dir = await dir.getDirectoryHandle(p, { create: true });
+  const name = parts[parts.length - 1];
+  let exists = false;
+  try { await dir.getFileHandle(name); exists = true; } catch (e) { /* new file */ }
+  if (exists && !confirm(rel + ' already exists. Overwrite it?')) return false;
+  const fh = await dir.getFileHandle(name, { create: true });
+  const w = await fh.createWritable();
+  await w.write(text); await w.close();
+  return true;
+}
+function download(name, blob) {
+  const a = h('a', { href: URL.createObjectURL(blob), download: name });
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+
+// ---- controls ----
+function changed() { schedule(); }
+let schedT;
+function schedule() { clearTimeout(schedT); schedT = setTimeout(refreshPreview, 120); }
+
+function labelled(name, spec, ctrl) {
+  spec = norm(spec);
+  return h('div', { class: 'field' },
+    h('div', { class: 'lab' }, name, spec.required ? h('span', { class: 'req', title: 'required' }, '*') : null),
+    spec.doc ? h('div', { class: 'doc' }, spec.doc) : null,
+    ctrl);
+}
+function textInput(holder, key, ph, aria) {
+  return h('input', { type: 'text', value: holder[key] || '', placeholder: ph || '', 'aria-label': aria || key, oninput: e => { holder[key] = e.target.value; changed(); } });
+}
+function makeControl(spec, holder, key, label) {
+  spec = norm(spec);
+  const aria = label || key;
+  switch (spec.type) {
+    case 'string': return textInput(holder, key, spec.pattern ? 'pattern: ' + spec.pattern : '', aria);
+    case 'dice': return textInput(holder, key, 'd6 or 2d8+1', aria);
+    case 'int': case 'number': return h('input', { type: 'text', inputmode: 'decimal', value: holder[key] || '', 'aria-label': aria, oninput: e => { holder[key] = e.target.value; changed(); } });
+    case 'text': return h('textarea', { 'aria-label': aria, rows: 3, oninput: e => { holder[key] = e.target.value; changed(); } }, holder[key] || '');
+    case 'bool': return h('select', { 'aria-label': aria, onchange: e => { holder[key] = e.target.value; changed(); } },
+      ['', 'yes', 'no'].map(v => h('option', { value: v, selected: holder[key] === v }, v || '(unset)')));
+    case 'enum': return h('select', { 'aria-label': aria, onchange: e => { holder[key] = e.target.value; changed(); } },
+      h('option', { value: '' }, spec.required ? '(choose)' : '(unset)'),
+      (spec.values || []).map(v => h('option', { value: v, selected: holder[key] === v }, v)));
+    case 'ref': return refControl(spec, holder, key, aria);
+    case 'when': return whenControl(spec, holder, key, aria);
+    case 'list': return listControl(spec, holder, key, aria);
+    case 'map': return spec.fields ? mapControl(spec, holder, key, aria) : kvControl(holder, key, aria);
+    default: return h('textarea', { 'aria-label': aria, rows: 3, class: 'mono', placeholder: 'JSON, or plain text', oninput: e => { holder[key] = e.target.value; changed(); } }, holder[key] || '');
+  }
+}
+function refControl(spec, holder, key, aria) {
+  const note = h('div', { class: 'refnote' });
+  const upd = () => {
+    const v = (holder[key] || '').trim();
+    note.className = 'refnote';
+    if (!v) { note.textContent = ''; return; }
+    if (!state.W) { note.textContent = ''; return; }
+    const hit = state.W.byId[v];
+    if (hit) note.textContent = hit.name + ' (' + hit.kind + ')';
+    else { note.textContent = 'not in the world index'; note.className = 'refnote bad'; }
+  };
+  const input = h('input', { type: 'text', list: datalistFor(spec.kinds), value: holder[key] || '', placeholder: spec.kinds ? 'id of a ' + spec.kinds.join(' / ') : 'an id', 'aria-label': aria, autocomplete: 'off',
+    oninput: e => { holder[key] = e.target.value; upd(); changed(); } });
+  upd();
+  return h('div', null, input, note);
+}
+function whenControl(spec, holder, key, aria) {
+  const st = holder[key] = holder[key] && typeof holder[key] === 'object' ? holder[key] : defaultState(spec, key);
+  const nums = h('div', { class: 'when' });
+  const draw = () => {
+    nums.replaceChildren();
+    const mode = h('select', { 'aria-label': aria + ' kind of date', onchange: e => { st.mode = e.target.value; draw(); changed(); } },
+      h('option', { value: 'primordial', selected: st.mode === 'primordial' }, 'primordial'),
+      (spec.nullable || key === 'to') ? h('option', { value: 'null', selected: st.mode === 'null' }, 'none (still exists)') : null,
+      h('option', { value: 'date', selected: st.mode === 'date' }, 'a date'));
+    nums.append(mode);
+    if (st.mode === 'date') {
+      nums.append(textInput(st, 'year', 'year', aria + ' year'), textInput(st, 'day', 'day', aria + ' day'), textInput(st, 'era', 'era (optional)', aria + ' era'));
+    }
+  };
+  draw();
+  return nums;
+}
+function listControl(spec, holder, key, aria) {
+  const o = listOf(spec);
+  if (!Array.isArray(holder[key])) holder[key] = [];
+  const arrState = holder[key];
+  const box = h('div');
+  const draw = () => {
+    box.replaceChildren();
+    arrState.forEach((_, i) => {
+      const ctl = makeControl(o, arrState, i, aria + ' ' + (i + 1));
+      box.append(h('div', { class: 'row' }, h('div', { class: 'grow' }, ctl),
+        h('button', { type: 'button', title: 'Remove', 'aria-label': 'Remove item', onclick: () => { arrState.splice(i, 1); draw(); changed(); } }, '×')));
+    });
+    box.append(h('button', { type: 'button', onclick: () => { arrState.push(defaultState(o)); draw(); changed(); } }, '+ Add'));
+  };
+  draw();
+  return box;
+}
+function mapControl(spec, holder, key, aria) {
+  if (!holder[key] || typeof holder[key] !== 'object' || Array.isArray(holder[key])) holder[key] = defaultState(spec);
+  const st = holder[key];
+  const fs = h('fieldset', null, h('legend', null, aria));
+  for (const [k, s] of Object.entries(spec.fields)) {
+    if (norm(s).type === 'const') continue;
+    if (st[k] === undefined) st[k] = defaultState(s, k);
+    fs.append(labelled(k, s, makeControl(s, st, k, aria + ' ' + k)));
+  }
+  return fs;
+}
+function kvControl(holder, key, aria) {
+  if (!Array.isArray(holder[key])) holder[key] = [];
+  const rows = holder[key];
+  const box = h('div');
+  const draw = () => {
+    box.replaceChildren();
+    rows.forEach((r, i) => box.append(h('div', { class: 'row' },
+      h('div', { class: 'grow' }, textInput(r, 'k', 'key', aria + ' key')),
+      h('div', { class: 'grow' }, textInput(r, 'v', 'value', aria + ' value')),
+      h('button', { type: 'button', 'aria-label': 'Remove row', onclick: () => { rows.splice(i, 1); draw(); changed(); } }, '×'))));
+    box.append(h('button', { type: 'button', onclick: () => { rows.push({ k: '', v: '' }); draw(); } }, '+ Add'));
+  };
+  draw();
+  return box;
+}
+
+// ---- choose step ----
+function renderChoose() {
+  state.step = 'choose';
+  const q = state.search.toLowerCase();
+  const wrap = h('div');
+  wrap.append(
+    h('div', { class: 'steps' }, h('span', { class: 'on' }, '1. Choose'), h('span', null, '2. Fill in and export')),
+    h('p', { class: 'intro' }, 'Pick what you are making. The wizard asks for the right fields, checks them against the schemas, and writes a valid Omniverse note you can copy, download, or save straight into your repo. The chips show how big a creation is in a Genesis Session (Grand, Middling or Small).'),
+    h('input', { class: 'search', type: 'search', placeholder: 'Search kinds (for example: god, town, person)', value: state.search, 'aria-label': 'Search kinds',
+      oninput: e => { state.search = e.target.value; const pos = e.target.selectionStart; renderChoose(); const i = document.querySelector('.search'); i.focus(); i.setSelectionRange(pos, pos); } }));
+  let shown = 0;
+  for (const [title, kinds] of KIND_GROUPS) {
+    const items = kinds.filter(k => SCHEMA.kinds[k] && (!q || (k + ' ' + SCHEMA.kinds[k].title + ' ' + SCHEMA.kinds[k].summary + ' ' + (GENESIS[k] ? GENESIS[k][1] : '')).toLowerCase().includes(q)));
+    if (!items.length) continue;
+    shown += items.length;
+    wrap.append(h('h2', { class: 'group' }, title), h('div', { class: 'cards' }, items.map(k => {
+      const g = GENESIS[k];
+      return h('button', { class: 'card', type: 'button', onclick: () => startKind(k) },
+        h('b', null, SCHEMA.kinds[k].title), h('span', { class: 'sum' }, SCHEMA.kinds[k].summary), g ? h('span', { class: 'chip' }, g[0]) : null);
+    })));
+  }
+  if (!shown) wrap.append(h('p', { class: 'intro' }, 'No kinds match.'));
+  if (state.basket.length) wrap.append(renderBasket());
+  app.replaceChildren(wrap);
+}
+
+// ---- fill step ----
+function newForm(kind, keepUniverse) {
+  const f = kindFields(kind);
+  const form = {
+    kind, universeName: keepUniverse || store('ov.universe') || '', name: '', parent: '', body: '', bodyTouched: false,
+    idVariant: 0, folderVariant: 0, idTouched: false, pathTouched: false, idOverride: '', pathOverride: '', vars: {}, values: {}
+  };
+  for (const k of formFields(kind)) form.values[k] = defaultState(f[k], k);
+  const au = store('ov.author');
+  if (au && 'author' in form.values) form.values.author = au;
+  return form;
+}
+function startKind(kind, keepUniverse) {
+  state.form = newForm(kind, keepUniverse);
+  state.step = 'fill';
+  renderFill();
+  window.scrollTo(0, 0);
+}
+let ui = {};
+function renderFill() {
+  const form = state.form, kind = form.kind, s = SCHEMA.kinds[kind], f = kindFields(kind);
+  universeList();
+  ui = {};
+  const g = GENESIS[kind];
+  const left = h('div');
+  left.append(
+    h('div', { class: 'steps' }, h('button', { class: 'link', type: 'button', onclick: renderChoose }, '1. Choose'), h('span', { class: 'on' }, '2. Fill in and export')),
+    h('h2', { style: 'margin:.2rem 0 .6rem' }, s.title));
+  if (g) left.append(h('div', { class: 'hint' }, h('b', null, 'Genesis ' + g[0] + ': '), g[1]));
+  if (NOTES[kind]) left.append(h('div', { class: 'hint' }, NOTES[kind]));
+
+  // basics
+  const basics = h('div', { class: 'panel' }, h('h3', null, 'The basics'));
+  if (kind !== 'universe') {
+    basics.append(h('div', { class: 'field' }, h('div', { class: 'lab' }, 'Universe', h('span', { class: 'req' }, '*')),
+      h('div', { class: 'doc' }, 'The world this belongs to. Pick an existing one or type a new name.'),
+      h('input', { type: 'text', list: 'dl_universes', value: form.universeName, 'aria-label': 'Universe', autocomplete: 'off',
+        oninput: e => { form.universeName = e.target.value; store('ov.universe', e.target.value); changed(); } })));
+  }
+  basics.append(h('div', { class: 'field' }, h('div', { class: 'lab' }, 'Name', h('span', { class: 'req' }, '*')),
+    h('div', { class: 'doc' }, 'The proper name. It becomes the file name, and wikilinks use it, so it must be unique.'),
+    h('input', { type: 'text', value: form.name, 'aria-label': 'Name', oninput: e => { form.name = e.target.value; changed(); } })));
+  const ps = norm(f.parent);
+  basics.append(labelled('parent', { type: 'ref', kinds: ps.kinds, required: true, doc: (ps.doc || 'The note this one sits under.') + (ps.kinds && ps.kinds.includes('universe') ? ' Leave blank to put it directly under the universe.' : '') },
+    makeControl({ type: 'ref', kinds: ps.kinds }, form, 'parent', 'parent')));
+  left.append(basics);
+
+  // where it lives
+  const where = h('details', { class: 'panel', open: neededVars(form).length > 0 }, h('summary', null, 'Where it lives (id and file path)'));
+  ui.where = where;
+  const ids = arr(s.id), fos = arr(s.folder);
+  if (ids.length > 1) where.append(h('div', { class: 'field' }, h('div', { class: 'lab' }, 'Id pattern'),
+    h('select', { 'aria-label': 'Id pattern', onchange: e => { form.idVariant = +e.target.value; ui.vars = null; renderVars(); changed(); } }, ids.map((x, i) => h('option', { value: i, selected: i === form.idVariant }, x)))));
+  if (fos.length > 1) where.append(h('div', { class: 'field' }, h('div', { class: 'lab' }, 'Folder'),
+    h('select', { 'aria-label': 'Folder', onchange: e => { form.folderVariant = +e.target.value; renderVars(); changed(); } }, fos.map((x, i) => h('option', { value: i, selected: i === form.folderVariant }, x)))));
+  ui.varsBox = h('div', { class: 'two' });
+  where.append(ui.varsBox);
+  ui.idIn = h('input', { type: 'text', 'aria-label': 'Id', oninput: e => { form.idTouched = true; form.idOverride = e.target.value; changed(); } });
+  ui.pathIn = h('input', { type: 'text', 'aria-label': 'File path', oninput: e => { form.pathTouched = true; form.pathOverride = e.target.value; changed(); } });
+  where.append(h('div', { class: 'field' }, h('div', { class: 'lab' }, 'Id'), h('div', { class: 'doc' }, 'Permanent. Built from the universe and name; edit only if you must.'), ui.idIn,
+      h('button', { class: 'link', type: 'button', onclick: () => { form.idTouched = false; changed(); } }, 'reset')),
+    h('div', { class: 'field' }, h('div', { class: 'lab' }, 'File path'), h('div', { class: 'doc' }, 'Relative to the repo root.'), ui.pathIn,
+      h('button', { class: 'link', type: 'button', onclick: () => { form.pathTouched = false; changed(); } }, 'reset')));
+  left.append(where);
+  renderVars();
+
+  // fields
+  const names = formFields(kind).filter(k => k !== 'parent');
+  const req = names.filter(k => norm(f[k]).required);
+  const opt = names.filter(k => !norm(f[k]).required);
+  if (req.length) {
+    const p = h('div', { class: 'panel' }, h('h3', null, 'Required'));
+    req.forEach(k => p.append(labelled(k, f[k], makeControl(f[k], form.values, k, k))));
+    left.append(p);
+  }
+  if (opt.length) {
+    const p = h('details', { class: 'panel', open: !req.length }, h('summary', null, 'More fields (' + opt.length + ')'));
+    opt.forEach(k => p.append(labelled(k, f[k], makeControl(f[k], form.values, k, k))));
+    left.append(p);
+  }
+  const bodyBox = h('div', { class: 'panel' }, h('h3', null, 'Body'),
+    h('div', { class: 'doc' }, 'Markdown. Link other notes with [[Name]]. Starts with the note title; write the story below it.'));
+  ui.body = h('textarea', { rows: 10, 'aria-label': 'Body', oninput: e => { form.body = e.target.value; form.bodyTouched = true; changed(); } });
+  bodyBox.append(ui.body);
+  left.append(bodyBox);
+
+  // right column
+  const right = h('aside', { class: 'preview' });
+  const box = h('div', { class: 'panel' }, h('h3', null, 'Your note'));
+  ui.path = h('div', { class: 'path' });
+  ui.probs = h('ul', { class: 'probs' });
+  ui.out = h('pre', { class: 'out' });
+  ui.btnSave = h('button', { class: 'primary', type: 'button', onclick: saveToRepo }, canPick ? 'Save into repo folder' : 'Save (needs Chrome or Edge)');
+  ui.btnSave.disabled = !canPick;
+  box.append(ui.path, ui.probs, ui.out, h('div', { class: 'actions' },
+    ui.btnSave,
+    h('button', { type: 'button', onclick: copyText }, 'Copy'),
+    h('button', { type: 'button', onclick: downloadOne }, 'Download .md'),
+    h('button', { type: 'button', onclick: () => addToBasket(false) }, 'Add to basket'),
+    h('button', { type: 'button', onclick: () => addToBasket(true) }, 'Add and make another')));
+  right.append(box);
+  ui.basketHost = h('div');
+  right.append(ui.basketHost);
+  app.replaceChildren(h('div', { class: 'cols' }, left, right));
+  ui.body.value = form.body;
+  refreshPreview();
+}
+function renderVars() {
+  const form = state.form;
+  ui.varsBox.replaceChildren();
+  ui.varInputs = {};
+  for (const k of neededVars(form)) {
+    const inp = h('input', { type: 'text', 'aria-label': VAR_LABELS[k] || k, oninput: e => { form.vars[k] = e.target.value; changed(); } });
+    ui.varInputs[k] = inp;
+    ui.varsBox.append(h('div', { class: 'field' }, h('div', { class: 'lab' }, VAR_LABELS[k] || k), inp));
+  }
+}
+let current = null;
+function refreshPreview() {
+  if (state.step !== 'fill' || !state.form) return;
+  const form = state.form;
+  const extra = new Set(state.basket.map(b => b.id));
+  const note = buildNote(form, state.W, extra);
+  current = note;
+  for (const [k, inp] of Object.entries(ui.varInputs || {})) {
+    if (document.activeElement === inp) continue;
+    const v = (k in form.vars) ? form.vars[k] : (note.ctx.derived[k] || '');
+    if (inp.value !== v) inp.value = v;
+  }
+  if (document.activeElement !== ui.idIn) ui.idIn.value = note.id;
+  if (document.activeElement !== ui.pathIn) ui.pathIn.value = note.path;
+  if (!form.bodyTouched && document.activeElement !== ui.body) ui.body.value = '# ' + note.ctx.name + '\n';
+  if (note.problems.some(p => p.msg.startsWith('Fill in:') || p.msg.includes('not where a'))) ui.where.open = true;
+  ui.path.textContent = (note.path || '(file path pending)') + (note.files.length > 1 ? '  (+ ' + note.files.slice(1).map(f => fileName(f.path)).join(', ') + ' in the same folder)' : '');
+  ui.out.textContent = note.text;
+  ui.probs.replaceChildren();
+  if (!note.problems.length) ui.probs.append(h('li', { class: 'ok' }, 'Looks valid' + (state.W ? '.' : ' (references not checked: load the world index).')));
+  note.problems.forEach(p => ui.probs.append(h('li', { class: p.level }, (p.level === 'error' ? 'Fix: ' : 'Check: ') + p.msg)));
+  renderBasketInto(ui.basketHost);
+}
+function ensureOk() {
+  if (!current) return false;
+  if (current.errors && !confirm('This note has ' + current.errors + ' problem(s) the validator will reject. Export it anyway?')) return false;
+  return true;
+}
+async function copyText() {
+  if (!ensureOk()) return;
+  try { await navigator.clipboard.writeText(current.text); toast('Copied'); }
+  catch (e) { ui.out.focus(); const r = document.createRange(); r.selectNodeContents(ui.out); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast('Select and copy the text shown'); }
+}
+function fileName(path) { return path.split('/').pop() || 'note.md'; }
+function downloadOne() {
+  if (!ensureOk()) return;
+  if (current.files.length > 1) {
+    download(slugify(current.ctx.name) + '.zip', makeZip(current.files));
+    toast('Unzip into the repo root so each file lands at its path');
+    return;
+  }
+  download(fileName(current.path), new Blob([current.text], { type: 'text/markdown' }));
+  toast('Downloaded ' + fileName(current.path) + '. Put it at ' + current.path);
+}
+async function saveToRepo() {
+  if (!ensureOk()) return;
+  const root = state.repo || await connectRepo();
+  if (!root) return;
+  try {
+    let ok = false;
+    for (const f of current.files) ok = (await writeToRepo(root, f.path, f.text)) || ok;
+    if (ok) { toast('Saved ' + current.path); rememberAuthor(); }
+  } catch (e) { toast('Could not save: ' + (e && e.message || e)); }
+}
+function rememberAuthor() { const a = state.form && state.form.values && state.form.values.author; if (typeof a === 'string' && a.trim()) store('ov.author', a.trim()); }
+
+// ---- basket ----
+function persistBasket() { store('ov.basket', JSON.stringify(state.basket)); }
+function addToBasket(another) {
+  if (!ensureOk()) return;
+  const item = { kind: state.form.kind, name: current.ctx.name, id: current.id, path: current.path, text: current.text, files: current.files };
+  state.basket = state.basket.filter(b => b.path !== item.path).concat(item);
+  persistBasket(); rememberAuthor();
+  toast('Added ' + item.name + ' to the basket');
+  if (another) startKind(state.form.kind, state.form.universeName); else renderBasketInto(ui.basketHost);
+}
+function renderBasket() { const d = h('div'); renderBasketInto(d); return d; }
+function renderBasketInto(host) {
+  if (!host) return;
+  host.replaceChildren();
+  if (!state.basket.length) return;
+  host.append(h('div', { class: 'panel basket' }, h('h3', null, 'Basket (' + state.basket.length + ')'),
+    h('ul', { style: 'list-style:none;margin:0;padding:0' }, state.basket.map(b => h('li', null,
+      h('span', null, b.name + ' ', h('span', { class: 'chip' }, b.kind)),
+      h('button', { type: 'button', 'aria-label': 'Remove ' + b.name, onclick: () => { state.basket = state.basket.filter(x => x !== b); persistBasket(); renderBasketInto(host); } }, '×')))),
+    h('div', { class: 'actions' },
+      h('button', { class: 'primary', type: 'button', disabled: !canPick, onclick: saveAll }, 'Save all into repo folder'),
+      h('button', { type: 'button', onclick: zipAll }, 'Download all (zip)'),
+      h('button', { type: 'button', onclick: () => { if (confirm('Empty the basket?')) { state.basket = []; persistBasket(); renderBasketInto(host); } } }, 'Clear'))));
+}
+async function saveAll() {
+  const root = state.repo || await connectRepo();
+  if (!root) return;
+  let n = 0;
+  for (const b of state.basket) {
+    try { let ok = false; for (const f of (b.files || [{ path: b.path, text: b.text }])) ok = (await writeToRepo(root, f.path, f.text)) || ok; if (ok) n++; }
+    catch (e) { toast('Could not save ' + b.path); }
+  }
+  toast('Saved ' + n + ' of ' + state.basket.length + ' notes');
+}
+function zipAll() {
+  download('omniverse-notes.zip', makeZip(state.basket.flatMap(b => b.files || [{ path: b.path, text: b.text }])));
+  toast('Unzip into the repo root so each note lands at its path');
+}
+
+// ---- boot ----
+$('btnRepo').addEventListener('click', connectRepo);
+$('btnWorld').addEventListener('click', () => $('fileWorld').click());
+$('fileWorld').addEventListener('change', async e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  try { setWorld(JSON.parse(await file.text()), 'file'); toast('World index loaded'); } catch (err) { toast('Could not read that file.'); }
+  e.target.value = '';
+});
+try { const b = JSON.parse(store('ov.basket') || '[]'); if (Array.isArray(b)) state.basket = b.filter(x => x && x.path && x.text); } catch (e) { /* ignore */ }
+updateStatus();
+const qp = new URLSearchParams(location.search);
+if (qp.get('universe')) store('ov.universe', qp.get('universe'));
+if (qp.get('kind') && SCHEMA.kinds[qp.get('kind')]) startKind(qp.get('kind')); else renderChoose();
+if (/^https?:/.test(location.protocol)) fetch('world.json').then(r => r.ok ? r.json() : null).then(j => { if (j) setWorld(j, 'site'); }).catch(() => {});
+window.OVW = { SCHEMA, state, buildNote, newForm, formFields, kindFields, fieldOrder, toFileText, startKind, slugify, makeZip, setWorld, refreshPreview, renderChoose };
+</script>
+</body>
+</html>

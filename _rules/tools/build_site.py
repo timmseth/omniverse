@@ -49,6 +49,10 @@ def main(argv):
     shutil.rmtree(out, ignore_errors=True)
     os.makedirs(out, exist_ok=True)
     open(os.path.join(out, "site.css"), "w", encoding="utf-8").write(CSS)
+    wiz = os.path.join(root, "Apps", "wizard", "omniverse-wizard.html")
+    if os.path.exists(wiz):  # the Note Wizard, with the world index beside it so references autocomplete
+        shutil.copy(wiz, os.path.join(out, "wizard.html"))
+        shutil.copy(os.path.join(root, "_generated", "world.json"), os.path.join(out, "world.json"))
     if os.path.isdir(os.path.join(root, "_generated", "Maps")):
         shutil.copytree(os.path.join(root, "_generated", "Maps"), os.path.join(out, "_generated", "Maps"), dirs_exist_ok=True)
     link = re.compile(r"!?\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|([^\]]*))?\]\]")
@@ -95,8 +99,8 @@ def main(argv):
         e = entries.get(i) if i else None
         if e and e.get("referencedBy"):
             refs = '<h2>Referenced by</h2><ul class="plain refs">%s</ul>' % "".join('<li><a href="%s">%s</a> <span class="badge">%s</span></li>' % (href(entries[r]["path"]), html.escape(entries[r]["name"] or r), entries[r]["kind"]) for r in e["referencedBy"] if r in entries)
-        return '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>%s · Omniverse</title><link rel="stylesheet" href="%s/site.css"></head><body><header><b><a href="%s/">Omniverse</a></b><a href="%s/index.html#universes">Universes</a><a href="%s/_generated/Dungeon%%20Index.html">Dungeons</a><a href="%s/_generated/World%%20Index.html">Everything</a><a href="%s/README.html">Design</a><a href="https://github.com/timmseth/omniverse">GitHub</a></header><main>%s<h1>%s</h1>%s%s%s</main></body></html>' % (
-            html.escape(title), base, base, base, base, base, base, head, html.escape(title), metatbl, content, refs)
+        return '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>%s · Omniverse</title><link rel="stylesheet" href="%s/site.css"></head><body><header><b><a href="%s/">Omniverse</a></b><a href="%s/index.html#universes">Universes</a><a href="%s/_generated/Dungeon%%20Index.html">Dungeons</a><a href="%s/_generated/World%%20Index.html">Everything</a><a href="%s/README.html">Design</a><a href="%s/wizard.html">Wizard</a><a href="https://github.com/timmseth/omniverse">GitHub</a></header><main>%s<h1>%s</h1>%s%s%s</main></body></html>' % (
+            html.escape(title), base, base, base, base, base, base, base, head, html.escape(title), metatbl, content, refs)
 
     count = 0
     for i, (rel, meta) in notes.items():

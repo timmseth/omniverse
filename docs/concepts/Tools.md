@@ -9,7 +9,8 @@ All tools are Python 3 scripts in `_rules/tools/`, need only PyYAML, and take th
 | `build_world.py <root> [--check]` | every note | `_generated/world.json`, `World Index.md`, `Backlinks.md` | The world API: every note with frontmatter, body, outgoing refs and incoming refs. Apps and skills read this instead of parsing Markdown. |
 | `build_timeline.py <root>` | eras, events, instances, sessions | `Multiverse/<U>/_timeline.md` | One table of history per universe. |
 | `schema_reference.py <root>` | `_rules/schemas/` | `docs/reference/Schema Reference.md` | The readable schema reference. |
-| `build_all.py <root>` | | | Runs dungeons, world, timeline, maps and the schema reference, then `Apps/dmScreen/tools/sync_data.py` to refresh the app's bundled data. Run this before committing. |
+| `build_wizard.py <root>` | `_rules/schemas/`, `Apps/wizard/wizard.template.html` | `Apps/wizard/omniverse-wizard.html` | Bakes every schema into the Note Wizard, the one-page form that writes valid notes (see [The Note Wizard](../getting-started/The%20Note%20Wizard.md)). Needs PyYAML. |
+| `build_all.py <root>` | | | Runs dungeons, world, timeline, maps, the schema reference and the Note Wizard, then `Apps/dmScreen/tools/sync_data.py` to refresh the app's bundled data. Run this before committing. |
 | `new_universe.py <Name> --tone --ruleset --maintainer` | the registry | `Multiverse/<Name>/` scaffold, registry row | Starts a universe. |
 | `merge_instance.py <root> <instance id> [--write] [--all]` | an instance's sessions, canon events | draft event notes in `Events/` | Drafts canon events from a session log's `canon: proposed` events for a canon-merge PR, and lists Reality Rifts (canon events since the fork point that touch the same entities). |
 | `build_maps.py <root>` | the place tree, dungeons | `_generated/Maps/<Universe>.svg`, `Maps.md` | A schematic map of each universe: planet to settlement, with dungeon codes. |

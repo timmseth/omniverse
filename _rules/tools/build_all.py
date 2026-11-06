@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run every generator in order: dungeons, world index, timeline, schema reference, app data.
+"""Run every generator in order: dungeons, world index, timeline, maps, schema reference, the Note Wizard, app data.
 Usage: python3 _rules/tools/build_all.py <repo root>
 """
 import os, subprocess, sys
@@ -12,6 +12,7 @@ steps = [
     ["build_timeline.py", root],
     ["build_maps.py", root],
     ["schema_reference.py", root],
+    ["build_wizard.py", root],
 ]
 for s in steps:
     r = subprocess.run([sys.executable, os.path.join(tools, s[0])] + s[1:], cwd=root)
