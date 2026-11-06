@@ -22,6 +22,7 @@ Run the validator after every batch of files. It names the file and the field fo
 - **Names must be unique across the repository** (wikilinks are by name). Check with `grep -rl "^name: <Name>$"` before creating.
 - **One universe per PR, and only its own folder** unless its maintainer asked. Core files (`_rules/`, `Tropes/`, `Rulesets/`, `docs/`, `.github/`, `CODEOWNERS`) need an issue first.
 - **Original text only.** Shapes and numbers from published systems are fine; their prose is not. Do not paste from books, wikis or SRDs.
+- **Licences are per folder.** The framework is public domain; every universe, ruleset and `Tropes/` has its own `LICENSE.md` matching `licence:` in its manifest. Work inside a folder inherits its licence; imported material keeps its own licence in its own folder with its credit line in `attribution:`. Read `LICENSING.md` before creating a universe or importing anything.
 - **Never edit generated files by hand**: `_generated/`, `docs/reference/Schema Reference.md`, `*/_timeline.md`, `Apps/dmScreen/app/src/main/assets/*.js`, `_state/`.
 - **Tone belongs to the universe.** Tropelandia is a parody played straight (the situation is funny, the narration is not). Ashfall is grim and earnest. Read the universe's `_universe.md` and three notes before writing a word.
 - **Do not invent canon-changing events** in an existing universe without the human asking; propose them as `canon: proposed`.

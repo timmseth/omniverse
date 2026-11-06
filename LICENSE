@@ -1,3 +1,18 @@
+Omniverse framework licence: the Unlicense
+===========================================
+
+Scope. This licence covers the Omniverse FRAMEWORK: everything under
+_rules/, Apps/, docs/, .github/, _generated/, the Rulesets/Core/ glue and
+the files at the repository root (README, CONTRIBUTING, AGENTS, CLAUDE).
+
+It does NOT cover the CONTENT. Each universe under Multiverse/, each
+ruleset under Rulesets/, and the Tropes/ library carries its own
+LICENSE.md and declares its licence in its manifest. Seth's own worlds
+(Tropelandia, Ashfall) and the trope library are CC BY-SA 4.0. See
+LICENSING.md for the map in plain English.
+
+-------------------------------------------------------------------------
+
 This is free and unencumbered software released into the public domain.
 
 Anyone is free to copy, modify, publish, use, compile, sell, or

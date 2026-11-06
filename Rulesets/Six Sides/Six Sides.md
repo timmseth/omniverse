@@ -6,7 +6,8 @@ parent: omniverse
 status: usable
 version: 0.1.0
 owner: timmseth
-licence: Unlicense (public domain); an original system
+licence: CC-BY-SA-4.0
+attribution: "Six Sides ruleset from the Omniverse (https://github.com/timmseth/omniverse), CC BY-SA 4.0"
 source: original
 edition: '0.1'
 dice: Roll a pool of d6 equal to a trait; every 5 or 6 is a hit; beat the difficulty.

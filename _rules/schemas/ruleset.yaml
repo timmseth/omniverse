@@ -12,6 +12,7 @@ mixins: [base, manifest]
 fields:
   parent: { type: ref, kinds: [omniverse, universe], required: true }
   status: { type: enum, values: [stub, draft, usable, stable], required: true }
+  licence: { type: enum, values: [Unlicense, CC0-1.0, CC-BY-4.0, CC-BY-SA-4.0, CC-BY-NC-4.0, CC-BY-NC-SA-4.0, CC-BY-3.0, OGL-1.0a, ORC-1.0, other], required: true, doc: "Content licence; a LICENSE.md in this folder must name it. See LICENSING.md." }
   source: { type: string }
   edition: { type: string }
   provides:

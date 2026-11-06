@@ -17,7 +17,9 @@ dated:
 manifest:
   version:  { type: string, pattern: '^\d+\.\d+\.\d+$', doc: "Semantic version of this module." }
   owner:    { type: string, doc: "Maintainer (GitHub handle). Mirrored in CODEOWNERS." }
-  licence:  { type: string, doc: "Licence of this module's content." }
+  licence:  { type: enum, values: [Unlicense, CC0-1.0, CC-BY-4.0, CC-BY-SA-4.0, CC-BY-NC-4.0, CC-BY-NC-SA-4.0, CC-BY-3.0, OGL-1.0a, ORC-1.0, other], doc: "Licence of this module's content (SPDX-style id). The folder must also hold a LICENSE.md that names it; see LICENSING.md." }
+  licence_url: { type: string, doc: "Link to the licence text. Required when licence is `other`." }
+  attribution: { type: text, doc: "The credit line others must reproduce when they reuse this content. Required for every licence except Unlicense and CC0-1.0." }
   requires: { type: map, open: true, doc: 'Module id to version range, e.g. omniverse-core: ">=0.6 <0.7".' }
   extends:  { type: ref, nullable: true, doc: "Module this one builds on." }
   provides: { type: any, doc: "What the module supplies (list or map)." }

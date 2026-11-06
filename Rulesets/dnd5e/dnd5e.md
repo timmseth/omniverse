@@ -4,7 +4,9 @@ parent: omniverse
 kind: ruleset
 name: D&D 5e
 status: stub
-source: official SRD (CC-BY 4.0), import pending, attribution text to be verified
+source: System Reference Document 5.1 (Wizards of the Coast), CC-BY-4.0; import pending
+licence: CC-BY-4.0
+attribution: "This work includes material taken from the System Reference Document 5.1 (\"SRD 5.1\") by Wizards of the Coast LLC and available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed under the Creative Commons Attribution 4.0 International License available at https://creativecommons.org/licenses/by/4.0/legalcode."
 edition: open question (2014 or 2024)
 provides:
   stat_schema: ability scores, proficiency bonus, classes, species, backgrounds, hp, ac

@@ -16,4 +16,5 @@ fields:
     fields:
       calendar:       { type: ref, kinds: [calendar], required: true }
       epoch_omni_day: { type: int, required: true, doc: "Omni-day that corresponds to this universe's year 1, day 1." }
+  licence: { type: enum, values: [Unlicense, CC0-1.0, CC-BY-4.0, CC-BY-SA-4.0, CC-BY-NC-4.0, CC-BY-NC-SA-4.0, CC-BY-3.0, OGL-1.0a, ORC-1.0, other], required: true, doc: "Content licence; a LICENSE.md in this folder must name it. See LICENSING.md." }
   rifts: { type: list, of: { type: ref, kinds: [event, lore] }, doc: "Known Reality Rifts and Universe Joins touching this universe." }

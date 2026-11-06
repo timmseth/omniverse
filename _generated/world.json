@@ -137,9 +137,10 @@
     },
     "version": "0.1.0",
     "owner": "timmseth",
-    "licence": "Unlicense (public domain)",
+    "licence": "CC-BY-SA-4.0",
+    "attribution": "Ashfall from the Omniverse (https://github.com/timmseth/omniverse), CC BY-SA 4.0",
     "requires": {
-     "omniverse-core": ">=0.6 <0.7"
+     "omniverse-core": ">=0.6 <0.8"
     },
     "rifts": [
      "ashfall.event.211-0044-the-vault-opens"
@@ -2151,9 +2152,9 @@
    "children": [],
    "data": {
     "module_kind": "core",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "owner": "timmseth",
-    "licence": "Unlicense (public domain)",
+    "licence": "Unlicense",
     "provides": [
      "schemas",
      "validator",
@@ -2172,7 +2173,7 @@
     ],
     "summary": "The core contracts every module plugs into. Modules declare the range of this version they need in `requires`."
    },
-   "body": "# Omniverse core\n\nVersion 0.6.0. The core is the schemas in `_rules/schemas/`, the tools in `_rules/tools/`, the trope and ruleset contracts, and the instance and canon-merge rules in the README. Everything else is a module.\n\nA module's manifest declares the core range it was written against:\n\n```yaml\nrequires:\n  omniverse-core: \">=0.6 <0.7\"\n```\n\nThe core follows semantic versioning: a minor bump adds kinds or fields; a major bump changes what an existing field means or removes one, and comes with a migration."
+   "body": "# Omniverse core\n\nVersion 0.6.0. The core is the schemas in `_rules/schemas/`, the tools in `_rules/tools/`, the trope and ruleset contracts, and the instance and canon-merge rules in the README. Everything else is a module.\n\nA module's manifest declares the core range it was written against:\n\n```yaml\nrequires:\n  omniverse-core: \">=0.6 <0.8\"\n```\n\nThe core follows semantic versioning: a minor bump adds kinds or fields; a major bump changes what an existing field means or removes one, and comes with a migration."
   },
   {
    "id": "omniverse.guide.submitting-a-dungeon",
@@ -2222,7 +2223,7 @@
     "from": "primordial",
     "to": null
    },
-   "body": "# Multiverse\n\nThe shelf on which universes sit side by side. Each one has its own maintainer, calendar, tone and ruleset.\n\n| Universe | Maintainer | Tone | Ruleset | Status |\n|---|---|---|---|---|\n| [[Multiverse/Tropelandia/_universe\\|Tropelandia]] | seth | parody | dnd5e | active |\n| [[Multiverse/Ashfall/_universe\\|Ashfall]] | timmseth | grim low fantasy | six-sides | active |"
+   "body": "# Multiverse\n\nThe shelf on which universes sit side by side. Each one has its own maintainer, calendar, tone and ruleset.\n\n| Universe | Maintainer | Tone | Ruleset | Licence | Status |\n|---|---|---|---|---|---|\n| [[Multiverse/Tropelandia/_universe\\|Tropelandia]] | seth | parody | dnd5e | CC-BY-SA-4.0 | active |\n| [[Multiverse/Ashfall/_universe\\|Ashfall]] | timmseth | grim low fantasy | six-sides | CC-BY-SA-4.0 | active |"
   },
   {
    "id": "omniverse.ruleset.core",
@@ -2242,7 +2243,7 @@
    "children": [],
    "data": {
     "status": "stub",
-    "licence": "original (Omniverse project)",
+    "licence": "Unlicense",
     "provides": {
      "stat_schema": "a few descriptive attributes and a 1 to 10 rank",
      "power_function": "rank maps linearly onto Omni power",
@@ -2344,7 +2345,9 @@
    "children": [],
    "data": {
     "status": "stub",
-    "source": "official SRD (CC-BY 4.0), import pending, attribution text to be verified",
+    "source": "System Reference Document 5.1 (Wizards of the Coast), CC-BY-4.0; import pending",
+    "licence": "CC-BY-4.0",
+    "attribution": "This work includes material taken from the System Reference Document 5.1 (\"SRD 5.1\") by Wizards of the Coast LLC and available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed under the Creative Commons Attribution 4.0 International License available at https://creativecommons.org/licenses/by/4.0/legalcode.",
     "edition": "open question (2014 or 2024)",
     "provides": {
      "stat_schema": "ability scores, proficiency bonus, classes, species, backgrounds, hp, ac",
@@ -2386,7 +2389,8 @@
     "status": "usable",
     "version": "0.1.0",
     "owner": "timmseth",
-    "licence": "Unlicense (public domain); an original system",
+    "licence": "CC-BY-SA-4.0",
+    "attribution": "Six Sides ruleset from the Omniverse (https://github.com/timmseth/omniverse), CC BY-SA 4.0",
     "source": "original",
     "edition": "0.1",
     "dice": "Roll a pool of d6 equal to a trait; every 5 or 6 is a hit; beat the difficulty.",
@@ -6166,9 +6170,10 @@
     ],
     "version": "0.6.0",
     "owner": "timmseth",
-    "licence": "Unlicense (public domain)",
+    "licence": "CC-BY-SA-4.0",
+    "attribution": "Tropelandia from the Omniverse (https://github.com/timmseth/omniverse), CC BY-SA 4.0",
     "requires": {
-     "omniverse-core": ">=0.6 <0.7"
+     "omniverse-core": ">=0.6 <0.8"
     }
    },
    "body": "# Tropelandia\n\nA Munchkin-style parody of every fantasy and RPG trope you have ever rolled your eyes at, played with a straight face. Towers are rented, chosen ones have paperwork, and the dark lord is mostly worried about his quarterly numbers.\n\nPlayers can do whatever they like. The world will have a funny, workable answer.\n\n- Ruleset: D&D 5e\n- Calendar: [[Multiverse/Tropelandia/Calendar|Calendar]]\n- Current era: [[Age of Mild Peril]]\n\n## Contains\n- [[Material Plane]]\n\n## Reference\n- [[Multiverse/Tropelandia/Factions/Factions|Factions]]\n- [[Multiverse/Tropelandia/Bestiary/Bestiary|Bestiary]]\n- [[Multiverse/Tropelandia/Items/Items|Items]]\n- [[Multiverse/Tropelandia/Tables/Tables|Tables]]\n- [[Multiverse/Tropelandia/Pantheon/Pantheon|Pantheon]]\n- [[Multiverse/Tropelandia/Lore/Lore|Lore]]\n- [[Multiverse/Tropelandia/Quests/Quests|Quests]]\n- [[Multiverse/Tropelandia/_timeline|Timeline]]"

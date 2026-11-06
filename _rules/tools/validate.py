@@ -16,7 +16,7 @@ except ImportError:
     sys.exit("PyYAML missing: pip install pyyaml")
 
 ROOT_PREFIX = r"C:\Users\timmo\Documents\Obsidian\Omniverse"   # longest real-world prefix, for the path-length warning
-SKIP_DIRS = {".git", ".github", "Apps", "node_modules", ".obsidian", ".trash", "_generated", "docs"}
+SKIP_DIRS = {".git", ".github", "Apps", "node_modules", ".obsidian", ".trash", "_generated", "docs", "_site"}
 PLACE_KINDS = ["plane", "galaxy", "star_system", "planet", "continent", "region", "country", "province", "settlement"]
 SLUG = r"[a-z0-9]+(?:-[a-z0-9]+)*"
 ID_PH = {"<universe>": SLUG, "<instance>": SLUG, "<slug>": SLUG, "<dungeon>": SLUG, "<nn>": r"\d{2}", "<nnnn>": r"\d{4}", "<year>": r"\d+"}
@@ -83,10 +83,10 @@ def load_notes(root):
             rel = os.path.relpath(full, root).replace(os.sep, "/")
             if f.endswith(".md"):
                 structural = f.startswith("_") or f == "Campaign.md" or f.startswith("Session ")
-                if f[:-3] in names and not rel.startswith("_rules/templates/") and not rel.startswith("_rules/skills/") and not structural:
+                if f != "LICENSE.md" and f[:-3] in names and not rel.startswith("_rules/templates/") and not rel.startswith("_rules/skills/") and not structural:
                     dups.append((f[:-3], names[f[:-3]], rel))
-                names.setdefault(f[:-3], rel)
-            if not (f.endswith(".md") or f.endswith(".yaml")) or rel in ("README.md", "CONTRIBUTING.md", "AGENTS.md", "CLAUDE.md", "Welcome.md") or rel.startswith(".github/") or (rel.startswith("_rules/skills/") and f == "SKILL.md"):
+                if f != "LICENSE.md": names.setdefault(f[:-3], rel)
+            if not (f.endswith(".md") or f.endswith(".yaml")) or rel in ("README.md", "CONTRIBUTING.md", "AGENTS.md", "CLAUDE.md", "Welcome.md", "LICENSING.md") or f == "LICENSE.md" or rel.startswith(".github/") or (rel.startswith("_rules/skills/") and f == "SKILL.md"):
                 continue
             src = open(full, encoding="utf-8").read()
             if f.endswith(".md"):
@@ -341,6 +341,25 @@ def main(argv):
             parent = notes.get(meta.get("parent"))
             if parent and parent[1].get("kind") in PLACE_KINDS + ["district", "household"] and not rel.startswith(os.path.dirname(parent[0]) + "/"):
                 err("folder/parent mismatch: %s is not under %s" % (rel, os.path.dirname(parent[0])))
+
+    # licences: every universe and ruleset folder (and Tropes/) carries a LICENSE.md naming the declared licence
+    NO_CREDIT = ("Unlicense", "CC0-1.0")
+    for i, (rel, meta) in sorted(notes.items(), key=lambda x: x[1][0]):
+        if meta.get("kind") not in ("universe", "ruleset", "module"): continue
+        lic = meta.get("licence")
+        if not lic: continue
+        if lic == "other" and not meta.get("licence_url"):
+            err("%s: licence is other, so licence_url is required" % rel)
+        if lic not in NO_CREDIT and not meta.get("attribution"):
+            err("%s: licence %s needs an attribution line" % (rel, lic))
+        lp = os.path.join(root, "LICENSE") if rel.startswith("_rules/") else os.path.join(root, os.path.dirname(rel), "LICENSE.md")
+        if not os.path.exists(lp):
+            err("%s: no LICENSE.md next to the manifest (declares %s); see LICENSING.md" % (rel, lic)); continue
+        txt = open(lp, encoding="utf-8").read()
+        if lic not in txt:
+            err("%s: LICENSE.md does not mention the declared licence %s" % (rel, lic))
+    if os.path.isdir(os.path.join(root, "Tropes")) and not os.path.exists(os.path.join(root, "Tropes", "LICENSE.md")):
+        err("Tropes/LICENSE.md is missing; the trope library needs a licence file (see LICENSING.md)")
 
     # dungeon codes unique
     codes = {}

@@ -13,9 +13,10 @@ clock:
   epoch_omni_day: 0
 version: 0.1.0
 owner: timmseth
-licence: Unlicense (public domain)
+licence: CC-BY-SA-4.0
+attribution: "Ashfall from the Omniverse (https://github.com/timmseth/omniverse), CC BY-SA 4.0"
 requires:
-  omniverse-core: '>=0.6 <0.7'
+  omniverse-core: '>=0.6 <0.8'
 rifts:
 - ashfall.event.211-0044-the-vault-opens
 summary: A world under a dimming sun, where ash falls like snow and the last towns keep their fires lit because the dark has started to answer. Grim, earnest, played straight.

@@ -14,7 +14,7 @@ Reviewers check fit, correctness and licence, not taste. Be specific; every requ
 4. **Links both ways.** For each new person: faction lists them? venue/town lists them? For each venue: town lists it? keeper exists? For each dungeon: `home_town` set and the town lists it; `factions` set and the faction lists it; a quest exists? Report asymmetries as required changes.
 5. **Names and ids.** No duplicate names (`validate` warns), ids follow `<universe>.<kind>.<slug>`, nothing renamed or re-idd.
 6. **Tone and style.** Read every read-aloud aloud. Does it match the universe's `tone`? Senses first, no mechanics, no winking. Frontmatter order, British spelling in Tropelandia, no em dashes. These are suggestions unless the tone is plainly wrong for the universe.
-7. **Licence.** Any text that reads like a published book, wiki or SRD passage is a required change: rewrite in original words. Stat shapes and numbers are fine.
+7. **Licence.** Any text that reads like a published book, wiki or SRD passage is a required change: rewrite in original words. Stat shapes and numbers are fine. For a new universe or ruleset: `licence:` is set, `LICENSE.md` sits beside the manifest and names the same licence, `attribution:` is present for any licence that asks for credit, and imported material under NC/SA/OGL/ORC terms is in its own folder, not mixed into a looser one (`LICENSING.md`).
 8. **Playability** (dungeons and quests): levels match the monsters; every room has a reason; hints lead somewhere; `on_success`/`on_failure` are concrete.
 
 ## The review

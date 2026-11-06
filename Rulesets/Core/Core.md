@@ -4,7 +4,7 @@ parent: omniverse
 kind: ruleset
 name: Core
 status: stub
-licence: original (Omniverse project)
+licence: Unlicense
 provides:
   stat_schema: a few descriptive attributes and a 1 to 10 rank
   power_function: rank maps linearly onto Omni power

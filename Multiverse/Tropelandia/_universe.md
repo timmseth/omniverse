@@ -17,9 +17,10 @@ rifts:
 - tropelandia.event.1489-0035-the-overflow-corridor
 version: 0.6.0
 owner: timmseth
-licence: Unlicense (public domain)
+licence: CC-BY-SA-4.0
+attribution: "Tropelandia from the Omniverse (https://github.com/timmseth/omniverse), CC BY-SA 4.0"
 requires:
-  omniverse-core: '>=0.6 <0.7'
+  omniverse-core: '>=0.6 <0.8'
 ---
 # Tropelandia
 

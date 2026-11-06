@@ -4,9 +4,9 @@ kind: module
 module_kind: core
 name: Omniverse core
 parent: omniverse
-version: 0.6.0
+version: 0.7.0
 owner: timmseth
-licence: Unlicense (public domain)
+licence: Unlicense
 provides: [schemas, validator, build tools, trope library contract, ruleset contract, instance and canon-merge rules]
 reads: [every note]
 writes: [_generated/, docs/reference/Schema Reference.md, Multiverse/*/_timeline.md]
@@ -20,7 +20,7 @@ A module's manifest declares the core range it was written against:
 
 ```yaml
 requires:
-  omniverse-core: ">=0.6 <0.7"
+  omniverse-core: ">=0.6 <0.8"
 ```
 
 The core follows semantic versioning: a minor bump adds kinds or fields; a major bump changes what an existing field means or removes one, and comes with a migration.

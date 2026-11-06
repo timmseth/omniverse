@@ -22,6 +22,16 @@ body:
   - type: textarea
     id: brings
     attributes: { label: What it brings, description: New kinds, a calendar, a trope pack, rifts to other universes. }
+  - type: dropdown
+    id: licence
+    attributes:
+      label: Content licence
+      description: Your universe folder gets its own LICENSE.md. See LICENSING.md for what each means. Imported material must keep its original licence.
+      options: [CC-BY-SA-4.0 (default), CC-BY-4.0, CC0-1.0, CC-BY-NC-SA-4.0, CC-BY-NC-4.0, CC-BY-3.0, OGL-1.0a, ORC-1.0, other (link below)]
+    validations: { required: true }
+  - type: input
+    id: licence_url
+    attributes: { label: Licence link (if other, or if you are importing someone else's material) }
   - type: input
     id: maintainer
     attributes: { label: Maintainer (GitHub handle), description: You will own Multiverse/<Universe>/ in CODEOWNERS. }

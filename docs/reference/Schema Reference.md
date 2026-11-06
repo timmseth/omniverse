@@ -123,7 +123,9 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `to` | when |  | When it ended. `null` while it still exists. May be null. |
 | `version` | string |  | Semantic version of this module. Pattern `^\d+\.\d+\.\d+$`. |
 | `owner` | string |  | Maintainer (GitHub handle). Mirrored in CODEOWNERS. |
-| `licence` | string |  | Licence of this module's content. |
+| `licence` | one of: `Unlicense`, `CC0-1.0`, `CC-BY-4.0`, `CC-BY-SA-4.0`, `CC-BY-NC-4.0`, `CC-BY-NC-SA-4.0`, `CC-BY-3.0`, `OGL-1.0a`, `ORC-1.0`, `other` | yes | Content licence; a LICENSE.md in this folder must name it. See LICENSING.md. |
+| `licence_url` | string |  | Link to the licence text. Required when licence is `other`. |
+| `attribution` | text |  | The credit line others must reproduce when they reuse this content. Required for every licence except Unlicense and CC0-1.0. |
 | `requires` | map |  | Module id to version range, e.g. omniverse-core: ">=0.6 <0.7". |
 | `extends` | ref to any note |  | Module this one builds on. May be null. |
 | `provides` | any |  | What the module supplies (list or map). |
@@ -158,7 +160,9 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `status` | one of: `sample`, `draft`, `playtested`, `canon`, `stub`, `active`, `paused`, `dormant`, `archived`, `retired` |  | Editorial status. |
 | `version` | string |  | Semantic version of this module. Pattern `^\d+\.\d+\.\d+$`. |
 | `owner` | string |  | Maintainer (GitHub handle). Mirrored in CODEOWNERS. |
-| `licence` | string |  | Licence of this module's content. |
+| `licence` | one of: `Unlicense`, `CC0-1.0`, `CC-BY-4.0`, `CC-BY-SA-4.0`, `CC-BY-NC-4.0`, `CC-BY-NC-SA-4.0`, `CC-BY-3.0`, `OGL-1.0a`, `ORC-1.0`, `other` |  | Licence of this module's content (SPDX-style id). The folder must also hold a LICENSE.md that names it; see LICENSING.md. |
+| `licence_url` | string |  | Link to the licence text. Required when licence is `other`. |
+| `attribution` | text |  | The credit line others must reproduce when they reuse this content. Required for every licence except Unlicense and CC0-1.0. |
 | `requires` | map |  | Module id to version range, e.g. omniverse-core: ">=0.6 <0.7". |
 | `extends` | ref to any note |  | Module this one builds on. May be null. |
 | `provides` | any |  | What the module supplies (list or map). |
@@ -189,7 +193,9 @@ Every note is a Markdown file with YAML frontmatter. Its `kind` picks the schema
 | `status` | one of: `stub`, `draft`, `usable`, `stable` | yes |  |
 | `version` | string |  | Semantic version of this module. Pattern `^\d+\.\d+\.\d+$`. |
 | `owner` | string |  | Maintainer (GitHub handle). Mirrored in CODEOWNERS. |
-| `licence` | string |  | Licence of this module's content. |
+| `licence` | one of: `Unlicense`, `CC0-1.0`, `CC-BY-4.0`, `CC-BY-SA-4.0`, `CC-BY-NC-4.0`, `CC-BY-NC-SA-4.0`, `CC-BY-3.0`, `OGL-1.0a`, `ORC-1.0`, `other` | yes | Content licence; a LICENSE.md in this folder must name it. See LICENSING.md. |
+| `licence_url` | string |  | Link to the licence text. Required when licence is `other`. |
+| `attribution` | text |  | The credit line others must reproduce when they reuse this content. Required for every licence except Unlicense and CC0-1.0. |
 | `requires` | map |  | Module id to version range, e.g. omniverse-core: ">=0.6 <0.7". |
 | `extends` | ref to any note |  | Module this one builds on. May be null. |
 | `provides` | map | yes |  |

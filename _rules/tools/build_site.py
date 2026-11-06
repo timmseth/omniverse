@@ -105,7 +105,7 @@ def main(argv):
         body = src[m.end():] if m else src
         p = os.path.join(out, page_path(rel)); os.makedirs(os.path.dirname(p), exist_ok=True)
         open(p, "w", encoding="utf-8").write(render(rel, meta, body, i)); count += 1
-    for rel in gen_md + ["README.md", "CONTRIBUTING.md"] + [os.path.join(dp, f).replace(root + os.sep, "").replace(os.sep, "/") for dp, dn, fn in os.walk(os.path.join(root, "docs")) for f in fn if f.endswith(".md")]:
+    for rel in gen_md + ["README.md", "CONTRIBUTING.md", "LICENSING.md"] + [os.path.join(dp, f).replace(root + os.sep, "").replace(os.sep, "/") for dp, dn, fn in os.walk(os.path.join(root, "docs")) for f in fn if f.endswith(".md")]:
         if not os.path.exists(os.path.join(root, rel)): continue
         src = open(os.path.join(root, rel), encoding="utf-8").read()
         m = re.match(r"^---\r?\n(.*?)\r?\n---\r?\n", src, re.S)
@@ -117,9 +117,9 @@ def main(argv):
     unis = [e for e in world["notes"] if e["kind"] == "universe"]
     kinds = sorted(world["counts"].items(), key=lambda kv: -kv[1])
     idx = ["# The Omniverse", "", "A collaborative, modular, system-agnostic tabletop-RPG multiverse, kept as plain text and built by pull request. "
-           "[How to contribute](CONTRIBUTING.html) · [Design document](README.html) · [Docs](docs/README.html)", "", "## Universes {#universes}", ""]
+           "[How to contribute](CONTRIBUTING.html) · [Design document](README.html) · [Docs](docs/README.html) · [Licensing](LICENSING.html)", "", "## Universes {#universes}", ""]
     for u in unis:
-        idx.append("- **[%s](%s)**: %s *(%s; ruleset %s)*" % (u["name"], quote(page_path(u["path"])), u["summary"] or "", u["data"].get("tone", ""), (u["data"].get("ruleset") or "").split(".")[-1]))
+        idx.append("- **[%s](%s)**: %s *(%s; ruleset %s; licence %s)*" % (u["name"], quote(page_path(u["path"])), u["summary"] or "", u["data"].get("tone", ""), (u["data"].get("ruleset") or "").split(".")[-1], u["data"].get("licence", "undeclared")))
     idx += ["", "## By kind", ""]
     for k, n in kinds:
         if k in ("room",): continue

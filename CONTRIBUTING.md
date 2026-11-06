@@ -41,7 +41,7 @@ Point Claude (or any agent that reads `AGENTS.md`) at this repository and descri
 - **Ids are namespaced** (`tropelandia.faction.mildew-court`) and never reused. Rename a note's title freely; change an id only with a PR that updates every reference.
 - **Every `parent` exists** and every reference points at a real note. The validator checks.
 - **One universe per PR**, and only your own universe unless its maintainer has asked for help. Core changes (schemas, tools, tropes, rulesets) go through the Omniverse maintainers.
-- **Original or openly licensed material only.** This repository is released into the public domain (see [`LICENSE`](LICENSE)); anything you add must be yours to release that way, or clearly attributed under a compatible licence in the note's `source`. No copied text from published game books.
+- **Original or openly licensed material only.** The *framework* is public domain ([`LICENSE`](LICENSE)); each universe, ruleset and the trope library carries its own `LICENSE.md` (Tropelandia, Ashfall and Tropes are CC BY-SA 4.0). Contributing to a folder means releasing your contribution under that folder's licence. Imported material keeps its own licence in its own folder, with the credit line it asks for. No copied text from published game books. The map is in [`LICENSING.md`](LICENSING.md).
 - **Tone belongs to the universe.** Tropelandia is a parody played straight. Read [the style guide](docs/reference/Style%20Guide.md) and three neighbouring notes before writing.
 - **Be kind in review.** Maintainers review for fit and correctness, not taste; "this breaks the schema" is a reason to change something, "I would have done it differently" is a comment.
 

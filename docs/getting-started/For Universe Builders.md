@@ -15,6 +15,7 @@ A module under `Multiverse/<Name>/` with a manifest (`_universe.md`), a calendar
 - Keep your universe valid (CI will tell you).
 - Review pull requests to your folder in reasonable time, or name a co-maintainer.
 - Keep rifts (events that touch another universe) agreed with that universe's maintainer.
+- Declare a licence for your folder (`licence:` in `_universe.md` plus `LICENSE.md`; default CC BY-SA 4.0) and honour the licences of anything you import. [`LICENSING.md`](../../LICENSING.md) explains the choices in plain English.
 
 ## The steps
 1. Scaffold: `python3 _rules/tools/new_universe.py <Name> --tone "<tone>" --ruleset <ruleset id> --maintainer <handle>`. It writes the manifest, calendar, era, first plane and planet, and a registry row.

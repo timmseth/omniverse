@@ -10,7 +10,7 @@ to: null
 
 The shelf on which universes sit side by side. Each one has its own maintainer, calendar, tone and ruleset.
 
-| Universe | Maintainer | Tone | Ruleset | Status |
-|---|---|---|---|---|
-| [[Multiverse/Tropelandia/_universe\|Tropelandia]] | seth | parody | dnd5e | active |
-| [[Multiverse/Ashfall/_universe\|Ashfall]] | timmseth | grim low fantasy | six-sides | active |
+| Universe | Maintainer | Tone | Ruleset | Licence | Status |
+|---|---|---|---|---|---|
+| [[Multiverse/Tropelandia/_universe\|Tropelandia]] | seth | parody | dnd5e | CC-BY-SA-4.0 | active |
+| [[Multiverse/Ashfall/_universe\|Ashfall]] | timmseth | grim low fantasy | six-sides | CC-BY-SA-4.0 | active |

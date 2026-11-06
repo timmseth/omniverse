@@ -1,8 +1,8 @@
 ---
 title: Omniverse — Design Document
 status: draft
-version: 0.6
-updated: 2026-11-04
+version: 0.7
+updated: 2026-11-05
 owner: Seth
 ---
 
@@ -10,11 +10,13 @@ owner: Seth
 
 **A collaborative, modular tabletop-RPG multiverse in git. Bring a universe, a ruleset, a trope pack or a campaign: plug it in, own it, extend it. Worlds stay still until someone plays them, and what matters gets merged back into canon.**
 
-> Status: **Draft v0.6.** This document describes the design; the practical guides are in [`docs/`](docs/README.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md). Two universes exist: Tropelandia (parody, D&D 5e, about 450 notes) and Ashfall (grim, Six Sides, a first town and a Rift). Each decision is tagged **[Decided]**, **[Proposed]** or **[Open]**. Section 22 collects everything still waiting on an answer.
+> Status: **Draft v0.7.** This document describes the design; the practical guides are in [`docs/`](docs/README.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md). Two universes exist: Tropelandia (parody, D&D 5e, about 450 notes) and Ashfall (grim, Six Sides, a first town and a Rift). Each decision is tagged **[Decided]**, **[Proposed]** or **[Open]**. Section 22 collects everything still waiting on an answer.
 >
 > **New in v0.4:** the design is organised around collaborative, modular extensibility (section 5). The tick system is gone: worlds are event-sourced and static until events are merged. Playable timelines are *instances*, merged into canon with a *canon merge*. Adding a universe is a *Universe Join* (formerly Convergence). Section 17 covers campaigns and the DM skill.
 >
 > **New in v0.5:** dungeons are a shared content kind. A dungeon is a set of room notes (exits, read-aloud text, encounters, traps, puzzles, loot). A build tool validates them into one `dungeons.json`, and the **dmScreen** Android app reads that file and runs a dungeon like a DM screen (sections 9.4, 17.7 and 17.8). Anyone can submit a dungeon by pull request, and the app can sync everyone's dungeons from GitHub. Ten sample dungeons are in Tropelandia.
+>
+> **New in v0.7:** licensing is settled and enforced. The framework (schemas, tools, docs, app) is public domain; content is licensed per folder, with a `LICENSE.md` beside every universe, ruleset and the trope library and a checked `licence:` field in each manifest (`LICENSING.md` is the plain-English map; Seth's worlds are CC BY-SA 4.0). Quest layers let a room, venue, town or NPC carry details that only surface for an active quest, and dmScreen v1.2.0 runs them, plus a combat tracker, dice notation, a purse, a timer and session export in the repository's own session-note format.
 >
 > **New in v0.6:** the schemas are real: one YAML file per note kind in `_rules/schemas/`, a validator that reads them, and a generated Schema Reference. The world is machine-readable (`_generated/world.json`). Tropelandia has factions, hub towns, venues, NPCs, a bestiary, items, random tables, holidays, a dated history, a pantheon, cultures, languages, lore, a quest chain per dungeon and a Starter Kit. A second ruleset (Six Sides) and a second universe (Ashfall) with a Reality Rift to Tropelandia prove the system-agnostic, modular claims. CI validates every pull request; `CONTRIBUTING.md` and `docs/` explain how to join in. The first dmScreen APK is in the repository.
 
@@ -226,7 +228,7 @@ adds_kinds: [starship, sector]
   - *Compose:* a universe lists the modules it wants in `requires`.
 - **Review:** the owner reviews changes to their module. Omniverse maintainers review only core and cross-module changes.
 - **Discovery:** each module kind has a generated index listing modules, owners, versions, licences and status.
-- **Licences:** every module declares one, and CI checks the declaration.
+- **Licences:** every module declares one (`licence:` + `LICENSE.md` in its folder), and CI checks the declaration (`LICENSING.md`).
 
 ### 5.6 Extension points
 These are the places a module can plug in:
@@ -299,7 +301,8 @@ Omniverse/                              (git repo root)
 ├── README.md                           this document
 ├── CONTRIBUTING.md                     how to contribute (short); docs/ has the long version
 ├── AGENTS.md · CLAUDE.md               entry points for LLMs and agents asked to contribute
-├── LICENSE                             public domain (Unlicense)
+├── LICENSE                             the framework is public domain (Unlicense)
+├── LICENSING.md                        the map: framework vs content, one LICENSE.md per universe/ruleset/Tropes
 ├── CODEOWNERS                          who reviews which path (section 16)
 ├── .github/                            CI (validate, site), PR and issue templates
 ├── docs/                               guides: getting started, concepts, authoring, reference, governance
@@ -836,8 +839,8 @@ Tropelandia (and later the Forgotten Realms universe) use the `dnd5e` ruleset. T
 ### 15.8a The Six Sides ruleset **[Decided, v0.6]**
 `Rulesets/Six Sides/` is an original light system (four traits rated in d6, hits on 5 or 6, harm boxes, Edge, Moves), written to prove the system-agnostic claim in data rather than prose. It declares its `stat_mapping` to and from `dnd5e` and onto the Omni scale, and its `_schemas/monster.yaml` defines the `six_sides` block that a monster note carries. Ashfall uses it; its bestiary and NPCs are written in that shape, and the dungeon build tool reads either block to give the app hp-like and defence-like numbers.
 
-### 15.9 Licensing
-Each ruleset declares its source and licence, and CI checks the declaration. Home-brew and original systems are welcome. A published system needs an open licence or the publisher's permission. The Omniverse core itself contains no third-party game-system content.
+### 15.9 Licensing **[Decided, v0.7]**
+Each ruleset declares `licence:` (an SPDX-style id from the list in `LICENSING.md`) and, when the licence asks for credit, `attribution:`, and carries a `LICENSE.md` beside its manifest; the validator checks all three agree. Home-brew and original systems are welcome (Six Sides is CC BY-SA 4.0). A published system needs an open licence (the SRD is CC BY 4.0, with its credit line reproduced in `Rulesets/dnd5e/LICENSE.md`) or the publisher's permission, recorded as `other` plus `licence_url`. The Omniverse core itself contains no third-party game-system content.
 
 ## 16. The multiverse: universes, maintainers and joining
 
@@ -1082,7 +1085,7 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 | D13 | Schemas are the contract: one YAML per kind in `_rules/schemas/`, read by the validator and rendered into the Schema Reference. Modules extend kinds through `_schemas/` with namespaced fields. |
 | D14 | `_generated/world.json` is the world API. Apps and skills read generated files, never the Markdown. Generated files are committed and CI checks they are current (closes P8). |
 | D15 | CI is the gate: a pull request merges only if the validator, the dungeon check and the generated-files check pass. Contributed content is never executed. |
-| D16 | The repository is public domain (Unlicense), as found; contributions are released the same way; published systems appear only as shapes and numbers in original text. |
+| D16 | *(revised v0.7)* The **framework** (schemas, tools, docs, app, CI, Core glue) is public domain (Unlicense). **Content** is licensed per folder: every universe, ruleset and the trope library carries a `LICENSE.md` and declares it in its manifest; Seth's universes and `Tropes/` are CC BY-SA 4.0; a joining universe picks its own; imported material keeps its own licence in its own folder. Contributions are released under the licence of the folder they land in. Published systems outside an open licence appear only as shapes and numbers in original text. (closes P18) |
 | D17 | Monster stat blocks are system-agnostic at the core (`threat` on the Omni scale) and carry the ruleset's block under its own key, so a universe on any ruleset can have a bestiary and the app can run it. |
 
 ### Proposed (will proceed unless changed)
@@ -1107,7 +1110,7 @@ Open to contributors: grimdark, sci-fi fantasy, a single-city sandbox, a publish
 | P15 | Naming clash: *instance* (a playable timeline) versus *trope instance* | Keep both with the prefix, or rename trope instances (for example to "bindings" or "realisations") |
 | P16 | How dungeons are submitted | Pull request plus the dungeon-proposal issue template (current), or an in-app editor later |
 | P17 | Where built APKs are stored | In the repository under `Apps/dmScreen/releases/` (current), or as GitHub Release assets only, if the repository grows too large |
-| P18 | Licence for content | Stay public domain (Unlicense, current) or move to CC BY-SA 4.0 for content with MIT for tools |
+| P18 | ~~Licence for content~~ | Decided: framework Unlicense, content per folder, default CC BY-SA 4.0 (D16, `LICENSING.md`) |
 | P19 | Where the static site is published | GitHub Pages from CI (current, needs Pages enabled once in repository settings) |
 
 ## 23. Roadmap
