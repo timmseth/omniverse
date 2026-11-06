@@ -45,3 +45,11 @@
 | **dmScreen** | The Android DM screen app in `Apps/dmScreen/`. |
 | **Maintainer** | The owner of a path in `CODEOWNERS`; reviews changes to it. Universe maintainers own their universe; Omniverse maintainers own the core. |
 | **DM skill** | The `omniverse-dm` skill for Claude that runs campaigns against this repository. |
+| **Genesis Session** | A first session where the players are gods who create the universe turn by turn, then play its mortal incarnations. |
+| **Scribe** | The facilitator of a Genesis Session: keeps the Ledger, the clock and the secrets. |
+| **Act** | One god's turn in a Genesis Session: declare, speak the Word, anchor and mark, yes-and, note. Sized Grand, Middling or Small. |
+| **Domain** | A god's field of influence (two words at most); its fingerprint, the Mark, shows on everything they make. |
+| **Pact** | A deal between gods in a Genesis Session. The standard price is two Weaving Acts for one; pacts become Fates. |
+| **Seed** | A secret creation planted in the last round for an incarnation to find. |
+| **Veil** | The wall between what the gods know (the Ledger) and what their mortal incarnations know. |
+| **Echo, Fate, Remnant** | An incarnation's unexplained instinct from its god's Domain; a consequence of a Pact; and the one fact carried into the next life. |

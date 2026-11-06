@@ -5,6 +5,7 @@ Dated in the real calendar. Versions are the README's design-document versions.
 ## 0.7.0 (2026-11-05)
 - Licensing split: the framework stays Unlicense; content is licensed per folder. `licence:` is a checked enum on universe and ruleset manifests, with `attribution:`/`licence_url:`; every universe, ruleset and `Tropes/` carries a `LICENSE.md`; the validator enforces agreement. Tropelandia, Ashfall, Tropes and Six Sides are CC BY-SA 4.0; dnd5e is CC BY 4.0 with the SRD credit line. `LICENSING.md` is the plain-English map; `new_universe.py --licence` writes the file.
 - Quest layers (`for_quest` on rooms, venues, towns and NPCs) and dmScreen v1.2.0 (quests, combat tracker, dice notation, purse, timer, session export).
+- Genesis Session: a guide and printable handouts for a four-hour, 2-to-8-player session in which the players are gods who build a universe by turns, then play its mortal incarnations (`docs/authoring/`).
 
 ## 0.6.0 (2026-11-04)
 - Schemas for every note kind in `_rules/schemas/`, a schema-driven validator, and a generated Schema Reference.

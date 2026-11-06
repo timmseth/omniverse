@@ -25,6 +25,8 @@ Start here. The design document is the repository [README](../README.md); these 
 - [Writing a Ruleset](authoring/Writing%20a%20Ruleset.md)
 - [Adding a Universe](authoring/Adding%20a%20Universe.md)
 - [Running and Logging a Campaign](authoring/Running%20and%20Logging%20a%20Campaign.md)
+- [Running a Genesis Session](authoring/Running%20a%20Genesis%20Session.md): a four-hour session where the players are gods who build the universe, then play its mortals.
+- [Genesis Session Handouts](authoring/Genesis%20Session%20Handouts.md): rules card, God Sheet, Act Cards, Pact and Seed slips, Incarnation Sheet, Scribe's Ledger.
 - [Contributing with an LLM](authoring/Contributing%20with%20an%20LLM.md): describe it; the model does the YAML.
 
 ## Reference
