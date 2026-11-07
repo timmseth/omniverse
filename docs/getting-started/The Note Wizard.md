@@ -7,7 +7,7 @@ One web page that writes Omniverse notes for you. Pick what you are making (a go
 - **From a clone:** open `Apps/wizard/omniverse-wizard.html` in a browser. It is one self-contained file, works offline, and needs no install. Use **Open repo folder** (below) to load the world index, or **Load world.json** from `_generated/`.
 
 ## Use it
-1. **Choose** a kind. The chip on each card (Grand, Middling, Small) says how big a creation it usually is in a [Genesis Session](../authoring/Running%20a%20Genesis%20Session.md).
+1. **Choose** a kind. The chip on each card says how big a creation it usually is in a [Genesis Session](../authoring/Running%20a%20Genesis%20Session.md) and what it costs in Entropy (the World 5, Grand 3, Middling 2, Small 1).
 2. **Fill in** the form. Universe and name come first; the id and file path are worked out for you and shown on the right. Required fields are listed first; everything else is under **More fields**. If the path needs a place, parent folder or event number, the wizard fills those in from the parent note and the world index.
 3. **Export** from the panel on the right:
    - **Save into repo folder** (Chrome or Edge on a computer): pick your repo root once; the wizard writes the note at its correct path, creating folders as needed, and asks before replacing a file.
@@ -29,5 +29,5 @@ The wizard applies the same rules as the validator while you type: required fiel
 ## How it stays in sync
 `_rules/tools/build_wizard.py` reads every schema in `_rules/schemas/` and bakes the forms into `Apps/wizard/omniverse-wizard.html`. `build_all.py` runs it, and CI fails if the committed page is stale. Change a schema, run `build_all`, and the wizard follows. The page itself is written in `Apps/wizard/wizard.template.html`; never edit the generated file by hand.
 
-## For a Genesis Session
-At the end of a Genesis Session, the Scribe (or each god) can use the wizard to turn the Ledger into notes: each god as a `deity`, each Grand and Middling creation as a place, faction, people or event, each Small creation as a person, item or lore note. Use **Add and make another** to work through the Ledger quickly, then save the whole basket into the new universe's folder.
+## For a Genesis Session or a Convocation
+At the end of a Genesis Session or a Convocation, the Scribe (or each god) can use the wizard to turn the Ledger into notes: each god as a `deity`, each Grand and Middling creation as a place, faction, people or event, each Small creation as a person, item or lore note, the Doom's public face as `lore`, relics as `item` notes kept in a private instance until found. Use **Add and make another** to work through the Ledger quickly, then save the whole basket into the universe's folder. The where-everything-lands table is in [the Gameplay Loop](../concepts/The%20Gameplay%20Loop.md#where-each-phase-lands-in-the-repository).

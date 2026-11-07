@@ -103,11 +103,12 @@ const KIND_GROUPS = [
   ['Worlds and systems', ['universe', 'calendar', 'ruleset']]
 ];
 // Genesis Session sizes: which kinds are usually a Grand, Middling or Small creation.
+const WEIGHTS = { World: 5, Grand: 3, Middling: 2, Small: 1 };
 const GENESIS = {
   plane: ['Grand', 'A realm or plane of existence.'],
   galaxy: ['Grand', 'A galaxy.'],
   star_system: ['Grand', 'A sun and what circles it.'],
-  planet: ['Grand', 'A world.'],
+  planet: ['World', 'The world itself: a Joint Act of the whole table at Genesis.'],
   continent: ['Grand', 'A continent, shaped by something that happened to it.'],
   culture: ['Grand', 'A people or race. Say what makes them who they are.'],
   lore: ['Grand', 'A law of reality, a myth or a custom. Use the body for the story.'],
@@ -805,7 +806,7 @@ function renderChoose() {
   const wrap = h('div');
   wrap.append(
     h('div', { class: 'steps' }, h('span', { class: 'on' }, '1. Choose'), h('span', null, '2. Fill in and export')),
-    h('p', { class: 'intro' }, 'Pick what you are making. The wizard asks for the right fields, checks them against the schemas, and writes a valid Omniverse note you can copy, download, or save straight into your repo. The chips show how big a creation is in a Genesis Session (Grand, Middling or Small).'),
+    h('p', { class: 'intro' }, 'Pick what you are making. The wizard asks for the right fields, checks them against the schemas, and writes a valid Omniverse note you can copy, download, or save straight into your repo. The chips show how big a creation is in a Genesis Session and what it costs in Entropy.'),
     h('input', { class: 'search', type: 'search', placeholder: 'Search kinds (for example: god, town, person)', value: state.search, 'aria-label': 'Search kinds',
       oninput: e => { state.search = e.target.value; const pos = e.target.selectionStart; renderChoose(); const i = document.querySelector('.search'); i.focus(); i.setSelectionRange(pos, pos); } }));
   let shown = 0;
@@ -816,7 +817,7 @@ function renderChoose() {
     wrap.append(h('h2', { class: 'group' }, title), h('div', { class: 'cards' }, items.map(k => {
       const g = GENESIS[k];
       return h('button', { class: 'card', type: 'button', onclick: () => startKind(k) },
-        h('b', null, SCHEMA.kinds[k].title), h('span', { class: 'sum' }, SCHEMA.kinds[k].summary), g ? h('span', { class: 'chip' }, g[0]) : null);
+        h('b', null, SCHEMA.kinds[k].title), h('span', { class: 'sum' }, SCHEMA.kinds[k].summary), g ? h('span', { class: 'chip' }, g[0] + ' \u00b7 ' + WEIGHTS[g[0]] + ' Entropy') : null);
     })));
   }
   if (!shown) wrap.append(h('p', { class: 'intro' }, 'No kinds match.'));
@@ -852,7 +853,7 @@ function renderFill() {
   left.append(
     h('div', { class: 'steps' }, h('button', { class: 'link', type: 'button', onclick: renderChoose }, '1. Choose'), h('span', { class: 'on' }, '2. Fill in and export')),
     h('h2', { style: 'margin:.2rem 0 .6rem' }, s.title));
-  if (g) left.append(h('div', { class: 'hint' }, h('b', null, 'Genesis ' + g[0] + ': '), g[1]));
+  if (g) left.append(h('div', { class: 'hint' }, h('b', null, 'Genesis ' + g[0] + ' (' + WEIGHTS[g[0]] + ' Entropy): '), g[1]));
   if (NOTES[kind]) left.append(h('div', { class: 'hint' }, NOTES[kind]));
 
   // basics

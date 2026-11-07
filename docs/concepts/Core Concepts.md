@@ -29,5 +29,8 @@ When an instance's events should become true for everyone, the DM marks them `ca
 ## 9. Rulesets
 Each universe names a ruleset: the shape of stat blocks, the power function, how off-stage conflicts resolve, how characters progress. The bestiary and the NPCs carry stats in that shape. The Omniverse itself is tied to no system; the Core ruleset is a minimal fallback, and others can be added as data.
 
-## 10. Generated, never edited
+## 10. The loop of play
+A universe can be played into existence. In [the Gameplay Loop](The%20Gameplay%20Loop.md) the players are gods who build the world by turns, owe it a Doom for what they built, hide relics, and go down as mortals to recover them and soften the Doom; between campaigns they return as gods and build more. None of it is required; it is one way to make a universe that is yours.
+
+## 11. Generated, never edited
 `_generated/`, `docs/reference/Schema Reference.md`, each universe's `_timeline.md` and the app's bundled data are written by the tools from the notes. CI checks they are current. Edit the source note, run `build_all`, commit both.
