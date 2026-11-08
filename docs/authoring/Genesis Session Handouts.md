@@ -1,6 +1,6 @@
 # Genesis Session Handouts
 
-Print these or put them on a shared screen. They go with [Running a Genesis Session](Running%20a%20Genesis%20Session.md), [Running a Convocation](Running%20a%20Convocation.md) and [the Gameplay Loop](../concepts/The%20Gameplay%20Loop.md). Sections 1 to 9 are for the players; 10 to 13 are for the Scribe.
+Print these or put them on a shared screen. They go with [Running a Genesis Session](Running%20a%20Genesis%20Session.md), [Running a Convocation](Running%20a%20Convocation.md) and [the Gameplay Loop](../concepts/The%20Gameplay%20Loop.md). Sections 1 to 9 are for the players; 10 to 17 are for the Scribe.
 
 ---
 
@@ -341,3 +341,109 @@ Times drift and the spare is under ten minutes: keep Acts to six, or push the Re
 **Carried Entropy:** ______ **Deferred (grows by 1 per cycle):** ______
 
 **The Turning chosen:** ______ **Calendar advanced to:** ______ **New era?** ______
+
+---
+
+## 14. Scribe: the Script
+
+The whole procedure as the questions you ask. New players never need to hold the rules; you hold them.
+
+**Apotheosis (each god)**
+1. "What are you the god of? Two words at most."
+2. "What do mortals call you?"
+3. "What mark do you leave on things?"
+4. "How do you speak?" (Ask them to say something in that voice.)
+5. "Before anything existed, what was already true?" (The First Word.)
+6. Then, going round: "Give me one line of the World."
+
+**Every Act (in order)**
+1. "Grand, Middling or Small? What is it?"
+2. "Say it into being." (One or two sentences, in character.)
+3. "What does it touch?" (Anchor.)
+4. "Where's your fingerprint on it?" (Mark.)
+5. "Anyone yes-and?" (Two adds at most.)
+6. "Name it." Write it down, then say the tally out loud: "That's 3. We owe 21."
+
+**When someone hesitates:** "Want a card?" (Act Cards.) "Small things are cheap and count."
+**When someone wants to stop another god:** "Make them an offer. They can say no."
+**When creations clash:** "Both are true. Tell me how."
+**Every few Acts:** say the debt out loud.
+
+**Relics (last round):** "Hide something for your future self. What is it, what does it do alone, what does it add when joined, where is it, how will you find it?" Collect the slip face down.
+
+**Reckoning (Council):** read the sore spots, then "What's the scale?", "What form does it take?", "What else?" until the debt is spent. Then "What do mortals think is coming?"
+
+**Incarnation (each player):** "Who are you?" "What pull do you feel and can't explain?" (Echo.) Hand them their Fate and Lead. "Why are you at the Gathering?"
+
+---
+
+## 15. Scribe: the Gathering
+
+The avatars should meet in the first hour of session one. Pick one place and one moment from the Ledger where every Lead points, then let each player say why their avatar is there.
+
+| Pick from the Ledger | Example |
+|---|---|
+| A festival or holiday someone made | the feast everyone remembers wrong |
+| A funeral of a Small person someone made | the clerk who never got his signature |
+| A trial, auction or reading of a will | a relic's first clue is a lot on the block |
+| A disaster that is the Doom's first sign | the tide comes in twice |
+| A market day in a city someone made | everyone has a reason to be there |
+
+**The Gathering:** ______________________ **Where:** ______________________ **When:** ______________
+
+| Avatar | Why they are there (one line) |
+|---|---|
+| | |
+| | |
+| | |
+| | |
+
+---
+
+## 16. Common Knowledge card
+
+*Written by the Scribe before Incarnation; read aloud and handed to players. Five to seven lines, in mortal words, from the Ledger. No god names unless mortals know them; never anything secret.*
+
+1. The world is ______________________
+2. The land we live in is ______________________
+3. The people around here are ______________________
+4. The great power nearby is ______________________
+5. People pray to ______________________
+6. Everyone has heard that ______________________ (the Doom's public face)
+7. Children are told never to ______________________
+
+---
+
+## 17. Scribe: Playtest Log
+
+*Fill in during and right after the session. This is what the trial is for.*
+
+| | |
+|---|---|
+| Date and players (count) | |
+| Scribe played as (Scribe only / god only / god and avatar) | |
+| Doom shaped by (Council / Keeper / mixed) | |
+
+**Timing**
+
+| Phase | Planned | Actual |
+|---|---|---|
+| Apotheosis | 35 | |
+| Round 1 | | |
+| Weaving rounds (each) | | |
+| Relics | | |
+| Reckoning | 20 | |
+| Incarnation | | |
+| Total | 240 | |
+
+**Numbers:** Acts made ____ (Grand ____ Middling ____ Small ____) · Deals offered ____ accepted ____ refused ____ · Clashes ____ · Final debt ____ · Remainder ____
+
+**What the debt bought** (Scale, Form, Features): ________________________________
+
+**What worked:** ________________________________
+
+**What dragged or confused people:** ________________________________
+
+**What a player said they wanted:** ________________________________
+
+**Change before next time:** ________________________________

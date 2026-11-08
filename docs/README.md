@@ -11,11 +11,18 @@ Start here. The design document is the repository [README](../README.md); these 
 - [The DM Screen App](getting-started/The%20DM%20Screen%20App.md): install and run dmScreen on a phone.
 - [The Note Wizard](getting-started/The%20Note%20Wizard.md): pick a kind of note, fill in the blanks, export a valid file or save it into the repo.
 
+## Play: the Gameplay Loop
+Read in this order to run the loop: gods build a world, owe it a Doom, hide relics, go down as mortals to recover them, then come back and build more.
+1. [The Gameplay Loop](concepts/The%20Gameplay%20Loop.md): gods build the world, owe it a Doom, hide relics, go down as mortals, come back and build more. Phases, the Entropy economy, the Doom menu, who is who, and where it all lands in the repo.
+2. [Running a Genesis Session](authoring/Running%20a%20Genesis%20Session.md): the first cycle of the loop. A four-hour session where the players make gods, build the universe with Entropy on the tally, spend the debt on the Doom, hide relics, then play the mortals.
+3. [Genesis Session Handouts](authoring/Genesis%20Session%20Handouts.md): rules card, Loop card, God Sheet, Act Cards, Pact and Relic slips, Incarnation and Retirement sheets, the Reckoning Sheet, Scribe's Ledger and run sheets.
+4. [Running and Logging a Campaign](authoring/Running%20and%20Logging%20a%20Campaign.md): the mortal phases, session logs and canon merges.
+5. [Running a Convocation](authoring/Running%20a%20Convocation.md): every later cycle. The gods read the Ledger, settle Pacts, build more, owe more, skip time, hide new relics; also Canon Merge night.
+
 ## Concepts
 - [Core Concepts](concepts/Core%20Concepts.md): layers, ids, events, instances, canon merges, modules.
 - [Repository Map](concepts/Repository%20Map.md): what lives in every folder.
 - [Tools](concepts/Tools.md): the validator, the builders, the app data, CI.
-- [The Gameplay Loop](concepts/The%20Gameplay%20Loop.md): gods build the world, owe it a Doom, hide relics, go down as mortals, come back and build more. Phases, the Entropy economy, the Doom menu, who is who, and where it all lands in the repo.
 
 ## Authoring guides
 - [Writing a Dungeon](authoring/Writing%20a%20Dungeon.md)
@@ -27,9 +34,6 @@ Start here. The design document is the repository [README](../README.md); these 
 - [Writing a Ruleset](authoring/Writing%20a%20Ruleset.md)
 - [Adding a Universe](authoring/Adding%20a%20Universe.md)
 - [Running and Logging a Campaign](authoring/Running%20and%20Logging%20a%20Campaign.md)
-- [Running a Genesis Session](authoring/Running%20a%20Genesis%20Session.md): the first cycle of the loop. A four-hour session where the players make gods, build the universe with Entropy on the tally, spend the debt on the Doom, hide relics, then play the mortals.
-- [Running a Convocation](authoring/Running%20a%20Convocation.md): every later cycle. The gods read the Ledger, settle Pacts, build more, owe more, skip time, hide new relics; also Canon Merge night.
-- [Genesis Session Handouts](authoring/Genesis%20Session%20Handouts.md): rules card, Loop card, God Sheet, Act Cards, Pact and Relic slips, Incarnation and Retirement sheets, the Reckoning Sheet, Scribe's Ledger and run sheets.
 - [Contributing with an LLM](authoring/Contributing%20with%20an%20LLM.md): describe it; the model does the YAML.
 
 ## Reference

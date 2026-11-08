@@ -128,7 +128,9 @@ Seal the Ledger. From here the gods are gone; the Scribe holds the book.
 3. **Echo.** Write one **Echo**: a pull or instinct from the god's Domain that the avatar cannot explain (the sea-goddess who never feels cold; the god of bargains who always knows a price). Once per session, when acting on the Echo, you take a mild edge. In 5e that is advantage on one roll; in other systems a bonus die or similar. When your relic wakes, the Echo becomes a real power, as written on the Relic Slip.
 4. **Fate.** The Scribe reads out the Pacts and gives each player a **Fate**: a consequence of a Pact their god made, felt by the avatar as luck, a debt, an enemy, a dream. The Scribe decides the shape; the player decides how the avatar copes with it.
 5. **The Lead.** The Scribe gives each avatar one Lead to their relic, drawn from the Relic Slip: a dream, an heirloom, a rumour, a scar. The Lead is the first stage of the Relic Quest.
-6. **The Veil comes down.** Players now know only their avatar's life, the Proverbs, the public face of the Doom, and anything the avatar would plausibly know. If unsure, ask the Scribe: "does my avatar know this?" Players who remember their own god's creations leave them unspoken in character. Clues to relics and Marks come from play.
+6. **The Gathering.** The Scribe picks one place and moment from the Ledger where every Lead points (a festival, a funeral, a trial, a shipwreck, a market day), so the avatars meet in the first hour of play. Each player says in one line why their avatar is there.
+7. **Common Knowledge.** The Scribe reads the Common Knowledge card (in the handouts): five to seven things every mortal knows, written from the Ledger in mortal words.
+8. **The Veil comes down.** Players now know only their avatar's life, the Proverbs, the public face of the Doom, and anything the avatar would plausibly know. If unsure, ask the Scribe: "does my avatar know this?" Players who remember their own god's creations leave them unspoken in character. Clues to relics and Marks come from play.
 
 ### Resonance
 When an avatar meets something marked by their own god (a relic, a Mark, one of their creations), the Scribe calls a **Resonance**: a dream, a chill, a coincidence. It is a story beat, not a mechanic, but it is also when the Echo is easiest to use, and it is how the Relic Quest gives its clues.
@@ -153,7 +155,8 @@ Prefer to do it yourselves? The [Note Wizard](../getting-started/The%20Note%20Wi
 - Midway: say the debt out loud now and then; remind quiet gods that Small Acts count and cost less, and that deals are available.
 - Last round: collect the Relic Slips without reading them aloud.
 - Reckoning: read the sore spots first; make the table spend it all.
-- After: seal the Ledger; photograph it; start the universe.
+- After: seal the Ledger; photograph it; fill in the Playtest Log while it is fresh; start the universe.
+- Throughout: use the Scribe's Script in the handouts; it is the whole procedure as the questions you ask.
 
 ## Variations
 - **Short form (two hours):** two Acts per god (one Grand, one relic), the World, a Keeper's Doom shaped between sessions, no deals, a 20-minute Incarnation.

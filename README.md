@@ -1000,6 +1000,11 @@ Rules for submissions: original writing or openly licensed material only (no cop
 ### 17.9 Quests and the Starter Kit **[Decided, v0.6]**
 A **quest** is a chain of three or four stages threading a town, a faction and a dungeon, with `on_success` and `on_failure` written as the sentences a canon merge will turn into events. Tropelandia has one per dungeon, so a campaign can run from level 1 to 12 on quests alone. The **Starter Kit** (`Instances/starter-kit/`, a template instance) holds Session Zero, a three-session arc on three of those quests, five pregens and an empty log: copy the folder, rename the id, play. The DM skill offers it as a starting scenario.
 
+### 17.10 The Gameplay Loop **[Proposed, v0.7]**
+A universe can be played into existence. In [the Gameplay Loop](docs/concepts/The%20Gameplay%20Loop.md) the players start as gods. They build the world together by turns, and every creation adds Entropy to a public debt (the World 5, Grand 3, Middling 2, Small 1). Before anyone plays a mortal, the gods spend the debt on a Doom: the bigger the world, the bigger the threat. Each god hides a relic for their future self, then everyone incarnates as an avatar who remembers none of it. The first campaign is recovering the relics and joining them to soften the Doom; Entropy is necessary, so the Doom is transformed, never deleted. When avatars die or retire they are reborn, replaced, return to their god, or ascend into the pantheon. Between campaigns a Convocation lets the gods build more, which raises a new debt and a new campaign.
+
+It is a base way to play, not the required one; locally any of it can change. What must hold is only what lands in notes when a world merges up. Guides: [Running a Genesis Session](docs/authoring/Running%20a%20Genesis%20Session.md), [Running a Convocation](docs/authoring/Running%20a%20Convocation.md), [handouts](docs/authoring/Genesis%20Session%20Handouts.md).
+
 ## 18. Planned universes
 
 ### 18.1 Tropelandia
