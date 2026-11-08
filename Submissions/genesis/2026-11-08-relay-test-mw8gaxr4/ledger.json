@@ -1,0 +1,17 @@
+{
+  "format": "omniverse-genesis-ledger",
+  "version": 1,
+  "setup": {
+    "universe": "Relay Test"
+  },
+  "gods": [
+    {
+      "name": "Test God"
+    }
+  ],
+  "acts": [],
+  "pacts": [],
+  "reckoning": {
+    "publicFace": "test"
+  }
+}
