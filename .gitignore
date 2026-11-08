@@ -6,3 +6,7 @@ Thumbs.db
 _site/
 __pycache__/
 *.pyc
+
+# Local pointers to secrets kept outside the repo (never commit secrets)
+LOCAL-SECRETS.md
+.local/
