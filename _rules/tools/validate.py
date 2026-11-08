@@ -16,7 +16,7 @@ except ImportError:
     sys.exit("PyYAML missing: pip install pyyaml")
 
 ROOT_PREFIX = r"C:\Users\timmo\Documents\Obsidian\Omniverse"   # longest real-world prefix, for the path-length warning
-SKIP_DIRS = {".git", ".github", "Apps", "node_modules", ".obsidian", ".trash", "_generated", "docs", "_site"}
+SKIP_DIRS = {".git", ".github", "Apps", "Submissions", "node_modules", ".obsidian", ".trash", "_generated", "docs", "_site"}
 PLACE_KINDS = ["plane", "galaxy", "star_system", "planet", "continent", "region", "country", "province", "settlement"]
 SLUG = r"[a-z0-9]+(?:-[a-z0-9]+)*"
 ID_PH = {"<universe>": SLUG, "<instance>": SLUG, "<slug>": SLUG, "<dungeon>": SLUG, "<nn>": r"\d{2}", "<nnnn>": r"\d{4}", "<year>": r"\d+"}

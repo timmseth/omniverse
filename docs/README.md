@@ -14,10 +14,11 @@ Start here. The design document is the repository [README](../README.md); these 
 ## Play: the Gameplay Loop
 Read in this order to run the loop: gods build a world, owe it a Doom, hide relics, go down as mortals to recover them, then come back and build more.
 1. [The Gameplay Loop](concepts/The%20Gameplay%20Loop.md): gods build the world, owe it a Doom, hide relics, go down as mortals, come back and build more. Phases, the Entropy economy, the Doom menu, who is who, and where it all lands in the repo.
-2. [Running a Genesis Session](authoring/Running%20a%20Genesis%20Session.md): the first cycle of the loop. A four-hour session where the players make gods, build the universe with Entropy on the tally, spend the debt on the Doom, hide relics, then play the mortals.
-3. [Genesis Session Handouts](authoring/Genesis%20Session%20Handouts.md): rules card, Loop card, God Sheet, Act Cards, Pact and Relic slips, Incarnation and Retirement sheets, the Reckoning Sheet, Scribe's Ledger and run sheets.
-4. [Running and Logging a Campaign](authoring/Running%20and%20Logging%20a%20Campaign.md): the mortal phases, session logs and canon merges.
-5. [Running a Convocation](authoring/Running%20a%20Convocation.md): every later cycle. The gods read the Ledger, settle Pacts, build more, owe more, skip time, hide new relics; also Canon Merge night.
+2. [The Genesis Table](getting-started/The%20Genesis%20Table.md): the web page that runs a Genesis Session on one shared screen, autosaves, and submits the public ledger. Live at https://timmseth.github.io/omniverse/genesis.html.
+3. [Running a Genesis Session](authoring/Running%20a%20Genesis%20Session.md): the first cycle of the loop. A four-hour session where the players make gods, build the universe with Entropy on the tally, spend the debt on the Doom, hide relics, then play the mortals.
+4. [Genesis Session Handouts](authoring/Genesis%20Session%20Handouts.md): rules card, Loop card, God Sheet, Act Cards, Pact and Relic slips, Incarnation and Retirement sheets, the Reckoning Sheet, Scribe's Ledger and run sheets.
+5. [Running and Logging a Campaign](authoring/Running%20and%20Logging%20a%20Campaign.md): the mortal phases, session logs and canon merges.
+6. [Running a Convocation](authoring/Running%20a%20Convocation.md): every later cycle. The gods read the Ledger, settle Pacts, build more, owe more, skip time, hide new relics; also Canon Merge night.
 
 ## Concepts
 - [Core Concepts](concepts/Core%20Concepts.md): layers, ids, events, instances, canon merges, modules.

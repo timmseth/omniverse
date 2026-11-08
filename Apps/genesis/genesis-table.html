@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Genesis Table · Omniverse</title>
+<style>
+:root{--bg:#f6f4ef;--panel:#fff;--ink:#1f1d1a;--mute:#6b665e;--line:#ddd7cb;--accent:#5b3fa8;--accent-ink:#fff;--ok:#1d7a46;--warn:#9a6700;--err:#b3261e;--chip:#ece6f7;--secret:#2a2333;--secret-ink:#f1ecfa}
+@media (prefers-color-scheme:dark){:root{--bg:#16141a;--panel:#201d27;--ink:#ece8f2;--mute:#a49eb3;--line:#38334a;--accent:#a68bf0;--accent-ink:#14111c;--ok:#5fcf8d;--warn:#e0b04a;--err:#ff8a80;--chip:#2e2845;--secret:#0f0c14;--secret-ink:#e8e0f8}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;padding:.6rem 1rem;border-bottom:1px solid var(--line);background:var(--panel)}
+header h1{font-size:1.05rem;margin:0}
+header .uni{color:var(--mute);font-size:.9rem}
+.debt{margin-left:auto;display:flex;gap:.5rem;align-items:center;font-weight:700}
+.debt .pill{background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:.2rem .8rem;font-size:1.05rem}
+.saved{font-size:.75rem;color:var(--mute);font-weight:400}
+nav{display:flex;flex-wrap:wrap;gap:.3rem;padding:.5rem 1rem;border-bottom:1px solid var(--line);background:var(--bg)}
+nav button{border-radius:999px;padding:.3rem .8rem;font-size:.88rem}
+nav button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+main{max-width:1100px;margin:0 auto;padding:1rem}
+button{font:inherit;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:.45rem .85rem;border-radius:8px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button.danger{color:var(--err)}
+button:disabled{opacity:.5;cursor:not-allowed}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.45rem .6rem;width:100%}
+textarea{resize:vertical;min-height:3.2rem}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem}
+.panel h2{margin:.1rem 0 .6rem;font-size:1.1rem}
+.panel h3{margin:.2rem 0 .5rem;font-size:1rem}
+.lead{color:var(--mute);margin:.1rem 0 .9rem}
+.field{margin:0 0 .7rem}
+.lab{font-weight:600;font-size:.88rem;margin-bottom:.15rem}
+.doc{color:var(--mute);font-size:.8rem;margin-bottom:.2rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.8rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+@media (max-width:640px){.two{grid-template-columns:1fr}}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.chip{display:inline-block;background:var(--chip);border-radius:999px;padding:.05rem .6rem;font-size:.78rem}
+.turn{font-size:1.25rem;font-weight:700;margin:.2rem 0}
+.sizes{display:flex;flex-wrap:wrap;gap:.4rem}
+.sizes button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{border-bottom:1px solid var(--line);padding:.35rem .4rem;text-align:left;vertical-align:top}
+th{color:var(--mute);font-weight:600}
+.secret{background:var(--secret);color:var(--secret-ink);border-radius:12px;padding:1rem;margin-bottom:1rem}
+.secret input,.secret textarea,.secret select{background:#00000030;color:var(--secret-ink);border-color:#ffffff30}
+.secret .doc{color:#cfc6e0}
+.veil{filter:blur(6px);user-select:none;pointer-events:none}
+.menu label{display:flex;gap:.5rem;align-items:flex-start;padding:.3rem .2rem;border-bottom:1px solid var(--line);cursor:pointer}
+.menu label input{width:auto;margin-top:.25rem}
+.menu .cost{margin-left:auto;font-weight:700;white-space:nowrap}
+.bar{height:10px;border-radius:999px;background:var(--line);overflow:hidden;margin:.4rem 0}
+.bar>div{height:100%;background:var(--accent)}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.err{color:var(--err)}
+.toast{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.5rem .9rem;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9;max-width:90vw}
+.toast.show{opacity:1}
+.small{font-size:.82rem;color:var(--mute)}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--chip);padding:.7rem;border-radius:8px;font-size:.8rem;max-height:40vh;overflow:auto}
+</style>
+</head>
+<body>
+<header>
+  <h1>Genesis Table</h1>
+  <span class="uni" id="uniName"></span>
+  <div class="debt"><span class="saved" id="saved"></span><span>Entropy owed</span><span class="pill" id="debt">0</span></div>
+</header>
+<nav id="nav"></nav>
+<main id="app"></main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><main><p>This page needs JavaScript.</p></main></noscript>
+<script>
+'use strict';
+// ==CORE==
+const FORMAT = 'omniverse-genesis-ledger';
+const VERSION = 1;
+const RELAY_URL = 'https://omniverse-relay.mobile-markets.workers.dev';
+const ISSUE_URL = 'https://github.com/timmseth/omniverse/issues/new';
+const WEIGHT = { World: 5, Grand: 3, Middling: 2, Small: 1, Joint: 3 };
+const ROUNDS = { 2: 10, 3: 7, 4: 5, 5: 4, 6: 3, 7: 3, 8: 3 };
+const KINDS = {
+  Grand: ['continent', 'culture', 'lore', 'plane', 'monster'],
+  Middling: ['region', 'country', 'settlement', 'faction', 'monster', 'era', 'event', 'language', 'holiday', 'lore'],
+  Small: ['person', 'item', 'venue', 'household', 'lore', 'event'],
+  Joint: ['continent', 'culture', 'lore', 'plane', 'faction']
+};
+const SCALES = [
+  ['Scar', 'one place', 4, 'join the relics anywhere'],
+  ['Blight', 'a region', 8, 'join the relics anywhere'],
+  ['Scourge', 'a nation', 12, 'at one place'],
+  ['Cataclysm', 'a continent', 18, 'at one place, at one moment'],
+  ['Unmaking', 'the world', 24, 'at one place, at one moment, and one bearer pays a price']
+];
+const FORMS = ['fire', 'flood', 'plague', 'war', 'famine', 'winter', 'silence', 'rot', 'madness', 'a Domain turned'];
+const FORM_COST = 3;
+const FEATURES = [
+  ['A Face', 4, 'a villain or herald who wants it to come'],
+  ['A Clock', 2, 'it arrives at a known time'],
+  ['Servants', 3, 'a cult, army or court serves it'],
+  ['Spread', 3, 'it grows while ignored'],
+  ['A Hunger', 3, 'it wants one specific thing and goes there'],
+  ['A Mask', 2, 'it is not what it seems'],
+  ['Roots', 2, 'tied to one creation the gods love'],
+  ['Echoes', 2, 'it has happened before']
+];
+const SECRET_KEYS = ['relic', 'truth', 'convergence', 'scribeNotes'];
+
+function newGod(i) {
+  return { id: 'g' + (i + 1) + '-' + Math.random().toString(36).slice(2, 6), player: '', name: '', domain: '', sign: '', voice: '', firstWord: '', worldLine: '', proverb: '',
+    relic: { what: '', alone: '', joined: '', hidden: '', found: '' },
+    avatar: { name: '', concept: '', echo: '', fate: '', lead: '', why: '', remnant: '' } };
+}
+function newLedger() {
+  const now = new Date().toISOString();
+  return {
+    format: FORMAT, version: VERSION, created: now, updated: now,
+    setup: { universe: '', tone: '', ruleset: 'D&D 5e', scribe: '', scribeMode: 'scribe', doomBy: 'council', keeper: '', caveatSpends: false, worldMade: false },
+    gods: [newGod(0), newGod(1), newGod(2), newGod(3)],
+    acts: [], pacts: [],
+    reckoning: { scale: '', form: '', formNote: '', features: [], publicFace: '', truth: '', convergence: '', outcome: '' },
+    gathering: { what: '', where: '', when: '' },
+    common: ['', '', '', '', '', '', ''],
+    log: { notes: '', worked: '', dragged: '', change: '' },
+    scribeNotes: ''
+  };
+}
+function rounds(L) { return ROUNDS[Math.min(8, Math.max(2, L.gods.length))]; }
+function debt(L) {
+  let d = L.setup.worldMade ? WEIGHT.World : 0;
+  for (const a of L.acts) d += a.cost || 0;
+  if (L.setup.caveatSpends) d -= L.pacts.filter(p => p.outcome === 'refused' && p.caveat).length;
+  return Math.max(0, d);
+}
+function doomSpend(R) {
+  let s = 0;
+  const sc = SCALES.find(x => x[0] === R.scale); if (sc) s += sc[2];
+  if (R.form) s += FORM_COST;
+  for (const f of R.features) { const x = FEATURES.find(y => y[0] === f); if (x) s += x[1]; }
+  return s;
+}
+// Snake order: round 1 in claim order, each round reversed.
+function turnOrder(L, round) { const ids = L.gods.map(g => g.id); return round % 2 === 1 ? ids : ids.slice().reverse(); }
+function actsInRound(L, round) { return L.acts.filter(a => a.round === round); }
+function currentTurn(L) {
+  const R = rounds(L);
+  for (let r = 1; r <= R; r++) {
+    const order = turnOrder(L, r), done = actsInRound(L, r).flatMap(a => a.gods);
+    for (const id of order) if (!done.includes(id)) return { round: r, godId: id, phase: r === 1 ? 'Foundation' : r === R ? 'Relics' : 'Weaving' };
+  }
+  return null;
+}
+function godName(L, id) { const g = L.gods.find(x => x.id === id); return g ? (g.name || g.player || 'a god') : '?'; }
+function strip(v) {
+  if (Array.isArray(v)) return v.map(strip);
+  if (v && typeof v === 'object') { const o = {}; for (const [k, x] of Object.entries(v)) if (!SECRET_KEYS.includes(k)) o[k] = strip(x); return o; }
+  return v;
+}
+function publicLedger(L) { const p = strip(L); p.debt = debt(L); return p; }
+function esc(s) { return String(s == null ? '' : s).replace(/\|/g, '\\|').replace(/\n+/g, ' '); }
+function ledgerMarkdown(L, withSecrets) {
+  const u = L.setup.universe || 'Untitled universe', out = [];
+  out.push('# Genesis Ledger: ' + u, '');
+  out.push('- Tone: ' + (L.setup.tone || '-') + ' · Ruleset: ' + (L.setup.ruleset || '-') + ' · Scribe: ' + (L.setup.scribe || '-'));
+  out.push('- Entropy owed: **' + debt(L) + '** · Doom shaped by: ' + L.setup.doomBy, '');
+  out.push('## Gods', '', '| Player | God | Domain | Sign | Voice | First Word |', '|---|---|---|---|---|---|');
+  for (const g of L.gods) out.push('| ' + [g.player, g.name, g.domain, g.sign, g.voice, g.firstWord].map(esc).join(' | ') + ' |');
+  out.push('', '## The World (5)', '');
+  for (const g of L.gods) if (g.worldLine) out.push('- ' + esc(godName(L, g.id)) + ': ' + esc(g.worldLine));
+  out.push('', '## Creations', '', '| # | Round | God | Size | Cost | Kind | Name | The Word | Anchor | Mark | Detail | Yes-ands |', '|---|---|---|---|---|---|---|---|---|---|---|---|');
+  L.acts.forEach((a, i) => out.push('| ' + [i + 1, a.round, a.gods.map(id => godName(L, id)).join(' + '), a.size, a.cost, a.kind, a.name, a.word, a.anchor, a.mark, a.detail, a.yesands].map(esc).join(' | ') + ' |'));
+  out.push('', '## Pacts', '', '| Between | Petition | Offer | Outcome | Caveat | Said |', '|---|---|---|---|---|---|');
+  for (const p of L.pacts) out.push('| ' + [p.between.map(id => godName(L, id)).join(' & '), p.petition, p.offer, p.outcome, p.caveat, p.said].map(esc).join(' | ') + ' |');
+  out.push('', '## Proverbs', '');
+  for (const g of L.gods) if (g.proverb) out.push('- ' + esc(godName(L, g.id)) + ': "' + esc(g.proverb) + '"');
+  const R = L.reckoning;
+  out.push('', '## The Doom', '', '- Scale: ' + (R.scale || '-') + ' · Form: ' + (R.form || '-') + (R.formNote ? ' (' + esc(R.formNote) + ')' : '') + ' · Features: ' + (R.features.join(', ') || '-'));
+  out.push('- Spent: ' + doomSpend(R) + ' of ' + debt(L) + ' · Remainder carried: ' + Math.max(0, debt(L) - doomSpend(R)));
+  out.push('- Public face: ' + (esc(R.publicFace) || '-'));
+  if (withSecrets) { out.push('- **True Doom (secret):** ' + (esc(R.truth) || '-'), '- **Convergence (secret):** ' + (esc(R.convergence) || '-')); }
+  if (withSecrets) {
+    out.push('', '## Relics (secret)', '', '| God | Relic | Alone | Joined | Hidden | Found by |', '|---|---|---|---|---|---|');
+    for (const g of L.gods) out.push('| ' + [godName(L, g.id), g.relic.what, g.relic.alone, g.relic.joined, g.relic.hidden, g.relic.found].map(esc).join(' | ') + ' |');
+  }
+  out.push('', '## Incarnation', '', 'Gathering: ' + [L.gathering.what, L.gathering.where, L.gathering.when].filter(Boolean).map(esc).join(', '), '');
+  out.push('| Player | Avatar of | Avatar | Concept | Echo | Fate | Lead | Why at the Gathering |', '|---|---|---|---|---|---|---|---|');
+  for (const g of L.gods) { const a = g.avatar; out.push('| ' + [g.player, godName(L, g.id), a.name, a.concept, a.echo, a.fate, a.lead, a.why].map(esc).join(' | ') + ' |'); }
+  const ck = L.common.filter(Boolean);
+  if (ck.length) { out.push('', '## Common Knowledge', ''); ck.forEach((c, i) => out.push((i + 1) + '. ' + esc(c))); }
+  if (withSecrets && L.scribeNotes) out.push('', '## Scribe notes (secret)', '', L.scribeNotes);
+  return out.join('\n');
+}
+function validateImport(obj) {
+  if (!obj || obj.format !== FORMAT) return 'That file is not a Genesis ledger.';
+  if (!Array.isArray(obj.gods) || !Array.isArray(obj.acts)) return 'That ledger is damaged.';
+  return null;
+}
+function migrate(obj) {
+  const base = newLedger();
+  const L = Object.assign(base, obj);
+  L.setup = Object.assign(newLedger().setup, obj.setup || {});
+  L.reckoning = Object.assign(newLedger().reckoning, obj.reckoning || {});
+  L.gods = (obj.gods || []).map((g, i) => { const d = newGod(i); return Object.assign(d, g, { relic: Object.assign(d.relic, g.relic || {}), avatar: Object.assign(d.avatar, g.avatar || {}) }); });
+  L.common = (obj.common || []).concat(['', '', '', '', '', '', '']).slice(0, Math.max(7, (obj.common || []).length));
+  return L;
+}
+// ==/CORE==
+
+const KEY = 'omniverse.genesis.ledger.v1';
+let L = load();
+let tab = sessionStorage.getItem('gt.tab') || 'setup';
+let scribeView = false;
+const openRelics = new Set();
+const $ = id => document.getElementById(id);
+function load() { try { const raw = localStorage.getItem(KEY); if (raw) { const o = JSON.parse(raw); if (!validateImport(o)) return migrate(o); } } catch (e) { /* fresh */ } return newLedger(); }
+let saveT;
+function save() {
+  L.updated = new Date().toISOString();
+  try { localStorage.setItem(KEY, JSON.stringify(L)); $('saved').textContent = 'saved ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+  catch (e) { $('saved').textContent = 'not saved: export a backup'; }
+  $('debt').textContent = debt(L);
+  $('uniName').textContent = L.setup.universe || '';
+}
+function changed() { clearTimeout(saveT); saveT = setTimeout(save, 250); $('debt').textContent = debt(L); }
+let toastT;
+function toast(m) { const t = $('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 3000); }
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v);
+    else if (v === true) e.setAttribute(k, ''); else if (v !== false && v != null) e.setAttribute(k, v);
+  }
+  for (const c of kids.flat(Infinity)) { if (c == null || c === false) continue; e.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return e;
+}
+function inp(obj, key, label, doc, opts) {
+  opts = opts || {};
+  const ctl = opts.area
+    ? h('textarea', { rows: opts.rows || 2, 'aria-label': label, placeholder: opts.ph || '', oninput: e => { obj[key] = e.target.value; changed(); if (opts.after) opts.after(); } }, obj[key] || '')
+    : h('input', { type: 'text', value: obj[key] || '', 'aria-label': label, placeholder: opts.ph || '', oninput: e => { obj[key] = e.target.value; changed(); if (opts.after) opts.after(); } });
+  return h('div', { class: 'field' }, h('div', { class: 'lab' }, label), doc ? h('div', { class: 'doc' }, doc) : null, ctl);
+}
+function sel(obj, key, label, options, doc, after) {
+  return h('div', { class: 'field' }, h('div', { class: 'lab' }, label), doc ? h('div', { class: 'doc' }, doc) : null,
+    h('select', { 'aria-label': label, onchange: e => { obj[key] = e.target.value; changed(); if (after) after(); } },
+      options.map(o => { const [v, t] = Array.isArray(o) ? o : [o, o]; return h('option', { value: v, selected: obj[key] === v }, t); })));
+}
+function godOptions(blank) { return (blank ? [['', blank]] : []).concat(L.gods.map(g => [g.id, godName(L, g.id)])); }
+
+const TABS = [
+  ['setup', 'Setup'], ['gods', 'Gods'], ['world', 'World'], ['acts', 'Turns'], ['pacts', 'Deals'],
+  ['relics', 'Relics'], ['reckoning', 'Reckoning'], ['incarnation', 'Mortals'], ['ledger', 'Ledger'], ['export', 'Save & submit']
+];
+function renderNav() {
+  $('nav').replaceChildren(...TABS.map(([k, t]) => h('button', { type: 'button', class: k === tab ? 'on' : '', onclick: () => go(k) }, t)));
+}
+function go(k) { tab = k; sessionStorage.setItem('gt.tab', k); render(); window.scrollTo(0, 0); }
+function render() {
+  renderNav();
+  const f = { setup: vSetup, gods: vGods, world: vWorld, acts: vActs, pacts: vPacts, relics: vRelics, reckoning: vReckoning, incarnation: vMortals, ledger: vLedger, export: vExport }[tab] || vSetup;
+  $('app').replaceChildren(f());
+  $('debt').textContent = debt(L);
+  $('uniName').textContent = L.setup.universe || '';
+}
+function next(k, label) { return h('div', { class: 'row' }, h('button', { class: 'primary', type: 'button', onclick: () => go(k) }, label + ' →')); }
+
+// ---- views ----
+function vSetup() {
+  const p = h('div');
+  p.append(h('div', { class: 'panel' }, h('h2', null, 'Set up the table'),
+    h('p', { class: 'lead' }, 'One screen in the middle of the table. Everything saves in this browser as you type, so a reload loses nothing. Take a backup from "Save & submit" now and then.'),
+    h('div', { class: 'two' },
+      inp(L.setup, 'universe', 'Universe name', 'You can name it at the end, too.'),
+      inp(L.setup, 'tone', 'Tone', 'Parody, grim, mythic, cozy...'),
+      inp(L.setup, 'ruleset', 'Ruleset', 'The system the mortals will play.'),
+      inp(L.setup, 'scribe', 'Scribe (who runs the table)')),
+    h('div', { class: 'two' },
+      sel(L.setup, 'scribeMode', 'How the Scribe plays', [['scribe', 'Scribe only'], ['god', 'God only (shapes the Doom, never incarnates)'], ['both', 'God and avatar (small tables)']]),
+      sel(L.setup, 'doomBy', 'Who shapes the Doom', [['council', 'Council: the whole table'], ['keeper', 'Doom-Keeper: one god, privately'], ['mixed', 'Mixed: Council picks the Doom, Keeper the Convergence']], null, render)),
+    L.setup.doomBy !== 'council' ? sel(L.setup, 'keeper', 'Doom-Keeper', godOptions('(choose a god)')) : null,
+    h('label', { class: 'row small' }, h('input', { type: 'checkbox', style: 'width:auto', checked: !!L.setup.caveatSpends, onchange: e => { L.setup.caveatSpends = e.target.checked; changed(); } }), 'Option: a refused deal\'s Caveat spends 1 Entropy')));
+  const gp = h('div', { class: 'panel' }, h('h2', null, 'Players (' + L.gods.length + ')'),
+    h('p', { class: 'lead' }, 'In the order they will claim their Domains. That is the turn order. ' + rounds(L) + ' rounds for ' + L.gods.length + ' gods.'));
+  L.gods.forEach((g, i) => gp.append(h('div', { class: 'row', style: 'margin-bottom:.4rem' },
+    h('div', { style: 'flex:1' }, h('input', { type: 'text', value: g.player, placeholder: 'Player ' + (i + 1), 'aria-label': 'Player ' + (i + 1), oninput: e => { g.player = e.target.value; changed(); } })),
+    h('button', { type: 'button', disabled: i === 0, title: 'Move up', 'aria-label': 'Move up', onclick: () => { [L.gods[i - 1], L.gods[i]] = [L.gods[i], L.gods[i - 1]]; changed(); render(); } }, '↑'),
+    h('button', { type: 'button', class: 'danger', disabled: L.gods.length <= 2 || L.acts.length > 0, title: 'Remove', 'aria-label': 'Remove player', onclick: () => { if (confirm('Remove this player?')) { L.gods.splice(i, 1); changed(); render(); } } }, '×'))));
+  gp.append(h('div', { class: 'row' },
+    h('button', { type: 'button', disabled: L.gods.length >= 8 || L.acts.length > 0, onclick: () => { L.gods.push(newGod(L.gods.length)); changed(); render(); } }, '+ Add player'),
+    L.acts.length ? h('span', { class: 'small' }, 'Players are locked once turns have started.') : null));
+  p.append(gp, next('gods', 'Make the gods'));
+  return p;
+}
+function vGods() {
+  const p = h('div', null, h('div', { class: 'panel' }, h('h2', null, 'Apotheosis: make your gods'),
+    h('p', { class: 'lead' }, 'Free. Domains must differ. Then go round once: each god says one sentence that was true before anything existed.')));
+  const doms = L.gods.map(g => g.domain.trim().toLowerCase()).filter(Boolean);
+  const grid = h('div', { class: 'grid' });
+  for (const g of L.gods) {
+    const dup = g.domain && doms.filter(d => d === g.domain.trim().toLowerCase()).length > 1;
+    grid.append(h('div', { class: 'panel' }, h('h3', null, g.player || 'Player'),
+      inp(g, 'name', 'God\'s name', 'What mortals call you.'),
+      inp(g, 'domain', 'Domain', 'Two words at most: Tides, Bargains, Forgotten Things.', { after: () => {} }),
+      dup ? h('div', { class: 'small warn' }, 'Another god has this Domain.') : null,
+      inp(g, 'sign', 'Sign', 'An image or symbol.'),
+      inp(g, 'voice', 'Voice', 'Grand, petty, sleepy, exact...'),
+      inp(g, 'firstWord', 'First Word', 'One true sentence before anything exists.', { area: true })));
+  }
+  p.append(grid, next('world', 'Make the World'));
+  return p;
+}
+function vWorld() {
+  const p = h('div', null, h('div', { class: 'panel' }, h('h2', null, 'The World'),
+    h('p', { class: 'lead' }, 'A Joint Act of the whole table. Going round once, each god adds one line: the sky, the ground, the sea, what is strange about it. It costs 5 Entropy.')));
+  const box = h('div', { class: 'panel' });
+  for (const g of L.gods) box.append(inp(g, 'worldLine', godName(L, g.id) + ' adds', null, { area: true }));
+  box.append(h('div', { class: 'row' },
+    h('button', { class: 'primary', type: 'button', disabled: L.setup.worldMade, onclick: () => { L.setup.worldMade = true; changed(); toast('The World is made. 5 Entropy owed.'); render(); } }, L.setup.worldMade ? 'The World is made (5)' : 'Make the World (+5)'),
+    L.setup.worldMade ? h('button', { type: 'button', class: 'danger', onclick: () => { if (confirm('Unmake the World? This removes its 5 from the tally.')) { L.setup.worldMade = false; changed(); render(); } } }, 'Undo') : null));
+  p.append(box, next('acts', 'Start the turns'));
+  return p;
+}
+const draft = { size: '', kind: '', name: '', word: '', anchor: '', mark: '', detail: '', yesands: '', partner: '' };
+function vActs() {
+  const t = currentTurn(L), R = rounds(L);
+  const p = h('div');
+  if (!L.setup.worldMade) p.append(h('div', { class: 'panel warn' }, 'The World is not made yet. ', h('button', { type: 'button', onclick: () => go('world') }, 'Make it first')));
+  if (!t) {
+    p.append(h('div', { class: 'panel' }, h('h2', null, 'All turns are done'), h('p', { class: 'lead' }, 'Every god has taken every Act. Time for the Reckoning.'), next('reckoning', 'Reckoning')));
+  } else if (t.phase === 'Relics' && L.gods.every(g => g.relic.what.trim() && g.proverb.trim())) {
+    p.append(h('div', { class: 'panel' }, h('h2', null, 'All turns are done'), h('p', { class: 'lead' }, 'Every god has created, hidden a relic and said a Proverb. Time for the Reckoning.'), next('reckoning', 'Reckoning')));
+  } else if (t.phase === 'Relics') {
+    p.append(h('div', { class: 'panel' }, h('div', { class: 'turn' }, 'Round ' + t.round + ' of ' + R + ': Relics'),
+      h('p', { class: 'lead' }, 'Last round. Each god hides a relic (secret, free) and says a Proverb out loud (public, free). Use the Relics page.'),
+      next('relics', 'Relics and Proverbs')));
+  } else {
+    const allowed = t.round === 1 ? ['Grand'] : ['Middling', 'Small', 'Joint'];
+    if (!allowed.includes(draft.size)) { draft.size = allowed[0]; draft.kind = KINDS[draft.size][0]; }
+    const panel = h('div', { class: 'panel' },
+      h('div', { class: 'turn' }, godName(L, t.godId) + '\'s turn'),
+      h('div', { class: 'small' }, 'Round ' + t.round + ' of ' + R + ' · ' + t.phase + (t.round === 1 ? ': everyone makes something Grand' : ': Middling or Small; everyone makes at least one Small thing')),
+      h('div', { class: 'field', style: 'margin-top:.7rem' }, h('div', { class: 'lab' }, '1. Grand, Middling or Small?'),
+        h('div', { class: 'sizes' }, allowed.map(s => h('button', { type: 'button', class: draft.size === s ? 'on' : '', onclick: () => { draft.size = s; draft.kind = KINDS[s][0]; render(); } },
+          (s === 'Joint' ? 'Joint Act with another god' : s) + ' (' + WEIGHT[s] + ')')))),
+      draft.size === 'Joint' ? sel(draft, 'partner', 'With which god? (they spend a Weaving Act too)', godOptions('(choose)').filter(o => o[0] !== t.godId)) : null,
+      h('div', { class: 'two' }, sel(draft, 'kind', 'What kind of thing', KINDS[draft.size].map(k => [k, k.replace(/_/g, ' ')]), 'Used to turn the Ledger into notes later.'), inp(draft, 'name', 'Name it')),
+      inp(draft, 'word', '2. Say it into being', 'One or two sentences, in character.', { area: true }),
+      h('div', { class: 'two' }, inp(draft, 'anchor', '3. What does it touch?', 'Something that already exists.'), inp(draft, 'mark', 'Where is your fingerprint on it?', 'How your Domain shows.')),
+      inp(draft, 'yesands', '4. Yes-ands', 'Two adds at most, from other gods.', { area: true }),
+      inp(draft, 'detail', '5. One detail useful at the table'),
+      h('div', { class: 'row' }, h('button', { class: 'primary', type: 'button', onclick: () => commitAct(t) }, 'Record it (+' + WEIGHT[draft.size] + ')'),
+        h('span', { class: 'small' }, 'Debt after: ' + (debt(L) + WEIGHT[draft.size]))));
+    p.append(panel);
+    p.append(h('div', { class: 'panel' }, h('div', { class: 'small' }, 'Stuck? Small things are cheap and count. Want to stop someone? Make a deal on the Deals page. Clash? Both are true: say how.')));
+  }
+  const smallMissing = L.gods.filter(g => !L.acts.some(a => a.gods.includes(g.id) && a.size === 'Small'));
+  if (t && t.round > 1 && smallMissing.length) p.append(h('div', { class: 'small' }, 'Still owe a Small creation: ' + smallMissing.map(g => godName(L, g.id)).join(', ')));
+  if (L.acts.length) {
+    const last = L.acts[L.acts.length - 1];
+    p.append(h('div', { class: 'panel' }, h('h3', null, 'Recent'), actTable(L.acts.slice(-5).reverse()),
+      h('button', { type: 'button', class: 'danger', style: 'margin-top:.5rem', onclick: () => { if (confirm('Undo "' + (last.name || 'the last Act') + '"?')) { L.acts.pop(); changed(); render(); } } }, 'Undo last')));
+  }
+  return p;
+}
+function commitAct(t) {
+  if (!draft.name.trim()) { toast('Give it a name first.'); return; }
+  if (draft.size === 'Joint' && !draft.partner) { toast('Pick the other god for the Joint Act.'); return; }
+  const gods = draft.size === 'Joint' ? [t.godId, draft.partner] : [t.godId];
+  L.acts.push({ n: L.acts.length + 1, round: t.round, gods, size: draft.size, cost: WEIGHT[draft.size], kind: draft.kind, name: draft.name.trim(),
+    word: draft.word.trim(), anchor: draft.anchor.trim(), mark: draft.mark.trim(), yesands: draft.yesands.trim(), detail: draft.detail.trim(), at: new Date().toISOString() });
+  Object.assign(draft, { name: '', word: '', anchor: '', mark: '', detail: '', yesands: '', partner: '' });
+  changed(); save();
+  toast('Recorded. We owe ' + debt(L) + '.');
+  render();
+}
+function actTable(acts) {
+  return h('table', null, h('thead', null, h('tr', null, ['#', 'Round', 'God', 'Size', 'Name', 'Anchor', 'Mark'].map(x => h('th', null, x)))),
+    h('tbody', null, acts.map(a => h('tr', null, h('td', null, a.n), h('td', null, a.round), h('td', null, a.gods.map(id => godName(L, id)).join(' + ')),
+      h('td', null, a.size + ' (' + a.cost + ')'), h('td', null, h('b', null, a.name), a.word ? h('div', { class: 'small' }, a.word) : null), h('td', null, a.anchor), h('td', null, a.mark)))));
+}
+function vPacts() {
+  const p = h('div', null, h('div', { class: 'panel' }, h('h2', null, 'Deals'),
+    h('p', { class: 'lead' }, 'You cannot stop a god from creating. You can offer a deal: two of your Weaving Acts for one of theirs, or any price you both like. They may say no; then you add a Caveat and the thing still happens. Every deal becomes a Pact.')));
+  const d = { a: '', b: '', petition: '', offer: 'Two Weaving Acts for one', outcome: 'accepted', caveat: '', said: '' };
+  const form = h('div', { class: 'panel' }, h('h3', null, 'New Pact'),
+    h('div', { class: 'two' }, sel(d, 'a', 'Petitioner', godOptions('(choose)')), sel(d, 'b', 'Asked of', godOptions('(choose)'))),
+    inp(d, 'petition', 'What were they asked not to do?'), inp(d, 'offer', 'The offer'),
+    sel(d, 'outcome', 'Outcome', [['accepted', 'Accepted'], ['countered', 'Countered and agreed'], ['refused', 'Refused (add a Caveat)']]),
+    inp(d, 'caveat', 'Caveat, if refused', 'A cost or limit the creation must carry.'),
+    inp(d, 'said', 'Said aloud, in character', null, { area: true }),
+    h('button', { class: 'primary', type: 'button', onclick: () => {
+      if (!d.a || !d.b || d.a === d.b) { toast('Pick two different gods.'); return; }
+      L.pacts.push({ between: [d.a, d.b], petition: d.petition, offer: d.offer, outcome: d.outcome, caveat: d.caveat, said: d.said });
+      changed(); save(); toast('Pact recorded.'); render();
+    } }, 'Record the Pact'));
+  p.append(form);
+  if (L.pacts.length) p.append(h('div', { class: 'panel' }, h('h3', null, 'Pacts (' + L.pacts.length + ')'),
+    h('table', null, h('thead', null, h('tr', null, ['Between', 'Petition', 'Offer', 'Outcome', 'Caveat', ''].map(x => h('th', null, x)))),
+      h('tbody', null, L.pacts.map((x, i) => h('tr', null, h('td', null, x.between.map(id => godName(L, id)).join(' & ')), h('td', null, x.petition), h('td', null, x.offer), h('td', null, x.outcome), h('td', null, x.caveat),
+        h('td', null, h('button', { type: 'button', class: 'danger', 'aria-label': 'Delete pact', onclick: () => { if (confirm('Delete this Pact?')) { L.pacts.splice(i, 1); changed(); render(); } } }, '×'))))))));
+  return p;
+}
+function vRelics() {
+  const p = h('div', null, h('div', { class: 'panel' }, h('h2', null, 'Relics and Proverbs'),
+    h('p', { class: 'lead' }, 'Free. Each god says a Proverb out loud for everyone. Relics are secret: pass the screen to each god in turn, or let the Scribe enter them from the slips. Hidden relics are blurred until you choose to show them.')));
+  const pv = h('div', { class: 'panel' }, h('h3', null, 'Proverbs (public)'));
+  for (const g of L.gods) pv.append(inp(g, 'proverb', godName(L, g.id), 'One sentence mortals say about the world.'));
+  p.append(pv);
+  for (const g of L.gods) {
+    const filled = Object.values(g.relic).some(v => v && v.trim());
+    const shown = scribeView || openRelics.has(g.id);
+    const box = h('div', { class: 'secret' },
+      h('div', { class: 'row' }, h('b', null, godName(L, g.id) + '\'s relic'), h('span', { class: 'chip' }, filled ? 'hidden' : 'not yet'),
+        h('button', { type: 'button', onclick: () => { openRelics.has(g.id) ? openRelics.delete(g.id) : openRelics.add(g.id); render(); } }, shown ? 'Hide' : 'Show (only ' + (g.player || 'this god') + ' should look)')));
+    const body = h('div', { class: shown ? '' : 'veil', style: 'margin-top:.6rem' },
+      inp(g.relic, 'what', 'What it is'), inp(g.relic, 'alone', 'Alone', 'What it does in its bearer\'s hands. A minor power.'),
+      inp(g.relic, 'joined', 'Joined', 'What it adds when all the relics meet.'), inp(g.relic, 'hidden', 'Hidden', 'Where, anchored to something already made.'),
+      inp(g.relic, 'found', 'Found', 'How an avatar might come to it: the first clue.'));
+    box.append(body);
+    p.append(box);
+  }
+  p.append(h('div', { class: 'row' }, h('button', { type: 'button', onclick: () => { openRelics.clear(); scribeView = false; render(); } }, 'Hide all relics'), next('reckoning', 'Reckoning')));
+  return p;
+}
+function vReckoning() {
+  const R = L.reckoning, owed = debt(L), spent = doomSpend(R), left = owed - spent;
+  const secretOK = L.setup.doomBy === 'council' || scribeView;
+  const p = h('div', null, h('div', { class: 'panel' }, h('h2', null, 'The Reckoning'),
+    h('p', { class: 'lead' }, 'Creation leaked. The gods must spend the whole debt on the Doom. Nobody is at fault and nobody may refuse. Pick one Scale and one Form, then Features until the debt is spent.'),
+    h('div', { class: 'turn' }, 'Spent ' + spent + ' of ' + owed + (left > 0 ? ' · ' + left + ' left' : left < 0 ? ' · ' + (-left) + ' over' : ' · all spent')),
+    h('div', { class: 'bar' }, h('div', { style: 'width:' + Math.min(100, owed ? spent / owed * 100 : 0) + '%' })),
+    left < 0 ? h('div', { class: 'err small' }, 'Over budget: drop a Feature or pick a smaller Scale.') : left > 0 && left < 2 ? h('div', { class: 'small' }, 'Too little left for a Feature: it carries forward to the next Reckoning.') : null,
+    L.setup.doomBy !== 'council' ? h('div', { class: 'small' }, 'Doom-Keeper: ' + (godName(L, L.setup.keeper) || 'not chosen') + '. The table only sees the public face.') : null));
+  if (L.setup.doomBy !== 'council' && !scribeView) {
+    p.append(h('div', { class: 'panel' }, h('button', { type: 'button', onclick: () => { if (confirm('Show the Keeper\'s view? Players should look away.')) { scribeView = true; render(); } } }, 'Keeper\'s view')));
+  }
+  const menu = h('div', { class: 'panel menu' + (secretOK ? '' : ' veil') }, h('h3', null, 'Scale (pick one)'));
+  for (const [n, risk, c, terms] of SCALES) menu.append(h('label', null, h('input', { type: 'radio', name: 'scale', checked: R.scale === n, onchange: () => { R.scale = n; changed(); render(); } }),
+    h('span', null, h('b', null, n), ' · ' + risk, h('div', { class: 'small' }, 'Relics joined: ' + terms)), h('span', { class: 'cost' }, c)));
+  menu.append(h('h3', { style: 'margin-top:1rem' }, 'Form (pick one, 3)'));
+  menu.append(h('div', { class: 'sizes' }, FORMS.map(f => h('button', { type: 'button', class: R.form === f ? 'on' : '', onclick: () => { R.form = R.form === f ? '' : f; changed(); render(); } }, f))));
+  if (R.form === 'a Domain turned') menu.append(inp(R, 'formNote', 'Whose Domain?'));
+  menu.append(h('h3', { style: 'margin-top:1rem' }, 'Features (each once)'));
+  for (const [n, c, what] of FEATURES) menu.append(h('label', null, h('input', { type: 'checkbox', checked: R.features.includes(n), onchange: e => { if (e.target.checked) R.features.push(n); else R.features = R.features.filter(x => x !== n); changed(); render(); } }),
+    h('span', null, h('b', null, n), h('div', { class: 'small' }, what)), h('span', { class: 'cost' }, c)));
+  p.append(menu);
+  p.append(h('div', { class: 'panel' }, inp(R, 'publicFace', 'The public face (read aloud)', 'What mortals believe is coming: a prophecy, a rumour, a sermon. May be wrong.', { area: true, rows: 3 })));
+  const sec = h('div', { class: 'secret' + (secretOK ? '' : ' veil') }, h('b', null, 'Secret: only the gods (or the Keeper) know'),
+    inp(R, 'truth', 'The true Doom', 'One paragraph.', { area: true, rows: 3 }),
+    inp(R, 'convergence', 'The Convergence', 'Where, when, and any price, per the Scale.', { area: true }));
+  p.append(sec);
+  p.append(h('div', { class: 'row' }, scribeView ? h('button', { type: 'button', onclick: () => { scribeView = false; render(); } }, 'Hide the Keeper\'s view') : null, next('incarnation', 'Become mortal')));
+  return p;
+}
+function vMortals() {
+  const p = h('div', null, h('div', { class: 'panel' }, h('h2', null, 'Incarnation'),
+    h('p', { class: 'lead' }, 'Seal the Ledger. Each player makes an avatar of their god who remembers none of it. Stats can be done at home. The Scribe hands out Fates (from Pacts) and Leads (from relic slips).')));
+  p.append(h('div', { class: 'panel' }, h('h3', null, 'The Gathering'), h('div', { class: 'doc' }, 'One place and moment from the Ledger where every Lead points, so the party meets in the first hour.'),
+    h('div', { class: 'two' }, inp(L.gathering, 'what', 'What', 'A festival, funeral, trial, market day...'), inp(L.gathering, 'where', 'Where')), inp(L.gathering, 'when', 'When')));
+  const ck = h('div', { class: 'panel' }, h('h3', null, 'Common Knowledge'), h('div', { class: 'doc' }, 'Five to seven things every mortal knows, in mortal words. No secrets.'));
+  const prompts = ['The world is...', 'The land we live in is...', 'The people around here are...', 'The great power nearby is...', 'People pray to...', 'Everyone has heard that... (the Doom\'s public face)', 'Children are told never to...'];
+  L.common.forEach((c, i) => ck.append(h('div', { class: 'field' }, h('input', { type: 'text', value: c, placeholder: prompts[i] || '', 'aria-label': 'Common knowledge ' + (i + 1), oninput: e => { L.common[i] = e.target.value; changed(); } }))));
+  p.append(ck);
+  const grid = h('div', { class: 'grid' });
+  for (const g of L.gods) {
+    if (L.setup.scribeMode === 'god' && L.setup.keeper === g.id) continue;
+    const a = g.avatar;
+    grid.append(h('div', { class: 'panel' }, h('h3', null, (g.player || 'Player') + ' · avatar of ' + godName(L, g.id)),
+      inp(a, 'name', 'Avatar\'s name'), inp(a, 'concept', 'Concept', 'Who they are, in a line.'),
+      inp(a, 'echo', 'Echo', 'An instinct from the Domain they cannot explain.'),
+      inp(a, 'fate', 'Fate', 'From a Pact, given by the Scribe.'), inp(a, 'lead', 'Lead', 'The first clue to their relic.'),
+      inp(a, 'why', 'Why they are at the Gathering')));
+  }
+  p.append(grid, next('ledger', 'See the Ledger'));
+  return p;
+}
+function vLedger() {
+  const R = rounds(L);
+  const counts = { Grand: 0, Middling: 0, Small: 0, Joint: 0 };
+  L.acts.forEach(a => counts[a.size]++);
+  return h('div', null,
+    h('div', { class: 'panel' }, h('h2', null, 'The Ledger'),
+      h('p', { class: 'lead' }, L.acts.length + ' creations (' + Object.entries(counts).filter(x => x[1]).map(x => x[1] + ' ' + x[0]).join(', ') + ') · ' + L.pacts.length + ' Pacts · Entropy owed ' + debt(L) + ' · ' + R + ' rounds'),
+      L.acts.length ? actTable(L.acts) : h('p', { class: 'small' }, 'Nothing created yet.')),
+    h('div', { class: 'panel' }, h('h3', null, 'Gods'), h('table', null, h('thead', null, h('tr', null, ['Player', 'God', 'Domain', 'Sign', 'First Word', 'Proverb'].map(x => h('th', null, x)))),
+      h('tbody', null, L.gods.map(g => h('tr', null, h('td', null, g.player), h('td', null, g.name), h('td', null, g.domain), h('td', null, g.sign), h('td', null, g.firstWord), h('td', null, g.proverb)))))),
+    h('div', { class: 'panel' }, h('h3', null, 'Playtest notes'),
+      inp(L.log, 'worked', 'What worked', null, { area: true }), inp(L.log, 'dragged', 'What dragged or confused people', null, { area: true }),
+      inp(L.log, 'change', 'Change before next time', null, { area: true })));
+}
+function vExport() {
+  const p = h('div');
+  p.append(h('div', { class: 'panel' }, h('h2', null, 'Save and submit'),
+    h('p', { class: 'lead' }, 'This browser keeps everything automatically. Use these to move it, back it up, or send it in. Public files never include relics or the true Doom.'),
+    h('div', { class: 'row' },
+      h('button', { class: 'primary', type: 'button', onclick: () => dl(fileBase() + '.genesis.json', JSON.stringify(publicLedger(L), null, 2), 'application/json') }, 'Download public ledger (.json)'),
+      h('button', { type: 'button', onclick: () => dl(fileBase() + '.md', ledgerMarkdown(L, false), 'text/markdown') }, 'Download readable ledger (.md)')),
+    h('p', { class: 'small' }, 'Give either file to Claude to turn into a universe, or add it to the repo yourself.')));
+  p.append(h('div', { class: 'secret' }, h('b', null, 'Scribe backup (includes secrets)'),
+    h('p', { class: 'doc' }, 'Everything, relics and the true Doom included. Keep it to yourself. This is also what you import on another computer.'),
+    h('div', { class: 'row' },
+      h('button', { type: 'button', onclick: () => { L.scribeNotes = L.scribeNotes || ''; dl(fileBase() + '.scribe-backup.json', JSON.stringify(L, null, 2), 'application/json'); } }, 'Download Scribe backup'),
+      h('button', { type: 'button', onclick: () => dl(fileBase() + '.scribe.md', ledgerMarkdown(L, true), 'text/markdown') }, 'Download Scribe ledger (.md)'))));
+  const sub = { author: localStorage.getItem('gt.author') || '', passcode: '' };
+  const status = h('div', { class: 'small', style: 'margin-top:.5rem' });
+  p.append(h('div', { class: 'panel' }, h('h3', null, 'Submit to the Omniverse'),
+    h('p', { class: 'doc' }, 'Sends the public ledger to the Omniverse repository as a pull request. No GitHub account needed. Secrets are removed before sending, and again on the server.'),
+    h('div', { class: 'two' }, inp(sub, 'author', 'Your name', 'Credited on the pull request.'), inp(sub, 'passcode', 'Table passcode', 'Ask your Scribe.')),
+    h('div', { class: 'row' },
+      h('button', { class: 'primary', type: 'button', onclick: async e => {
+        if (!sub.author.trim()) { toast('Add your name.'); return; }
+        localStorage.setItem('gt.author', sub.author.trim());
+        e.target.disabled = true; status.textContent = 'Sending...'; status.className = 'small';
+        try {
+          const r = await fetch(RELAY_URL + '/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ author: sub.author.trim(), passcode: sub.passcode.trim(), ledger: publicLedger(L), markdown: ledgerMarkdown(L, false) }) });
+          const j = await r.json().catch(() => ({}));
+          if (j.ok) { status.className = 'small ok'; status.replaceChildren('Submitted. ', h('a', { href: j.pr, target: '_blank', rel: 'noopener' }, 'Pull request #' + j.number)); }
+          else { status.className = 'small err'; status.textContent = j.error || ('Failed (' + r.status + ').'); }
+        } catch (err) { status.className = 'small err'; status.textContent = 'Could not reach the relay. Download the public ledger and send it instead.'; }
+        e.target.disabled = false;
+      } }, 'Submit'),
+      h('button', { type: 'button', onclick: issue }, 'Or open a GitHub issue')),
+    status));
+  const fileIn = h('input', { type: 'file', accept: '.json,application/json', hidden: true, onchange: async e => {
+    const f = e.target.files[0]; if (!f) return;
+    try {
+      const o = JSON.parse(await f.text()); const bad = validateImport(o);
+      if (bad) { toast(bad); return; }
+      if (!confirm('Replace what is on this screen with ' + f.name + '?')) return;
+      L = migrate(o); save(); render(); toast('Imported.');
+    } catch (err) { toast('Could not read that file.'); }
+    e.target.value = '';
+  } });
+  p.append(h('div', { class: 'panel' }, h('h3', null, 'Import or start over'),
+    h('div', { class: 'row' }, h('button', { type: 'button', onclick: () => fileIn.click() }, 'Import a ledger'), fileIn,
+      h('button', { type: 'button', class: 'danger', onclick: () => { if (confirm('Start a new, empty table? Download a backup first if you need this one.')) { L = newLedger(); save(); go('setup'); } } }, 'New table')),
+    h('p', { class: 'small' }, 'A public ledger imports without relics and the true Doom; a Scribe backup imports everything.')));
+  return p;
+}
+function fileBase() { return (L.setup.universe || 'genesis').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').toLowerCase() || 'genesis'; }
+function dl(name, text, type) {
+  const a = h('a', { href: URL.createObjectURL(new Blob([text], { type })), download: name });
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  toast('Downloaded ' + name);
+}
+function issue() {
+  let md = ledgerMarkdown(L, false);
+  const head = 'Genesis submission from the Genesis Table. If the ledger below is cut off, attach the public ledger file.\n\n';
+  const max = 6000;
+  if (md.length > max) md = md.slice(0, max) + '\n\n[cut off: attach the .genesis.json file]';
+  const url = ISSUE_URL + '?title=' + encodeURIComponent('Genesis submission: ' + (L.setup.universe || 'Untitled')) + '&labels=genesis&body=' + encodeURIComponent(head + md);
+  window.open(url, '_blank', 'noopener');
+}
+window.addEventListener('keydown', e => { if (e.key === 'Escape' && scribeView) { scribeView = false; render(); } });
+save();
+render();
+window.GT = { get L() { return L; }, debt, doomSpend, currentTurn, publicLedger, ledgerMarkdown, render, go, migrate };
+</script>
+</body>
+</html>
